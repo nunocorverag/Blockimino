@@ -847,6 +847,347 @@ class Publicacion {
         }
         echo $string_publicacion;
     }
+
+    public function obtenerPublicacionSolicitada($id_publicacion)
+    {
+        $id_usuario_loggeado = $this->objeto_usuario->obtenerIDUsuario();
+
+        $query_notificacion_abierta = mysqli_query($this->con, "UPDATE notificaciones SET abierta='si' WHERE notificacion_para='$id_usuario_loggeado' AND link LIKE '%=$id_publicacion'");
+
+
+        // - Este string contendra todas las publicaciones
+        $string_publicacion = "";
+        // + Esta query va a obtener todas las publicaciones no borradas y las va a ordenar de forma descendente, es decir, las que se crearon primero, hasta abajo
+        $query_info = mysqli_query($this->con, "SELECT * FROM publicaciones WHERE borrado='no' AND id_publicacion='$id_publicacion'");
+
+        // ! este if tambien es del scroll infinito
+        // + Si existen publicaciones entonces:
+        if(mysqli_num_rows($query_info) > 0)
+        {
+            $fila = mysqli_fetch_array($query_info);
+            // + Guardamos en variables, las variables de la fila de la base de datos
+            $titulo = $fila['titulo'];
+            $cuerpo = $fila['cuerpo'];
+            // ! publicado por, me regresara un numero, necesito acceder al usuario de ese publicado por
+            // ! SE PUEDE HACER CON UN INNER JOIN, PERO VOY A SACAR EL NOMBRE DE USUARIO CON SU ID Y METER EL NOMBRE DE USUARIO AL OBJET: objeto_publicado_por
+            $id_publicado_por = $fila['publicado_por'];
+            $query_publicado_por = mysqli_query($this->con, "SELECT username, tipo from usuarios WHERE id_usuario='$id_publicado_por'");
+            $fila_publicado_por = mysqli_fetch_array($query_publicado_por);
+            // - Asignamos nombre de usuario a publicado por
+            $usuario_publicado_por = $fila_publicado_por['username'];
+            $fecha_publicado = $fila['fecha_publicado'];
+            $tipo_usuario_publicado_por = $fila_publicado_por['tipo'];
+
+            #region publicado_para
+            // + Si no una publicacion en un perfil de alguien, entonces el string de publicado_para estara vacio
+            // ! RECORDAR QUE PUBLICADO PARA ES UN NUMERO DE FOREIGN KEY, REQUIERO SACAR EL NOMBRE DE USUARIO
+            $id_publicado_para = $fila['publicado_para'];
+            $query_publicado_para = mysqli_query($this->con, "SELECT id_usuario from usuarios WHERE id_usuario='$id_publicado_para'");
+            // /$fila_publicado_para = mysqli_fetch_array($query_publicado_para);
+            $checar_si = mysqli_num_rows($query_publicado_para);
+
+            if($checar_si == 0)
+            {
+                $publicado_para = "";
+            }
+            else
+            {
+                // + De lo contrario, se creara un nuevo objeto usuario, con el nombre de usuario del perfil para el que se publico
+                $fila_publicado_para = mysqli_fetch_array($query_publicado_para);
+                $objeto_publicado_para = new Usuario($this->con, $fila_publicado_para['id_usuario']);
+                // + Se utilizaran dos funciones para obtener su nombre y su nombre de usuario
+                $publicado_para_nombre = $objeto_publicado_para->obtenerNombreCompleto();
+                $publicado_para_N_usuario = $objeto_publicado_para->obtenerNombreUsuario();
+                // + Se combinaran en un string para mostrar para quien se publico
+                $publicado_para = "para <a href='" . $publicado_para_N_usuario . "'>" . $publicado_para_nombre . "</a>";
+            }
+            #endregion
+
+            #region verificar si la cuenta del usuario esta cerrada
+            // + Creamos un nuevo usuario para el usuario que realizo la publicacion
+            $objeto_publicado_por = new Usuario($this->con, $id_publicado_por);
+            if($objeto_publicado_por->estaCerrado())
+            {
+                // $ continue -> Detiene la iteracion actual y vuelve al principio del bucle para realizar otra iteracion
+                return;
+            }
+            #endregion
+
+            $objeto_usuario_loggeado = new Usuario($this->con, $id_usuario_loggeado);
+            $tipo_usuario = $objeto_usuario_loggeado->obtenerTipoUsuario();
+            // + Verifica si el usuario loggeado es amigo del que publico
+            //! Aqui si necesito el nombre del que publico
+            if($objeto_usuario_loggeado->esAmigo($usuario_publicado_por) || $objeto_usuario_loggeado->esSeguidor($usuario_publicado_por))
+            {
+                if($id_usuario_loggeado == $id_publicado_por)
+                {
+                    $boton_eliminar = "<button class='boton_eliminar btn btn-danger' data-es-propia='true' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                }
+                else if ($tipo_usuario == "moderador" && $tipo_usuario_publicado_por == "normal" || $tipo_usuario == "administrador" && ($tipo_usuario_publicado_por == "normal" || $tipo_usuario_publicado_por == "moderador"))
+                {
+                    $boton_eliminar = "<button class='boton_eliminar btn btn-danger' data-es-propia='false' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                }
+                else
+                {
+                    $boton_eliminar = "";
+                }
+
+                ?>
+                <?php
+
+                #region publicado_por
+                // + Query para seleccionar el nombre del usuario que publico y su foto de perfil
+                $query_detalles_usuario = mysqli_query($this->con, "SELECT nombre, apeP, apeM, foto_perfil FROM usuarios WHERE id_usuario='$id_publicado_por'");
+                // + Guardamos las variables en filas 
+                $fila_usuario = mysqli_fetch_array($query_detalles_usuario);
+                // + Guardamos en variables, las variables de la fila de la base de datos
+                $nombre = $fila_usuario['nombre'];
+                $apeP = $fila_usuario['apeP'];
+                $apeM = $fila_usuario['apeM'];
+                $foto_perfil = $fila_usuario['foto_perfil'];
+                #endregion
+
+                ?>
+                <!-- Este bloque es para mostrar los comentarios -->
+                <script>
+                    // + Esta seccion es para saber que comentario mostrar
+                    function toggle<?php echo $id_publicacion; ?>()
+                    {
+                        // $ event.target -> Es donde la persona hizo click
+                        // - target -> Guarda donde hizo click la persona
+                        var target = $(event.target);
+                        // + Si un link no es clickeado, entonces mostrara o oculatara el comentario
+                        if (!target.is("a")) {
+                            var element = document.getElementById("mostrarComentarios<?php echo $id_publicacion ?>");
+                            if(element.style.display == "block")
+                            {
+                                element.style.display = "none";
+                            }
+                            else
+                            {
+                                element.style.display = "block";
+                            }
+                        }
+                    }
+                </script>
+                <?php
+
+                $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE publicacion_comentada='$id_publicacion'");
+                $numero_comentarios = mysqli_num_rows($checar_si_hay_comentarios);
+
+                #region Periodo de tiempo de los posts
+                // - Guardamos la hora y fecha actuales
+                $tiempo_actual = date("Y-m-d H:i:s");
+                // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
+                $fecha_comienzo = new DateTime($fecha_publicado);
+                // - Guardamos la hora y fecha actuales
+                $fecha_final = new DateTime($tiempo_actual);
+                // - Realizamos una diferencia de tiempos de la fecha inicial, con la actual para saber cuanto tiempo lleva la publicacion publicada
+                $intervalo = $fecha_comienzo->diff($fecha_final);
+                // + Si el intervalo es 1 o mas años
+                if($intervalo->y >= 1)
+                {
+                    //Un año de antiguedad
+                    if($intervalo->y == 1)
+                    {
+                        $mensaje_tiempo = $intervalo->y . " año atrás";
+                    }
+                    //Más de un año de antiguedad
+                    else
+                    {
+                        $mensaje_tiempo = $intervalo->y . " años atrás";
+                    }
+                }
+                // + Si el intervalo es 1 o mas de 1 mes atras, pero menos de un año
+                else if($intervalo->m >= 1)
+                {
+                    // + Checamos los dias 
+                    // 0 dias
+                    if($intervalo->d == 0)
+                    {
+                        $dias = " atrás";
+                    }
+                    // 1 dia
+                    else if($intervalo->d == 1)
+                    {
+                        $dias = $intervalo->d. "día atrás";
+                    }
+                    //Mas de 1 dia
+                    else 
+                    {
+                        $dias = $intervalo->d . " días atrás";
+                    }
+
+                    //1 mes
+                    if($intervalo-> m == 1)
+                    {
+                        $mensaje_tiempo = $intervalo->m . "mes" . $dias;
+                    }
+                    //Mas de 1 mes
+                    else
+                    {
+                        $mensaje_tiempo = $intervalo->m . "meses" . $dias;
+                    }
+                }
+                // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
+                else if($intervalo->d >= 1)
+                {
+                    //1 dia
+                    if($intervalo->d == 1)
+                    {
+                        $mensaje_tiempo = "ayer";
+                    }
+                    //Mas de un dia
+                    else 
+                    {
+                        $mensaje_tiempo = $intervalo->d . " días atrás";
+                    }
+                }
+                // + Si el intervalo es 1 o mas horas atras, pero menos que un dia
+                else if($intervalo->h >= 1)
+                {
+                    //1 hora atras
+                    if($intervalo->h == 1)
+                    {
+                        $mensaje_tiempo = $intervalo->h . " hora atrás";
+                    }
+                    //Mas de una hora
+                    else 
+                    {
+                        $mensaje_tiempo = $intervalo->h . " horas atrás";
+                    }
+                }
+                // + Si el intervalo es de 1 minuto o mas atras, pero menos que una hora
+                else if($intervalo->i >= 1)
+                {
+                    //1 minuto atras
+                    if($intervalo->i == 1)
+                    {
+                        $mensaje_tiempo = $intervalo->i . " minuto atrás";
+                    }
+                    //Mas de un minuto
+                    else 
+                    {
+                        $mensaje_tiempo = $intervalo->i . " minutos atrás";
+                    }
+                }
+                // + Si el intervalo es de 1 segundo o mas atras, pero menos que un minuto
+                else
+                {
+                    //Menos que 30 segundos
+                    if($intervalo->s < 30)
+                    {
+                        $mensaje_tiempo = "Justo ahora";
+                    }
+                    //30 segundos o mas
+                    else 
+                    {
+                        $mensaje_tiempo = "Hace unos segundos";
+                    }
+                }
+                #endregion
+
+                // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
+                // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
+                $string_publicacion .= 
+                // + onClick='javascript:toggle$id_publicacion' -> Cuando hagamos click, se ejecutara la funcion
+                // + <div class ='publicar_comentario'> -> lo ocultamos con display:none, este cambiara como ya lo explicamos antes entre block y none
+                    "<div class='publicacion'>
+                        <div class='foto_perfil_publicacion'>
+                            <img src='$foto_perfil' width='50'>
+                        </div>
+
+                        <div class='publicado_por' style='color:#ACACAC;'>
+                            <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
+                            $boton_eliminar
+                        </div>
+                        <div id='titulo_publicacion' style='font-style: bold;'>
+                            $titulo
+                            <hr>
+                        </div>
+                        <div id='cuerpo_publicacion'>
+                            $cuerpo
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+
+                        <div class='OpcionesDePublicacion'>
+                            &nbsp;
+                            <span class='mostrar_ocultar_comentarios' onClick='javascript:toggle$id_publicacion()'>
+                                <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios Comentarios
+                            </span>
+                            <iframe src='like.php?id_publicacion=$id_publicacion' scrolling='no' id='iframe_likes'></iframe>
+                        </div>
+                    </div>
+                    <div class ='publicar_comentario' id='mostrarComentarios$id_publicacion' style='display:none;'>
+                        <iframe src='comment_frame.php?id_publicacion=$id_publicacion' id='iframe_comentario' frameborder='0'></iframe>
+                    </div>
+                    <hr>";
+
+                ?>
+                <script>
+                    $(document).ready(function(){
+                        $('#publicacion<?php echo $id_publicacion; ?>').on('click', function() {
+                            // + Esta variable determinara si la publicacion que se quiere eliminar es propia o si es de algun otro usuario
+                            var es_propia = $(this).data('es-propia');
+                            // + Si la variable es true, entonces, solo eliminamos la publicacion
+                            // + El triple signo de igualdad, hace una comparacion estricta de igualdad entre dos valores
+                            // + Compara tanto el valor como el tipo de datos de los valores que se estan comparando
+                            if (es_propia === true)
+                            {
+                                // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
+                                bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
+                                // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                                    if(result == true)
+                                    {
+                                        location.reload();
+                                    }
+                                });
+                            }
+                            else 
+                            {
+                                bootbox.prompt({
+                                title: "Por favor, escribe una razón para la eliminación:",
+                                buttons: {
+                                    confirm: {
+                                    label: 'Aceptar',
+                                    className: 'btn-danger'
+                                    }
+                                },
+                                callback: function(result) {
+                                    if (result !== true && result !== '') {
+                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                        location.reload();
+                                    } 
+                                    else 
+                                    {
+                                        alert("Debes ingresar una razón para eliminar la publicación.");
+                                    }
+                                }
+                                });
+                            }
+
+                        });
+                    });
+                </script>
+                <?php
+            }
+            // + Si el usuario no es amigo o seguidor del usuario que publico
+            else
+            {
+                echo "<p>No puedes ver este post a menos que sigas o seas amigo del usuario que lo publicó</p>";
+                return;
+            }
+        }
+        else
+        {
+            echo "<p>No se encontro la publicación, puede que haya sido eliminada o no exista!</p>";
+            return;
+        }
+        echo $string_publicacion;
+    }
 }
 
 ?>

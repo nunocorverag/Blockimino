@@ -78,6 +78,10 @@ else
                 // + Notificaciones no leidas
                 $notificacion = new Notificacion($con, $id_usuario_loggeado);
                 $numero_notificaciones = $notificacion->obtenerNotificacionesNoLeidas();
+
+                // + Solicitudes de amistad
+                $objeto_usuario = new Usuario($con, $id_usuario_loggeado);
+                $numero_solicitudes_de_amistad = $objeto_usuario->obtenerNumeroDeSolicitudesDeAmistad();
             ?>
 
 
@@ -111,8 +115,19 @@ else
                 ?>
             </a>
             <a href="requests.php">
+                <i class="fa-solid fa-user-group"></i>
+                <?php
+                if($numero_solicitudes_de_amistad > 0)
+                {
+                    echo "<span class='insignia_notificacion' id='solicitud_de_amistad_no_leida'> " . $numero_solicitudes_de_amistad . "</span>";
+                }
+                ?>
+            </a>
+            
+            <a href="">
                 <i class="fa-solid fa-users"></i>
             </a>
+
             <a href="#">
                 <i class="fa-solid fa-gear"></i>
             </a>
@@ -148,7 +163,7 @@ else
                 $(".ventana_desplegable").scroll(function()
                 {
                     var elementoInferior = $(".ventana_desplegable a").last();
-                    var noMasMensajes = $(".ventana_desplegable").find('.noMasMensajesDropdown').val();
+                    var noMasMensajes = $(".ventana_desplegable").find('.noMasInfoDropdown').val();
 
                     if(isElementInView(elementoInferior[0]) && noMasMensajes == 'false')
                     {
@@ -201,7 +216,7 @@ else
                         success: function(response) {
                             // $ remove() -> Remueve el elemento
                             $('.ventana_desplegable').find('.dropdownSiguientePagina').remove(); // + Removemos el elemento .siguientePagina actual 
-                            $('.ventana_desplegable').find('.noMasMensajesDropdown').remove(); // + Removemos el elemento .noMasPublicaciones actual
+                            $('.ventana_desplegable').find('.noMasInfoDropdown').remove(); // + Removemos el elemento .noMasPublicaciones actual
 
                             // $ append() -> Inserta el contenido al final del elemento
                             // + En este caso, despues del div de area_publciaciones, se insertaran todos nuestros posts

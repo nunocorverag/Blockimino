@@ -36,9 +36,9 @@ class Notificacion {
         }
 
         // + Al hacer click en el icono, entonces el usuario habra visto las notificaciones y se marcaran como leidas 
-        $query_establecer_notificacion_vista = mysqli_query($this->con, "UPDATE notificaciones SET visto='si' WHERE notificacion_para='$id_usuario_loggeado'");
+        $query_establecer_notificacion_vista = mysqli_query($this->con, "UPDATE notificaciones SET vista='si' WHERE notificacion_para='$id_usuario_loggeado'");
 
-        $query_notificaciones = mysqli_query($this->con, "SELECT * FROM notificaciones WHERE notificacion_para='$id_usuario_loggeado' ORDER BY id_mensaje DESC");
+        $query_notificaciones = mysqli_query($this->con, "SELECT * FROM notificaciones WHERE notificacion_para='$id_usuario_loggeado' ORDER BY id_notificacion DESC");
 
         if(mysqli_num_rows($query_notificaciones) == 0)
         {
@@ -185,9 +185,15 @@ class Notificacion {
 
             $abierta = $fila['abierta'];
             // + Todas las notificaciones sin leer, se veran de un color diferente
-            $estilo_mensaje = (isset($fila['abierta']) && $fila['abierta'] == 'no') ? "background-color: #DDEDFF;" : "";
+            $estilo_notificacion = (isset($fila['abierta']) && $fila['abierta'] == 'no') ? "background-color: #DDEDFF;" : "";
 
             $return_string .= "<a href=' "  . $fila['link'] ."'> 
+                                    <div class='displayResultado displayResultadoNotificacion' style='" . $estilo_notificacion . "'>
+                                        <div class='fotoPerfilNotificaciones'>
+                                            <img src='" . $info_usuario['foto_perfil'] . "'>
+                                        </div>
+                                        <p class ='marcaDeTiempo' id='gris'>" . $mensaje_tiempo . "</p>" . $fila['mensaje'] . "
+                                    </div>
                                 </a>";
         }
 
@@ -195,11 +201,11 @@ class Notificacion {
         if ($contador > $limite)
         {
             $return_string .= "<input type='hidden' class='dropdownSiguientePagina' value='" . ($pagina + 1) . "'>
-                               <input type='hidden' class='noMasMensajesDropdown' value='false'>";
+                               <input type='hidden' class='noMasInfoDropdown' value='false'>";
         }
         else
         {
-            $return_string .= "<input type='hidden' class='noMasMensajesDropdown' value='true'> <p style='text-align: center;'>No mas mensajes para mostrar!</p>";
+            $return_string .= "<input type='hidden' class='noMasInfoDropdown' value='true'> <p style='text-align: center;'>No mas notificaciones para mostrar!</p>";
         }
         
         return $return_string;

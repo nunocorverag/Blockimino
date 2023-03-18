@@ -29,6 +29,13 @@ class Usuario {
         return $this->usuario['nombre'] . " " . $this->usuario['apeP'] . " " . $this->usuario['apeM'];
     }
 
+    public function obtenerNumeroDeSolicitudesDeAmistad()
+    {
+        $id_usuario = $this->obtenerIDUsuario();
+        $query_obtener_numero_solicitudes_amistad = mysqli_query($this->con, "SELECT * FROM solicitudes_de_amistad WHERE usuario_solicitado='$id_usuario'");
+        return mysqli_num_rows($query_obtener_numero_solicitudes_amistad);
+    }
+
     // + Esta funcion regresara el numero de publicaciones del usuario
     public function obenerNumeroPublicaciones()
     {
@@ -116,12 +123,6 @@ class Usuario {
             return false;
         }
     }
-
-
-
-
-
-
 
     // + Checa si se envio la solicitud
     public function checarSolicitudRecibida($usuario_que_solicito)
