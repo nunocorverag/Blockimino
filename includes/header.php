@@ -69,6 +69,12 @@ else
             <a href="home.php">Blockimino</a>
         </div>
 
+        <div class="busqueda">
+            <form action="search.php" method="GET" name="formulario_busqueda">
+                <input type="text" onkeyup="obtenerLiveSearchUsuarios(this.value, '<?php echo $id_usuario_loggeado?>')" name="query" placeholder="Buscar algo..." autocomplete="off" id="input_busqueda_texto">
+            </form>
+        </div>
+
         <nav>
             <?php
                 // + Mensajes no leidos
