@@ -645,3 +645,21 @@ nav a:hover {
     left: 6px;
     top: -5px;
 }
+
+.displayResultadoNotificacion {
+    height: auto;
+    color: #1485BD;
+    padding-bottom: 7px;
+}
+
+.displayResultadoNotificacion img{
+    height: 40px;
+    border-radius: 5px;
+    margin: 1px 12px 0px 2px;
+    float: left;
+}
+
+.marcaDeTiempo {
+    font-size: 85%;
+    margin: 0;
+}

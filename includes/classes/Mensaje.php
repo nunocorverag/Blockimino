@@ -325,11 +325,11 @@ class Mensaje {
         if ($contador > $limite)
         {
             $return_string .= "<input type='hidden' class='dropdownSiguientePagina' value='" . ($pagina + 1) . "'>
-                               <input type='hidden' class='noMasMensajesDropdown' value='false'>";
+                               <input type='hidden' class='noMasInfoDropdown' value='false'>";
         }
         else
         {
-            $return_string .= "<input type='hidden' class='noMasMensajesDropdown' value='true'> <p style='text-align: center;'>No mas mensajes para mostrar!</p>";
+            $return_string .= "<input type='hidden' class='noMasInfoDropdown' value='true'> <p style='text-align: center;'>No mas mensajes para mostrar!</p>";
         }
         
         return $return_string;
