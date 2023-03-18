@@ -1,0 +1,647 @@
+/* Corresponde a la barra de navegacion superior */
+.barra_superior {
+    /* $width ->  Especifica la anchura del elemento */
+    width: 100%;
+    /* $ min-width -> Esto es para que cuando achiquemos la ventana, el texto no se junte (anchura minima)*/
+    min-width: 40px;
+    /* $ height ->  Especifica la altura del elemento*/
+    height: 40px;
+    /* $ background-color -> Color de fondo del elemento */
+    background-color: lightblue;
+    /* $ border-bottom -> Establece la anchura, estilo y color del borde inferior */
+    border-bottom: 0.25px solid blue;
+    /* $ margin ->  Establece los margenes de un elemento y otro */
+    /* +$ margen superior, margen derecho, margen inferior, margen izquierdo */
+    margin: 0 0 10px 0;
+    /* $ display ->  Especifica si un elemento es tratado como block o inline element */
+    /* +$ inline-flex -> El elemento se comporta como un elemento en linea y se establece su contenido
+       +$ de acuerdo con el modelo de cuadricula
+       +$ O sea, que todo lo que haya dentro del elemento, va en una SOLA linea */
+    display: inline-flex;
+    /* $ position -> Especifica como un elemento sera posicionado en el documento (top, right, bottom y left) */
+    /* +$ fixed -> Hace que un elemento se coloque respecto al viewport, le dices donde posicionarse al elemento
+       +$ \,y se queda ahi mientras el usuario hace scroll  */
+    position: fixed;
+    /* $ z-index -> Indica el orden de un elemento posicionado y sus descendientes. Cuando varioes elementos se
+       $ superponen, los elementos con mayor valor z-index, cubriran a aquellos con menor valor
+       +$ Esto es para el scroll */
+    z-index: 10;
+}
+
+/* Corresponde al logo de Blockimino */
+.logo a {
+    /* $ margin-left -> Establece el margen izquierdo del elemento una longitud */
+    margin-left: 10px;
+    /* $ font-size -> Establece el tamaño de la fuente en css */
+    font-size: 30;
+    /* +$ Relavite  El elemento es posicionado de acuerdo al flujo normal del documento y luego
+       +$ es desplaado con relacion a si mismo, con base a los valores (top, right, bottom y left)
+       +$ el desplazamiento o afecta a posicion de ningun otro ekemento*/
+    position: relative;
+    /* $ top -> Especifica la parte de la posicion de un elemento posicionado (previamente utilizando position)
+       +$ para los elementos con una posicion relativa (relative) -> determina el desplazamiento hacia abajo que tendra
+       +$ el elemento con respecto a su posicion final */
+    top: 9px;
+    /* $ text-shadow -> Agrega sombra al texto, el orden es: color, eje x, eje y, radio de desenfoque;*/
+    text-shadow: #73b6e2 0.5px 0.5px 0px;
+    /* $ color -> Color del texto de un elemento */
+    color: #1086BA;
+}
+
+/* Corresponde a todos links de la pagina */
+a {
+    /* $ text-decoration -> Se usa para establecer la apariencia de las lineas decorativas en el texto
+       +$ none -> Elimina el subrayado del texto*/
+    text-decoration: none;
+    color: #20AAE5;
+}
+
+/* $ hover -> Ocurre cuando el usuario coloca sobre el elemento el cursor*/
+a:hover {
+    text-decoration: none;
+}
+
+/* Propiedades para todos los elementos de la barra de navegacion */
+nav {
+    /* $ float -> Ubica un elemento al lado izquierdo o derecho de su contenedor, permitiendo a los elementos de texto y
+       $ en linea aparecer a su costado.
+       +$ right -> El elemento flota a la derecha de su bloque contenedor*/
+    float: right;
+    /* +$ absolute ->  El elemento es removido del flujo normal del documento, sin crearse espacioa alguno para
+       +$ que el elememto en el esquema de a pagina. Es posicionado relativo a su ancestro posicionado mas cercano,
+       +$ si lo hay. Su posicion final esta determinada por los valores de top, right, bottom y left*/
+    position: absolute;
+    /* $ right -> Especifica parte de la posicion de un elemento
+       +$ para absolute, esta propiedad determina la distancia entre el margen derecho del elemento y el borde derecho
+       +$ de su bloque contenedor */
+    right: 1px;
+    /* +$ Si solo hay un numero, aplica de los cuatro lados */
+    margin: 10px;
+}
+
+/* Propiedades para los links de los elementos de la barra de navegacion */
+nav a {
+    position: relative;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* Propiedades para los links de los elementos de la barra de navegacion cuando se tiene el cursor encima*/
+nav a:hover {
+    border-bottom: 7px solid #e67e22;
+    color: #FFFFFF;
+}
+
+/* Propiedades del cuerpo de nuestro html */
+.cuerpo_principal {
+    /* +$ Vertical, horizontal
+       +$ autp -> Es reemplazado por algun valor apropiado, se utilkza para centrar los elementos horizontalmente respecto a su contenedor */
+    margin: 0 auto;
+    position: relative;
+    top: 50px;
+    /* $ padding -> Es una propiedad o relleno que se crea alrededor del contenido de un elemento dentro de los bordes definidos 
+       +$ arriba y abajo | izquierda y derecha */
+    padding: 0 10px;
+    width: 75%;
+    min-width: 950px;
+}
+
+.columna_boton_publicar {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    width: 100%;
+    z-index: -1;
+    min-height: 60px;
+}
+
+.columna_boton_publicar a button {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 0;
+}
+
+.columna_principal {
+    background-color: #FFFFFF;
+    border: 1px solid #D3D3D3;
+    /* $ border-radius -> Hara circulares las esquinas del borde de un elemento */
+    border-radius: 5px;
+    width: 100%;
+    z-index: -1;
+    /* $ min-width -> Esto es para que cuando achiquemos la ventana, el texto no se junte (altura minima)*/
+    min-height: 60px;
+}
+
+.publicacion {
+    width: 96%;
+    font-size: 15px;
+    padding: 0px 5px;
+    min-height: 75px;
+}
+
+.foto_perfil_publicacion {
+    float: left;
+    margin-right: 7px;
+}
+
+.foto_perfil_publicacion img {
+    border-radius: 5px;
+}
+
+#iframe_comentario {
+    max-height: 250px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.seccion_comentarios {
+    padding: 0 5px 5px 5px;
+}
+
+.seccion_comentarios img{
+    padding: 0 3px 3px 3px;
+    border-radius: 3px;
+}
+
+#formulario_comentarios textarea {
+    border-color: #D3D3D3;
+    width: 85%;
+    height: 35px;
+    border-radius: 5px;
+    color: #616060;
+    font-size: 14px;
+    margin: 3px 3px 3px 3px;
+}
+
+#formulario_comentarios input[type="submit"] {
+    border: none;
+    background-color: #20AAE5;
+    color: #156588;
+    border-radius: 5px;
+    width: 13%;
+    height: 40px;
+    margin-top: 3px;
+    position: absolute;
+    text-shadow: #73b6e2 0.5px 0.5px 0px;
+    cursor: pointer;
+}
+
+.OpcionesDePublicacion {
+    padding: 0px;
+    text-decoration: none;
+    color: #20AAE5;
+    border: none;
+}
+
+#iframe_likes {
+    border: 5px;
+    height: 28px;
+    width: 120px;
+}
+
+.mostrar_ocultar_comentarios {
+    font-size: 14px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900
+}
+
+.mostrar_ocultar_comentarios i {
+    font-size: 20px;
+}
+
+.like_comentario {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    color: #3498db;
+    padding: 0;
+    height: auto;
+    width: auto;
+    margin: 0;
+}
+
+.numero_likes {
+    display: inline;
+    font-size: 14px;
+    color: #20AAE5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900
+}
+
+/* Seccion de posts */
+.publicar_area {
+    position: absolute;
+    top: 20%;
+    width: 75%;
+    margin: 0 auto;
+    border: 0.25px solid black;
+    height: 58%;
+    min-height: 480px;
+    left: 12.5%;
+    min-width: 1070px;
+
+}
+
+.publicar_titulo {
+    margin: 10px 10px 0px 10px;}
+
+/* ! Cuando se hace chico, se hace feo, por lo que voy a dejar de miesntras min-width 750px */
+.publicar_titulo textarea {
+    width: 92%;
+}
+
+.publicar_titulo i {
+    font-size: 70px;
+    margin-left: 8px;
+}
+
+.publicar_texto textarea{
+    margin: 0px 10px;
+    width: 98%;
+    height: 300px;
+}
+
+
+.formulario_publicacion textarea {
+    border-radius: 3px;
+    border: 1px solid #D3D3D3;
+}
+
+/* !Esta parte no funciona */
+/* $ focus -> Cuando se le pasa por encima el cursor a un elemento o se le hace click */
+.texarea:focus {
+    /* $ outline -> Se utiliza para establecer el estilo del contorno de un elemento, es aquel que se dibuja
+       $ en el borde para resaltar un elemento 
+       +$ none -> Sin contorno */
+    outline: none;
+}
+
+.formulario_publicacion input[type="submit"]
+{
+    width: 98%;
+    height: 60px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 0;
+    position: absolute;
+    top: 86%;
+    left: 1%;
+}
+
+.formulario_publicacion input[type="submit"]:active {
+    padding: 5px 4px 4px 5px;
+}
+
+/* String de publicacion */
+#titulo_publicacion {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Pagina de perfil */
+.detalles_usuario {
+    display: inline-flex;
+    width: 100%;
+    min-width: 600px;
+    background-color: lightblue;
+    border-bottom: 10px solid #83D6FE;
+    color: #CBEAF8;
+}
+
+.informacion_perfil {
+    margin: 27px 10px 10px 25px;
+    width: 100%;
+}
+
+.informacion_perfil p {
+    border: 0.25px solid black;
+    padding: 10px;
+}
+
+.informacion_perfil a {
+    color: #CBEAF8;
+}
+
+.bloque {
+    text-align: center;
+    margin: 10px;
+    /* +$ inline-block -> Los margenes y paddings superiores e inferiores son respetados, este lo use porque separa los divs en bloques horizontales */
+    display: inline-block;
+    /* $ vertical-align -> Especifica el alineado vertical de un elemento en linea o una celda de una tabla */
+    vertical-align: baseline;
+}
+.bloque h1 {
+    color: #0043f0;
+}
+
+.bloque p {
+    background-color: #20AAE5;
+}
+
+.bloque_1{
+    width: 30%;
+}
+
+.bloque_2{
+    width: 30%;
+}
+
+.bloque_3{
+    width: 30%;
+}
+
+.detalles_usuario img {
+    min-width: 80px;
+    width: 10%;
+    height: 10%;
+    margin: 35px 20px 20px 20px;
+    border: 5px solid blue;
+    border-radius: 100px;
+}
+
+.detalles_usuario input[type="submit"]{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    position: relative;
+    top: 20%;
+}
+
+.danger {
+    background-color: #E74C3C;
+}
+
+.warning {
+    background-color: #F0AD4E;
+}
+
+.default {
+    background-color: #BDC3C7;
+}
+
+.success {
+    background-color: #2ECC71;
+}
+
+.info {
+    background-color: #3498DB;
+}
+
+.deep_blue {
+    background-color: #0043f0;
+}
+
+#boton_aceptar {
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    margin: 5px;
+    border: none;
+    color: white;
+    background-color: #2ECC71;
+}
+
+#boton_ignorar {
+    width: 15%;
+    height: 30px;
+    border-radius: 5px;
+    margin: 5px;
+    border: none;
+    color: white;
+    background-color: #E74C3C;
+}
+
+
+.boton_eliminar {
+    padding: 0;
+    float: right;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    right: -15px;
+    position: relative;
+}
+
+.columna_principal_perfil {
+    min-width: 675px;
+    z-index: -1;
+}
+
+.info_perfil_inferior {
+    background-color: #156588;
+}
+
+/* Mensajes */
+#textarea_mensaje {
+    width: 80%;
+    margin-right: 5px;
+    border-radius: 5px;
+    border: 1px solid #D3D3D3;
+}
+
+#enviar_mensaje{
+    height: 55px;
+    width: 120px;
+    position: absolute;
+    border: none;
+    border-color: #D3D3D3;
+    border-radius: 5px;
+    color: #616060;
+    font-size: 14px;
+}
+
+.mensaje{
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: inline-block;
+    color: #FFFFFF;
+}
+
+.mensaje#verde {
+    background-color: #2ECC71;
+    border-color: #27AE60;
+    float: left;
+    margin-bottom: 5px;
+}
+
+.mensaje#azul {
+    background-color: #3498DB;
+    border-color: #2980B9;
+    float: right;
+    margin-bottom: 5px;
+}
+
+.mensajes_cargados {
+    height: 65%;
+    min-height: 300px;
+    max-height: 400px;
+    /* $overflow -> Nos permite determinar que sucede con un elemento cuando sobrepasa los limites de su contenedor */
+    /* +$ scroll -> Mostrara una barra de scroll para el elemento y asi poder visualizar todo su contenido*/
+    overflow: scroll;
+    margin-bottom: 10px;
+}
+
+/* messages.php */
+.conversaciones_cargadas
+{
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.mensajes_encontrados {
+    border-bottom: 1px solid #D3D3D3;
+    padding: 8px 8px 10px 8px;
+}
+
+.mensajes_encontrados:hover {
+    background-color: #D3D3D3;
+}
+
+.mensajes_encontrados img {
+    height: 50px;
+    float: left;
+}
+
+#gris {
+    color: #8C8C8C;
+}
+
+/* Buscar mensaje */
+.displayResultado {
+    padding: 8px 0px 0 5px;
+    height: 70px;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.displayResultado a {
+    float: none;
+}
+.displayResultado:hover {
+    background-color: #EBEBEB;
+    text-decoration: none;
+}
+
+.liveSearchProfilePic img {
+    height: 50px;
+    border-radius: 25px;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.liveSearchText {
+    background-color: transparent;
+	color: #1E96CA;
+}
+
+.liveSearchText p{
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+/* Amigos php */
+
+.cuerpo_pagina_amigos h1{
+    text-align: center;
+}
+.displayAmigo {
+
+}
+
+.fotoPerfilAmigo img {
+    height: 50px;
+    border-radius: 25px;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.infoAmigo {
+    background-color: transparent;
+	color: #1E96CA;
+}
+
+.infoAmigo p{
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.amigos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .amigos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .paginacion {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .paginacion button {
+    font-size: 20px;
+    padding: 5px 10px;
+    margin: 0 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .paginacion button:hover {
+    background-color: #E0E0E0;
+  }
+
+  /* Log eliminaciones */
+  .tabla_log_publicaciones_eliminadas caption {
+    caption-side: top;
+    text-align: center;
+  }
+
+  .ventana_desplegable{
+    background-color: #FFFFFFFF;
+    border: #DADADA;
+    border-radius: 0 0 8px 8;
+    border-top: none;
+    width: 300px;
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    overflow: scroll;
+}
+
+.insignia_notificacion {
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #FFFFFF;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background: #F00;
+    border-radius: 10px;
+    position: absolute;
+    left: 6px;
+    top: -5px;
+}

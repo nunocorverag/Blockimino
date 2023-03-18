@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9_-]+)$ profile.php?perfil_usuario=$1
+RewriteRule ^([a-zA-Z0-9_-]+)/$ profile.php?perfil_usuario=$1
+
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9_-]+)/friends$ friends.php?perfil_usuario=$1
+RewriteRule ^([a-zA-Z0-9_-]+)/friends/$ friends.php?perfil_usuario=$1

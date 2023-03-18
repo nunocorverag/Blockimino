@@ -1,0 +1,32 @@
+h1 {
+    font-size: 60px;
+    color: blue;
+}
+
+.cuerpo_inicio{
+    text-align: center;
+}
+
+.botones {
+    width: 15%;
+    border: 0.25px solid black;
+    padding: 20px 0px;
+    position: relative;
+    left: 42%;
+}
+
+.botones a {
+    display: block;
+    width: 80%;
+}
+
+.botones button {
+    color: white;
+    background-color: lightblue;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+}
+
