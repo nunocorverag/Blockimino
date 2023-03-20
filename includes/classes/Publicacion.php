@@ -329,12 +329,12 @@ class Publicacion {
                         //1 mes
                         if($intervalo-> m == 1)
                         {
-                            $mensaje_tiempo = $intervalo->m . "mes" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " mes" . $dias;
                         }
                         //Mas de 1 mes
                         else
                         {
-                            $mensaje_tiempo = $intervalo->m . "meses" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " meses" . $dias;
                         }
                     }
                     // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
@@ -686,12 +686,12 @@ class Publicacion {
                         //1 mes
                         if($intervalo-> m == 1)
                         {
-                            $mensaje_tiempo = $intervalo->m . "mes" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " mes" . $dias;
                         }
                         //Mas de 1 mes
                         else
                         {
-                            $mensaje_tiempo = $intervalo->m . "meses" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " meses" . $dias;
                         }
                     }
                     // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
@@ -1021,12 +1021,12 @@ class Publicacion {
                     //1 mes
                     if($intervalo-> m == 1)
                     {
-                        $mensaje_tiempo = $intervalo->m . "mes" . $dias;
+                        $mensaje_tiempo = $intervalo->m . " mes" . $dias;
                     }
                     //Mas de 1 mes
                     else
                     {
-                        $mensaje_tiempo = $intervalo->m . "meses" . $dias;
+                        $mensaje_tiempo = $intervalo->m . " meses" . $dias;
                     }
                 }
                 // + Si el intervalo es 1 o mas dias atras, pero menos que un mes

@@ -23,6 +23,7 @@ if(isset($_POST['publicar']))
         <br>
         <!-- Sera la columna principal que abarque la pagina -->
         <div class="columna_principal">
+            <br>
 
             <!-- Sera el lugar donde estaran todas las publicaciones -->
             <div class="area_publicaciones"></div>

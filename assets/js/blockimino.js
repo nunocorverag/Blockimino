@@ -1,5 +1,18 @@
 $(document).ready(function() {
 
+    $('#input_busqueda_texto').focus(function(){
+        // + Si la ventana tiene un largo de 800 o mas, ESTO VA A HACER QUE SE HAGA MAS GRANDE LA BARRA DE BUSQUEDA
+        if(window.matchMedia( "(min-width: 800px)" ).matches)
+        {
+            $(this).animate({width: '250px'}, 500);
+        }
+    });
+
+    // + Esto es para enviar el formulario a la hora de hacer click en el icono de busqueda
+    $('.contenedor_boton').on('click', function() {
+        document.formulario_busqueda.submit();
+    });
+
     // + Aqui ira el codigo ajax que publicara el formulario por nosotros
     $('#enviar_publicacion_perfil').click(function(){
         $.ajax({
@@ -15,6 +28,23 @@ $(document).ready(function() {
             }
         });
     });
+});
+
+$(document).click(function(click){
+    // + click.target es la cosa que hicimos click y class es la clase de ese target, si hacemos click en un div, obtenemos ese div
+    if(click.target.class != "resultados_busqueda" && click.target.id != "input_busqueda_texto")
+    {
+        $(".resultados_busqueda").html("");
+        $(".resultados_busqueda_pie_pagina").html("");
+        $(".resultados_busqueda_pie_pagina").toggleClass("resultados_busqueda_pie_pagina_vacios");
+        $(".resultados_busqueda_pie_pagina").toggleClass("resultados_busqueda_pie_pagina");
+    }
+    // + e.target es la cosa que hicimos click y class es la clase de ese target, si hacemos click en un div, obtenemos ese div
+    if(click.target.class != "ventana_desplegable")
+    {
+        $(".ventana_desplegable").html("");
+        $(".ventana_desplegable").css({"padding" : "0px", "height" : "0px"});
+    }
 });
 
 function obtenerUsuarios(valor, usuario)
@@ -69,4 +99,30 @@ function obtenerInformacionDesplegable(usuario, tipo)
         $(".ventana_desplegable").html("");
         $(".ventana_desplegable").css({"padding:" : "0px", "height" : "0px", "border" : "none"});
     }
+}
+
+function obtenerLiveSearchUsuarios(valor, usuario)
+{
+    // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
+    // + Todo lo que retorne, va a ser guardado en info
+    $.post("includes/handlers/ajax_search.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
+    {
+        if($(".resultados_busqueda_pie_pagina_vacios")[0])
+        {
+            // + Si esta escondido, lo muestra, si esta mostrandolo, lo esconde
+            $(".resultados_busqueda_pie_pagina_vacios").toggleClass("resultados_busqueda_pie_pagina");
+            $(".resultados_busqueda_pie_pagina_vacios").toggleClass("resultados_busqueda_pie_pagina_vacios");
+        }
+
+        // ! este lo tenga que cambiar no se
+        $(".resultados_busqueda").html(info);
+        $(".resultados_busqueda_pie_pagina").html("<a href='search.php?query=" + valor + "'>Ver todos los resultados</a>");
+
+        if(valor == "")
+        {
+            $(".resultados_busqueda_pie_pagina").html("");
+            $(".resultados_busqueda_pie_pagina").toggleClass("resultados_busqueda_pie_pagina_vacios");
+            $(".resultados_busqueda_pie_pagina").toggleClass("resultados_busqueda_pie_pagina");
+        }
+    });
 }

@@ -15,11 +15,15 @@ if(count($nombres) >= 4)
 {
     $usuariosRetornados = "";
 }
+
+// + Esta busqueda incluye el nombre y los apellidos
 else if(count($nombres) == 3)
 {
     $usuariosRetornados = mysqli_query($con, "SELECT * FROM usuarios WHERE (nombre LIKE '%$nombres[0]%' AND apeP LIKE '%$nombres[1]%' AND apeM LIKE '%$nombres[2]%')
                                                                             AND usuario_cerrado='no' LIMIT 8");
 }
+
+// + ESta busqueda incluye el nombre y un apellido
 else if(count($nombres) == 2)
 {
     $usuariosRetornados = mysqli_query($con, "SELECT * FROM usuarios WHERE 
@@ -28,6 +32,7 @@ else if(count($nombres) == 2)
                                                                             (nombre LIKE '%$nombres[0]%' AND apeM LIKE '%$nombres[1]%')
                                                                             AND usuario_cerrado='no' LIMIT 8");
 }
+// + Esta busqueda es para los usuarios
 else if(count($nombres) == 1)
 {
     $usuariosRetornados = mysqli_query($con, "SELECT * FROM usuarios WHERE 
@@ -68,11 +73,11 @@ if($busqueda != "")
             {
                 echo "  <div class='displayResultado'>
                             <a href='messages.php?u=" . $fila['username'] . "' style='color: 000'>
-                                <div class='liveSearchProfilePic'>
+                                <div class='liveSearchFotoPerfil'>
                                     <img src='". $fila['foto_perfil'] . "'>
                                 </div>
                                 
-                                <div class='liveSearchText'>
+                                <div class='liveSearchTexto'>
                                     " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
                                     <p style='margin: 0'> " .$fila['username'] . "</p>
                                     <p id='gris'> ". $amigos_mutuos . "</p>

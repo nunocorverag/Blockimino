@@ -182,6 +182,7 @@
                     </div>
                 </div>
                 <div class="columna_principal_perfil">
+                    <br>
                     
                     <!-- Sera el lugar donde estaran todas las publicaciones -->
                     <div class="area_publicaciones"></div>

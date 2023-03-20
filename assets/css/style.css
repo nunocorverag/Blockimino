@@ -537,19 +537,19 @@ nav a:hover {
     text-decoration: none;
 }
 
-.liveSearchProfilePic img {
+.liveSearchFotoPerfil img {
     height: 50px;
     border-radius: 25px;
     margin: 1px 12px 0 2px;
     float: left;
 }
 
-.liveSearchText {
+.liveSearchTexto {
     background-color: transparent;
 	color: #1E96CA;
 }
 
-.liveSearchText p{
+.liveSearchTexto p{
     margin-left: 10px;
     font-size: 12px;
 }
@@ -558,9 +558,6 @@ nav a:hover {
 
 .cuerpo_pagina_amigos h1{
     text-align: center;
-}
-.displayAmigo {
-
 }
 
 .fotoPerfilAmigo img {
@@ -618,7 +615,7 @@ nav a:hover {
     text-align: center;
   }
 
-  .ventana_desplegable{
+  .ventana_desplegable {
     background-color: #FFFFFFFF;
     border: #DADADA;
     border-radius: 0 0 8px 8;
@@ -629,6 +626,8 @@ nav a:hover {
     top: 40px;
     overflow: scroll;
 }
+
+/* Notificaciones */
 
 .insignia_notificacion {
     padding: 3px 7px;
@@ -663,3 +662,87 @@ nav a:hover {
     font-size: 85%;
     margin: 0;
 }
+
+
+/* Busqueda */
+.busqueda {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 0 0 20%;
+    position: relative;
+  }
+  
+  #input_busqueda_texto {
+    border: thin solid #E5E5E5;
+    height: 23px;
+    outline: 0;
+    width: 100%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  
+  .contenedor_boton {
+    background-color: #F1F1F1;
+    border: #E5E5E5;
+    cursor: pointer;
+    height: 22px;
+    text-align: center;
+    width: 50px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    position: absolute;
+    top: 1px;
+    right: 0;
+  }
+  
+  .contenedor_boton i {
+    margin-top: 1px;
+    width: 20px;
+  }
+  
+  .resultados_busqueda {
+    background-color: #FFFFFF;
+    border: 1px solid #DADADA;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  .resultados_busqueda_pie_pagina {
+    padding: 0px 4px 0 4px;
+    height: 26px;
+    border: 1px solid #DADADA;
+    border-top: none;
+    background-color: #20AAE5;
+    text-align: center;
+  }
+
+  .resultados_busqueda_pie_pagina a{
+    color: #FFFFFF;
+  }
+
+  /* Pagina de busqueda */
+  .resultado_busqueda
+  {
+    padding: 10px;
+    height: 100px;
+  }
+
+  .paginaBusquedaBotones {
+    float: right;
+  }
+
+  .paginaBusquedaBotones input[type="submit"] {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: #FFFFFF;
+  }
+
+  .fotoPerfilResultado {
+    float: left;
+    margin-right: 10px;
+  }
+
+  #busqueda_hr {
+    margin-bottom: 0px;
+  }

@@ -104,11 +104,11 @@ if(isset($_POST['publicar_mensaje']))
                             {
                                 echo "  <div class='displayResultado'>
                                             <a href='messages.php?u=" . $fila['username'] . "' style='color: 000'>
-                                                <div class='liveSearchProfilePic'>
+                                                <div class='liveSearchFotoPerfil'>
                                                     <img src='". $fila['foto_perfil'] . "'>
                                                 </div>
                                                 
-                                                <div class='liveSearchText'>
+                                                <div class='liveSearchTexto'>
                                                     " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
                                                     <p style='margin: 0'> " .$fila['username'] . "</p>
                                                     <p id='gris'> ". $amigos_mutuos . "</p>
