@@ -38,6 +38,29 @@ class Publicacion {
         // + Revisa si el string completo no esta vacio para poderlo almacenar en la base de datos
         if ($checar_cuerpo_vacio != "" && $checar_titulo_vacio != "")
         {
+            #reg Esta parte es para ver los videos con links de youtube
+            $arreglo_cuerpo = preg_split("/\s+/", $cuerpo);
+            // + Separamos y metemos en un arreglo para ver si hay links en la publicacion
+            // ! ANALIZAR ESTA PARTE, YA QUE SE USAN LAMBDAS
+            // BUG CUANDO INSERTAMOS EL VIDEO DESPUES DE UN ENTER, DEBAJO DE UNA CADENA SIN ESPACUOS, OCURRE UN ERROR
+            // + key mantendra el indice en el que se encuentra valor
+            // + valor sera el elemento dentro del arreglo
+            foreach($arreglo_cuerpo as $key => $valor)
+            {
+                // ! ANALIZAR BIEN EL TEMA DE !==
+                if(strpos($valor, "www.youtube.com/watch?v=") !== false)
+                {
+                    $link = preg_split("!&!", $valor);
+                    // * embed es para que aparezca el video de youtube
+                    // $ limiters -> ! LO QUE VAYA DENTRO ! 
+                    $valor = preg_replace("!watch\?v=!", "embed/", $link[0]);
+                    $valor = "<br><iframe width=\'420\' height=\'315\' src=\'" . $valor . "\'></iframe><br>";
+                    $arreglo_cuerpo[$key] = $valor;
+                }
+            }
+
+            //+ Ahora guardamos el valor nuevo del link en cuerpo
+            $cuerpo = implode(" ", $arreglo_cuerpo);
             // - Guardamos en esta variable la fecha y hora actual para despues mostrar cuando se hizo la publicacion
             $fecha_publicado = date("Y-m-d H:i:s");
 
