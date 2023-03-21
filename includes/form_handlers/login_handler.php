@@ -15,15 +15,23 @@ if(isset($_POST['login_button']))
     $check_username_query = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$username'");
     // + Guardamos la consulta convertida en filas en una variable
     $database_user = mysqli_fetch_array($check_username_query);
+    if(mysqli_num_rows($check_username_query) > 0)
+    {
+        $database_username = $database_user['username'];
+    }
+    else
+    {
+        $database_username = "";
+    }
 
     // + Si no tenemos una fila en resultado, significa que el usuario es incorrecto
-    if ($database_user['username'] != $username)
+    if ($database_username != $username)
     {
         array_push($error_array, "El nombre de usuario no existe!<br>");
     }
 
     // + Si tenemos una fila en resultado, significa que el usuario es correcto
-    if ($database_user['username'] == $username)
+    if ($database_username == $username)
     {
         // + Guardamos en una variable la consulta de la contraseña ingresada por el usuario a la base de datos
         $check_password_query = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$username' && password='$password'");
@@ -45,12 +53,12 @@ if(isset($_POST['login_button']))
             $tipo_usuario = $row['tipo'];
 
             // + Realizamos una query para verificar si la cuenta se encuentra cerrada
-            $user_closed_query = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$username' AND usuario_cerrado='yes'");
+            $user_closed_query = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$username' AND usuario_cerrado='si'");
             // + Si tenemos informacion, significa que si
             if(mysqli_num_rows($user_closed_query) == 1)
             {
                 // + Cambiamos "usuario_cerrado" a no, ya que el usuario ha iniciado sesion
-                $reopen_account = mysqli_query($con, "UPDATE usuarios SET user_closed='no' WHERE username='$username'");
+                $reopen_account = mysqli_query($con, "UPDATE usuarios SET usuario_cerrado='no' WHERE username='$username'");
             }
             $_SESSION['id_usuario'] = $id_usuario;
             // + Guardamos el nombre de usuario en una variable de sesion

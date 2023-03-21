@@ -155,7 +155,7 @@ if (isset($_POST['x'])){
 <div class="main_column column">
 
 
-	<div id="formExample">
+	<div class="columna_principal" id="formExample">
 		
 	    <p><b> <?=$msg?> </b></p>
 	    
@@ -180,13 +180,12 @@ if (isset($_POST['x'])){
 	            <img src="<?=$imgSrc?>" border="0" id="jcrop_target" style="border:0px #990000 solid; position:relative; margin:0px 0px 0px 0px; padding:0px; " />
 	        </div>  
 
-	        <div id="InfoArea" style="width:180px; height:150px; position:relative; overflow:hidden; margin:40px 0px 0px 40px; border:0px #666 solid; float:left;">	
+	        <div id="InfoArea" style="width:180px; height:210px; position:relative; overflow:hidden; margin:40px 0px 0px 40px; border:0px #666 solid; float:left;">	
 	           <p style="margin:0px; padding:0px; color:#444; font-size:18px;">          
-	                <b>Crop Profile Image</b><br /><br />
+	                <b>Recorta la imagen</b><br /><br />
 	                <span style="font-size:14px;">
-	                    Crop / resize your uploaded profile image. <br />
-	                    Once you are happy with your profile image then please click save.
-
+						Recorta/cambia el tamaño de tu imagen de perfil cargada. <br />
+						Una vez que esté satisfecho con su imagen de perfil, haga clic en Guardar.
 	                </span>
 	           </p>
 	        </div>  
@@ -201,13 +200,13 @@ if (isset($_POST['x'])){
 	                <input type="hidden" id="h" name="h" />
 	                <input type="hidden" value="jpeg" name="type" /> <?php // $type ?> 
 	                <input type="hidden" value="<?=$src?>" name="src" />
-	                <input type="submit" value="Save" style="width:100px; height:30px;"   />
+	                <input type="submit" value="Guardar" style="width:100px; height:30px;"   />
 	            </form>
 	        </div>
 
 	        <div id="CropImageForm2" style="width:100px; height:30px; float:left; margin:10px 0px 0px 40px;" >  
 	            <form action="upload.php" method="post" onsubmit="return cancelCrop();">
-	                <input type="submit" value="Cancel Crop" style="width:100px; height:30px;"   />
+	                <input type="submit" value="Cancelar" style="width:100px; height:30px;"   />
 	            </form>
 	        </div>            
 	            

@@ -8,8 +8,8 @@
     {
         // - Sera el nombre de usuario del perfil que visitemos
         $perfil_nombre_usuario = $_GET['perfil_usuario'];
-        $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$perfil_nombre_usuario'");
-        $arreglo_usuario = mysqli_fetch_array($query_detalles_usuario);
+        $query_informacion_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$perfil_nombre_usuario'");
+        $arreglo_usuario = mysqli_fetch_array($query_informacion_usuario);
         $id_usuario_perfil = $arreglo_usuario['id_usuario'];
 
         // $ substr_count -> Cuenta cuantas ocurrencias tiene un string dentro de otro string

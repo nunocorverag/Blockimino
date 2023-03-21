@@ -49,6 +49,7 @@ class Publicacion {
                 $publicado_para = NULL;
             }
 
+            $id_regresado = 0;
             // + Agregamos la publicacion a la base de datos si publicado_para es nulo
             if ($publicado_para == NULL)
             {
@@ -65,7 +66,6 @@ class Publicacion {
                 $notificacion = new Notificacion($this->con, $publicado_por);
                 $notificacion->insertarNotificacion($id_regresado, $publicado_para, "publicacion_perfil");
             }
-            $id_regresado = mysqli_insert_id($this->con);
 
             // + Si el un amigo realizo una publicacion
             $lista_amigos = $this->objeto_usuario->obtenerListaAmigos();
@@ -75,16 +75,15 @@ class Publicacion {
             {
                 if($amigo != "")
                 {
-                    ?>
-                    <script>
-                        alert("<?php $amigo?>")
-                    </script>
-                    <?php
                     $query_obtener_id_amigo = mysqli_query($this->con, "SELECT id_usuario FROM usuarios WHERE username='$amigo'");
                     $fila = mysqli_fetch_array($query_obtener_id_amigo);
                     $id_amigo = $fila['id_usuario'];
-                    $notificacion = new Notificacion($this->con, $publicado_por);
-                    $notificacion->insertarNotificacion($id_regresado, $id_amigo, "amigo_publico");
+                    // + El usuario para el que se publico ya fue notificado
+                    if ($id_amigo != $publicado_para)
+                    {
+                        $notificacion = new Notificacion($this->con, $publicado_por);
+                        $notificacion->insertarNotificacion($id_regresado, $id_amigo, "amigo_publico");
+                    }
                 }
             }
 

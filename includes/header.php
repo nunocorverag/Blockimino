@@ -142,11 +142,11 @@ else
                 ?>
             </a>
             
-            <a href="">
+            <a href="#">
                 <i class="fa-solid fa-users"></i>
             </a>
 
-            <a href="#">
+            <a href="settings.php">
                 <i class="fa-solid fa-gear"></i>
             </a>
             <?php

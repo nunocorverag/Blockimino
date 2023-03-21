@@ -746,3 +746,28 @@ nav a:hover {
   #busqueda_hr {
     margin-bottom: 0px;
   }
+
+  /* Settings */
+  .fotoPerfilSettings {
+    height: 100pxpx;
+    margin: 1px 12px 0 7px;
+    float: left;
+  }
+
+  #input_settings {
+    border: 1px solid #D3D3D3;
+    height: 20px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 200px;
+  }
+
+  .submit_settings {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: #FFFFFF;
+  }

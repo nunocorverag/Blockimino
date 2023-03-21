@@ -206,12 +206,14 @@ require 'includes/form_handlers/register_handler.php';
         </div>
         <input type="submit" name="register_button" value="Register">
         <br>
+        <div class="register_successful_message">
         <?php
             if(in_array("<span style='color: #14c800;'>¡Listo! ¡Puedes iniciar sesion!</span><br>", $successful_array))
             {
                 echo "<span style='color: #14c800;'>¡Listo! ¡Puedes iniciar sesion!</span><br>";
             }
         ?>
+        </div>
     </form>
     ¿Ya tienes una cuenta?<a href="login.php">Inicia sesión aquí</a>
 </body>
