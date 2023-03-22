@@ -771,3 +771,36 @@ nav a:hover {
     border-radius: 5px;
     color: #FFFFFF;
   }
+
+  /* trends */
+  .contenedor_trends {
+    height: 100px;
+  }
+
+  .tabla_trends {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 12px;
+    background-color: #e5f1f8;
+  }
+
+  .contenedor_trends td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 2px;
+  }
+
+  .contenedor_trends td:hover {
+    background-color: #d9edf7;
+    cursor: pointer;
+    }
+
+  .titulo_trends {
+    background-color: lightblue;
+    color: #000000;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  

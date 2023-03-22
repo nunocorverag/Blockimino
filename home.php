@@ -14,6 +14,35 @@ if(isset($_POST['publicar']))
 ?>
 <!-- //RF8 Habra una pantalla especifica para el foro -->
 <!-- Como ya incluimos la clase header, que es la cabecera de nuestro archivo, no necesitamos escribir la cabecera -->
+        <div class="contenedor_trends">
+            <table class="tabla_trends">
+                <tr>
+                    <td colspan="3" class="titulo_trends">Trends</td>
+                </tr>
+                <tr>
+                    <?php
+                    $query_seleccionar_trends = mysqli_query($con, "SELECT * FROM trends ORDER BY hits DESC LIMIT 9");
+                    $i = 0;
+                    $top_num = 0;
+                    foreach ($query_seleccionar_trends as $fila) {
+                        $top_num++;
+                        $palabra = $fila['trend'];
+                        $palabra_puntos = strlen($palabra) >= 14 ? "..." : "";
+                        $palabra_recortada = str_split($palabra, 14);
+                        $palabra_recortada = $palabra_recortada[0];
+                        if ($i % 3 == 0 && $i != 0) {
+                            echo "</tr><tr>";
+                        }
+                        echo "<td>";
+                        echo $top_num . ". " . $palabra_recortada . $palabra_puntos;
+                        echo "</td>";
+                        $i++;
+                    }
+                    ?>
+                </tr>
+            </table>
+        </div>
+        <br>
         <div class="columna_boton_publicar">
             <!-- Nos dirigira a crear nuestra publicacion -->
             <a href="post.php">
@@ -24,6 +53,7 @@ if(isset($_POST['publicar']))
         <!-- Sera la columna principal que abarque la pagina -->
         <div class="columna_principal">
             <br>
+
 
             <!-- Sera el lugar donde estaran todas las publicaciones -->
             <div class="area_publicaciones"></div>

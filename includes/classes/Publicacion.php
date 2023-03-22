@@ -131,6 +131,125 @@ class Publicacion {
             // + Aumentamos por uno el numero de publicaciones
             $num_publicaciones++;
             $query_aumentar_publicaciones = mysqli_query($this->con, "UPDATE usuarios SET num_posts='$num_publicaciones' WHERE id_usuario='$publicado_por'");
+
+            // TODO trending words
+            // + Las stopwords o palabras vacias son los terminos que los buscadores omiten para posicionar los resultados de busqueda.
+            // + Ya que este tipo de palabras son muy comunes y se usan en casi todas las frases
+            $stop_words = "a aca ahi ajena ajeno ajenas ajenos al algo algun 
+            alguna alguno algunas algunos alla alli ambos ante antes aquel 
+            aquella aquello aquellas aquellos aqui arriba asi atras aun aunque 
+            bajo bastante bien cabe cada casi cierto cierta ciertos ciertas 
+            como con conmigo conseguimos conseguir consigo consigue consiguen 
+            consigues contigo contra cual cuales cualquier cualquiera 
+            cualesquiera cuan cuando cuanto cuanta cuantos cuantas de dejar 
+            del demas demasiada demasiado demasiadas demasiados dentro desde 
+            donde dos e el ella ello ellas ellos empleais emplean emplear empleas 
+            empleo en encima entonces entre era eras eramos eran eres es esa 
+            ese eso esas esos esta estas estaba estado estais estamos estan 
+            estar este esto estos estoy etc fin fue fueron fui fuimos gueno 
+            ha hace haces haceis hacemoshacen hacer hacia hago hasta i incluso 
+            intenta intentas intentais intentamos intentan intentar intento ir 
+            jamas junto juntos la lo las los largo mas me menos mi mis mia mias 
+            mientras mio mios misma mismo mismas mismos modo mucha muchas 
+            muchisima muchisimo muchisimas muchisimos mucho muchos muy nada ni 
+            ningun ninguna ninguno ningunas ningunos no nos nosotras nosotros 
+            nuestra nuestro nuestras nuestros nunca o os otra otro otras otros 
+            para parecer pero poca poco pocas pocos podeis podemos poder podria 
+            podrias podriais podriamos podrian por porque primero puede pueden 
+            puedo pues que querer quien quienes quienesquiera quienquiera quiza 
+            quizas sabe sabes saben sabeis sabemos saber se segun ser si siempre 
+            siendo sin sino so sobre sois solamente solo somos soy sr sra sres 
+            sta su sus suya suyo suyas suyos tal tales tambien tampoco tan tanta 
+            tanto tantas tantos te teneis tenemos tener tengo ti tiempo tiene 
+            tienen toda todo todas todos tomar trabaja trabajo trabajais trabajamos 
+            trabajan trabajar trabajas tras tu tus tuya tuyo tuyos u ultimo un una 
+            uno unas unos usa usas usais usamos usan usar uso usted ustedes va van 
+            vais valor vamos varias varios vaya verdadera vosotras vosotros voy 
+            vuestra vuestro vuestras vuestros y ya yo";
+
+            // + Esta cadena separa tanto espacios como enters
+            $stop_words = preg_split("/[\s,]+/", $stop_words);
+            // + Reemplazara todo lo que no sea una letra
+            // ! FALTA ELIMINAR LOS ACENTOS DE LAS LETRAS
+            // $iconv -> Convierte los caracteres a un ofrmato especificado
+
+            // + Trends en el titulo
+            $no_acentos_titulo = iconv('UTF-8', 'ASCII//TRANSLIT', $titulo);
+            $no_puntuacion_acentos_titulo = preg_replace("/[^a-zA-Z 0-9]+/", "", $no_acentos_titulo);
+
+            // + Si un usuario ha posteado un link:
+            if(strpos($no_puntuacion_acentos_titulo, "height") === false && strpos($no_puntuacion_acentos_titulo, "width") === false && strpos($no_puntuacion_acentos_titulo, "http") === false)
+            {
+                $no_puntuacion_acentos_titulo = preg_split("/[\s,]+/", $no_puntuacion_acentos_titulo);
+
+                // + Removemos los stop_words del arreglo
+                foreach($stop_words as $valor)
+                {
+                    foreach($no_puntuacion_acentos_titulo as $key => $valor2)
+                    {
+                        // + Si encuentra alguna palabra de $stop_words
+                        if(strtolower($valor) == strtolower($valor2))
+                        {
+                            $no_puntuacion_acentos_titulo[$key] = "";
+                        }
+                    }
+                }
+
+                // + Esto calcula el trend
+                foreach ($no_puntuacion_acentos_titulo as $valor)
+                {
+                    $this->calcularTrend(ucfirst($valor));
+                }
+            }
+
+            // + Trends en el cuerpo
+            $no_acentos_cuerpo = iconv('UTF-8', 'ASCII//TRANSLIT', $cuerpo);
+            $no_puntuacion_acentos_cuerpo = preg_replace("/[^a-zA-Z 0-9]+/", "", $no_acentos_cuerpo);
+
+            // + Si un usuario ha posteado un link:
+            if(strpos($no_puntuacion_acentos_cuerpo, "height") === false && strpos($no_puntuacion_acentos_cuerpo, "width") === false && strpos($no_puntuacion_acentos_cuerpo, "http") === false)
+            {
+                $no_puntuacion_acentos_cuerpo = preg_split("/[\s,]+/", $no_puntuacion_acentos_cuerpo);
+
+                // + Removemos los stop_words del arreglo
+                foreach($stop_words as $valor)
+                {
+                    foreach($no_puntuacion_acentos_cuerpo as $key => $valor2)
+                    {
+                        // + Si encuentra alguna palabra de $stop_words
+                        if(strtolower($valor) == strtolower($valor2))
+                        {
+                            $no_puntuacion_acentos_cuerpo[$key] = "";
+                        }
+                    }
+                }
+
+                // + Esto calcula el trend
+                foreach ($no_puntuacion_acentos_cuerpo as $valor)
+                {
+                    $this->calcularTrend(ucfirst($valor));
+                }
+            }
+
+        }
+    }
+
+    public function calcularTrend($termino_a_calcular)
+    {
+        if($termino_a_calcular != "")
+        {
+            $query_checar_trend = mysqli_query($this->con, "SELECT * FROM trends WHERE trend='$termino_a_calcular'");
+
+            // + Si no existe el trend, lo insertamos a la tabla
+            if(mysqli_num_rows($query_checar_trend) == 0)
+            {
+                $insertar_trend_query = mysqli_query($this->con, "INSERT INTO trends VALUES('', '$termino_a_calcular', '1')");
+            }
+            // + Si si encontro el trend
+            else
+            {
+                $insertar_trend_query = mysqli_query($this->con, "UPDATE trends SET hits=hits+1 WHERE trend='$termino_a_calcular'");
+            }
         }
     }
 
@@ -523,6 +642,7 @@ class Publicacion {
 
 
     public function cargarPublicacionesPerfil ($info, $limite){
+        // BUG no sirve eliminar posts en el perfil
         // ! Esta seccion es del scroll infinito, checar como funciona
         // - Info es la variable $REQUEST mandaada a esta funcion
         // - Esta variable guardara la pagina actual
