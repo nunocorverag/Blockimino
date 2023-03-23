@@ -205,6 +205,12 @@ nav a:hover {
     position: relative;
 }
 
+.boton_eliminar_comentario i{
+    position: absolute;
+    top: 20%;
+    left: 25%;
+}
+
 .OpcionesDePublicacion {
     padding: 0px;
     text-decoration: none;

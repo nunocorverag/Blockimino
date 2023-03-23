@@ -22,6 +22,10 @@
     <title></title>
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Incluimos fontawesome para tener algunos iconos con los cuales trabajar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Incluimos bootstrap para css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
 </head>
 
 <body>
@@ -247,11 +251,11 @@
 
                 if($id_usuario_loggeado == $comentado_por)
                 {
-                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propia='true' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propio='true' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
                 }
                 else if ($tipo_usuario == "moderador" && $tipo_usuario_publicado_por == "normal" || $tipo_usuario == "administrador" && ($tipo_usuario_publicado_por == "normal" || $tipo_usuario_publicado_por == "moderador"))
                 {
-                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propia='false' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propio='false' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
                 }
                 else
                 {

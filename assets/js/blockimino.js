@@ -44,8 +44,7 @@ $(document).ready(function() {
             data: form_data,
             processData: false,
             contentType: false,
-            success: function(data) {
-                alert(data);
+            success: function(msg) {
                 $("#formulario_publicacion").modal('hide');
                 location.reload();
             },

@@ -2,7 +2,6 @@
 <?php
 require '../../config/config.php';
 
-echo $_GET['id_publicacion'];
 if (isset($_GET['id_publicacion']))
 {
     $id_publicacion = $_GET['id_publicacion'];
@@ -22,11 +21,13 @@ if (isset($_GET['id_publicacion']))
                 $razon = "Eliminado por el usuario";
             }
 
+            $id_usuario_loggeado = $_GET['id_usuario'];
+
             $query_eliminar_post = mysqli_query($con, "UPDATE publicaciones SET borrado='si' WHERE id_publicacion='$id_publicacion'");
             $query_obtener_id_usuario = mysqli_query($con, "SELECT publicado_por FROM publicaciones WHERE id_publicacion='$id_publicacion'");
             $fila = mysqli_fetch_array($query_obtener_id_usuario);
             $id_usuario_publicacion_eliminada = $fila['publicado_por'];
-            $query_guardar_log = mysqli_query($con, "INSERT INTO publicaciones_eliminadas VALUES ('', '$id_publicacion', '$id_usuario_publicacion_eliminada', '$razon')");
+            $query_guardar_log = mysqli_query($con, "INSERT INTO publicaciones_eliminadas VALUES ('', '$id_usuario_loggeado', '$id_publicacion', '$id_usuario_publicacion_eliminada', '$razon')");
         }
     }
 }

@@ -6,12 +6,6 @@ if(isset($_POST['publicar']))
 {
     $subida_exitosa = 1;
     $nombre_imagen = $_FILES['archivoASubir']['name'];
-    ?>
-    <script>
-        alert("<?php echo "Nombre de imagen: " . $nombre_imagen . "<br />"?>");
-    </script>
-
-    <?php
     $mensaje_de_error = "";
 
     if($nombre_imagen != "")
@@ -57,6 +51,7 @@ if(isset($_POST['publicar']))
         // + Llamamos el metodo dentro de la clase para publicar lo que este dentro de nuestra text area llamada "publicar_texto"
         $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], NULL, $nombre_imagen);
         // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
+        header("Location: home.php");
     }
     else
     {
