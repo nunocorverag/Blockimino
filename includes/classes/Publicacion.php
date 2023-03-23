@@ -16,7 +16,7 @@ class Publicacion {
     // + Se encargara de introducir la publicacion en la base de datos:
     // + $cuerpo -> Sera el cuerpo de la publicacion
     // + $enviado_a -> Si un usuario publico en el perfil de otro, esta variable se utilizara, de lo contrario, sera nula
-    public function enviarPublicacion($titulo, $cuerpo, $publicado_para)
+    public function enviarPublicacion($titulo, $cuerpo, $publicado_para, $nombre_imagen)
     {
         // $ strip_tags -> Retira las etiqueras HTML y PHP de un string
         $cuerpo = strip_tags($cuerpo);
@@ -76,7 +76,7 @@ class Publicacion {
             // + Agregamos la publicacion a la base de datos si publicado_para es nulo
             if ($publicado_para == NULL)
             {
-                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', NULL, '$fecha_publicado', 'no', '0')");
+                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', NULL, '$nombre_imagen', '$fecha_publicado', 'no', '0')");
                 // $ mysqli_insert_id -> devuelve el ID generado por una consulta en una tabla con una columna que tenga el atributo de AUTO INCREMENT, esto para almacenar en una variable el ID de la publicacion
                 $id_regresado = mysqli_insert_id($this->con);
                 // ! Faltan las notificaciones del post en el newsfeed
@@ -84,7 +84,7 @@ class Publicacion {
             }
             else if ($publicado_para != NULL)
             {
-                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', $publicado_para, '$fecha_publicado', 'no', '0')");
+                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', $publicado_para, '$nombre_imagen', '$fecha_publicado', 'no', '0')");
                 $id_regresado = mysqli_insert_id($this->con);
                 $notificacion = new Notificacion($this->con, $publicado_por);
                 $notificacion->insertarNotificacion($id_regresado, $publicado_para, "publicacion_perfil");
@@ -306,6 +306,7 @@ class Publicacion {
                 $usuario_publicado_por = $fila_publicado_por['username'];
                 $fecha_publicado = $fila['fecha_publicado'];
                 $tipo_usuario_publicado_por = $fila_publicado_por['tipo'];
+                $direccionImagen= $fila['imagen'];
 
                 #region publicado_para
                 // + Si no una publicacion en un perfil de alguien, entonces el string de publicado_para estara vacio
@@ -536,6 +537,18 @@ class Publicacion {
                     }
                     #endregion
 
+                    // + Procesar si hay una imagen
+                    if($direccionImagen != "")
+                    {
+                        $divImagen = "<div class='imagenPublicada'>
+                                        <img src='$direccionImagen'>
+                                    </div>";
+                    }
+                    else
+                    {
+                        $divImagen = "";
+                    }
+
                     // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
                     // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
                     $string_publicacion .= 
@@ -557,6 +570,7 @@ class Publicacion {
                             <div id='cuerpo_publicacion'>
                                 $cuerpo
                                 <br>
+                                $divImagen
                                 <br>
                                 <br>
                             </div>
@@ -642,7 +656,6 @@ class Publicacion {
 
 
     public function cargarPublicacionesPerfil ($info, $limite){
-        // BUG no sirve eliminar posts en el perfil
         // ! Esta seccion es del scroll infinito, checar como funciona
         // - Info es la variable $REQUEST mandaada a esta funcion
         // - Esta variable guardara la pagina actual
@@ -696,6 +709,7 @@ class Publicacion {
                 $usuario_publicado_por = $fila_publicado_por['username'];
                 $fecha_publicado = $fila['fecha_publicado'];
                 $tipo_usuario_publicado_por = $fila_publicado_por['tipo'];
+                $direccionImagen= $fila['imagen'];
 
                 #region publicado_para
                 // + Si no una publicacion en un perfil de alguien, entonces el string de publicado_para estara vacio
@@ -730,9 +744,13 @@ class Publicacion {
                         $contador++;
                     }
 
-                    if($id_usuario_loggeado == $id_publicado_por && $tipo_usuario == "normal" || $tipo_usuario == "moderador" && ($tipo_usuario_publicado_por == "normal" || $id_usuario_loggeado == $id_publicado_por) || $tipo_usuario == "administrador" && ($tipo_usuario_publicado_por == "normal" || $tipo_usuario_publicado_por == "moderador" || $id_usuario_loggeado == $id_publicado_por))
+                    if($id_usuario_loggeado == $id_publicado_por)
                     {
-                        $boton_eliminar = "<button class='boton_eliminar btn btn-danger' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                        $boton_eliminar = "<button class='boton_eliminar btn btn-danger' data-es-propia='true' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                    }
+                    else if ($tipo_usuario == "moderador" && $tipo_usuario_publicado_por == "normal" || $tipo_usuario == "administrador" && ($tipo_usuario_publicado_por == "normal" || $tipo_usuario_publicado_por == "moderador"))
+                    {
+                        $boton_eliminar = "<button class='boton_eliminar btn btn-danger' data-es-propia='false' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
                     }
                     else
                     {
@@ -894,6 +912,18 @@ class Publicacion {
                     }
                     #endregion
 
+                    // + Procesar si hay una imagen
+                    if($direccionImagen != "")
+                    {
+                        $divImagen = "<div class='imagenPublicada'>
+                                        <img src='$direccionImagen'>
+                                    </div>";
+                    }
+                    else
+                    {
+                        $divImagen = "";
+                    }
+
                     // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
                     // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
                     $string_publicacion .= 
@@ -915,6 +945,7 @@ class Publicacion {
                             <div id='cuerpo_publicacion'>
                                 $cuerpo
                                 <br>
+                                $divImagen
                                 <br>
                                 <br>
                             </div>
@@ -943,28 +974,35 @@ class Publicacion {
                             if (es_propia === true)
                             {
                                 // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
-                                bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(resultado) {
+                                bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
                                 // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>", {resultado:resultado});
-                                    if(resultado == true)
+                                $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                                    if(result == true)
                                     {
                                         location.reload();
                                     }
                                 });
                             }
-                            else
+                            else 
                             {
                                 bootbox.prompt({
-                                    title: "Mencione el motivo por el que se eliminara esta publicacion",
-                                    inputType: "textarea",
-                                    callback: function (resultado)
-                                    {
-                                        if (resultado !== null)
-                                        {
-                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>", {resultado:resultado});
-                                            location.reload();
-                                        }
+                                title: "Por favor, escribe una razón para la eliminación:",
+                                buttons: {
+                                    confirm: {
+                                    label: 'Aceptar',
+                                    className: 'btn-danger'
                                     }
+                                },
+                                callback: function(result) {
+                                    if (result !== true && result !== '') {
+                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                        location.reload();
+                                    } 
+                                    else 
+                                    {
+                                        alert("Debes ingresar una razón para eliminar la publicación.");
+                                    }
+                                }
                                 });
                             }
 

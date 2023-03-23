@@ -245,6 +245,21 @@
                 }
                 #endregion
 
+                if($id_usuario_loggeado == $comentado_por)
+                {
+                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propia='true' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                }
+                else if ($tipo_usuario == "moderador" && $tipo_usuario_publicado_por == "normal" || $tipo_usuario == "administrador" && ($tipo_usuario_publicado_por == "normal" || $tipo_usuario_publicado_por == "moderador"))
+                {
+                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propia='false' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                }
+                else
+                {
+                    $boton_eliminar = "";
+                }
+
+
+
                 // + Creamos un objeto usuario con el usuario que realizo el comentario para demostrar los detalles del usuario y el comentario a continuacion
                 $objeto_usuario = new Usuario($con, $comentado_por);
                 ?>
@@ -261,6 +276,7 @@
                     </a>
                     <!-- // + Realizamos algunos espacios entre el comentario y mostramos el tiempo que ha pasado desde que se realizo el comentario -->
                     <!-- // + Posteriormente, un salto de linea y mostramos el cuerpo del comentario -->
+                    <?php echo $boton_eliminar ?>
                     &nbsp;&nbsp;&nbsp;&nbsp; <?php echo $mensaje_tiempo . "<br>" . $cuerpo_comentario; ?>
                     <hr>
                 </div>
