@@ -13,27 +13,6 @@ $(document).ready(function() {
         document.formulario_busqueda.submit();
     });
 
-    // $("form#publicacion_perfil").submit(function(e){
-    //     alert("eeeea");
-    //     e.preventDefault();
-    //     var formData = new FormData(this);
-
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "includes/handlers/ajax_submit_profile_post.php",
-    //         data: formData,
-    //         success: function(data) {
-    //             alert(data);
-    //         },
-    //         error: function() {
-    //             alert('Fallo al realizar la publicación');
-    //         },
-    //         cache: false,
-    //         processData: false,
-    //         contentType: false,
-    //     });
-    // });
-
     // + Aqui ira el codigo ajax que publicara el formulario por nosotros
     $('#enviar_publicacion_perfil').click(function() {
         var form_data = new FormData($('form.publicacion_perfil')[0]);

@@ -20,6 +20,15 @@
 
 <head>
     <title></title>
+        <!-- JavaScript -->
+    <!-- Incluimos jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Incluimos bootstrap de javastcript Javascript-->
+    <script src="assets/js/bootstrap.js"></script>
+
+    <script src="assets/js/bootbox.js"></script>
+
+
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Incluimos fontawesome para tener algunos iconos con los cuales trabajar -->
@@ -123,19 +132,25 @@
 
         <!-- Cargar los comentarios -->
         <?php
-        $obtener_comentarios = mysqli_query($con, "SELECT * FROM comentarios WHERE publicacion_comentada='$id_publicacion' ORDER BY id_comentario ASC");
+        $obtener_comentarios = mysqli_query($con, "SELECT * FROM comentarios WHERE (eliminado='no' AND publicacion_comentada='$id_publicacion') ORDER BY id_comentario ASC");
         $cantidad_comentarios = mysqli_num_rows($obtener_comentarios);
         if ($cantidad_comentarios != 0)
         {
             // + Mostramos cada comentario
             while($comentario = mysqli_fetch_array($obtener_comentarios))
             {
+                $id_comentario = $comentario['id_comentario'];
                 $cuerpo_comentario = $comentario['cuerpo_comentario'];
                 $comentado_para = $comentario['comentado_para'];
                 $comentado_por = $comentario['comentado_por'];
                 // ! no se si esta variable genere error con la de arriba fecha_comentado
                 $fecha_comentado = $comentario['fecha_comentado'];
                 $eliminado = $comentario['eliminado'];
+
+                $query_obtener_tipo_usuario_comentado_por = mysqli_query($con, "SELECT tipo FROM usuarios WHERE id_usuario='$comentado_por'");
+                $fila_tipo_comentado = mysqli_fetch_array($query_obtener_tipo_usuario_comentado_por);
+                $tipo_usuario_comentado_por = $fila_tipo_comentado['tipo'];
+
 
                 #region Periodo de tiempo de los comentarios
                 // - Guardamos la hora y fecha actuales
@@ -251,22 +266,23 @@
 
                 if($id_usuario_loggeado == $comentado_por)
                 {
-                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propio='true' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+
+                    // + Este boton mandara a llamar la funcion javascript en Publicacion.php para que se pueda eliminar el comentario
+                    $boton_eliminar_comentario = "<button onclick='parent.confirmDelete(this)' class='boton_eliminar_comentario btn btn-danger' data-id='$id_comentario' data-es-propio='true'><i class='fa-solid fa-x'></i></button>";
                 }
-                else if ($tipo_usuario == "moderador" && $tipo_usuario_publicado_por == "normal" || $tipo_usuario == "administrador" && ($tipo_usuario_publicado_por == "normal" || $tipo_usuario_publicado_por == "moderador"))
+                else if ($tipo_usuario == "moderador" && $tipo_usuario_comentado_por == "normal" || $tipo_usuario == "administrador" && ($tipo_usuario_comentado_por == "normal" || $tipo_usuario_comentado_por == "moderador"))
                 {
-                    $boton_eliminar = "<button class='boton_eliminar_comentario btn btn-danger' data-es-propio='false' id='publicacion$id_publicacion'><i class='fa-solid fa-x'></i></button>";
+                    $boton_eliminar_comentario = "<button onclick='parent.confirmDelete(this)' class='boton_eliminar_comentario btn btn-danger' data-id='$id_comentario' data-es-propio='false'><i class='fa-solid fa-x'></i></button>";
                 }
                 else
                 {
-                    $boton_eliminar = "";
+                    $boton_eliminar_comentario = "";
                 }
-
-
 
                 // + Creamos un objeto usuario con el usuario que realizo el comentario para demostrar los detalles del usuario y el comentario a continuacion
                 $objeto_usuario = new Usuario($con, $comentado_por);
                 ?>
+
                 <div class="seccion_comentarios">
                     <!-- target="_parent" Es para que mande el link al perfil actual y no me muestre la pantalla de iframe -->
                     <!-- // + Si el usuario hace click en la imagen, lo enviara al perfil del que realizo el comentario -->
@@ -280,7 +296,7 @@
                     </a>
                     <!-- // + Realizamos algunos espacios entre el comentario y mostramos el tiempo que ha pasado desde que se realizo el comentario -->
                     <!-- // + Posteriormente, un salto de linea y mostramos el cuerpo del comentario -->
-                    <?php echo $boton_eliminar ?>
+                    <?php echo $boton_eliminar_comentario; ?>
                     &nbsp;&nbsp;&nbsp;&nbsp; <?php echo $mensaje_tiempo . "<br>" . $cuerpo_comentario; ?>
                     <hr>
                 </div>

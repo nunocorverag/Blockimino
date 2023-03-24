@@ -422,8 +422,17 @@ class Publicacion {
                     </script>
                     <?php
 
-                    $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE publicacion_comentada='$id_publicacion'");
+                    $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE (eliminado='no' AND publicacion_comentada='$id_publicacion')");
                     $numero_comentarios = mysqli_num_rows($checar_si_hay_comentarios);
+
+                    if($numero_comentarios == 1)
+                    {
+                        $numero_comentarios = $numero_comentarios . " Comentario";
+                    }
+                    else
+                    {
+                        $numero_comentarios = $numero_comentarios . " Comentarios";
+                    }
 
                     #region Periodo de tiempo de los posts
                     // - Guardamos la hora y fecha actuales
@@ -548,7 +557,7 @@ class Publicacion {
                     {
                         $divImagen = "";
                     }
-
+                    
                     // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
                     // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
                     $string_publicacion .= 
@@ -578,7 +587,7 @@ class Publicacion {
                             <div class='OpcionesDePublicacion'>
                                 &nbsp;
                                 <span class='mostrar_ocultar_comentarios' onClick='javascript:toggle$id_publicacion()'>
-                                    <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios Comentarios
+                                    <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios
                                 </span>
                                 <iframe src='like.php?id_publicacion=$id_publicacion' scrolling='no' id='iframe_likes'></iframe>
                             </div>
@@ -588,8 +597,10 @@ class Publicacion {
                         </div>
                         <hr>";
                 }
-                ?>
+                ?>         
+                       
                 <script>
+                    // + Script de borrar publicacion
                     $(document).ready(function(){
                         $('#publicacion<?php echo $id_publicacion; ?>').on('click', function() {
                             // + Esta variable determinara si la publicacion que se quiere eliminar es propia o si es de algun otro usuario
@@ -637,10 +648,54 @@ class Publicacion {
                 </script>
                 <?php
             } // * while($fila = mysqli_fetch_array($info))
+            ?>
+            <script>
+                // + Script para borrar el comentario
+                function confirmDelete(button) {
+                    var id_comentario = button.getAttribute("data-id");
+                    var es_propio = button.getAttribute("data-es-propio");
+                    if (es_propio === "true")
+                    {
+                        // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
+                        bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
+                        // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                        $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                            if(result == true)
+                            {
+                                location.reload();
+                            }
+                        });
+                    }
+                    else 
+                    {
+                        bootbox.prompt({
+                        title: "Por favor, escribe una razón para la eliminación del comentario:",
+                        buttons: {
+                            confirm: {
+                            label: 'Aceptar',
+                            className: 'btn-danger'
+                            }
+                        },
+                        callback: function(result) {
+                            if (result !== true && result !== '') {
+                                $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                location.reload();
+                            } 
+                            else 
+                            {
+                                alert("Debes ingresar una razón para eliminar el comentario.");
+                            }
+                        }
+                        });
+                    }
+                }
+            </script>
+            <?php
             // ! esta parte tambien es del scroll infinito
             // + Si contador es mas grande que limite, significa que hay mas posts por cargar
             if($contador > $limite)
             {
+                
                 $string_publicacion .= "<input type='hidden' class='siguientePagina' value='" . ($pagina + 1) . "'>
 							            <input type='hidden' class='noMasPublicaciones' value='false'>";
                             
@@ -797,8 +852,17 @@ class Publicacion {
                     </script>
                     <?php
 
-                    $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE publicacion_comentada='$id_publicacion'");
+                    $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE (eliminado='no' AND publicacion_comentada='$id_publicacion')");
                     $numero_comentarios = mysqli_num_rows($checar_si_hay_comentarios);
+
+                    if($numero_comentarios == 1)
+                    {
+                        $numero_comentarios = $numero_comentarios . " Comentario";
+                    }
+                    else
+                    {
+                        $numero_comentarios = $numero_comentarios . " Comentarios";
+                    }
 
                     #region Periodo de tiempo de los posts
                     // - Guardamos la hora y fecha actuales
@@ -953,7 +1017,7 @@ class Publicacion {
                             <div class='OpcionesDePublicacion'>
                                 &nbsp;
                                 <span class='mostrar_ocultar_comentarios' onClick='javascript:toggle$id_publicacion()'>
-                                    <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios Comentarios
+                                    <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios
                                 </span>
                                 <iframe src='like.php?id_publicacion=$id_publicacion' scrolling='no' id='iframe_likes'></iframe>
                             </div>
@@ -1011,6 +1075,49 @@ class Publicacion {
                 </script>
                 <?php
             } // * while($fila = mysqli_fetch_array($info))
+            ?>
+            <script>
+                // + Script para borrar el comentario
+                function confirmDelete(button) {
+                    var id_comentario = button.getAttribute("data-id");
+                    var es_propio = button.getAttribute("data-es-propio");
+                    if (es_propio === "true")
+                    {
+                        // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
+                        bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
+                        // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                        $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                            if(result == true)
+                            {
+                                location.reload();
+                            }
+                        });
+                    }
+                    else 
+                    {
+                        bootbox.prompt({
+                        title: "Por favor, escribe una razón para la eliminación del comentario:",
+                        buttons: {
+                            confirm: {
+                            label: 'Aceptar',
+                            className: 'btn-danger'
+                            }
+                        },
+                        callback: function(result) {
+                            if (result !== true && result !== '') {
+                                $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                location.reload();
+                            } 
+                            else 
+                            {
+                                alert("Debes ingresar una razón para eliminar el comentario.");
+                            }
+                        }
+                        });
+                    }
+                }
+            </script>
+            <?php
             // ! esta parte tambien es del scroll infinito
             // + Si contador es mas grande que limite, significa que hay mas posts por cargar
             if($contador > $limite)
@@ -1152,8 +1259,17 @@ class Publicacion {
                 </script>
                 <?php
 
-                $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE publicacion_comentada='$id_publicacion'");
+                $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE (eliminado='no' AND publicacion_comentada='$id_publicacion')");
                 $numero_comentarios = mysqli_num_rows($checar_si_hay_comentarios);
+
+                if($numero_comentarios == 1)
+                {
+                    $numero_comentarios = $numero_comentarios . " Comentario";
+                }
+                else
+                {
+                    $numero_comentarios = $numero_comentarios . " Comentarios";
+                }
 
                 #region Periodo de tiempo de los posts
                 // - Guardamos la hora y fecha actuales
@@ -1295,7 +1411,7 @@ class Publicacion {
                         <div class='OpcionesDePublicacion'>
                             &nbsp;
                             <span class='mostrar_ocultar_comentarios' onClick='javascript:toggle$id_publicacion()'>
-                                <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios Comentarios
+                                <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios
                             </span>
                             <iframe src='like.php?id_publicacion=$id_publicacion' scrolling='no' id='iframe_likes'></iframe>
                         </div>
@@ -1304,8 +1420,48 @@ class Publicacion {
                         <iframe src='comment_frame.php?id_publicacion=$id_publicacion' id='iframe_comentario' frameborder='0'></iframe>
                     </div>
                     <hr>";
-
                 ?>
+                <script>
+                    // + Script para borrar el comentario
+                    function confirmDelete(button) {
+                        var id_comentario = button.getAttribute("data-id");
+                        var es_propio = button.getAttribute("data-es-propio");
+                        if (es_propio === "true")
+                        {
+                            // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
+                            bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
+                            // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                            $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                if(result == true)
+                                {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else 
+                        {
+                            bootbox.prompt({
+                            title: "Por favor, escribe una razón para la eliminación del comentario:",
+                            buttons: {
+                                confirm: {
+                                label: 'Aceptar',
+                                className: 'btn-danger'
+                                }
+                            },
+                            callback: function(result) {
+                                if (result !== true && result !== '') {
+                                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                    location.reload();
+                                } 
+                                else 
+                                {
+                                    alert("Debes ingresar una razón para eliminar el comentario.");
+                                }
+                            }
+                            });
+                        }
+                    }
+                </script>
                 <script>
                     $(document).ready(function(){
                         $('#publicacion<?php echo $id_publicacion; ?>').on('click', function() {
