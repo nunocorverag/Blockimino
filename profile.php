@@ -114,7 +114,7 @@
                                 // + Este if comprobara si el usuario se encuentra en su perfil, o en el perfil de otro
                                 if($id_usuario_perfil != $id_usuario_loggeado)
                                 {
-                                    if ($objeto_usuario_loggeado->esAmigo($perfil_nombre_usuario)) 
+                                    if ($objeto_usuario_loggeado->esAmigo($id_usuario_perfil)) 
                                     {
                                         echo '<input type="submit" name="eliminar_amigo" class="danger" value="Eliminar Amigo"><br>';
                                     }
@@ -130,9 +130,9 @@
                                     {
                                         echo '<input type="submit" name="agregar_amigo" class="success" value="Agregar Amigo"><br>';
                                     }
-                                    if(!($objeto_usuario_loggeado->esAmigo($perfil_nombre_usuario)))
+                                    if(!($objeto_usuario_loggeado->esAmigo($id_usuario_perfil)))
                                     {
-                                        if($objeto_usuario_loggeado->esSeguidor($perfil_nombre_usuario))
+                                        if($objeto_usuario_loggeado->esSeguidor($id_usuario_perfil))
                                         {
                                             echo '<input type="submit" name="dejar_seguir" class="danger" value="Dejar de seguir"><br>';
                                         }

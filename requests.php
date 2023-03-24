@@ -17,16 +17,16 @@ include("includes/header.php");
                     $id_usuario_que_envio_solicitud = $fila['usuario_que_solicito'];  
                     $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado);              
                     $objeto_usuario_que_solicito = new Usuario($con, $id_usuario_que_envio_solicitud);
-
                     $username_usuario_que_envio_solicitud = $objeto_usuario_que_solicito->obtenerNombreUsuario();
+
 
                     echo $objeto_usuario_que_solicito->obtenerNombreCompleto() . " Te ha enviado una solicitud de amistad!";
                     $lista_amigos_usuario_que_solicito = $objeto_usuario_que_solicito->obtenerListaAmigos();
 
                     if(isset($_POST['aceptar_solicitud' . $username_usuario_que_envio_solicitud]))
                     {
-                        $query_agregar_amigo = mysqli_query($con, "UPDATE usuarios SET lista_amigos=CONCAT(lista_amigos, '$username_usuario_que_envio_solicitud,') WHERE id_usuario='$id_usuario_loggeado'");
-                        $query_agregar_amigo = mysqli_query($con, "UPDATE usuarios SET lista_amigos=CONCAT(lista_amigos, '$usuario_loggeado,') WHERE id_usuario='$id_usuario_que_envio_solicitud'");
+                        $query_agregar_amigo = mysqli_query($con, "UPDATE usuarios SET lista_amigos=CONCAT(lista_amigos, '$id_usuario_que_envio_solicitud,') WHERE id_usuario='$id_usuario_loggeado'");
+                        $query_agregar_amigo = mysqli_query($con, "UPDATE usuarios SET lista_amigos=CONCAT(lista_amigos, '$id_usuario_loggeado,') WHERE id_usuario='$id_usuario_que_envio_solicitud'");
 
                         $query_eliminar_solicitud = mysqli_query($con, "DELETE FROM solicitudes_de_amistad WHERE usuario_solicitado='$id_usuario_loggeado' AND usuario_que_solicito='$id_usuario_que_envio_solicitud'");
                         echo "Ahora eres amigo de: " . $username_usuario_que_envio_solicitud . "!";

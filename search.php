@@ -90,7 +90,7 @@ else
 
             if($id_usuario_loggeado != $fila['id_usuario'])
             {
-                if($objeto_usuario->esAmigo($fila['username']))
+                if($objeto_usuario->esAmigo($fila['id_usuario']))
                 {
                     $boton = "<input type='submit' name='" . $fila['username'] . "' class='danger' value='Eliminar Amigo'>";
                 }
@@ -119,7 +119,7 @@ else
             // + Formularios de botones
             if(isset($_POST[$fila['username']]))
             {
-                if($objeto_usuario->esAmigo($fila['username']))
+                if($objeto_usuario->esAmigo($fila['id_usuario']))
                 {
                     $objeto_usuario->eliminarAmigo($fila['id_usuario']);
                     // + Esto mandara a la misma pagina

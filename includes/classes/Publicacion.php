@@ -98,14 +98,12 @@ class Publicacion {
             {
                 if($amigo != "")
                 {
-                    $query_obtener_id_amigo = mysqli_query($this->con, "SELECT id_usuario FROM usuarios WHERE username='$amigo'");
-                    $fila = mysqli_fetch_array($query_obtener_id_amigo);
-                    $id_amigo = $fila['id_usuario'];
                     // + El usuario para el que se publico ya fue notificado
-                    if ($id_amigo != $publicado_para)
+                    if ($amigo != $publicado_para)
                     {
                         $notificacion = new Notificacion($this->con, $publicado_por);
-                        $notificacion->insertarNotificacion($id_regresado, $id_amigo, "amigo_publico");
+                        // ! ERROR AQUI HAY UN ERRORSASO DE LA NOTIFICACION, AL PARECER EL AMIGO FALLA
+                        $notificacion->insertarNotificacion($id_regresado, $amigo, "amigo_publico");
                     }
                 }
             }
@@ -118,11 +116,8 @@ class Publicacion {
             {
                 if($seguidor != "")
                 {
-                    $query_obtener_id_seguidor = mysqli_query($this->con, "SELECT id_usuario FROM usuarios WHERE username='$seguidor'");
-                    $fila = mysqli_fetch_array($query_obtener_id_seguidor);
-                    $id_seguidor = $fila['id_usuario'];
                     $notificacion = new Notificacion($this->con, $publicado_por);
-                    $notificacion->insertarNotificacion($id_regresado, $id_seguidor, "seguido_publico");
+                    $notificacion->insertarNotificacion($id_regresado, $seguidor, "seguido_publico");
                 }
             }
 
@@ -312,13 +307,12 @@ class Publicacion {
                 // + Si no una publicacion en un perfil de alguien, entonces el string de publicado_para estara vacio
                 // ! RECORDAR QUE PUBLICADO PARA ES UN NUMERO DE FOREIGN KEY, REQUIERO SACAR EL NOMBRE DE USUARIO
                 $id_publicado_para = $fila['publicado_para'];
-                $query_publicado_para = mysqli_query($this->con, "SELECT id_usuario from usuarios WHERE id_usuario='$id_publicado_para'");
-                // /$fila_publicado_para = mysqli_fetch_array($query_publicado_para);
+                $query_publicado_para = mysqli_query($this->con, "SELECT id_usuario, username from usuarios WHERE id_usuario='$id_publicado_para'");
                 $checar_si = mysqli_num_rows($query_publicado_para);
 
                 if($checar_si == 0)
                 {
-                    $publicado_para = "";
+                    $usuario_publicado_para = "";
                 }
                 else
                 {
@@ -329,7 +323,7 @@ class Publicacion {
                     $publicado_para_nombre = $objeto_publicado_para->obtenerNombreCompleto();
                     $publicado_para_N_usuario = $objeto_publicado_para->obtenerNombreUsuario();
                     // + Se combinaran en un string para mostrar para quien se publico
-                    $publicado_para = "para <a href='" . $publicado_para_N_usuario . "'>" . $publicado_para_nombre . "</a>";
+                    $usuario_publicado_para = "para <a href='" . $publicado_para_N_usuario . "'>" . $publicado_para_nombre . "</a>";
                 }
                 #endregion
 
@@ -347,7 +341,7 @@ class Publicacion {
                 $tipo_usuario = $objeto_usuario_loggeado->obtenerTipoUsuario();
                 // + Verifica si el usuario loggeado es amigo del que publico
                 //! Aqui si necesito el nombre del que publico
-                if($objeto_usuario_loggeado->esAmigo($usuario_publicado_por) || $objeto_usuario_loggeado->esSeguidor($usuario_publicado_por))
+                if($objeto_usuario_loggeado->esAmigo($id_publicado_por) || $objeto_usuario_loggeado->esSeguidor($id_publicado_por))
                 {
 
                     //! Esta seccion tambien es del scroll infinito
@@ -569,7 +563,7 @@ class Publicacion {
                             </div>
 
                             <div class='publicado_por' style='color:#ACACAC;'>
-                                <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
+                                <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $usuario_publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
                                 $boton_eliminar
                             </div>
                             <div id='titulo_publicacion' style='font-style: bold;'>
@@ -1175,7 +1169,7 @@ class Publicacion {
 
             if($checar_si == 0)
             {
-                $publicado_para = "";
+                $usuario_publicado_para = "";
             }
             else
             {
@@ -1186,7 +1180,7 @@ class Publicacion {
                 $publicado_para_nombre = $objeto_publicado_para->obtenerNombreCompleto();
                 $publicado_para_N_usuario = $objeto_publicado_para->obtenerNombreUsuario();
                 // + Se combinaran en un string para mostrar para quien se publico
-                $publicado_para = "para <a href='" . $publicado_para_N_usuario . "'>" . $publicado_para_nombre . "</a>";
+                $usuario_publicado_para = "para <a href='" . $publicado_para_N_usuario . "'>" . $publicado_para_nombre . "</a>";
             }
             #endregion
 
@@ -1204,7 +1198,7 @@ class Publicacion {
             $tipo_usuario = $objeto_usuario_loggeado->obtenerTipoUsuario();
             // + Verifica si el usuario loggeado es amigo del que publico
             //! Aqui si necesito el nombre del que publico
-            if($objeto_usuario_loggeado->esAmigo($usuario_publicado_por) || $objeto_usuario_loggeado->esSeguidor($usuario_publicado_por))
+            if($objeto_usuario_loggeado->esAmigo($id_publicado_por) || $objeto_usuario_loggeado->esSeguidor($id_publicado_por))
             {
                 if($id_usuario_loggeado == $id_publicado_por)
                 {
@@ -1394,7 +1388,7 @@ class Publicacion {
                         </div>
 
                         <div class='publicado_por' style='color:#ACACAC;'>
-                            <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
+                            <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $usuario_publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
                             $boton_eliminar
                         </div>
                         <div id='titulo_publicacion' style='font-style: bold;'>

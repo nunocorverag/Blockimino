@@ -69,7 +69,7 @@ if($busqueda != "")
                 $amigos_mutuos = "";
             }
     
-            if($usuario->esAmigo($fila['username']) && $fila['id_usuario'] != $id_usuario_loggeado)
+            if($usuario->esAmigo($fila['id_usuario']) && $fila['id_usuario'] != $id_usuario_loggeado)
             {
                 echo "  <div class='displayResultado'>
                             <a href='messages.php?u=" . $fila['username'] . "' style='color: 000'>
