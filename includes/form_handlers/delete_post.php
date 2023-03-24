@@ -27,6 +27,9 @@ if (isset($_GET['id_publicacion']))
             $query_obtener_id_usuario = mysqli_query($con, "SELECT publicado_por FROM publicaciones WHERE id_publicacion='$id_publicacion'");
             $fila = mysqli_fetch_array($query_obtener_id_usuario);
             $id_usuario_publicacion_eliminada = $fila['publicado_por'];
+
+            // + Decrementamos el numero de posts en 1
+            $query_eliminar_post = mysqli_query($con, "UPDATE usuarios SET num_posts=num_posts-1 WHERE id_usuario='$id_usuario_publicacion_eliminada'");
             $query_guardar_log = mysqli_query($con, "INSERT INTO publicaciones_eliminadas VALUES ('', '$id_usuario_loggeado', '$id_publicacion', '$id_usuario_publicacion_eliminada', '$razon')");
         }
     }
