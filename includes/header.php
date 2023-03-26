@@ -141,7 +141,7 @@ else
                 ?>
             </a>
             
-            <a href="#">
+            <a href="group_index.php">
                 <i class="fa-solid fa-users"></i>
             </a>
 

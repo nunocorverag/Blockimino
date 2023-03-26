@@ -110,7 +110,7 @@ function obtenerLiveSearchUsuarios(valor, usuario)
 {
     // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
     // + Todo lo que retorne, va a ser guardado en info
-    $.post("../includes/handlers/ajax_search.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
+    $.post("includes/handlers/ajax_search.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
     {
         if($(".resultados_busqueda_pie_pagina_vacios")[0])
         {
