@@ -25,7 +25,7 @@ if(isset($_SESSION['username']) && $_SESSION['tipo'] == "normal" || $_SESSION['t
 // + Si no encuentra un usuario loggeado, lo va a regresar a la pagina para crear usuario / iniciar sesion
 else 
 {
-    header("Location: index.php");
+    header("Location: ../index.php");
 }
 
 ?>
@@ -41,35 +41,35 @@ else
     <!-- Incluimos jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <!-- Incluimos bootstrap de javastcript Javascript-->
-    <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/bootbox.js"></script>
-    <script src="assets/js/blockimino.js"></script>
+    <script src="../assets/js/bootstrap.js"></script>
+    <script src="../assets/js/bootbox.js"></script>
+    <script src="../assets/js/blockimino_for_one_backslash.js"></script>
 
     <!-- //! Falta explicar estos de abajo -->
-	<script src="assets/js/jquery.jcrop.js"></script>
-	<script src="assets/js/Jcrop_bits.js"></script>
+	<script src="../assets/js/jquery.jcrop.js"></script>
+	<script src="../assets/js/Jcrop_bits.js"></script>
 
     <!-- CSS -->
     <!-- Incluimos fontawesome para tener algunos iconos con los cuales trabajar -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Incluimos bootstrap para css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 
     <!-- //! Falta explicar este de abajo -->
-	<link rel="stylesheet" href="assets/css/jquery.Jcrop.css" type="text/css" />
+	<link rel="stylesheet" href="../assets/css/jquery.Jcrop.css" type="text/css" />
 
 </head>
 <body>
 
      <div class="barra_superior">
         <div class="logo">
-            <a href="home.php">Blockimino</a>
+            <a href="../home.php">Blockimino</a>
         </div>
 
         <div class="busqueda">
-            <form action="search.php" method="GET" name="formulario_busqueda">
+            <form action="../search.php" method="GET" name="formulario_busqueda">
                 <input type="text" onkeyup="obtenerLiveSearchUsuarios(this.value, '<?php echo $id_usuario_loggeado?>')" name="query" placeholder="Buscar algo..." autocomplete="off" id="input_busqueda_texto">
                 <div class="contenedor_boton">
                     <i class="fa-solid fa-magnifying-glass"></i>                
@@ -103,12 +103,12 @@ else
 
 
             <!-- Nombre del usuario para ir a la pagina del perfil del usuario -->
-            <a href="<?php echo $usuario_loggeado ?>">
+            <a href="../<?php echo $usuario_loggeado ?>">
                 <?php 
                 echo $usuario['nombre'];
                 ?>
             </a>
-            <a href="home.php">
+            <a href="../home.php">
                 <i class="fa-solid fa-house-chimney"></i>
             </a>
             <!-- //! Esa parte es de la funcionalidad de dropdown (puede que la quite)-->
@@ -131,7 +131,7 @@ else
                 }
                 ?>
             </a>
-            <a href="requests.php">
+            <a href="../requests.php">
                 <i class="fa-solid fa-user-group"></i>
                 <?php
                 if($numero_solicitudes_de_amistad > 0)
@@ -145,7 +145,7 @@ else
                 <i class="fa-solid fa-users"></i>
             </a>
 
-            <a href="settings.php">
+            <a href="../settings.php">
                 <i class="fa-solid fa-gear"></i>
             </a>
             <?php
@@ -158,7 +158,7 @@ else
             <?php
             }
             ?>
-            <a href="includes/handlers/logout.php">
+            <a href="../includes/handlers/logout.php">
                 <i class="fa-solid fa-right-from-bracket"></i>            
             </a>
         </nav>
@@ -208,11 +208,11 @@ else
 
                     if(tipo == 'notificacion')
                     {
-                        nombrePagina = "ajax_load_notifications.php";
+                        nombrePagina = "ajax_load_notifications_for_one_backspace.php";
                     }
                     else if (tipo == 'mensaje')
                     {
-                        nombrePagina = "ajax_load_messages.php";
+                        nombrePagina = "ajax_load_messages_for_one_backspace.php";
                     }
                     else
                     {
@@ -222,7 +222,7 @@ else
                     // $ ajax -> Permite que un usuario de la aplicacion web interactue con una pagina web sin que se vuelva a cargar la pagina
                     $.ajax({
                         // + Este archivo creara una nueva publicacion y cargara las publicaciones
-                        url: "includes/handlers/" + nombrePagina,
+                        url: "../includes/handlers/" + nombrePagina,
                         type: "POST",
                         // + Esto es lo que se manda a la pagina
                         // + ESTA ES LA REQUEST AL AJAX_LOAD_POSTS ES LO QUE TENDRA DENTRO REQUEST

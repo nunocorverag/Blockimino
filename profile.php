@@ -65,12 +65,13 @@
                         <p><?php echo "Likes: " . $arreglo_usuario['num_likes']; ?></p>
                     </div>
                     <div class="bloque bloque_2">  
-                        <a href="<?php echo $perfil_nombre_usuario ?>/friends">
+                        <a href="<?php echo $perfil_nombre_usuario ?>/friends?pagina=1">
                             <p><?php echo "Amigos: " . $num_amigos ?></p>
                         </a>
-                        <a href="followed.php">
-                            <p><?php echo "Seguidos: " . $num_seguidos ?></p>                        </a>
-                        <a href="followers.php">
+                        <a href="<?php echo $perfil_nombre_usuario ?>/followed?pagina=1">
+                            <p><?php echo "Seguidos: " . $num_seguidos ?></p>
+                        </a>
+                        <a href="<?php echo $perfil_nombre_usuario ?>/followers?pagina=1">
                             <p><?php echo "Seguidores: " . $num_seguidores ?></p>
                         </a>
                     </div>

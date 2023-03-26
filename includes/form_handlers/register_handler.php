@@ -47,7 +47,6 @@ if(isset($_POST['register_button']))
     // USERNAME
     $username = strip_tags($_POST['reg_username']);
     $username = str_replace(' ', '', $username);
-    $username = strtolower($username);
     $_SESSION['reg_username'] = $username; 
     
     // CONTRASEÑA

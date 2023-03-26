@@ -38,19 +38,19 @@ include("includes/header.php");
                         $lista_seguidores_usuario_que_solicito = $objeto_usuario_que_solicito->obtenerListaSeguidores();
                 
                         // + Remover si es que el usuario loggeado, seguia al usuario que envio la solicitud
-                        $nueva_lista_seguidos_usuario_loggeado = str_replace($id_usuario_que_envio_solicitud . ",", "", $lista_seguidos_usuario_loggeado);
+                        $nueva_lista_seguidos_usuario_loggeado = str_replace("," . $id_usuario_que_envio_solicitud . ",", ",", $lista_seguidos_usuario_loggeado);
                         $query_eliminar_seguido_usuario_loggeado = mysqli_query($con, "UPDATE usuarios SET lista_seguidos='$nueva_lista_seguidos_usuario_loggeado' WHERE id_usuario='$id_usuario_loggeado'");
 
                         // + Remover si es que el usuario loggeado, estaba seguido por el usuario que envio la solicitud
-                        $nueva_lista_seguidores_usuario_loggeado = str_replace($id_usuario_que_envio_solicitud . ",", "", $lista_seguidores_usuario_loggeado);
+                        $nueva_lista_seguidores_usuario_loggeado = str_replace("," . $id_usuario_que_envio_solicitud . ",", ",", $lista_seguidores_usuario_loggeado);
                         $query_eliminar_seguido_usuario_loggeado = mysqli_query($con, "UPDATE usuarios SET lista_seguidores='$nueva_lista_seguidores_usuario_loggeado' WHERE id_usuario='$id_usuario_loggeado'");
 
                         // + Remover si es que el que envio la solicitud, segui al usuario loggeado
-                        $nueva_lista_seguidos_usuario_que_solicito = str_replace($id_usuario_loggeado . ",", "", $lista_seguidos_usuario_que_solicito);
+                        $nueva_lista_seguidos_usuario_que_solicito = str_replace("," . $id_usuario_loggeado . ",", ",", $lista_seguidos_usuario_que_solicito);
                         $query_eliminar_seguido_usuario_que_solicito = mysqli_query($con, "UPDATE usuarios SET lista_seguidos='$nueva_lista_seguidos_usuario_que_solicito' WHERE id_usuario='$id_usuario_que_envio_solicitud'");
 
                         // + Remover si es que el usuario que envio la solicitud, estaba seguido por el usuario loggeado
-                        $nueva_lista_seguidores_usuario_que_solicito = str_replace($id_usuario_loggeado . ",", "", $lista_seguidores_usuario_que_solicito);
+                        $nueva_lista_seguidores_usuario_que_solicito = str_replace("," . $id_usuario_loggeado . ",", ",", $lista_seguidores_usuario_que_solicito);
                         $query_eliminar_seguido_usuario_que_solicito = mysqli_query($con, "UPDATE usuarios SET lista_seguidores='$nueva_lista_seguidores_usuario_que_solicito' WHERE id_usuario='$id_usuario_que_envio_solicitud'");
 
 

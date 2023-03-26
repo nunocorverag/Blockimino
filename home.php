@@ -72,6 +72,7 @@ if(isset($_POST['publicar']))
                     <?php
                     $query_seleccionar_trends = mysqli_query($con, "SELECT * FROM trends ORDER BY hits DESC LIMIT 9");
                     $i = 0;
+                    // + Sera el numero de top que abarca el trend
                     $top_num = 0;
                     foreach ($query_seleccionar_trends as $fila) {
                         $top_num++;

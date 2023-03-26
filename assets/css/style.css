@@ -205,7 +205,7 @@ nav a:hover {
     position: relative;
 }
 
-.boton_eliminar_comentario i{
+.boton_eliminar_comentario i {
     position: absolute;
     top: 20%;
     left: 25%;
@@ -275,9 +275,11 @@ nav a:hover {
     align-items: center;
     margin: 10px 10px 0px 10px;
 }
+
 #publicar_titulo {
     flex-grow: 1;
 }
+
 .icono_imagen_container {
     position: relative;
     margin-left: 10px;
@@ -324,7 +326,8 @@ nav a:hover {
 }
 
 
-.formulario_publicacion, textarea {
+.formulario_publicacion,
+textarea {
     border-radius: 3px;
     border: 1px solid #D3D3D3;
 }
@@ -636,60 +639,6 @@ nav a:hover {
     font-size: 12px;
 }
 
-/* Amigos php */
-
-.cuerpo_pagina_amigos h1 {
-    text-align: center;
-}
-
-.fotoPerfilAmigo img {
-    height: 50px;
-    border-radius: 25px;
-    margin: 1px 12px 0 2px;
-    float: left;
-}
-
-.infoAmigo {
-    background-color: transparent;
-    color: #1E96CA;
-}
-
-.infoAmigo p {
-    margin-left: 10px;
-    font-size: 12px;
-}
-
-.amigos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.amigos-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-    margin-top: 20px;
-}
-
-.paginacion {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.paginacion button {
-    font-size: 20px;
-    padding: 5px 10px;
-    margin: 0 10px;
-    border: none;
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
-
-.paginacion button:hover {
-    background-color: #E0E0E0;
-}
 
 /* Log eliminaciones */
 .tabla_log_publicaciones_eliminadas caption {
@@ -896,4 +845,91 @@ nav a:hover {
 
 #icono_imagen {
     cursor: pointer;
+}
+
+/* Friends, Followed, Followers */
+.tabla_usuarios_encontrados {
+    margin: auto;
+    width: 100%;
+}
+
+.titulo_tabla_usuarios_encontrados {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.titulo_tabla_usuarios_encontrados span {
+    border: 1px solid #D3D3D3;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.paginacion a {
+    font-size: 20px;
+    height: 50px;
+    width: 150px;
+}
+
+.displayUsuario {
+    padding-bottom: 10px;
+}
+
+.td_derecha {
+    width: 80%;
+    margin-left: 15%;
+}
+
+.td_izquierda {
+    width: 80%;
+    margin-left: 5%;
+}
+
+.cuerpo_pagina_amigos h1 {
+    text-align: center;
+}
+
+.fotoPerfilUsuario img {
+    height: 100px;
+    border-radius: 60px;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.infoUsuario {
+    background-color: transparent;
+    color: #1E96CA;
+    border: 1px solid #D3D3D3;
+    padding: 10px;
+    margin-left: 130px;
+}
+
+.infoUsuario p {
+    font-size: 14px;
+}
+
+.paginacion {
+    text-align: center;
+}
+
+.paginacion .fa-regular{
+    font-weight: 800;
+    font-size: 60px;
+}
+
+/* Esta regla es especial, que es cuando se tiene solamente un amigo a mostrar en la pagina, para que se vea en dos columnas */
+.columna_un_usuario
+{
+    margin-left: 22%;
+    width: 100%;
+}
+
+.cuerpo_pagina_amigos .col-sm-4
+{
+    width: 39%;
+}
+
+.diplay_td {
+    width: 50%;
 }

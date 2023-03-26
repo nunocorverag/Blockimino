@@ -19,7 +19,7 @@ $(document).ready(function() {
     
         $.ajax({
             type: "POST",
-            url: "includes/handlers/ajax_submit_profile_post.php",
+            url: "../includes/handlers/ajax_submit_profile_post.php",
             data: form_data,
             processData: false,
             contentType: false,
@@ -57,7 +57,7 @@ function obtenerUsuarios(valor, usuario)
     // + Este sera el archivo al que mandara la informacion
     // + Va a mandar una request a esta pagina, con los valores que tenemos entre {}
     // + Lo que retorne, lo va a anexar
-    $.post("includes/handlers/ajax_friend_search.php", {busqueda:valor, id_usuario_loggeado:usuario}, function(info) {
+    $.post("../includes/handlers/ajax_friend_search_for_one_backspace.php", {busqueda:valor, id_usuario_loggeado:usuario}, function(info) {
         // + Va a poner el valor de este div con el que le enviemos de info
         $(".resultados").html(info);
     });
@@ -72,19 +72,19 @@ function obtenerInformacionDesplegable(usuario, tipo)
 
         if(tipo == 'notificacion')
         {
-            nombrePagina = "ajax_load_notifications.php";
+            nombrePagina = "ajax_load_notifications_for_one_backspace.php";
             $("span").remove("#notificacion_no_leida");
         }
         else if (tipo == 'mensaje')
         {
-            nombrePagina = "ajax_load_messages.php";
+            nombrePagina = "ajax_load_messages_for_one_backspace.php";
             $("span").remove("#mensaje_no_leido");
         }
 
         // + Creamos una ajax request que va a recuperar los mensajes
         var ajaxreq = $.ajax({
             // + Hacemos una llamada ajax al nombre de la pagina
-            url: "includes/handlers/" + nombrePagina,
+            url: "../includes/handlers/" + nombrePagina,
             type: "POST",
             data: "pagina=1&id_usuario_loggeado=" + usuario,
             cache: false,
@@ -110,7 +110,7 @@ function obtenerLiveSearchUsuarios(valor, usuario)
 {
     // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
     // + Todo lo que retorne, va a ser guardado en info
-    $.post("../includes/handlers/ajax_search.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
+    $.post("../includes/handlers/ajax_search_for_one_backspace.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
     {
         if($(".resultados_busqueda_pie_pagina_vacios")[0])
         {
@@ -121,7 +121,7 @@ function obtenerLiveSearchUsuarios(valor, usuario)
 
         // ! este lo tenga que cambiar no se
         $(".resultados_busqueda").html(info);
-        $(".resultados_busqueda_pie_pagina").html("<a href='search.php?query=" + valor + "'>Ver todos los resultados</a>");
+        $(".resultados_busqueda_pie_pagina").html("<a href='../search.php?query=" + valor + "'>Ver todos los resultados</a>");
 
         if(valor == "")
         {

@@ -98,10 +98,10 @@ class Usuario {
     {
         // CHANGE Ahora funciona con id_usuario
         // + Verifica si el nombre de usuario esta dentro del arreglo, si es asi, entonces si es amigo
-        $nombre_usuario = "," . $id_usuario_a_verificar . ",";
+        $usuario_a_checar = "," . $id_usuario_a_verificar . ",";
         // $ strstr() -> Devuelve la primera ocurrencia dentro de un string
         // + Si el usuario esta dentro del arreglo de amigos o el nombre de usuario es el mismo usuario
-        if ((strstr($this->usuario['lista_amigos'], $id_usuario_a_verificar)) || $id_usuario_a_verificar == $this->usuario['id_usuario'])
+        if ((strstr($this->usuario['lista_amigos'], $usuario_a_checar)) || $id_usuario_a_verificar == $this->usuario['id_usuario'])
         {
             return true;
         }
@@ -112,11 +112,11 @@ class Usuario {
     }
 
     //+ Verfiica si el usuario al que se sigue esta dentro del arreglo
-    public function esSeguidor($usuario_a_verificar)
+    public function esSeguidor($id_usuario_a_verificar)
     {
         // CHANGE Ahora funciona con id_usuario
-        $nombre_usuario = "," . $usuario_a_verificar . ",";
-        if ((strstr($this->usuario['lista_seguidos'], $usuario_a_verificar)) || $usuario_a_verificar == $this->usuario['id_usuario'])
+        $usuario_a_checar = "," . $id_usuario_a_verificar . ",";
+        if ((strstr($this->usuario['lista_seguidos'], $usuario_a_checar)) || $id_usuario_a_verificar == $this->usuario['id_usuario'])
         {
             return true;
         }
@@ -160,7 +160,7 @@ class Usuario {
 
     public function eliminarAmigo($usuario_a_remover)
     {
-        // CHANGE ahora funciona con id_usuario
+        // CHANGE NO FUNCIONA CON ID USUARIO, ELIMINA TODAS LAS OCURRENCIAS
         $usuario_loggeado = $this->usuario['id_usuario'];
         // + Obtenemos la lista de amigos de el usuario que queremos remover
         $query_obtener_lista_amigos = mysqli_query($this->con, "SELECT id_usuario, lista_amigos FROM usuarios WHERE id_usuario='$usuario_a_remover'");
@@ -170,11 +170,11 @@ class Usuario {
         $id_usuario_a_remover = $fila['id_usuario'];
 
         // + Removemos al amigo del usuario loggeado
-        $nueva_lista_de_amigos_usuario_loggeado = str_replace($id_usuario_a_remover . ",", "", $this->usuario['lista_amigos']);
+        $nueva_lista_de_amigos_usuario_loggeado = str_replace("," . $id_usuario_a_remover . ",", ",", $this->usuario['lista_amigos']);
         $query_eliminar_amigo = mysqli_query($this->con, "UPDATE usuarios SET lista_amigos='$nueva_lista_de_amigos_usuario_loggeado' WHERE id_usuario='$usuario_loggeado'");
 
         // + Removemos al usuario loggeado del usuario que este quiso remover
-        $nueva_lista_de_amigos_usuario_removido = str_replace($this->usuario['id_usuario'] . ",", "", $usuario_lista_amigos);
+        $nueva_lista_de_amigos_usuario_removido = str_replace("," . $this->usuario['id_usuario'] . ",", ",", $usuario_lista_amigos);
         $query_eliminar_amigo = mysqli_query($this->con, "UPDATE usuarios SET lista_amigos='$nueva_lista_de_amigos_usuario_removido' WHERE id_usuario='$usuario_a_remover'");
     }
 
@@ -190,11 +190,11 @@ class Usuario {
         $id_usuario_a_remover = $fila['id_usuario'];
 
         // + Removemos al seguido
-        $nueva_lista_seguidos_usuario_loggeado = str_replace($id_usuario_a_remover . ",", "", $this->usuario['lista_seguidos']);
+        $nueva_lista_seguidos_usuario_loggeado = str_replace("," . $id_usuario_a_remover . ",", ",", $this->usuario['lista_seguidos']);
         $query_eliminar_seguido = mysqli_query($this->con, "UPDATE usuarios SET lista_seguidos='$nueva_lista_seguidos_usuario_loggeado' WHERE id_usuario='$usuario_loggeado'");
 
         // + Removemos al seguidor
-        $nueva_lista_seguidores_usuario_removido = str_replace($this->usuario['id_usuario'] . ",", "", $usuario_lista_seguidores);
+        $nueva_lista_seguidores_usuario_removido = str_replace("," . $this->usuario['id_usuario'] . ",", ",", $usuario_lista_seguidores);
         $query_eliminar_seguidor = mysqli_query($this->con, "UPDATE usuarios SET lista_seguidores='$nueva_lista_seguidores_usuario_removido' WHERE id_usuario='$usuario_a_remover'");
     }
 
