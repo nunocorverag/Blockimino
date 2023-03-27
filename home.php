@@ -41,7 +41,6 @@ if(isset($_POST['publicar']))
                 $subida_exitosa = 0;
             }
         }
-        
     }
 
     if($subida_exitosa == 1)
@@ -49,7 +48,8 @@ if(isset($_POST['publicar']))
         // + Creamos un objeto nuevo tipo Publicacion con los parametros de conexion y el nombre del usuario loggeado
         $publicacion = new Publicacion($con, $id_usuario_loggeado);
         // + Llamamos el metodo dentro de la clase para publicar lo que este dentro de nuestra text area llamada "publicar_texto"
-        $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], NULL, $nombre_imagen);
+        $tipo_pagina = "pagina";
+        $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], NULL, $nombre_imagen, $tipo_pagina);
         // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
         header("Location: home.php");
     }

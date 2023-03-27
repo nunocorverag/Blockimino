@@ -16,7 +16,7 @@ class Publicacion {
     // + Se encargara de introducir la publicacion en la base de datos:
     // + $cuerpo -> Sera el cuerpo de la publicacion
     // + $enviado_a -> Si un usuario publico en el perfil de otro, esta variable se utilizara, de lo contrario, sera nula
-    public function enviarPublicacion($titulo, $cuerpo, $publicado_para, $nombre_imagen)
+    public function enviarPublicacion($titulo, $cuerpo, $publicado_para, $nombre_imagen, $tipo_pagina)
     {
         // $ strip_tags -> Retira las etiqueras HTML y PHP de un string
         $cuerpo = strip_tags($cuerpo);
@@ -74,21 +74,23 @@ class Publicacion {
 
             $id_regresado = 0;
             // + Agregamos la publicacion a la base de datos si publicado_para es nulo
-            if ($publicado_para == NULL)
+            if ($publicado_para == NULL && $tipo_pagina == "pagina")
             {
-                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', NULL, '$nombre_imagen', '$fecha_publicado', 'no', '0')");
+                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', NULL, '$nombre_imagen', '$fecha_publicado', 'no', '0', NULL)");
                 // $ mysqli_insert_id -> devuelve el ID generado por una consulta en una tabla con una columna que tenga el atributo de AUTO INCREMENT, esto para almacenar en una variable el ID de la publicacion
                 $id_regresado = mysqli_insert_id($this->con);
                 // ! Faltan las notificaciones del post en el newsfeed
 
             }
-            else if ($publicado_para != NULL)
+            else if ($publicado_para != NULL && $tipo_pagina == "pagina")
             {
-                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', $publicado_para, '$nombre_imagen', '$fecha_publicado', 'no', '0')");
+                $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', $publicado_para, '$nombre_imagen', '$fecha_publicado', 'no', '0', NULL)");
                 $id_regresado = mysqli_insert_id($this->con);
                 $notificacion = new Notificacion($this->con, $publicado_por);
                 $notificacion->insertarNotificacion($id_regresado, $publicado_para, "publicacion_perfil");
             }
+
+            //TODO AQUI IRAN LAS PUBLICACIONES SI EL TIPO DE PAGINA ES GRUPO
 
             // + Si el un amigo realizo una publicacion
             $lista_amigos = $this->objeto_usuario->obtenerListaAmigos();
@@ -340,7 +342,6 @@ class Publicacion {
                 $objeto_usuario_loggeado = new Usuario($this->con, $id_usuario_loggeado);
                 $tipo_usuario = $objeto_usuario_loggeado->obtenerTipoUsuario();
                 // + Verifica si el usuario loggeado es amigo del que publico
-                //! Aqui si necesito el nombre del que publico
                 if($objeto_usuario_loggeado->esAmigo($id_publicado_por) || $objeto_usuario_loggeado->esSeguidor($id_publicado_por))
                 {
 

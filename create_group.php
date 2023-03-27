@@ -2,21 +2,22 @@
 include("includes/header.php");
 
 // + Si el boton de publicar fue presionado entonces:
-if (isset($_POST['publicar'])) {
+if (isset($_POST['crear_grupo'])) {
     // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
-    header("Location: home.php");
+    header("Location: group_index.php");
 }
 ?>
 
 </div>
 
 
-<div class="publicar_area">
-    <form class="formulario_publicacion" action="home.php" method="POST" enctype="multipart/form-data">
-        <div class="publicar_titulo_container">
-            <textarea name="publicar_titulo" id="publicar_titulo" placeholder="Titulo publicacion" required></textarea>
+<div class="area_crear_grupo">
+    <form class="formulario_crear_grupo" action="group_index.php" method="POST" enctype="multipart/form-data">
+        <div class="nombre_grupo_container">
+            <textarea name="nombre_grupo" id="nombre_grupo" placeholder="Nombre de grupo" required></textarea>
             <div class="icono_imagen_container">
-                <input type="file" name="archivoASubir" id="archivoASubir" style="display:none">
+                <!-- //TODO FALTA PONER QUE EL USUARIO COMPLETE EL CAMPO SI NO SUBE IMAGEN DE GRUPO, O MAS BIEN, QUE PONGA UNA DEFAULT -->
+                <input type="file" name="imagenGrupo" id="imagenGrupo" style="display:none" required>
                 <i class="fa-regular fa-image" id="icono_imagen">
                     <span class="tooltip" id="tooltip"></span>
                 </i>
@@ -26,17 +27,17 @@ if (isset($_POST['publicar'])) {
             </div>
         </div>
         <br>
-        <div class="publicar_texto_container">
-            <textarea name="publicar_texto" id="publicar_texto" placeholder="Cuerpo publicacion" required></textarea>
+        <div class="descripcion_grupo_container">
+            <textarea name="desripcion_grupo" id="desripcion_grupo" placeholder="Descripción del grupo (opcional)"></textarea>
         </div>
         <br>
-        <input type="submit" name="publicar" id="boton_publicar" value="Publicar">
+        <input type="submit" name="crear_grupo" id="boton_crear_grupo" value="Crear grupo">
     </form>
 </div>
 
 <script>
     // ! explicar este script
-    const inputFile = document.getElementById("archivoASubir");
+    const inputFile = document.getElementById("imagenGrupo");
     const iconoImagen = document.getElementById("icono_imagen");
     const palomita = document.querySelector(".palomita");
     const tooltip = iconoImagen.querySelector(".tooltip");

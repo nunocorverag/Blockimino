@@ -6,6 +6,7 @@ include("includes/classes/Usuario.php");
 include("includes/classes/Publicacion.php");
 include("includes/classes/Mensaje.php");
 include("includes/classes/Notificacion.php");
+include("includes/classes/Grupo.php");
 
 // + Si ya existe un usuario loggeado, entonces:
 // RF14 - 16 El tipo de usuario puede ser moderador/administrador/normal -> Si es otro diferente, no dejara iniciar sesion

@@ -280,6 +280,14 @@ nav a:hover {
     flex-grow: 1;
 }
 
+.publicar_titulo_container textarea {
+    width: 92%;
+}
+
+.publicar_titulo_container i {
+    font-size: 70px;
+}
+
 .icono_imagen_container {
     position: relative;
     margin-left: 10px;
@@ -311,23 +319,19 @@ nav a:hover {
     font-size: 16px;
 }
 
-.publicar_titulo_container textarea {
-    width: 92%;
-}
-
-.publicar_titulo_container i {
-    font-size: 70px;
-}
-
 .publicar_texto_container textarea {
     margin: 0px 10px;
     width: 98%;
     height: 300px;
 }
 
+.formulario_publicacion {
+    width: 100%;
+    height: 100%;
+}
 
-.formulario_publicacion,
-textarea {
+
+.formulario_publicacion, textarea {
     border-radius: 3px;
     border: 1px solid #D3D3D3;
 }
@@ -932,4 +936,68 @@ textarea {
 
 .diplay_td {
     width: 50%;
+}
+
+/* grupos */
+/* crear grupo */
+.area_crear_grupo {
+    position: absolute;
+    top: 10%;
+    width: 35%;
+    margin: 0 auto;
+    border: 0.25px solid black;
+    height: 54%;
+    left: 32.5%;
+}
+
+.formulario_crear_grupo {
+    width: 100%;
+    height: 100%;
+}
+
+.descripcion_grupo_container textarea{
+    margin: 0px 10px;
+    width: 96%;
+    height: 215px;
+}
+
+.nombre_grupo_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 10px 0px 10px;
+}
+
+
+.nombre_grupo_container textarea {
+    width: 92%;
+}
+
+.nombre_grupo_container i {
+    font-size: 70px;
+}
+
+.icono_imagen_container {
+    position: relative;
+    margin-left: 10px;
+}
+
+.formulario_crear_grupo input[type="submit"] {
+    width: 96%;
+    height: 60px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 0;
+    position: absolute;
+    top: 81%;
+    left: 2%;
+}
+
+.formulario_crear_grupo input[type="submit"]:active {
+    padding: 5px 4px 4px 5px;
 }

@@ -74,6 +74,10 @@ class Usuario {
         return $this->usuario['lista_seguidores'];
     }
 
+    public function obtenerListaGrupos() {
+        return $this->usuario['lista_grupos'];
+    }
+
     // + Regresa true si el usuario esta cerrado y false si el usuario no esta cerrado
     public function estaCerrado()
     {
