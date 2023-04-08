@@ -1,7 +1,7 @@
 <!-- Sera la lista de amigos que tiene un usuario -->
 <?php
 //Incluimos el archivo de header para backslash
-include("includes/header_for_one_backslash.php");
+include("includes/header.php");
 
 if (isset($_GET['perfil_usuario']))
 {
@@ -68,8 +68,8 @@ if (isset($_GET['perfil_usuario']))
                     // + Esta variable separara las dos columnas de la tabla en diferentes clases
                     $iterar ++;
                     // + Este indice determinara cuantos amigos cargara
-                    $query_info_amigo = mysqli_query($con, "SELECT * FROM usuarios WHERE id_usuario='$id_amigo'");
-                    $fila_info_amigo = mysqli_fetch_array($query_info_amigo);
+                    $query_info_grupo = mysqli_query($con, "SELECT * FROM usuarios WHERE id_usuario='$id_amigo'");
+                    $fila_info_amigo = mysqli_fetch_array($query_info_grupo);
                     
                     if($id_usuario_loggeado != $id_amigo)
                     {
@@ -116,12 +116,12 @@ if (isset($_GET['perfil_usuario']))
                                             " . $fila_info_amigo['nombre'] . " " . $fila_info_amigo['apeP'] . " " . $fila_info_amigo['apeM'] . "
                                         </a>
                                     </span>
-                                        <p style='margin: 0'>
-                                            <a href='../" . $fila_info_amigo['username'] . "' style='color: 000'>"
-                                                .$fila_info_amigo['username'] . 
-                                            "</a>
-                                        </p>
-                                        <p id='gris'> ". $amigos_mutuos . "</p>
+                                    <p style='margin: 0'>
+                                        <a href='../" . $fila_info_amigo['username'] . "' style='color: 000'>"
+                                            .$fila_info_amigo['username'] . 
+                                        "</a>
+                                    </p>
+                                    <p id='gris'> ". $amigos_mutuos . "</p>
                                 </div>
                             </div>
                         </td>";  

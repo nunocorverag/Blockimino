@@ -36,6 +36,13 @@ class Usuario {
         return mysqli_num_rows($query_obtener_numero_solicitudes_amistad);
     }
 
+    public function obtenerNumeroDeInvitacionesGrupo()
+    {
+        $id_usuario = $this->obtenerIDUsuario();
+        $query_obtener_numero_invitaiones_grupos = mysqli_query($this->con, "SELECT * FROM invitaciones_de_grupo WHERE id_usuario_invitado='$id_usuario'");
+        return mysqli_num_rows($query_obtener_numero_invitaiones_grupos);
+    }
+
     // + Esta funcion regresara el numero de publicaciones del usuario
     public function obenerNumeroPublicaciones()
     {
@@ -100,7 +107,6 @@ class Usuario {
     // + Verifica si el usuario es amigo de otro usuario
     public function esAmigo($id_usuario_a_verificar)
     {
-        // CHANGE Ahora funciona con id_usuario
         // + Verifica si el nombre de usuario esta dentro del arreglo, si es asi, entonces si es amigo
         $usuario_a_checar = "," . $id_usuario_a_verificar . ",";
         // $ strstr() -> Devuelve la primera ocurrencia dentro de un string
@@ -118,7 +124,6 @@ class Usuario {
     //+ Verfiica si el usuario al que se sigue esta dentro del arreglo
     public function esSeguidor($id_usuario_a_verificar)
     {
-        // CHANGE Ahora funciona con id_usuario
         $usuario_a_checar = "," . $id_usuario_a_verificar . ",";
         if ((strstr($this->usuario['lista_seguidos'], $usuario_a_checar)) || $id_usuario_a_verificar == $this->usuario['id_usuario'])
         {
@@ -164,7 +169,6 @@ class Usuario {
 
     public function eliminarAmigo($usuario_a_remover)
     {
-        // CHANGE NO FUNCIONA CON ID USUARIO, ELIMINA TODAS LAS OCURRENCIAS
         $usuario_loggeado = $this->usuario['id_usuario'];
         // + Obtenemos la lista de amigos de el usuario que queremos remover
         $query_obtener_lista_amigos = mysqli_query($this->con, "SELECT id_usuario, lista_amigos FROM usuarios WHERE id_usuario='$usuario_a_remover'");
@@ -184,7 +188,6 @@ class Usuario {
 
     public function dejarSeguir($usuario_a_remover)
     {
-        // CHANGE ahora funciona con id_usuario
         $usuario_loggeado = $this->usuario['id_usuario'];
         // + Obtener la lista de seguidores de el usuario que queremos dejar de seguir
         $query_obtener_arreglo_seguidores = mysqli_query($this->con, "SELECT id_usuario, lista_seguidores FROM usuarios WHERE id_usuario='$usuario_a_remover'");
@@ -209,7 +212,6 @@ class Usuario {
 
     public function seguirUsuario($usuario_solicitado)
     {
-        // CHANGE ahora funciona con id_usuario
         $id_seguidor = $this->usuario['id_usuario'];
 
         // + Query para obtener el id_usuario, el nombre de usuario y la lista de seguidos del usuario que se solicito seguir

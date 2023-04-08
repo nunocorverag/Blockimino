@@ -331,7 +331,8 @@ nav a:hover {
 }
 
 
-.formulario_publicacion, textarea {
+.formulario_publicacion,
+textarea {
     border-radius: 3px;
     border: 1px solid #D3D3D3;
 }
@@ -674,7 +675,7 @@ nav a:hover {
     white-space: nowrap;
     vertical-align: baseline;
     background: #F00;
-    border-radius: 10px;
+    border-radius: 70%;
     position: absolute;
     left: 6px;
     top: -5px;
@@ -865,7 +866,6 @@ nav a:hover {
 }
 
 .titulo_tabla_usuarios_encontrados span {
-    border: 1px solid #D3D3D3;
     padding-top: 5px;
     padding-bottom: 10px;
 }
@@ -917,20 +917,18 @@ nav a:hover {
     text-align: center;
 }
 
-.paginacion .fa-regular{
+.paginacion .fa-regular {
     font-weight: 800;
     font-size: 60px;
 }
 
 /* Esta regla es especial, que es cuando se tiene solamente un amigo a mostrar en la pagina, para que se vea en dos columnas */
-.columna_un_usuario
-{
+.columna_un_usuario {
     margin-left: 22%;
     width: 100%;
 }
 
-.cuerpo_pagina_amigos .col-sm-4
-{
+.cuerpo_pagina_amigos .col-sm-4 {
     width: 39%;
 }
 
@@ -955,7 +953,7 @@ nav a:hover {
     height: 100%;
 }
 
-.descripcion_grupo_container textarea{
+.descripcion_grupo_container textarea {
     margin: 0px 10px;
     width: 96%;
     height: 215px;
@@ -1000,4 +998,392 @@ nav a:hover {
 
 .formulario_crear_grupo input[type="submit"]:active {
     padding: 5px 4px 4px 5px;
+}
+
+.crear_grupo {
+    text-align: center;
+}
+
+.crear_grupo button {
+    border: 0.25px solid #D3D3D3;
+    background-color: lightblue;
+    color: #156588;
+    border-radius: 5px;
+    width: 25%;
+    height: 40px;
+    margin-top: 3px;
+    text-shadow: #73b6e2 0.5px 0.5px 0px;
+    cursor: pointer;
+}
+
+.crear_grupo p {
+    color: black;
+    margin: 0;
+}
+
+/* Ver grupos */
+.mostar_grupos h4 {
+    margin-top: 2%;
+    text-align: center;
+}
+
+.contenedor_grupos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.displayResultadoGrupo {
+    text-align: center;
+    width: 31.33%;
+    margin: 0 1%;
+    height: 240px;
+}
+
+.displayResultadoGrupo:hover {
+    background-color: #D3D3D3;
+}
+
+.fotoPerfilGrupo {
+    margin: 10px 0;
+}
+
+.fotoPerfilGrupo img {
+    height: 180px;
+    width: 49%;
+    border-radius: 100px;
+    margin: 1px 12px 0 2px;
+}
+
+.infoGrupo {
+    margin: 10px 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* Pagina de grupos */
+
+.imagenPaginaGrupo {
+    width: 35%;
+    float: left;
+    height: 100%;
+}
+
+.imagenPaginaGrupo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.titulo_grupo {
+    width: 100%;
+    text-align: center;
+}
+
+.titulo_grupo h4 {
+    width: 100%;
+    text-align: center;
+}
+
+.titulo_grupo h4 {
+    font-size: 35px;
+    padding: 1%;
+}
+
+.contenedor_detalles_grupo {
+    width: 100%;
+    height: 230px;
+}
+
+.descripcion_grupo span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.detalles_grupo {
+    width: 60%;
+    margin-left: 37%;
+    height: 345px;
+}
+
+
+.detalles_grupo input[type="submit"],
+.detalles_grupo button {
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    position: relative;
+    top: 20%;
+    margin-bottom: 1%;
+}
+
+.miembros {
+    width: 16%;
+}
+
+.miembros a{
+    text-decoration: none;
+}
+
+.miembros:hover {
+    background-color: #EBEBEB;
+    text-decoration: none;
+}
+
+/* Pagina de miembros de grupo */
+.cuerpo_miembros {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cuerpo_miembros h4 {
+    font-size: 35px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.cuerpo_miembros span {
+    text-align: center;
+    margin-top: 2%;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+.displayMiembroGrupo {
+    text-align: left;
+}
+
+.displayFotoPerfilMiembro img {
+    width: 20%;
+    border-radius: 60%;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.displayInfoMiembro {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.displayInfoMiembro button {
+    width: 100%;
+    max-width: 150px;
+    margin-left: auto;
+}
+
+.col_derecha_miembros {
+    width: 40%;
+    margin-left: 10%;
+}
+
+.col_izquierda_miembros {
+    width: 40%;
+    margin-right: 10%;
+}
+
+.boton_eliminar_miembro {
+    padding: 0;
+    float: right;
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    top: -80px;
+    right: 10%;
+    position: relative;
+}
+
+/* Invitar miembros */
+
+.resultados_busqueda_invitar_miembros {
+    border: 0.25px solid #D3D3D3;
+}
+
+.displayResultadoInvitarMiembro {
+    padding: 8px 0px 0 5px;
+    height: 140px;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.displayResultadoInvitarMiembro a {
+    float: none;
+}
+
+.invitarLiveSearchFotoPerfil img {
+    height: 120px;
+    border-radius: 100%;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.invitarLiveSearchTexto {
+    background-color: transparent;
+    color: #1E96CA;
+    font-size: 150%;
+}
+
+.invitarLiveSearchTexto p {
+    margin-left: 10px;
+    font-size: 70%;
+}
+
+.boton_invitar {
+    float: right;
+    position: relative;
+    top: -15%;
+    right: 2%;
+}
+
+.contenedor_boton_busqueda_invitacion {
+    background-color: #F1F1F1;
+    border: #E5E5E5;
+    cursor: pointer;
+    height: 22px;
+    text-align: center;
+    width: 50px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    position: absolute;
+    top: 62px;
+    right: 1%;
+}
+
+.contenedor_boton_busqueda_invitacion i {
+    margin-top: 1px;
+    width: 20px;
+}
+
+.resultados_busqueda_invitar_miembros_pie_pagina {
+    padding: 0px 4px 0 4px;
+    height: 26px;
+    border: 1px solid #DADADA;
+    border-top: none;
+    background-color: #20AAE5;
+    text-align: center;
+}
+
+.resultados_busqueda_invitar_miembros_pie_pagina a {
+    color: #FFFFFF;
+}
+
+.boton_invitar input[type="button"] {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    width: 110%;
+    color: #FFFFFF;
+}
+
+/* Display invitaciones a grupos */
+
+.contenedor_invitaciones_a_grupos h4 {
+    text-align: center;
+}
+
+.detallesGrupoInvitado {
+    display: inline-block;
+    width: 10%;
+    height: 110px;
+    margin-right: 2%;
+}
+
+.fotoPerfilGrupoInvitado {
+    height: 65%;
+    text-align: center;
+}
+
+.fotoPerfilGrupoInvitado img {
+    width: 95%;
+    border-radius: 100%;
+}
+
+.infoGrupoInvitado {
+    height: 35%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.contenedorInvitacion {
+    display: flex;
+}
+
+.botonesInvitacion {
+    margin-top: .5%;
+    display: inline-block;
+    width: 38%;
+}
+
+.botonesInvitacion input[type="submit"] {
+    width: 65%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    top: 20%;
+    margin-bottom: 3%;
+}
+
+/* Display grupos */
+
+.contenedorInfoGrupo {
+    background-color: transparent;
+    color: #1E96CA;
+    border: 1px solid #D3D3D3;
+    margin-left: 37%;
+}
+
+.contenedorInfoGrupo p {
+    margin: 22%;
+}
+
+.contenedorImagenGrupo img {
+    border-radius: 60px;
+    margin: 1px 12px 0 2px;
+    float: left;
+    height: 150px;
+    width: 55%;
+}
+
+.displayGrupo {
+    padding-bottom: 3%;
+}
+
+/* Solicitar unirse al grupo */
+.contenedorSolicitudGrupo input[type="submit"] {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    width: 55%;
+}
+
+/* Display invitaciones a grupos */
+
+.contenedor_invitaciones_a_grupos h4 {
+    text-align: center;
+}
+
+/* Display de solicitudes a grupos */
+
+.contenedorSolicitud {
+    display: flex;
+}
+
+.botonesSolicitud {
+    margin-top: .5%;
+    display: inline-block;
+    width: 100%;
+}
+
+.botonesSolicitud input[type="submit"] {
+    width: 18%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    top: 20%;
+    margin-bottom: 3%;
 }

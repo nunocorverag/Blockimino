@@ -1,7 +1,7 @@
 <!-- Sera la lista de amigos que tiene un usuario -->
 <?php
 //Incluimos el archivo de header para backslash
-include("includes/header_for_one_backslash.php");
+include("includes/header.php");
 
 if (isset($_GET['perfil_usuario']))
 {

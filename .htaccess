@@ -13,3 +13,27 @@ RewriteRule ^([a-zA-Z0-9_-]+)/followed/$ followed.php?perfil_usuario=$1 [QSA]
 RewriteEngine On
 RewriteRule ^([a-zA-Z0-9_-]+)/followers$ followers.php?perfil_usuario=$1 [QSA]
 RewriteRule ^([a-zA-Z0-9_-]+)/followers/$ followers.php?perfil_usuario=$1 [QSA]
+
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9_-]+)/user_groups$ user_groups.php?perfil_usuario=$1 [QSA]
+RewriteRule ^([a-zA-Z0-9_-]+)/user_groups/$ user_groups.php?perfil_usuario=$1 [QSA]
+
+RewriteEngine On
+RewriteRule ^groups/([a-zA-Z0-9_-]+)$ group.php?nombre_grupo=$1 [L]
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/$ group.php?nombre_grupo=$1 [L]
+
+RewriteEngine On
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/manage$ group_manage.php?nombre_grupo=$1 [QSA]
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/manage/$ group_manage.php?nombre_grupo=$1 [QSA]
+
+RewriteEngine On
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/members$ group_members.php?nombre_grupo=$1 [QSA]
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/members/$ group_members.php?nombre_grupo=$1 [QSA]
+
+RewriteEngine On
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/invite$ invite_members.php?nombre_grupo=$1 [QSA]
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/invite/$ invite_members.php?nombre_grupo=$1 [QSA]
+
+RewriteEngine On
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/requests$ group_requests.php?nombre_grupo=$1 [QSA]
+RewriteRule ^groups/([a-zA-Z0-9_-]+)/requests/$ group_requests.php?nombre_grupo=$1 [QSA]

@@ -4,7 +4,7 @@ include("includes/header.php");
 // + Si el boton de publicar fue presionado entonces:
 if (isset($_POST['crear_grupo'])) {
     // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
-    header("Location: group_index.php");
+    header("Location: groups.php");
 }
 ?>
 
@@ -12,7 +12,7 @@ if (isset($_POST['crear_grupo'])) {
 
 
 <div class="area_crear_grupo">
-    <form class="formulario_crear_grupo" action="group_index.php" method="POST" enctype="multipart/form-data">
+    <form class="formulario_crear_grupo" action="groups.php" method="POST" enctype="multipart/form-data">
         <div class="nombre_grupo_container">
             <textarea name="nombre_grupo" id="nombre_grupo" placeholder="Nombre de grupo" required></textarea>
             <div class="icono_imagen_container">

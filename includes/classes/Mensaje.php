@@ -246,97 +246,9 @@ class Mensaje {
 
     public function obtenerDropdownConversaciones($info, $limite)
     {
-        $pagina = $info['pagina'];
-        $id_usuario_loggeado = $this->objeto_usuario->obtenerIDUsuario();
-        $return_string = "";
-        // + Agregaremos los nombres de usuario con los que el usuario tuvo conversaciones a este arreglo
-        $conversaciones = array();
-        if($pagina == 1)
-        {
-            $inicio = 0;
-        }
-        else
-        {
-            $inicio = ($pagina - 1) * $limite;
-        }
-
-        // + Al hacer click en el icono, entonces el usuario habra visto los mensajes y se marcaran como leidos 
-        $query_establecer_mensaje_visto = mysqli_query($this->con, "UPDATE mensajes SET visto='si' WHERE mensaje_para='$id_usuario_loggeado'");
-
-        $query_obtener_usuarios_mensajes = mysqli_query($this->con, "SELECT mensaje_para, mensaje_de FROM mensajes WHERE mensaje_para='$id_usuario_loggeado' OR mensaje_de='$id_usuario_loggeado' ORDER BY id_mensaje DESC");
-
-        while($fila = mysqli_fetch_array($query_obtener_usuarios_mensajes))
-        {
-            $contacto_a_pushear = ($fila['mensaje_para'] != $id_usuario_loggeado) ? $fila['mensaje_para'] : $fila['mensaje_de'];
-            // + Checamos que el usuario ya no este en el arreglo
-            if(!in_array($contacto_a_pushear, $conversaciones))
-            {
-                array_push($conversaciones, $contacto_a_pushear);
-            }
-        }
-
-        $numero_iteraciones = 0; // + Numero de mensajes vistos
-        $contador = 1; // + Numero de mensajes publicados
-
-        foreach($conversaciones as $nombreUsuario)
-        {
-
-            if($numero_iteraciones++ < $inicio)
-            {
-                continue;
-            }
-
-            if($contador > $limite)
-            {
-                break;
-            }
-            else
-            {
-                $contador++;
-            }
-
-            // + Query para verificar si el mensaje fue abierto o no
-            $query_mensaje_abierto = mysqli_query($this->con, "SELECT abierto FROM mensajes WHERE mensaje_para='$id_usuario_loggeado' AND mensaje_de='$nombreUsuario' ORDER BY id_mensaje DESC");
-            $fila = mysqli_fetch_array(($query_mensaje_abierto));
-
-            // + Todos los mensajes sin leer, se veran de un color diferente
-            $estilo_mensaje = (isset($fila['abierto']) && $fila['abierto'] == 'no') ? "background-color: #DDEDFF;" : "";
-
-            $objeto_usuario_encontrado = new Usuario($this->con, $nombreUsuario);
-            $detalles_ultimo_mensaje = $this->obtenerUltimoMensaje($id_usuario_loggeado, $nombreUsuario);
-            $nombreUsuario = $objeto_usuario_encontrado->obtenerNombreUsuario();
-
-            // + $detalles_ultimo_mensaje[1] sera el cuerpo de nuestro mensaje 
-            $puntos = (strlen($detalles_ultimo_mensaje[1]) >= 12 ? "..." : "");
-            $separar = str_split($detalles_ultimo_mensaje[1], 12);
-            $separar = $separar[0] . $puntos; // + Esto lo que hace es cortar el mensaje si es mayor a 12 caracteres y ponerle puntos
-
-            $return_string .= "<a href='messages.php?u=$nombreUsuario'> 
-                                    <div class='mensajes_encontrados' style='" . $estilo_mensaje . "'>
-                                        <img src='" . $objeto_usuario_encontrado->obtenerFotoPerfil() . "' style='border-radius: 5px; margin-right: 5px;'>
-                                        " . $objeto_usuario_encontrado->obtenerNombreCompleto() . "<br>
-                                        <span class='marca_de_tiempo' id='gris' >" . $detalles_ultimo_mensaje[2] . "</span>
-                                        <p id='gris' style='margin: 0; '> " . $detalles_ultimo_mensaje[0] . $separar . "</p>
-                                    </div>
-                                </a>";
-        }
-
-        // + Si los mensajes fueron cargados
-        if ($contador > $limite)
-        {
-            $return_string .= "<input type='hidden' class='dropdownSiguientePagina' value='" . ($pagina + 1) . "'>
-                               <input type='hidden' class='noMasInfoDropdown' value='false'>";
-        }
-        else
-        {
-            $return_string .= "<input type='hidden' class='noMasInfoDropdown' value='true'> <p style='text-align: center;'>No mas mensajes para mostrar!</p>";
-        }
+        // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO
+        $src_pagina = 'http://localhost/blockimino/';
         
-        return $return_string;
-    }
-
-    public function obtenerDropdownConversacionesUnBackspace($info, $limite)
-    {
         $pagina = $info['pagina'];
         $id_usuario_loggeado = $this->objeto_usuario->obtenerIDUsuario();
         $return_string = "";
@@ -402,9 +314,9 @@ class Mensaje {
             $separar = str_split($detalles_ultimo_mensaje[1], 12);
             $separar = $separar[0] . $puntos; // + Esto lo que hace es cortar el mensaje si es mayor a 12 caracteres y ponerle puntos
 
-            $return_string .= "<a href='../messages.php?u=$nombreUsuario'> 
+            $return_string .= "<a href='" . $src_pagina . "messages.php?u=$nombreUsuario'> 
                                     <div class='mensajes_encontrados' style='" . $estilo_mensaje . "'>
-                                        <img src='../" . $objeto_usuario_encontrado->obtenerFotoPerfil() . "' style='border-radius: 5px; margin-right: 5px;'>
+                                        <img src='" . $src_pagina . $objeto_usuario_encontrado->obtenerFotoPerfil() . "' style='border-radius: 5px; margin-right: 5px;'>
                                         " . $objeto_usuario_encontrado->obtenerNombreCompleto() . "<br>
                                         <span class='marca_de_tiempo' id='gris' >" . $detalles_ultimo_mensaje[2] . "</span>
                                         <p id='gris' style='margin: 0; '> " . $detalles_ultimo_mensaje[0] . $separar . "</p>

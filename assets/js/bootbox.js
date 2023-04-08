@@ -29,7 +29,7 @@
     'en' : {
       OK      : 'OK',
       CANCEL  : 'Cancelar',
-      CONFIRM : 'Eliminar'
+      CONFIRM : 'Aceptar'
     }
   };
 

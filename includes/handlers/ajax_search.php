@@ -46,6 +46,9 @@ else if(count($nombres) == 1)
 
 if($query != "")
 {
+    // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
+    $src_pagina = 'http://localhost/blockimino/';
+
     while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
     {
         $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado);
@@ -61,9 +64,9 @@ if($query != "")
         if ($fila['id_usuario'] != $id_usuario_loggeado)
         {
             echo "<div class='displayResultado'>
-                    <a href='" . $fila['username'] . "' style='color: #1485BD'>
+                    <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
                         <div class='liveSearchFotoPerfil'>
-                            <img src='" . $fila['foto_perfil'] . "'>
+                            <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
                         </div>
                         <div class='liveSearchTexto'>
                             " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "

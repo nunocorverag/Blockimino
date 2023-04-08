@@ -1,3 +1,13 @@
+function getBaseUrl() 
+{
+    // !NOTA IMPORTANTE, EN EL HOST, DEBO DE DEJAR EL COMENTARIO DE ABAJO, EN CASO DE LOCALHOST LO VOY A DEJAR COMO BLOCKIMINO
+    // var baseUrl = window.location.protocol + "//" + window.location.host;
+    // !NOTA EN EL LOCAL USARE ESTE DE MIENTRAS
+    var baseUrl = window.location.protocol + "//" + window.location.host + "//" + "blockimino";
+    // baseUrl = "blockimino";
+    return baseUrl;
+}
+
 $(document).ready(function() {
 
     $('#input_busqueda_texto').focus(function(){
@@ -13,7 +23,12 @@ $(document).ready(function() {
         document.formulario_busqueda.submit();
     });
 
-    // + Aqui ira el codigo ajax que publicara el formulario por nosotros
+    // + Esto es para enviar el formulario de buscar miembros a la hora de hacer click en el icono de busqueda
+    $('.contenedor_boton_busqueda_invitacion').on('click', function() {
+        document.formulario_busqueda_invitacion.submit();
+    });
+
+    // + Aqui ira el codigo ajax que publicara el formulario de publicacion por nosotros
     $('#enviar_publicacion_perfil').click(function() {
         var form_data = new FormData($('form.publicacion_perfil')[0]);
     
@@ -25,6 +40,26 @@ $(document).ready(function() {
             contentType: false,
             success: function(msg) {
                 $("#formulario_publicacion").modal('hide');
+                location.reload();
+            },
+            error: function() {
+                alert('Fallo al realizar la publicación');
+            }
+        });
+    });
+
+    // + Aqui ira el codigo ajax que publicara el formulario de grupo por nosotros
+    $('#enviar_publicacion_grupo').click(function() {
+        var form_data = new FormData($('form.publicacion_grupo')[0]);
+    
+        $.ajax({
+            type: "POST",
+            url: "../includes/handlers/ajax_submit_group_post.php",
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success: function(msg) {
+                $("#publicacion_grupo").modal('hide');
                 location.reload();
             },
             error: function() {
@@ -57,7 +92,7 @@ function obtenerUsuarios(valor, usuario)
     // + Este sera el archivo al que mandara la informacion
     // + Va a mandar una request a esta pagina, con los valores que tenemos entre {}
     // + Lo que retorne, lo va a anexar
-    $.post("includes/handlers/ajax_friend_search.php", {busqueda:valor, id_usuario_loggeado:usuario}, function(info) {
+    $.post(getBaseUrl() + "includes/handlers/ajax_friend_search.php", {busqueda:valor, id_usuario_loggeado:usuario}, function(info) {
         // + Va a poner el valor de este div con el que le enviemos de info
         $(".resultados").html(info);
     });
@@ -84,7 +119,7 @@ function obtenerInformacionDesplegable(usuario, tipo)
         // + Creamos una ajax request que va a recuperar los mensajes
         var ajaxreq = $.ajax({
             // + Hacemos una llamada ajax al nombre de la pagina
-            url: "includes/handlers/" + nombrePagina,
+            url: getBaseUrl() + "/includes/handlers/" + nombrePagina,
             type: "POST",
             data: "pagina=1&id_usuario_loggeado=" + usuario,
             cache: false,
@@ -110,7 +145,7 @@ function obtenerLiveSearchUsuarios(valor, usuario)
 {
     // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
     // + Todo lo que retorne, va a ser guardado en info
-    $.post("includes/handlers/ajax_search.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
+    $.post(getBaseUrl() + "/includes/handlers/ajax_search.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
     {
         if($(".resultados_busqueda_pie_pagina_vacios")[0])
         {
@@ -121,7 +156,7 @@ function obtenerLiveSearchUsuarios(valor, usuario)
 
         // ! este lo tenga que cambiar no se
         $(".resultados_busqueda").html(info);
-        $(".resultados_busqueda_pie_pagina").html("<a href='search.php?query=" + valor + "'>Ver todos los resultados</a>");
+        $(".resultados_busqueda_pie_pagina").html("<a href=' " + getBaseUrl() + "/search.php?query=" + valor + "'>Ver todos los resultados</a>");
 
         if(valor == "")
         {
@@ -129,5 +164,41 @@ function obtenerLiveSearchUsuarios(valor, usuario)
             $(".resultados_busqueda_pie_pagina").toggleClass("resultados_busqueda_pie_pagina_vacios");
             $(".resultados_busqueda_pie_pagina").toggleClass("resultados_busqueda_pie_pagina");
         }
+    });
+}
+
+function obtenerLiveSearchInvitarUsuarios(valor, usuario, grupo)
+{
+    // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
+    // + Todo lo que retorne, va a ser guardado en info
+    $.post(getBaseUrl() + "/includes/handlers/ajax_invite_members_search.php", {query:valor, id_usuario_loggeado:usuario, id_grupo:grupo}, function(info)
+    {
+        if($(".resultados_busqueda_invitar_miembros_pie_pagina_vacios")[0])
+        {
+            // + Si esta escondido, lo muestra, si esta mostrandolo, lo esconde
+            $(".resultados_busqueda_invitar_miembros_pie_pagina_vacios").toggleClass("resultados_busqueda_invitar_miembros_pie_pagina");
+            $(".resultados_busqueda_invitar_miembros_pie_pagina_vacios").toggleClass("resultados_busqueda_invitar_miembros_pie_pagina_vacios");
+        }
+
+        // ! este lo tenga que cambiar no se
+        $(".resultados_busqueda_invitar_miembros").html(info);
+        $(".resultados_busqueda_invitar_miembros_pie_pagina").html("<a href='invite?query=" + valor + "'>Ver todos los resultados</a>");
+
+        if(valor == "")
+        {
+            $(".resultados_busqueda_invitar_miembros_pie_pagina").html("");
+            $(".resultados_busqueda_invitar_miembros_pie_pagina").toggleClass("resultados_busqueda_invitar_miembros_pie_pagina_vacios");
+            $(".resultados_busqueda_invitar_miembros_pie_pagina").toggleClass("resultados_busqueda_invitar_miembros_pie_pagina");
+        }
+    });
+}
+
+function invitarUsuario(id_usuario_loggeado, id_usuario_invitado, id_grupo) {
+    $.post(getBaseUrl() + "/includes/handlers/ajax_invite_members.php", { id_usuario_loggeado:id_usuario_loggeado, id_usuario_invitado:id_usuario_invitado, id_grupo:id_grupo }, function(response) {
+        // Show success message
+        $("#mensaje_invitacion").html("Usuario invitado con éxito!");
+        // Reload page
+        location.reload();
+        alert("Se ha enviado la invitacion");
     });
 }
