@@ -48,6 +48,22 @@ require 'includes/form_handlers/login_handler.php';
             {
                 echo "La contraseña es incorrecta!<br>";
             }
+            if(in_array("Usted cuenta con 1 intento mas para iniciar sesión, de lo contrario, su cuenta será bloqueada por 10 minutos<br>", $error_array))
+            {
+                echo "Usted cuenta con 1 intento mas para iniciar sesión, de lo contrario, su cuenta será bloqueada por 10 minutos<br>";
+            }
+            if(in_array("Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada por 1 hora<br>", $error_array))
+            {
+                echo "Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada por 1 hora<br>";
+            }
+            if(in_array("Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada permanentemente hasta que un administrador la desbloquee<br>", $error_array))
+            {
+                echo "Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada permanentemente hasta que un administrador la desbloquee<br>";
+            }
+            if(in_array("Su cuenta ha sido bloqueada permanentemente, notifique a un administrador para que la desbloquee<br>", $error_array))
+            {
+                echo "Su cuenta ha sido bloqueada permanentemente, notifique a un administrador para que la desbloquee<br>";
+            }
         ?>
         <input type="submit" name="login_button" value="Iniciar sesión">
     </form>

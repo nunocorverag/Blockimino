@@ -9,12 +9,12 @@ if(!($_SESSION['tipo'] == "moderador" || $_SESSION['tipo'] == "administrador"))
 // u -> usuarios
 // c -> sanciones
 
-$query_seleccionar_info_sancion = mysqli_query($con, "SELECT s.id_sancion, s.razon_sancion, s.tipo_sancion, s.fecha_sancion, u1.username, 
-                                                u2.username as usuario_que_sanciono, s.id_publicacion_sancion, s.id_comentario_sancion
-                                                FROM sanciones s 
-                                                JOIN usuarios u1 ON s.id_usuario_sancionado = u1.id_usuario 
-                                                JOIN usuarios u2 ON s.id_usuario_que_sanciono = u2.id_usuario 
-                                                ORDER BY id_sancion DESC");
+$query_seleccionar_info_sancion = mysqli_query($con,   "SELECT s.id_sancion, s.razon_sancion, s.tipo_sancion, s.fecha_sancion, u1.username, 
+                                                        u2.username as usuario_que_sanciono, s.id_publicacion_sancion, s.id_comentario_sancion
+                                                        FROM sanciones s 
+                                                        JOIN usuarios u1 ON s.id_usuario_sancionado = u1.id_usuario 
+                                                        LEFT JOIN usuarios u2 ON s.id_usuario_que_sanciono = u2.id_usuario 
+                                                        ORDER BY id_sancion DESC");
 
 ?>
     <div class="tabla_log_de_eliminacion">
@@ -54,7 +54,20 @@ $query_seleccionar_info_sancion = mysqli_query($con, "SELECT s.id_sancion, s.raz
                         }
                         ?>
                         <td><a href="<?php echo $fila['username']; ?>"> <?php echo $fila['username']; ?></a></td>
-                        <td><a href="<?php echo $fila['usuario_que_sanciono']; ?>"> <?php echo $fila['usuario_que_sanciono']; ?></a></td>
+                        <?php
+                        if($fila['usuario_que_sanciono'] == NULL)
+                        {
+                            ?>
+                            <td><?php echo "SISTEMA"?></td>
+                            <?php
+                        }
+                        else if($fila['usuario_que_sanciono'] != NULL)
+                        {
+                            ?>
+                            <td><a href="<?php echo $fila['usuario_que_sanciono']; ?>"> <?php echo $fila['usuario_que_sanciono']; ?></a></td>
+                            <?php
+                        }
+                        ?>
                         <td><?php echo $fila['id_publicacion_sancion']; ?></td>
                         <td><?php echo $fila['id_comentario_sancion']; ?></td>
                     </tr>

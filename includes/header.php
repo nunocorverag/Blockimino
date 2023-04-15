@@ -20,7 +20,7 @@ if(isset($_SESSION['username']) && $_SESSION['tipo'] == "normal" || $_SESSION['t
     $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
     if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
     {
-        header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php");
+        header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php?username=" . $usuario_loggeado);
     }
     else
     {
