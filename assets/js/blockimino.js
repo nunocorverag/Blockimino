@@ -115,8 +115,12 @@ function obtenerInformacionDesplegable(usuario, tipo)
             nombrePagina = "ajax_load_messages.php";
             $("span").remove("#mensaje_no_leido");
         }
+        else if(tipo == "botones")
+        {
+            nombrePagina = "load_buttons.php";
+        }
 
-        // + Creamos una ajax request que va a recuperar los mensajes
+        // + Creamos una ajax request que va a recuperar los mensajes o notificaciones
         var ajaxreq = $.ajax({
             // + Hacemos una llamada ajax al nombre de la pagina
             url: getBaseUrl() + "/includes/handlers/" + nombrePagina,

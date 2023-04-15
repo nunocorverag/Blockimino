@@ -62,6 +62,7 @@ class Publicacion {
             $cuerpo = implode(" ", $arreglo_cuerpo);
             // - Guardamos en esta variable la fecha y hora actual para despues mostrar cuando se hizo la publicacion
             $fecha_publicado = date("Y-m-d H:i:s");
+            $fecha_publicado = date("Y-m-d H:i:s", strtotime($fecha_publicado . " -1 hour"));
 
             // - Guardamos el id del usuario que lo publico
             $publicado_por = $this->objeto_usuario->obtenerIDUsuario();
@@ -443,6 +444,7 @@ class Publicacion {
                     #region Periodo de tiempo de los posts
                     // - Guardamos la hora y fecha actuales
                     $tiempo_actual = date("Y-m-d H:i:s");
+                    $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
                     // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
                     $fecha_comienzo = new DateTime($fecha_publicado);
                     // - Guardamos la hora y fecha actuales
@@ -874,6 +876,7 @@ class Publicacion {
                     #region Periodo de tiempo de los posts
                     // - Guardamos la hora y fecha actuales
                     $tiempo_actual = date("Y-m-d H:i:s");
+                    $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
                     // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
                     $fecha_comienzo = new DateTime($fecha_publicado);
                     // - Guardamos la hora y fecha actuales
@@ -1281,6 +1284,7 @@ class Publicacion {
                 #region Periodo de tiempo de los posts
                 // - Guardamos la hora y fecha actuales
                 $tiempo_actual = date("Y-m-d H:i:s");
+                $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
                 // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
                 $fecha_comienzo = new DateTime($fecha_publicado);
                 // - Guardamos la hora y fecha actuales
@@ -1713,6 +1717,7 @@ class Publicacion {
                 #region Periodo de tiempo de los posts
                 // - Guardamos la hora y fecha actuales
                 $tiempo_actual = date("Y-m-d H:i:s");
+                $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
                 // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
                 $fecha_comienzo = new DateTime($fecha_publicado);
                 // - Guardamos la hora y fecha actuales

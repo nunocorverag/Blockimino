@@ -48,7 +48,7 @@ else if(count($nombres) == 1)
 }
 
 
-if($query != "")
+if($query != "" && $usuariosRetornadosQuery != "")
 {
     // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
     $src_pagina = 'http://localhost/blockimino/';

@@ -4,6 +4,9 @@ include("../../includes/classes/Usuario.php");
 
 $query = $_POST['query'];
 $id_usuario_loggeado = $_POST['id_usuario_loggeado'];
+$query_tipo_usuario = mysqli_query($con, "SELECT tipo FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+$fila_tipo_usuario = mysqli_fetch_array($query_tipo_usuario);
+$tipo_usuario = $fila_tipo_usuario['tipo'];
 
 // + Separamos los elementos de la busqueda
 $nombres = explode(" ", $query);
@@ -51,30 +54,44 @@ if($query != "" && $usuariosRetornadosQuery != "")
 
     while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
     {
-        $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado);
-        // + Esto para evitar que aoarezca el usuario loggaedo
-        if($fila['id_usuario'] != $id_usuario_loggeado)
+        $id_usuario_buscado = $fila['id_usuario'];
+        $query_tipo_usuario_buscado = mysqli_query($con, "SELECT tipo FROM usuarios WHERE id_usuario='$id_usuario_buscado'");
+        $fila_tipo_usuario_buscado = mysqli_fetch_array($query_tipo_usuario_buscado);
+        $tipo_usuario_buscado = $fila_tipo_usuario_buscado['tipo'];
+
+        if($tipo_usuario == "administrador")
         {
-            $amigos_mutuos = $objeto_usuario_loggeado->obtenerAmigosMutuos($fila['id_usuario']) . " amigos en comun";
-        }
-        else
-        {
-            $amigos_mutuos = "";
-        }
-        if ($fila['id_usuario'] != $id_usuario_loggeado)
-        {
-            echo "<div class='displayResultado'>
-                    <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
+            if ($fila['id_usuario'] != $id_usuario_loggeado && $tipo_usuario_buscado != "administrador")
+            {
+                echo "<div class='displayResultado'>
                         <div class='liveSearchFotoPerfil'>
                             <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
                         </div>
                         <div class='liveSearchTexto'>
                             " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
-                            <p style='margin: 0'> " .$fila['username'] . "</p>
-                            <p id='gris'> ". $amigos_mutuos . "</p>
+                            <div class='username_to_sanction'>
+                                ".$fila['username']."
+                            </div>
                         </div>
-                    </a>
-            </div>";
+                    </div>";
+            }
+        }
+        if($tipo_usuario == "moderador")
+        {
+            if ($fila['id_usuario'] != $id_usuario_loggeado && $tipo_usuario_buscado != "administrador" && $tipo_usuario_buscado != "moderador")
+            {
+                echo "<div class='displayResultado'>
+                        <div class='liveSearchFotoPerfil'>
+                            <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
+                        </div>
+                        <div class='liveSearchTexto'>
+                            " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
+                            <div class='username_to_sanction'>
+                                ".$fila['username']."
+                            </div>
+                        </div>
+                    </div>";
+            }
         }
     }
 }

@@ -16,12 +16,21 @@ if(isset($_SESSION['username']) && $_SESSION['tipo'] == "normal" || $_SESSION['t
     $usuario_loggeado = $_SESSION['username'];
     // - Esta variable guarda el id del usuario
     $id_usuario_loggeado = $_SESSION['id_usuario'];
-    // - Guardamos en esta variable la query de todos los datos del usuario loggeado
-    $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$usuario_loggeado'");
-    // - Guardamos en esta variable 
-    $usuario = mysqli_fetch_array($query_detalles_usuario);
-    // RF16 Al iniciar sesion se detecta el tipo de usuario
-    $tipo_usuario = $_SESSION['tipo'];
+    
+    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
+    if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
+    {
+        header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php");
+    }
+    else
+    {
+        // - Guardamos en esta variable la query de todos los datos del usuario loggeado
+        $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$usuario_loggeado'");
+        // - Guardamos en esta variable 
+        $usuario = mysqli_fetch_array($query_detalles_usuario);
+        // RF16 Al iniciar sesion se detecta el tipo de usuario
+        $tipo_usuario = $_SESSION['tipo'];
+    }
 }
 // + Si no encuentra un usuario loggeado, lo va a regresar a la pagina para crear usuario / iniciar sesion
 else 
@@ -163,14 +172,22 @@ else
             if ($tipo_usuario == "moderador" || $tipo_usuario == "administrador")
             {
             ?>
-                <a href="#">
+            <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'botones')">
                     <i class="fa-solid fa-hammer"></i>
                 </a>
             <?php
             }
+            else if ($tipo_usuario == "normal")
+            {
+            ?>
+            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/help.php">
+                <i class="fa-solid fa-circle-info"></i>
+            </a>
+            <?php
+            }
             ?>
             <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/includes/handlers/logout.php">
-                <i class="fa-solid fa-right-from-bracket"></i>            
+                <i class="fa-solid fa-right-from-bracket"></i>
             </a>
         </nav>
 
