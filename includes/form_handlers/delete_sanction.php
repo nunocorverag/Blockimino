@@ -1,4 +1,3 @@
-<!-- Esta pagina se encargara de eliminar una sancion existente -->
 <?php
 require '../../config/config.php';
 

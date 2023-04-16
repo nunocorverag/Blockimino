@@ -1,6 +1,4 @@
-<!-- En este archivo un usuario ya existente podra iniciar sesion -->
 <?php
-//Utilizaremos el archivo config.php que tiene la conexion a nuestra base de datos
 require 'config/config.php';
 require 'includes/form_handlers/form_variables.php';
 require 'includes/form_handlers/login_handler.php';
@@ -27,9 +25,9 @@ require 'includes/form_handlers/login_handler.php';
     <form action="login.php" method="POST">
         <input type="text" name="log_username" placeholder="Nombre de usuario"
         value="<?php
-            if(isset($_SESSION['log_username']))
+            if(isset($_POST['log_username']))
             {
-                echo ($_SESSION['log_username']);
+                echo ($_POST['log_username']);
             }
         ?>"
         required>

@@ -62,7 +62,7 @@ class Publicacion {
             $cuerpo = implode(" ", $arreglo_cuerpo);
             // - Guardamos en esta variable la fecha y hora actual para despues mostrar cuando se hizo la publicacion
             $fecha_publicado = date("Y-m-d H:i:s");
-            $fecha_publicado = date("Y-m-d H:i:s", strtotime($fecha_publicado . " -1 hour"));
+            $fecha_publicado = date("Y-m-d H:i:s", strtotime($fecha_publicado));
 
             // - Guardamos el id del usuario que lo publico
             $publicado_por = $this->objeto_usuario->obtenerIDUsuario();
@@ -488,12 +488,12 @@ class Publicacion {
                         //1 mes
                         if($intervalo-> m == 1)
                         {
-                            $mensaje_tiempo = $intervalo->m . " mes" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " mes " . $dias;
                         }
                         //Mas de 1 mes
                         else
                         {
-                            $mensaje_tiempo = $intervalo->m . " meses" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " meses " . $dias;
                         }
                     }
                     // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
@@ -920,12 +920,12 @@ class Publicacion {
                         //1 mes
                         if($intervalo-> m == 1)
                         {
-                            $mensaje_tiempo = $intervalo->m . " mes" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " mes " . $dias;
                         }
                         //Mas de 1 mes
                         else
                         {
-                            $mensaje_tiempo = $intervalo->m . " meses" . $dias;
+                            $mensaje_tiempo = $intervalo->m . " meses " . $dias;
                         }
                     }
                     // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
@@ -1174,6 +1174,7 @@ class Publicacion {
             $usuario_publicado_por = $fila_publicado_por['username'];
             $fecha_publicado = $fila['fecha_publicado'];
             $tipo_usuario_publicado_por = $fila_publicado_por['tipo'];
+            $direccionImagen= $fila['imagen'];
 
             #region publicado_para
             // + Si no una publicacion en un perfil de alguien, entonces el string de publicado_para estara vacio
@@ -1328,12 +1329,12 @@ class Publicacion {
                     //1 mes
                     if($intervalo-> m == 1)
                     {
-                        $mensaje_tiempo = $intervalo->m . " mes" . $dias;
+                        $mensaje_tiempo = $intervalo->m . " mes " . $dias;
                     }
                     //Mas de 1 mes
                     else
                     {
-                        $mensaje_tiempo = $intervalo->m . " meses" . $dias;
+                        $mensaje_tiempo = $intervalo->m . " meses " . $dias;
                     }
                 }
                 // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
@@ -1392,7 +1393,18 @@ class Publicacion {
                         $mensaje_tiempo = "Hace unos segundos";
                     }
                 }
-                #endregion
+                #endregion                    
+                // + Procesar si hay una imagen
+                if($direccionImagen != "")
+                {
+                    $divImagen = "<div class='imagenPublicada'>
+                                    <img src='$direccionImagen'>
+                                </div>";
+                }
+                else
+                {
+                    $divImagen = "";
+                }
 
                 // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
                 // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
@@ -1415,6 +1427,7 @@ class Publicacion {
                         <div id='cuerpo_publicacion'>
                             $cuerpo
                             <br>
+                            $divImagen
                             <br>
                             <br>
                         </div>
@@ -1761,12 +1774,12 @@ class Publicacion {
                     //1 mes
                     if($intervalo-> m == 1)
                     {
-                        $mensaje_tiempo = $intervalo->m . " mes" . $dias;
+                        $mensaje_tiempo = $intervalo->m . " mes " . $dias;
                     }
                     //Mas de 1 mes
                     else
                     {
-                        $mensaje_tiempo = $intervalo->m . " meses" . $dias;
+                        $mensaje_tiempo = $intervalo->m . " meses " . $dias;
                     }
                 }
                 // + Si el intervalo es 1 o mas dias atras, pero menos que un mes

@@ -1,5 +1,3 @@
-<!-- Este archivo se encargara de establecer el limite de elementos por vez de carga (para que no se sature el usuario) -->
-<!-- Tambien se encargara de mandar la informacion a la publicacion -->
 <?php
 include("../../config/config.php");
 include("../classes/Usuario.php");

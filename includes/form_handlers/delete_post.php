@@ -1,4 +1,3 @@
-<!-- Esta pagina se encargara de eliminar el post -->
 <?php
 require '../../config/config.php';
 

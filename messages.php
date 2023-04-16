@@ -37,8 +37,8 @@ if(isset($_POST['publicar_mensaje']))
     {
         $cuerpo_mensaje = mysqli_real_escape_string($con, $_POST['cuerpo_mensaje']);
         $fecha_mensaje = date("Y-m-d H:i:s");
+        $fecha_mensaje = date("Y-m-d H:i:s", strtotime($fecha_mensaje . " -1 hour"));
         $objeto_mensaje->enviarMensaje($mensaje_para, $cuerpo_mensaje, $fecha_mensaje);
-
     }
 }
 ?>

@@ -1,7 +1,8 @@
 <?php
 include("includes/header.php");
 
-if(!($_SESSION['tipo'] == "normal"))
+$query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND tipo='normal')");
+if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
 {
     header("Location: home.php");
 }

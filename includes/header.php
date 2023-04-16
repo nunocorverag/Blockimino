@@ -1,6 +1,4 @@
-<!-- Sera el diseño que tendran todas las páginas una vez que el usuario ya haya iniciado sesión -->
 <?php
-//Incluimos el archivo de config.php
 require 'config/config.php';
 include("includes/classes/Usuario.php");
 include("includes/classes/Publicacion.php");
@@ -10,32 +8,32 @@ include("includes/classes/Grupo.php");
 
 // + Si ya existe un usuario loggeado, entonces:
 // RF14 - 16 El tipo de usuario puede ser moderador/administrador/normal -> Si es otro diferente, no dejara iniciar sesion
-if(isset($_SESSION['username']) && $_SESSION['tipo'] == "normal" || $_SESSION['tipo'] == "moderador" || $_SESSION['tipo'] == "administrador")
+if(isset($_SESSION['id_usuario']))
 {
-    // - Esta variable guardara el nombre de usuario para poder hacer querys mas adelante
-    $usuario_loggeado = $_SESSION['username'];
     // - Esta variable guarda el id del usuario
     $id_usuario_loggeado = $_SESSION['id_usuario'];
-    
+
+    // - Guardamos en esta variable la query de todos los datos del usuario loggeado
+    $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+    // - Guardamos en esta variable 
+    $fila_detalles_usuario = mysqli_fetch_array($query_detalles_usuario);
+    // - Esta variable guardara el nombre de usuario para poder hacer querys mas adelante
+    $usuario_loggeado = $fila_detalles_usuario['username'];
+
     $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
     if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
     {
         header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php?username=" . $usuario_loggeado);
     }
     else
-    {
-        // - Guardamos en esta variable la query de todos los datos del usuario loggeado
-        $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$usuario_loggeado'");
-        // - Guardamos en esta variable 
-        $usuario = mysqli_fetch_array($query_detalles_usuario);
+    {            
         // RF16 Al iniciar sesion se detecta el tipo de usuario
-        $tipo_usuario = $_SESSION['tipo'];
+        $tipo_usuario = $fila_detalles_usuario['tipo'];
     }
 }
 // + Si no encuentra un usuario loggeado, lo va a regresar a la pagina para crear usuario / iniciar sesion
 else 
 {
-    // BUG ESTO DE AQUI NO FUNCIONA BIEN
     header("Location: " . dirname($_SERVER['PHP_SELF']) . "/index.php");
 }
 
@@ -119,7 +117,7 @@ else
             <!-- Nombre del usuario para ir a la pagina del perfil del usuario -->
             <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/<?php echo $usuario_loggeado ?>">
                 <?php 
-                echo $usuario['nombre'];
+                echo $fila_detalles_usuario['nombre'];
                 ?>
             </a>
             <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php">

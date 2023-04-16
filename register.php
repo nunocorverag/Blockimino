@@ -1,6 +1,4 @@
-<!-- En este archivo se podra registrar un nuevo usuario -->
 <?php
-//Utilizaremos el archivo config.php que tiene la conexion a nuestra base de datos
 require 'config/config.php';
 require 'includes/form_handlers/form_variables.php';
 require 'includes/form_handlers/register_handler.php';
@@ -26,9 +24,9 @@ require 'includes/form_handlers/register_handler.php';
         <input type="text" name="reg_nombre" placeholder="Primer nombre"
         value="<?php
         //Si ya existe un valor en el formulario: Lo reescribiremos en el mismo campo
-            if(isset($_SESSION['reg_nombre']))
+            if(isset($_POST['reg_nombre']))
             {
-                echo $_SESSION['reg_nombre'];
+                echo $_POST['reg_nombre'];
             }
         ?>" required>
         <br>
@@ -52,9 +50,9 @@ require 'includes/form_handlers/register_handler.php';
         <!-- Registro del apellido paterno -->
         <input type="text" name="reg_apeP" placeholder="Apellido Paterno"
         value="<?php
-        if(isset($_SESSION['reg_apeP']))
+        if(isset($_POST['reg_apeP']))
             {
-                echo $_SESSION['reg_apeP'];
+                echo $_POST['reg_apeP'];
             }
         ?>" required>
         <br>
@@ -77,9 +75,9 @@ require 'includes/form_handlers/register_handler.php';
         <!-- Registro del apellido materno -->
         <input type="text" name="reg_apeM" placeholder="Apellido Materno"
         value="<?php
-        if(isset($_SESSION['reg_apeM']))
+        if(isset($_POST['reg_apeM']))
             {
-                echo $_SESSION['reg_apeM'];
+                echo $_POST['reg_apeM'];
             }
         ?>" required>
         <br>
@@ -102,9 +100,9 @@ require 'includes/form_handlers/register_handler.php';
         <!-- Registro del email -->
         <input type="email" name="reg_email" placeholder="Email"
         value="<?php
-        if(isset($_SESSION['reg_email']))
+        if(isset($_POST['reg_email']))
             {
-                echo $_SESSION['reg_email'];
+                echo $_POST['reg_email'];
             }
         ?>" required>
         <br>
@@ -128,9 +126,9 @@ require 'includes/form_handlers/register_handler.php';
         <!-- Registro del nombre de usuario -->
         <input type="text" name="reg_username" placeholder="Nombre de Usuario"
         value="<?php
-        if(isset($_SESSION['reg_username']))
+        if(isset($_POST['reg_username']))
             {
-                echo $_SESSION['reg_username'];
+                echo $_POST['reg_username'];
             }
         ?>" required>
         <br>
@@ -157,9 +155,9 @@ require 'includes/form_handlers/register_handler.php';
         <!-- Registro de la contraseña del usuario -->
         <input type="password" name="reg_password" placeholder="Contraseña"
         value="<?php
-        if(isset($_SESSION['reg_password']))
+        if(isset($_POST['reg_password']))
             {
-                echo $_SESSION['reg_password'];
+                echo $_POST['reg_password'];
             }
         ?>" required>
         <br>
@@ -190,9 +188,9 @@ require 'includes/form_handlers/register_handler.php';
         <!-- Confirmación de contraseña -->
         <input type="password" name="reg_confPassword" placeholder="Confirmar contraseña"
         value="<?php
-        if(isset($_SESSION['reg_confPassword']))
+        if(isset($_POST['reg_confPassword']))
             {
-                echo $_SESSION['reg_confPassword'];
+                echo $_POST['reg_confPassword'];
             }
         ?>" required>
         <br>

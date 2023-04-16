@@ -8,7 +8,7 @@ ob_start(); // $ Activa el almacenamiento en buffer de la salida
  +$ de que el cliente acceda a nuestra pagina
 */
 
-
+session_set_cookie_params(3600, '/', '', false, true); // Establecemos una caducidad de 1 hora para la cookie
 session_start(); // $ Inicia una nueva sesion o reanuda la sesion existente
 /* 
   +$ Esto nos servira para guardar informacion en una variable superglobal y de esta

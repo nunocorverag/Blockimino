@@ -1,4 +1,3 @@
-<!-- Esta pagina se encargara de eliminar el miembro del grupo -->
 <?php
 require '../../config/config.php';
 

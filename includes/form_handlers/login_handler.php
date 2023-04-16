@@ -5,8 +5,6 @@ if(isset($_POST['login_button']))
 {
     // + Guardamos en la variable username el nombre de usuario proporcionado por el usuario
     $username = ($_POST['log_username']);
-    // + Guardamos el nombre de usuario en una variable de sesion
-    $_SESSION['log_username'] = $username;
 
     // + Guardamos en una variable password la contraseña encriptada proporcionada por el usuario
     $password = md5($_POST['log_password']);
@@ -65,9 +63,9 @@ if(isset($_POST['login_button']))
                     $reopen_account = mysqli_query($con, "UPDATE usuarios SET usuario_cerrado='no' WHERE username='$username'");
                 }
                 $_SESSION['id_usuario'] = $id_usuario;
-                // + Guardamos el nombre de usuario en una variable de sesion
-                $_SESSION['username'] = $username;
-                $_SESSION['tipo'] = $tipo_usuario;
+                // + Guardamos el id del usuario en una variable cookie
+                setcookie("id_usuario", $id_usuario, time() + 3600, "/");
+
                 //+ Redirigimos al usuario a la pagina principal de su perfil
                 // $ -> Manda al usuario a un encabezado http
                 $query_resetear_intentos = mysqli_query($con, "UPDATE usuarios SET intentos_inicio_sesion=0 WHERE username='$username'");

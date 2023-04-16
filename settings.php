@@ -6,7 +6,7 @@ include("includes/form_handlers/settings_handler.php");
 <div class="columna_principal">
     <h4>Configuracion de cuenta</h4>
     <?php
-    echo "<img src='" . $usuario['foto_perfil']. "' class='fotoPerfilSettings'>";
+    echo "<img src='" . $fila_detalles_usuario['foto_perfil']. "' class='fotoPerfilSettings'>";
     ?>
     <br>
     <br>

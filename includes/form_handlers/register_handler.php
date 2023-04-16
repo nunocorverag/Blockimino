@@ -21,33 +21,26 @@ if(isset($_POST['register_button']))
     // + Aqui estamos agarrando toda la cadena: La convertimos toda en minuscula y
     // + posteriormente asignamos la primera letra de la cadena mayuscula
     $nombre = ucfirst(strtolower($nombre));
-    // $ $_SESSION es una variable superglobal que estara disponible cuando el usuario mantenga la sesion abierta
-    // + Guardamos la variable nombre ya adecuada a una variable global $_SESSION['reg_nombre]
-    $_SESSION['reg_nombre'] = $nombre; 
 
     // APELLIDO PATERNO
     $apeP = strip_tags($_POST['reg_apeP']);
     $apeP = str_replace(' ', '', $apeP);
     $apeP = ucfirst(strtolower($apeP));
-    $_SESSION['reg_apeP'] = $apeP; 
 
     // APELLIDO MATERNO
     $apeM = strip_tags($_POST['reg_apeM']);
     $apeM = str_replace(' ', '', $apeM);
     $apeM = ucfirst(strtolower($apeM));
-    $_SESSION['reg_apeM'] = $apeM; 
 
     // EMAIL
     $email = strip_tags($_POST['reg_email']);
     $email = str_replace(' ', '', $email);
     // + En email no necesitamos que la primera letra sea mayuscula
     $email = strtolower($email);
-    $_SESSION['reg_email'] = $email; 
 
     // USERNAME
     $username = strip_tags($_POST['reg_username']);
     $username = str_replace(' ', '', $username);
-    $_SESSION['reg_username'] = $username; 
     
     // CONTRASEÑA
     $password = strip_tags($_POST['reg_password']);
@@ -196,12 +189,6 @@ if(isset($_POST['register_button']))
         // + Mostramos un mensaje de que la cuenta se creo correctamente
         array_push($successful_array, "<span style='color: #14c800;'>¡Listo! ¡Puedes iniciar sesion!</span><br>");
 
-        // + Limpiamos las variables de sesion, ya que se ha ingresado la informacion de manera correcta
-        $_SESSION['reg_nombre'] = "";
-        $_SESSION['reg_apeP'] = "";
-        $_SESSION['reg_apeM'] = "";
-        $_SESSION['reg_email'] = "";
-        $_SESSION['reg_username'] = "";
     }
 #endregion
 }

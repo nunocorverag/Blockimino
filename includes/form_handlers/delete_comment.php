@@ -1,4 +1,3 @@
-<!-- Esta pagina se encargara de eliminar el comentario-->
 <?php
 require '../../config/config.php';
 

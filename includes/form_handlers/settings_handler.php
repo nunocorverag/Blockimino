@@ -110,7 +110,6 @@ if(isset($_POST['actualizar_informacion']))
         $query_actualizar_informacion = mysqli_query($con, "UPDATE usuarios SET nombre='$nombre', apeP='$apeP', apeM='$apeM', email='$email', username='$username' WHERE id_usuario='$id_usuario_loggeado'");
         // + Mostramos un mensaje de que la informacion se actualizo correctamente
         array_push($successful_array_info, "<span style='color: #14c800;'>Información actualizada!<br><br>");
-        $_SESSION['username'] = $username;
     }
 
 }

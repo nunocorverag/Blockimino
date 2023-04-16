@@ -1,7 +1,8 @@
 <?php
 include("includes/header.php");
 
-if(!($_SESSION['tipo'] == "moderador" || $_SESSION['tipo'] == "administrador"))
+$query_comprobar_usuario_moderador_o_administrador = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND (tipo='moderador' OR tipo='administrador'))");
+if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
 {
     header("Location: home.php");
 }

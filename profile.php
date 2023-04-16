@@ -1,4 +1,3 @@
-<!-- Esta pagina sera para el perfil de un usuario -->
 <?php
     // Incluimos la cabecera para incluir todo lo que le programamos en css y html
     include("includes/header.php");
