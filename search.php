@@ -85,27 +85,41 @@ else
 
             $objeto_usuario = new Usuario($con, $id_usuario_loggeado);
 
-            $boton = "";
+            $boton_amigo = "";
+            $boton_seguir = "";
             $amigos_mutuos = "";
 
             if($id_usuario_loggeado != $fila['id_usuario'])
             {
                 if($objeto_usuario->esAmigo($fila['id_usuario']))
                 {
-                    $boton = "<input type='submit' name='" . $fila['username'] . "' class='danger' value='Eliminar Amigo'>";
+                    $boton_amigo = "<input type='submit' name='amigo" . $fila['username'] . "' class='danger' value='Eliminar Amigo'>";
                 }
                 else if($objeto_usuario->checarSolicitudRecibida($fila['id_usuario']))
                 {
-                    $boton = "<input type='submit' name='" . $fila['username'] . "' class='warning' value='Responder Solicitud'>";
+                    $boton_amigo = "<input type='submit' name='amigo" . $fila['username'] . "' class='warning' value='Responder Solicitud'>";
                 }
                 else if($objeto_usuario->checarSolicitudEnviada($fila['id_usuario']))
                 {
-                    $boton = "<input type ='submit' class='default' value='Solicitud Enviada'>";
+                    $boton_amigo = "<input type ='submit' class='default' value='Solicitud Enviada'>";
                 }
                 else
                 {
-                    $boton = "<input type='submit' name='" . $fila['username'] . "' class='success' value='Agregar Amigo'>";
+                    $boton_amigo = "<input type='submit' name='amigo" . $fila['username'] . "' class='success' value='Agregar Amigo'>";
                 }
+                if(!($objeto_usuario->esAmigo($fila['id_usuario'])))
+                {
+                    if($objeto_usuario->esSeguidor($fila['id_usuario']))
+                    {
+                        $boton_seguir = "<input type='submit' name='seguir" . $fila['username'] . "' class='danger' value='Dejar de seguir'><br>";
+                    }
+                    else
+                    {
+                        $boton_seguir = "<input type='submit' name='seguir" . $fila['username'] . "' class='success' value='Seguir'><br>";
+                    }
+                }
+
+
                 $amigos_mutuos = $objeto_usuario->obtenerAmigosMutuos(($fila['id_usuario']));
                 if ($amigos_mutuos != 1)
                 {
@@ -117,7 +131,7 @@ else
                 }
             }
             // + Formularios de botones
-            if(isset($_POST[$fila['username']]))
+            if(isset($_POST["amigo".$fila['username']]))
             {
                 if($objeto_usuario->esAmigo($fila['id_usuario']))
                 {
@@ -139,12 +153,30 @@ else
                     header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
                 }
             }
+
+            if(isset($_POST["seguir".$fila['username']]))
+            {
+                if($objeto_usuario->esSeguidor($fila['id_usuario']))
+                {
+                    $objeto_usuario->dejarSeguir($fila['id_usuario']);
+                    // + Esto mandara a la misma pagina
+                    header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+                }
+                else
+                {
+                    $objeto_usuario->seguirUsuario($fila['id_usuario']);
+                    header("Location: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+                }
+            }
             
 
             echo "<div class='resultado_busqueda'>
                     <div class='paginaBusquedaBotones'>
                         <form action='' method='POST'>
-                            " . $boton . "
+                            " . $boton_amigo . "
+                            <br>
+                            <br>
+                            " . $boton_seguir . "
                             <br>
                         </form>
                     </div>
