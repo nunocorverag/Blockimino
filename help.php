@@ -19,39 +19,12 @@ if(isset($_POST['enviar_comentario']))
         $correo_usuario_especial = $fila_correo_usuario_especial['email'];
         
         // Compose email message
-        $subject = "Nuevo comentario en el sistema";
-        $message = "Un nuevo comentario ha sido enviado al sistema por el usuario $correo_usuario_loggeado.\n\n";
-        $message .= "Razón del comentario: ".$_POST['razon_comentario']."\n\n";
-        $message .= "Comentario: ".$_POST['enviar_comentario']."\n\n";
-        
-        // Optional attachment
-        if(isset($_FILES['archivoASubir']) && $_FILES['archivoASubir']['error'] == UPLOAD_ERR_OK) {
-            $file = $_FILES['archivoASubir']['tmp_name'];
-            $filename = $_FILES['archivoASubir']['name'];
-            $filetype = $_FILES['archivoASubir']['type'];
-            $filecontent = file_get_contents($file);
-            $attachment = chunk_split(base64_encode($filecontent));
-            
-            $boundary = md5(time());
-            $headers = "From: $correo_usuario_loggeado\r\n";
-            $headers .= "MIME-Version: 1.0\r\n";
-            $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
-            
-            $message = "--$boundary\r\n";
-            $message .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
-            $message .= "Content-Transfer-Encoding: 7bit\r\n";
-            $message .= "\n$message\n";
-            $message .= "--$boundary\r\n";
-            $message .= "Content-Type: $filetype; name=\"$filename\"\r\n";
-            $message .= "Content-Disposition: attachment; filename=\"$filename\"\r\n";
-            $message .= "Content-Transfer-Encoding: base64\r\n";
-            $message .= "\n$attachment\n";
-            $message .= "--$boundary--";
-            
-            mail($correo_usuario_especial, $subject, $message, $headers);
-        } else {
-            mail($correo_usuario_especial, $subject, $message, "From: $correo_usuario_loggeado");
-        }
+        $subject = "Nuevo comentario de ayuda en el sistema! por el usuario $correo_usuario_loggeado.";
+        $subject .= " Razón: ".$_POST['razon_comentario'];
+        $message .= "Comentario: ".$_POST['enviar_comentario'];
+        $header = "From: $correo_usuario_loggeado";
+
+        mail("gnuno2003@gmail.com", $subject, $message, $headers);
     }
 
 }
