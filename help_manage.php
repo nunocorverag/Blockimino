@@ -1,25 +1,18 @@
 <?php
 include("includes/header.php");
 
-$query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND tipo='normal')");
-if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
+$query_comprobar_usuario_moderador_o_administrador = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND (tipo='moderador' OR tipo='administrador'))");
+if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
 {
     header("Location: home.php");
 }
 ?>
-
-    <br>
-    <div class="contenedor_boton_pedir_ayuda"> 
-        <a href="help_request.php">
-            <button>Pedir ayuda</button>
-        </a> 
-    </div>
-    <br>
     <div class="contenedor_peticiones_de_ayuda">
+        <br>
         <h4>Peticiones de ayuda</h4>
         <br>
         <?php
-        $query_seleccionar_peticiones = mysqli_query($con, "SELECT * FROM peticiones_de_ayuda WHERE id_usuario_peticion='$id_usuario_loggeado' ORDER BY resuelto='no' DESC");
+        $query_seleccionar_peticiones = mysqli_query($con, "SELECT * FROM peticiones_de_ayuda WHERE resuelto='no'");
         while($fila_peticiones = mysqli_fetch_array($query_seleccionar_peticiones))
         {
             $id_peticion_ayuda = $fila_peticiones['id_peticion_ayuda'];
@@ -36,23 +29,20 @@ if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
             }
             ?>
             <div class="displayAyda">
-                <div class="razon_peticion_display">
-                <p style="width:75%; font-weight: bold">Razón: <?php echo $fila_peticiones['razon_peticion_ayuda'] ?></p>
+                <button class='boton_resolver_ayuda btn btn-success' id='peticion<?php echo $id_peticion_ayuda ?>'><i class='fa-solid fa-check'></i></button>
+                <div class="razon_peticion_display_usuario_especial">
+                    <p style="width:70%; font-weight: bold">Razón: <?php echo $fila_peticiones['razon_peticion_ayuda'] ?></p>
                     <?php
-                    if($fila_peticiones['resuelto'] == "no")
-                    {
-                        ?>
-                        <p style="width:25%; color:#e74c3c;">Petición NO resuelta</p>
-                        <?php
-                    }
-                    else if($fila_peticiones['resuelto'] == "si")
-                    {
-                        ?>
-                        <p style="width:25%; color:#2ecc71;">Peticion resuelta</p>
-                        <?php
-                    }
-
+                    $id_usuario_peticion = $fila_peticiones['id_usuario_peticion'];
+                    $query_seleccionar_usuario_peticion = mysqli_query($con, "SELECT username FROM usuarios WHERE id_usuario='$id_usuario_peticion'");
+                    $fila_usuario_peticion = mysqli_fetch_array($query_seleccionar_usuario_peticion);
+                    $usuario_peticion = $fila_usuario_peticion['username'];
                     ?>
+                    <p style="width:30%;">Usuario: 
+                        <a href="<?php echo $usuario_peticion ?>">
+                            <?php echo $usuario_peticion ?>
+                        </a>
+                    </p>
                 </div>
                 <div class="contenido_peticion_display">
                     <p>Peticion: <?php echo $fila_peticiones['peticion_ayuda'] ?></p>
@@ -77,6 +67,7 @@ if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
             <span class="mostrar_ocultar_comentarios_ayuda" onClick="javascript:toggle<?php echo $id_peticion_ayuda?>()">
                 <i class='fa-solid fa-comment'></i>&nbsp;<?php echo $numero_comentarios?>
             </span>
+
             <div class="publicar_comentario_peticion" id="mostrarComentariosPeticion<?php echo $id_peticion_ayuda?>" style="display:none;">
                 <iframe src="comment_request_frame.php?id_peticion_ayuda=<?php echo $id_peticion_ayuda?>" id="iframe_comentario_peticion" frameborder="0"></iframe>
             </div>
@@ -102,6 +93,23 @@ if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
                         }
                     }
                 }
+            </script>
+
+            <script>
+                // + Script de resolver peticion
+                $(document).ready(function(){
+                    $('#peticion<?php echo $id_peticion_ayuda; ?>').on('click', function() {
+                        // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
+                        bootbox.confirm("¿Estas seguro que quieres marcar esta peticion como resuelta?", function(result) {
+                            // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                            $.post("includes/form_handlers/solve_request.php?id_peticion_ayuda=<?php echo $id_peticion_ayuda; ?>", {resultado:result});
+                            if(result == true)
+                            {
+                                location.reload();
+                            }
+                        }).find('.btn-danger').removeClass('btn-danger').addClass('btn-success');
+                    });
+                });
             </script>
 
             </div>

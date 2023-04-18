@@ -3,6 +3,10 @@ include("../../config/config.php");
 
 ?>
 <div class="contenedor_botones_especiales">
+    <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/../../help_manage.php">
+        <button>Peticiones de ayuda</button>
+    </a>
+    <br>
     <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/../../sanctions.php">
         <button>Sanciones</button>
     </a>
