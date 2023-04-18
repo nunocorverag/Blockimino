@@ -19,7 +19,7 @@ if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
         <h4>Peticiones de ayuda</h4>
         <br>
         <?php
-        $query_seleccionar_peticiones = mysqli_query($con, "SELECT * FROM peticiones_de_ayuda WHERE id_usuario_peticion='$id_usuario_loggeado' ORDER BY resuelto='no' DESC");
+        $query_seleccionar_peticiones = mysqli_query($con, "SELECT * FROM peticiones_de_ayuda WHERE id_usuario_peticion='$id_usuario_loggeado' ORDER BY resuelto='no' DESC, id_peticion_ayuda DESC");
         while($fila_peticiones = mysqli_fetch_array($query_seleccionar_peticiones))
         {
             $id_peticion_ayuda = $fila_peticiones['id_peticion_ayuda'];

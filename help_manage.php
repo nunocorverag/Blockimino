@@ -12,7 +12,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
         <h4>Peticiones de ayuda</h4>
         <br>
         <?php
-        $query_seleccionar_peticiones = mysqli_query($con, "SELECT * FROM peticiones_de_ayuda WHERE resuelto='no'");
+        $query_seleccionar_peticiones = mysqli_query($con, "SELECT * FROM peticiones_de_ayuda WHERE resuelto='no' ORDER BY id_peticion_ayuda DESC");
         while($fila_peticiones = mysqli_fetch_array($query_seleccionar_peticiones))
         {
             $id_peticion_ayuda = $fila_peticiones['id_peticion_ayuda'];

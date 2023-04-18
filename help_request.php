@@ -68,10 +68,10 @@ if(isset($_POST['enviar_peticion']))
         while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))
         {
             $correo_usuario_especial = $fila_correo_usuario_especial['email'];
-            // mail("gnuno2003@gmail.com", $subject, $message, $headers);
+            // mail("gnuno2003@gmail.com", $subject, $message, $header);
         }
         // + ESTO LO COLOCO AQUI PORQUE NO QUIERO SPAM A MULTIPLES CUENTAS DE CORREO
-        // mail("gnuno2003@gmail.com", $subject, $message, $headers);
+        // mail("gnuno2003@gmail.com", $subject, $message, $header);
         header("Location: help.php");
     }
     else
