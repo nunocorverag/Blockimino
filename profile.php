@@ -62,110 +62,130 @@
         }
 
         ?>
-                <div class="detalles_usuario">
-                        <img src="<?php echo $arreglo_usuario['foto_perfil']; ?>" alt="">
-                    <div class="informacion_perfil">
-                        <div class="bloque bloque_1">
-                            <p>
-                                <?php  
-                                $objeto_usuario_perfil = new Usuario($con, $id_usuario_perfil);
-                                    echo "Nombre: " . $objeto_usuario_perfil->obtenerNombreCompleto();
-                                ?>
-                            </p>
-                            <p><?php echo "Publicaciones: " . $arreglo_usuario['num_posts']; ?></p>
-                            <p><?php echo "Likes: " . $arreglo_usuario['num_likes']; ?></p>
-                        </div>
-                        <div class="bloque bloque_2">  
-                            <a href="<?php echo $perfil_nombre_usuario ?>/friends?pagina=1">
-                                <p><?php echo "Amigos: " . $num_amigos ?></p>
-                            </a>
-                            <a href="<?php echo $perfil_nombre_usuario ?>/followed?pagina=1">
-                                <p><?php echo "Seguidos: " . $num_seguidos ?></p>
-                            </a>
-                            <a href="<?php echo $perfil_nombre_usuario ?>/followers?pagina=1">
-                                <p><?php echo "Seguidores: " . $num_seguidores ?></p>
-                            </a>
-                            <a href="<?php echo $perfil_nombre_usuario ?>/user_groups?pagina=1">
-                                <p><?php echo "Grupos: " . $num_grupos ?></p>
-                            </a>
-                        </div>
-                        <div class="bloque bloque_3">
-                        <?php $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado) ?>
-
-                            <h1><?php echo $perfil_nombre_usuario ?></h1>
-                                <?php 
-                                    if($id_usuario_loggeado != $id_usuario_perfil)
-                                    {
-                                        echo '<div class="info_perfil_inferior">';
-                                        if ($objeto_usuario_loggeado->obtenerAmigosMutuos($id_usuario_perfil) == 0)
-                                        {
-                                            echo " No tienes amigos en común con este usuario! ";
-                                        }
-                                        else
-                                        {
-                                            $msg;
-                                            if ($objeto_usuario_loggeado->obtenerAmigosMutuos($id_usuario_perfil) == 1)
-                                            {
-                                                $msg = " Amigo";
-                                            }
-                                            else
-                                            {
-                                                $msg = " Amigos";
-                                            }
-                                                echo $objeto_usuario_loggeado->obtenerAmigosMutuos($id_usuario_perfil) . $msg . " en común";
-                                        }
-                                        echo '</div>';
-                                    }
-                                ?>
-                            <br>
-                            <form action="<?php echo $perfil_nombre_usuario; ?>" method="POST">
-                                <?php 
-                                    $objeto_perfil_usuario = new Usuario($con, $id_usuario_perfil);
-                                    if($objeto_perfil_usuario->estaCerrado())
-                                    {
-                                        header("Location user_closed.php");
-                                    }
-
-                                    // + Este if comprobara si el usuario se encuentra en su perfil, o en el perfil de otro
-                                    if($id_usuario_perfil != $id_usuario_loggeado)
-                                    {
-                                        if ($objeto_usuario_loggeado->esAmigo($id_usuario_perfil)) 
-                                        {
-                                            echo '<input type="submit" name="eliminar_amigo" class="danger" value="Eliminar Amigo"><br>';
-                                        }
-                                        else if ($objeto_usuario_loggeado->checarSolicitudRecibida($id_usuario_perfil))
-                                        {
-                                            echo '<input type="submit" name="responder_solicitud" class="warning" value="Responder Soliitud"><br>';
-                                        }
-                                        else if ($objeto_usuario_loggeado->checarSolicitudEnviada($id_usuario_perfil))
-                                        {
-                                            echo '<input type="submit" name="" class="default" value="Solicitud Enviada"><br>';
-                                        }
-                                        else
-                                        {
-                                            echo '<input type="submit" name="agregar_amigo" class="success" value="Agregar Amigo"><br>';
-                                        }
-                                        if(!($objeto_usuario_loggeado->esAmigo($id_usuario_perfil)))
-                                        {
-                                            if($objeto_usuario_loggeado->esSeguidor($id_usuario_perfil))
-                                            {
-                                                echo '<input type="submit" name="dejar_seguir" class="danger" value="Dejar de seguir"><br>';
-                                            }
-                                            else
-                                            {
-                                                echo '<input type="submit" name="seguir" class="success" value="Seguir"><br>';
-                                            }
-                                        }
-                                    }
-
-                                ?>                    
-                            </form>
-                            <br>
-                            <input type="submit" class="deep_blue" data-toggle="modal" data-target="#formulario_publicacion" value="Publicar algo">
-                        </div>
+                <div class="contenedor_superior_perfil">
+                    <div class="nombre_perfil">
+                        <?php  
+                        $objeto_usuario_perfil = new Usuario($con, $id_usuario_perfil);
+                            echo "<h4> " . $objeto_usuario_perfil->obtenerNombreCompleto() . "</h4>";
+                        ?>
                     </div>
-                </div>  <!-- Cierre div detalles_usuario -->
+                    <div class="detalles_usuario">
+                        <div class="imagen_perfil">
+                            <?php 
+                            if($id_usuario_loggeado == $id_usuario_perfil)
+                            {
+                            ?>
+                            <a href="upload.php">
+                                <img src="<?php echo $arreglo_usuario['foto_perfil']; ?>" alt="">
+                            </a>
+                            <?php
+                            }
+                            else
+                            {
+                                ?>
+                                <img src="<?php echo $arreglo_usuario['foto_perfil']; ?>" alt="">
+                                <?php
+                            }
+                            ?>
+                        </div>
 
+                        <div class="informacion_perfil">
+                            <div class="bloque bloque_1">
+                                <a href="<?php echo $perfil_nombre_usuario ?>/friends?pagina=1">
+                                    <p class="link_info"><?php echo "Amigos: " . $num_amigos ?></p>
+                                </a>
+                                <a href="<?php echo $perfil_nombre_usuario ?>/followed?pagina=1">
+                                    <p class="link_info"><?php echo "Seguidos: " . $num_seguidos ?></p>
+                                </a>
+                                <p><?php echo "Publicaciones: " . $arreglo_usuario['num_posts']; ?></p>
+                            </div>
+                            <div class="bloque bloque_2">  
+
+                                <a href="<?php echo $perfil_nombre_usuario ?>/followers?pagina=1">
+                                    <p class="link_info"><?php echo "Seguidores: " . $num_seguidores ?></p>
+                                </a>
+                                <a href="<?php echo $perfil_nombre_usuario ?>/user_groups?pagina=1">
+                                    <p class="link_info"><?php echo "Grupos: " . $num_grupos ?></p>
+                                </a>
+                                <p><?php echo "Likes: " . $arreglo_usuario['num_likes']; ?></p>
+                            </div>
+                            <div class="bloque bloque_3">
+                            <?php $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado) ?>
+
+                                <h1><?php echo $perfil_nombre_usuario ?></h1>
+                                    <?php 
+                                        if($id_usuario_loggeado != $id_usuario_perfil)
+                                        {
+                                            echo '<div class="info_perfil_inferior">';
+                                            if ($objeto_usuario_loggeado->obtenerAmigosMutuos($id_usuario_perfil) == 0)
+                                            {
+                                                echo " No tienes amigos en común con este usuario! ";
+                                            }
+                                            else
+                                            {
+                                                $msg;
+                                                if ($objeto_usuario_loggeado->obtenerAmigosMutuos($id_usuario_perfil) == 1)
+                                                {
+                                                    $msg = " Amigo";
+                                                }
+                                                else
+                                                {
+                                                    $msg = " Amigos";
+                                                }
+                                                    echo $objeto_usuario_loggeado->obtenerAmigosMutuos($id_usuario_perfil) . $msg . " en común";
+                                            }
+                                            echo '</div>';
+                                        }
+                                    ?>
+                                <br>
+                                <form action="<?php echo $perfil_nombre_usuario; ?>" method="POST">
+                                    <?php 
+                                        $objeto_perfil_usuario = new Usuario($con, $id_usuario_perfil);
+                                        if($objeto_perfil_usuario->estaCerrado())
+                                        {
+                                            header("Location user_closed.php");
+                                        }
+
+                                        // + Este if comprobara si el usuario se encuentra en su perfil, o en el perfil de otro
+                                        if($id_usuario_perfil != $id_usuario_loggeado)
+                                        {
+                                            if ($objeto_usuario_loggeado->esAmigo($id_usuario_perfil)) 
+                                            {
+                                                echo '<input type="submit" name="eliminar_amigo" class="danger" value="Eliminar Amigo"><br>';
+                                            }
+                                            else if ($objeto_usuario_loggeado->checarSolicitudRecibida($id_usuario_perfil))
+                                            {
+                                                echo '<input type="submit" name="responder_solicitud" class="warning" value="Responder Soliitud"><br>';
+                                            }
+                                            else if ($objeto_usuario_loggeado->checarSolicitudEnviada($id_usuario_perfil))
+                                            {
+                                                echo '<input type="submit" name="" class="default" value="Solicitud Enviada"><br>';
+                                            }
+                                            else
+                                            {
+                                                echo '<input type="submit" name="agregar_amigo" class="success" value="Agregar Amigo"><br>';
+                                            }
+                                            if(!($objeto_usuario_loggeado->esAmigo($id_usuario_perfil)))
+                                            {
+                                                if($objeto_usuario_loggeado->esSeguidor($id_usuario_perfil))
+                                                {
+                                                    echo '<input type="submit" name="dejar_seguir" class="danger" value="Dejar de seguir"><br>';
+                                                }
+                                                else
+                                                {
+                                                    echo '<input type="submit" name="seguir" class="success" value="Seguir"><br>';
+                                                }
+                                            }
+                                        }
+
+                                    ?>                    
+                                </form>
+                                <br>
+                                <input type="submit" class="deep_blue" data-toggle="modal" data-target="#formulario_publicacion" value="Publicar algo">
+                            </div>
+                        </div>
+                    </div>  <!-- Cierre div detalles_usuario -->
+                </div>
 
                 <div class="cuerpo_inferior">
                     <!-- Modal -->
