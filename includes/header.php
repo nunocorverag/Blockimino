@@ -80,10 +80,30 @@ else
         <div class="busqueda">
             <form action="<?php echo dirname($_SERVER['PHP_SELF']) ?>/search.php" method="GET" name="formulario_busqueda">
                 <input type="text" onkeyup="obtenerLiveSearchUsuarios(this.value, '<?php echo $id_usuario_loggeado?>')" name="query" placeholder="Buscar algo..." autocomplete="off" id="input_busqueda_texto">
+                <input type="hidden" name="tipo" id="tipo">
                 <div class="contenedor_boton">
                     <i class="fa-solid fa-magnifying-glass"></i>                
                 </div>
             </form>
+
+            <script>
+                // Obtener referencia al campo de búsqueda
+                const input_busqueda_texto = document.getElementById('input_busqueda_texto');
+                const tipo = document.getElementById('tipo');
+
+                // Escuchar el evento keyup del campo de búsqueda
+                input_busqueda_texto.addEventListener('keyup', function(event) {
+                    // Obtener la cadena de búsqueda y comprobar si empieza con #
+                    const query = input_busqueda_texto.value.trim();
+                    if (query.startsWith('#')) {
+                        // Si empieza con #, establecer el valor del input tipo en 'hashtag'
+                        tipo.value = 'hashtag';
+                    } else {
+                        // Si no empieza con #, establecer el valor del input tipo en ''
+                        tipo.value = 'usuarios_nombres_y_grupos';
+                    }
+                });
+            </script>
 
             <div class="resultados_busqueda">
 

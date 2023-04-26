@@ -45,9 +45,9 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT *  FROM usuarios 
                                 $(document).ready(function(){
                                     $('#descender_a_normal<?php echo $fila['username']; ?>').on('click', function() {
                                         bootbox.confirm("¿Estas seguro que quieres descender este usuario a usuario normal", function(result) {
-                                        $.post("includes/form_handlers/user_to_normal.php?id_usuario=<?php echo $fila['id_usuario'];?>", {resultado:result});
                                             if(result == true)
                                             {
+                                                $.post("includes/form_handlers/user_to_normal.php?id_usuario=<?php echo $fila['id_usuario'];?>", {resultado:result});
                                                 location.reload();
                                             }
                                         });
@@ -65,9 +65,9 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT *  FROM usuarios 
                                 $(document).ready(function(){
                                     $('#ascender_a_moderador<?php echo $fila['username']; ?>').on('click', function() {
                                         bootbox.confirm("¿Estas seguro que quieres ascender este usuario a moderador", function(result) {
-                                        $.post("includes/form_handlers/user_to_moderator.php?id_usuario=<?php echo $fila['id_usuario'];?>", {resultado:result});
                                             if(result == true)
                                             {
+                                                $.post("includes/form_handlers/user_to_moderator.php?id_usuario=<?php echo $fila['id_usuario'];?>", {resultado:result});
                                                 location.reload();
                                             }
                                         });

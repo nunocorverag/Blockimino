@@ -146,9 +146,9 @@ if(isset($_POST['boton_aplicar_sancion']))
                 // + AJAX para eliminar el comentario sancionado
                 ?>
                 <script>
-                    result = true;
+                    result_eliminacion = true;
                     motivo = "Eliminada por aplicación de sanción";
-                    $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_objeto_a_buscar; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:motivo});
+                    $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_objeto_a_buscar; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result_eliminacion, razon:motivo});
                 </script>
                 <?php
             }
@@ -166,9 +166,9 @@ if(isset($_POST['boton_aplicar_sancion']))
                 // + AJAX para eliminar el comentario sancionado
                 ?>
                 <script>
-                    result = true;
+                    result_eliminacion = true;
                     motivo = "Eliminado por aplicación de sanción";
-                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + <?php echo $id_objeto_a_buscar ?> + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion_comentario; ?>", { resultado:result, razon:motivo});
+                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + <?php echo $id_objeto_a_buscar ?> + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion_comentario; ?>", { resultado:result_eliminacion, razon:motivo});
                 </script>
                 <?php
             }

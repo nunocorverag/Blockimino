@@ -161,12 +161,12 @@ function obtenerLiveSearchUsuarios(valor, usuario)
         // ! este lo tenga que cambiar no se
         $(".resultados_busqueda").html(info);
         if (valor.startsWith("#")) {
-            valor = valor.substring(1); // elimina el primer caracter (el hashtag) del valor
-            $(".resultados_busqueda_pie_pagina").html("<a href=' " + getBaseUrl() + "/search.php?query=" + valor + "&tipo=hashtag'>Ver todos los resultados</a>");
+            valor_sin_hashtag = valor.substring(1); // elimina el primer caracter (el hashtag) del valor
+            $(".resultados_busqueda_pie_pagina").html("<a href=' " + getBaseUrl() + "/search.php?query=" + valor_sin_hashtag + "&tipo=hashtag'>Ver todos los resultados</a>");
         }
         else
         {
-            $(".resultados_busqueda_pie_pagina").html("<a href=' " + getBaseUrl() + "/search.php?query=" + valor + "'>Ver todos los resultados</a>");
+            $(".resultados_busqueda_pie_pagina").html("<a href=' " + getBaseUrl() + "/search.php?query=" + valor + "&tipo=usuarios_nombres_y_grupos'>Ver todos los resultados</a>");
         }
 
         if(valor == "")

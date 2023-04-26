@@ -671,10 +671,10 @@ class Publicacion {
                             {
                                 // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                                 bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
-                                // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     if(result == true)
                                     {
+                                        // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado 
+                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -717,10 +717,10 @@ class Publicacion {
                     {
                         // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
                         bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
-                        // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                        $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                             if(result == true)
                             {
+                                // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la                         
+                                $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                 location.reload();
                             }
                         });
@@ -1130,10 +1130,10 @@ class Publicacion {
                             {
                                 // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                                 bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
-                                // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     if(result == true)
                                     {
+                                    // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                    $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});                                
                                         location.reload();
                                     }
                                 });
@@ -1176,10 +1176,10 @@ class Publicacion {
                     {
                         // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
                         bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
-                        // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                        $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                             if(result == true)
                             {
+                                // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                 location.reload();
                             }
                         });
@@ -1565,10 +1565,10 @@ class Publicacion {
                         {
                             // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
                             bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
-                            // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                            $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                 if(result == true)
                                 {
+                                    // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     location.reload();
                                 }
                             });
@@ -1609,10 +1609,10 @@ class Publicacion {
                             {
                                 // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                                 bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
-                                // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     if(result == true)
                                     {
+                                        // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la                                 
+                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -2017,10 +2017,10 @@ class Publicacion {
                             {
                                 // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                                 bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
-                                // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     if(result == true)
                                     {
+                                        // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -2063,10 +2063,10 @@ class Publicacion {
                     {
                         // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
                         bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
-                        // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                        $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                             if(result == true)
                             {
+                                // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});    
                                 location.reload();
                             }
                         });
@@ -2508,10 +2508,10 @@ class Publicacion {
                             {
                                 // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                                 bootbox.confirm("¿Estas seguro que quieres eliminar esta publicacion?", function(result) {
-                                // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     if(result == true)
                                     {
+                                        // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -2554,10 +2554,10 @@ class Publicacion {
                     {
                         // - resultado -> Sera el resultado de lo que el usuario clickeo, si fue "si" o "no"
                         bootbox.confirm("¿Estas seguro que quieres eliminar este comentario?", function(result) {
-                        // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                        $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                             if(result == true)
                             {
+                                // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
+                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                 location.reload();
                             }
                         });

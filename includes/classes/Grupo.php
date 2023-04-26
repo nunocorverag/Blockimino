@@ -125,10 +125,9 @@ class Grupo {
                         var id_usuario_propietario = <?php echo $this->ObtenerIdUsuarioPropietario($id_grupo) ?>;
                         // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                         bootbox.confirm("¿Estas seguro que quieres eliminar este grupo?<br> No se podrá deshacer esta acción<br> Todas las publicaciones y comentarios se eliminaran", function(result) {
-                        // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                        $.post("../includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                             if(result == true)
                             {
+                                $.post("../includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                                 window.location.href = '../groups.php';
                             }
                         });
@@ -137,10 +136,9 @@ class Grupo {
                         var id_usuario_loggeado = <?php echo $this->objeto_usuario->obtenerIDUsuario() ?>;
                         // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                         bootbox.confirm("¿Estas seguro que quieres salir de este grupo?", function(result) {
-                        // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                        $.post("../includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                             if(result == true)
                             {
+                                $.post("../includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                                 window.location.href = '../groups.php';
                             }
                         });
@@ -322,10 +320,9 @@ class Grupo {
                                     $(document).ready(function(){
                                         $('#miembro<?php echo $miembro; ?>').on('click', function() {
                                             bootbox.confirm("¿Estas seguro que quieres eliminar del grupo a este usuario (<?php echo $fila_info_miembro['username']; ?>)?", function(result) {
-                                            // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                            $.post("../../includes/form_handlers/delete_member.php?id_miembro=<?php echo $miembro; ?>&id_grupo=<?php echo $id_grupo; ?>", {resultado:result});
                                                 if(result == true)
                                                 {
+                                                    $.post("../../includes/form_handlers/delete_member.php?id_miembro=<?php echo $miembro; ?>&id_grupo=<?php echo $id_grupo; ?>", {resultado:result});
                                                     location.reload();
                                                 }
                                             });
@@ -383,5 +380,3 @@ class Grupo {
 }
 
 ?>
-
-

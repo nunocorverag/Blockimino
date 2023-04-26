@@ -13,10 +13,19 @@ else
 if(isset($_GET['tipo']))
 {
     $tipo = $_GET['tipo'];
+    if($tipo == "hashtag")
+    {
+        if (substr($query, 0, 1) === "#") 
+        {
+            // + Quitar el primer carácter (#) de la query
+            $query = substr($query, 1);
+            header("Location: search.php?query=" . $query ."&tipo=hashtag");
+        }
+    }
 }
-else
+else if ($_GET['tipo'] != "hashtag")
 {
-    $tipo = "usuarios_y_grupos";
+    $tipo = "usuarios_nombres_y_grupos";
 }
 
 // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
@@ -25,21 +34,21 @@ $src_pagina = 'http://localhost/blockimino/';
 
 <div class="columna_principal" id="columna_principal">
     <?php
-    if($query == "")
+    if($query == "" && $tipo != "hashtag")
     {
         echo "Debes ingresar algo en la barra de busqueda";
     }
     else
     {
-        if($tipo == "grupo")
+        if($tipo == "hashtag")
+        {
+            $hashtagsRetornadosQuery = mysqli_query($con, "SELECT hashtag FROM hashtags WHERE hashtag LIKE '#$query%'");
+        }
+        else if($tipo == "grupo")
         {
             $gruposRetornadosQuery = mysqli_query($con, "SELECT * FROM grupos WHERE 
                                                                             (nombre_grupo LIKE '%$query[0]%') 
                                                                             AND grupo_eliminado='no'");
-        }
-        else if($tipo == "hashtag")
-        {
-            
         }
         // + Si el tipo de query es para un nombre de usuario
         else if($tipo == "username")
@@ -79,7 +88,7 @@ $src_pagina = 'http://localhost/blockimino/';
                                                                                         AND usuario_cerrado='no'");
             }
         }
-        else if($tipo == "usuarios_y_grupos")
+        else if($tipo == "usuarios_nombres_y_grupos")
         {
             // + Separamos los elementos de la busqueda
             $busqueda = explode(" ", $query);
@@ -125,7 +134,50 @@ $src_pagina = 'http://localhost/blockimino/';
             }
         }
 
-        if($tipo == "usuarios_y_grupos")
+        if($tipo == "hashtag")
+        {
+            // + Verificar si los resultados fueron encontrados
+            if(mysqli_num_rows($hashtagsRetornadosQuery) == 0)
+            {
+                echo "No se enontro nada que incluya la siguiente busqueda: " . $query;
+            }
+            else if(mysqli_num_rows($hashtagsRetornadosQuery) != 1)
+            {
+                echo mysqli_num_rows($hashtagsRetornadosQuery) . " resultados encontrados: <br> <br>";
+            }
+            else
+            {
+                echo mysqli_num_rows($hashtagsRetornadosQuery) . " resultado encontrado: <br> <br>";
+            }
+
+            echo "<p id='gris'>Intenta buscar: </p>";
+            echo "  <ul>
+                        <li><a href='search.php?query=" . $query ."&tipo=usuarios_nombres_y_grupos'>Nombres de usuario, nombres y grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a></li>
+                    </ul>
+                    <hr id='busqueda_hr'>";
+            
+            while ($fila_info_hashtag = mysqli_fetch_array($hashtagsRetornadosQuery)) 
+            {
+                $nombre_sin_hashtag = str_replace("#", "", $fila_info_hashtag['hashtag']);
+    
+                echo "<div class='displayResultado'>
+                        <a href='" . $src_pagina . "publication_hashtag.php?hashtag=" . $nombre_sin_hashtag . "' style='color: #1485BD'>
+                            <div class='simbolo_hashtag'>
+                                <i class='fa-solid fa-hashtag'></i>
+                            </div>                   
+                            <div class='liveSearchTexto'>
+                                " . $nombre_sin_hashtag . "
+                                <p style='margin: 0'>Hashtag</p>
+                            </div>
+                        </a>
+                    </div>";
+            }
+        }
+        else if($tipo == "usuarios_nombres_y_grupos")
         {
             // + Verificar si los resultados fueron encontrados
             if(mysqli_num_rows($usuariosRetornadosQuery) + mysqli_num_rows($gruposRetornadosQuery) == 0)
@@ -141,12 +193,15 @@ $src_pagina = 'http://localhost/blockimino/';
                 echo mysqli_num_rows($usuariosRetornadosQuery) + mysqli_num_rows($gruposRetornadosQuery) . " resultado encontrado: <br> <br>";
             }
 
-            echo "<p id='gris'>Intenta buscar: </p>";
-            echo "  <a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a>,
-                    <a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a>,
-                    <a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a>,
-                    <a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a>
-                    <br><br><hr id='busqueda_hr'>";
+            echo "  <p id='gris'>Intenta buscar: </p>";
+            echo "  <ul>
+                        <li><a href='search.php?query=" . $query ."&tipo=usuarios_nombres_y_grupos'>Nombres de usuario, nombres y grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a></li>
+                    </ul>
+                    <hr id='busqueda_hr'>";
 
             while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
             {
@@ -293,10 +348,9 @@ $src_pagina = 'http://localhost/blockimino/';
                             var id_usuario_propietario = <?php echo $objeto_grupo_usuario_loggeado->ObtenerIdUsuarioPropietario($id_grupo) ?>;
                             // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                             bootbox.confirm("¿Estas seguro que quieres eliminar este grupo?<br> No se podrá deshacer esta acción<br> Todas las publicaciones y comentarios se eliminaran", function(result) {
-                            // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                            $.post("includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                                 if(result == true)
                                 {
+                                    $.post("includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                                     window.location.href = 'search.php?query=<?php echo $query ?>&tipo=<?php echo $tipo?>';
                                 }
                             });
@@ -305,10 +359,9 @@ $src_pagina = 'http://localhost/blockimino/';
                             var id_usuario_loggeado = <?php echo $id_usuario_loggeado ?>;
                             // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                             bootbox.confirm("¿Estas seguro que quieres salir de este grupo?", function(result) {
-                            // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                            $.post("includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                                 if(result == true)
                                 {
+                                    $.post("includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                                     window.location.href = 'search.php?query=<?php echo $query ?>&tipo=<?php echo $tipo?>';
                                 }
                             });
@@ -391,11 +444,14 @@ $src_pagina = 'http://localhost/blockimino/';
             }
 
             echo "<p id='gris'>Intenta buscar: </p>";
-            echo "  <a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a>,
-                    <a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a>,
-                    <a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a>,
-                    <a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a>
-                    <br><br><hr id='busqueda_hr'>";
+            echo "  <ul>
+                        <li><a href='search.php?query=" . $query ."&tipo=usuarios_nombres_y_grupos'>Nombres de usuario, nombres y grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a></li>
+                    </ul>
+                    <hr id='busqueda_hr'>";
 
             while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
             {
@@ -533,11 +589,14 @@ $src_pagina = 'http://localhost/blockimino/';
             }
 
             echo "<p id='gris'>Intenta buscar: </p>";
-            echo "  <a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a>,
-                    <a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a>,
-                    <a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a>,
-                    <a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a>
-                    <br><br><hr id='busqueda_hr'>";
+            echo "  <ul>
+                        <li><a href='search.php?query=" . $query ."&tipo=usuarios_nombres_y_grupos'>Nombres de usuario, nombres y grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=nombre'>Nombres</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=username'>Nombres de Usuario</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=grupo'>Grupos</a></li>
+                        <li><a href='search.php?query=" . $query ."&tipo=hashtag'>Hashtags</a></li>
+                    </ul>
+                    <hr id='busqueda_hr'>";
 
             while ($fila = mysqli_fetch_array($gruposRetornadosQuery)) 
             {
@@ -565,10 +624,9 @@ $src_pagina = 'http://localhost/blockimino/';
                             var id_usuario_propietario = <?php echo $objeto_grupo_usuario_loggeado->ObtenerIdUsuarioPropietario($id_grupo) ?>;
                             // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                             bootbox.confirm("¿Estas seguro que quieres eliminar este grupo?<br> No se podrá deshacer esta acción<br> Todas las publicaciones y comentarios se eliminaran", function(result) {
-                            // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                            $.post("includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                                 if(result == true)
                                 {
+                                    $.post("includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                                     window.location.href = 'search.php?query=<?php echo $query ?>&tipo=<?php echo $tipo?>';
                                 }
                             });
@@ -577,10 +635,9 @@ $src_pagina = 'http://localhost/blockimino/';
                             var id_usuario_loggeado = <?php echo $id_usuario_loggeado ?>;
                             // - resultado -> Sera el resultadoado de lo que el usuario clickeo, si fue "si" o "no"
                             bootbox.confirm("¿Estas seguro que quieres salir de este grupo?", function(result) {
-                            // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                            $.post("includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                                 if(result == true)
                                 {
+                                    $.post("includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                                     window.location.href = 'search.php?query=<?php echo $query ?>&tipo=<?php echo $tipo?>';
                                 }
                             });
@@ -644,10 +701,6 @@ $src_pagina = 'http://localhost/blockimino/';
                     </div>
                     <hr id='busqueda_hr'>";
             }
-        }
-        else if($tipo == "hashtag")
-        {
-
         }
     }
 

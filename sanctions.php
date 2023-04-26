@@ -110,7 +110,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                             $('#sancion<?php echo $fila['id_sancion'];?>').on('click', function() {
                                 bootbox.confirm("¿Estás seguro que quieres eliminar esta sanción? Si no quedan más sanciones por terminar, el usuario podrá volver a utilizar Blockimino.", function(result) {
                                     if(result == true) {
-                                        $.post("includes/form_handlers/delete_sanction.php?id_sancion=<?php echo $fila['id_sancion'];?>", {resultado:result}, function(data){
+                                            $.post("includes/form_handlers/delete_sanction.php?id_sancion=<?php echo $fila['id_sancion'];?>", {resultado:result}, function(data){
                                             location.reload();
                                         });
                                     }
