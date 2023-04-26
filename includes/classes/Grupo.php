@@ -119,7 +119,7 @@ class Grupo {
             // + Este script sera para la confirmacion de eliminar o salir del grupo
             ?>
             <script>
-                // + Script de borrar publicacion
+                // + Script deeliminar grupo
                 $(document).ready(function(){
                     $('#boton_eliminar_grupo').on('click', function() {
                         var id_usuario_propietario = <?php echo $this->ObtenerIdUsuarioPropietario($id_grupo) ?>;

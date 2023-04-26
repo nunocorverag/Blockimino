@@ -32,7 +32,6 @@ else
                 var enProgreso = false;
                 // - Esta variable guardara el id del id_grupo
                 var hashtag = '<?php echo $hashtag ?>'
-
                 cargarPosts();
                 // $ El simbolo de $ en jquery significa que voy a usar jquery, es un alias para JQuery
                 // $ window -> Representa la ventana abirta en el navegador

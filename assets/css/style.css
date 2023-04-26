@@ -155,6 +155,22 @@ nav a:hover {
     border-radius: 5px;
 }
 
+.displayHashtag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    color: #20AAE5;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.displayHashtag:hover {
+    background-color: #D3D3D3;
+}
+
 /* Comentarios */
 
 #iframe_comentario {
@@ -261,11 +277,9 @@ nav a:hover {
     width: 75%;
     margin: 0 auto;
     border: 0.25px solid black;
-    height: 58%;
     min-height: 480px;
     left: 12.5%;
     min-width: 1070px;
-
 }
 
 
@@ -330,6 +344,43 @@ nav a:hover {
     height: 100%;
 }
 
+.agregar_hashtags_container input[type='text']{
+    margin: 0px 10px;
+    width: 70%;
+}
+
+#agregar_hashtag  {
+    margin: 0px;
+    width: 26.6%;
+    border: none;
+    border-radius: 3px;
+    background-color: lightpink;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+}
+
+.hashtag_resultados_container {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border: solid 0.25px #D3D3D3;
+    margin: 0px 10px;
+    width: 70%;
+}
+
+.displayResultadoHashtag:hover{
+    background-color: #EBEBEB;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.displayResultadoHashtag {
+    padding: 8px 0px 0 5px;
+    height: 40px;
+    border-bottom: 1px solid #D3D3D3;
+}
 
 .formulario_publicacion textarea {
     border-radius: 3px;
@@ -383,14 +434,38 @@ nav a:hover {
     text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
     font-size: 90%;
     outline: 0;
-    margin: 0;
-    position: absolute;
-    top: 86%;
-    left: 1%;
+    margin: 10px;
 }
 
 .formulario_publicacion input[type="submit"]:active {
     padding: 5px 4px 4px 5px;
+}
+
+.boton_eliminar_hashtag {
+    padding: 0;
+    width: 25px;
+    float: inherit;
+    border-radius: 5px;
+}
+
+.contenedor_hashtags_agregados {
+    margin: 0 10px;
+}
+
+.hashtag_agregado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    color: #000;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.hashtag_agregado button {
+    margin-left: 5px;
 }
 
 /* String de publicacion */
@@ -667,6 +742,21 @@ nav a:hover {
     font-size: 12px;
 }
 
+.liveSearchFotoGrupo img {
+    height: 50px;
+    border-radius: 25px;
+    margin: 1px 12px 0 2px;
+    float: left;
+}
+
+.simbolo_hashtag i{
+    float: left;
+    border-radius: 25px;
+    margin: 1px 12px 0 2px;
+    font-size: 55px;
+
+}
+
 
 /* Log eliminaciones */
 .tabla_log_de_eliminacion caption {
@@ -794,9 +884,23 @@ nav a:hover {
     padding: 7px 12px;
     border-radius: 5px;
     color: #FFFFFF;
+    width: 150px;
+}
+
+.paginaBusquedaBotones button {
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    width: 150px;
 }
 
 .fotoPerfilResultado {
+    float: left;
+    margin-right: 10px;
+}
+
+.imagenGrupoResultado {
     float: left;
     margin-right: 10px;
 }
@@ -1844,4 +1948,16 @@ nav a:hover {
     right: -15px;
     top: -12px;
     position: relative;
+}
+
+/* Boton arena de bloques */
+.boton_arena_bloques{
+    height: 26px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: orange;
+    position: relative;
+    top: 20%;
+    margin-bottom: 1%;
 }

@@ -70,11 +70,20 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                         // + fecha y hora actual
                         $tiempo_actual = date("Y-m-d H:i:s");
                         $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
+                        $tiempo_actual_num =  strtotime($tiempo_actual);
                         $tiempo_actual = new DateTime($tiempo_actual);
     
                         // + fecha y hora restante, con el formato para que acepte operaciones de datetime
-                        $fecha_sancion = DateTime::createFromFormat('Y-m-d H:i:s', $fila['fecha_sancion']);
-    
+                        $fecha_sancion = $fila['fecha_sancion'];
+                        $tiempo_sancion_num = strtotime($fecha_sancion);
+                        $fecha_sancion = DateTime::createFromFormat('Y-m-d H:i:s', $fecha_sancion);
+
+                        $tiempo_restante_num = $tiempo_sancion_num - $tiempo_actual_num;
+
+                        if($tiempo_restante_num <= 0)
+                        {
+                            $query_eliminar_sanciones_temporales = mysqli_query($con, "DELETE FROM sanciones WHERE id_usuario_sancionado='$id_usuario_sancionado' AND tipo_sancion='temporal'");
+                        }
                         // + calcular la diferencia entre las dos fechas
                         $tiempo_restante = $tiempo_actual->diff($fecha_sancion);
     
@@ -82,12 +91,14 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                         $dias = $tiempo_restante->days;
                         $horas = $tiempo_restante->h;
                         $minutos = $tiempo_restante->i;
+                        $segundos = $tiempo_restante->s;
                         ?>
                         <p>
                         Tiempo restante:
                         Dias: <?php echo $dias ?>
                         Horas: <?php echo $horas ?>
                         Minutos: <?php echo $minutos ?>
+                        Segundos: <?php echo $segundos ?>
                         </p>
                     </div>
                     <?php

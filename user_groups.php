@@ -90,14 +90,14 @@ if (isset($_GET['perfil_usuario']))
                     echo "<td class='diplay_td'>
                             <div class='displayGrupo " . $columna . "'>
                                 <div class='contenedorImagenGrupo'>
-                                    <a href='../groups/" . $fila_info_grupo['nombre_grupo'] . "' style='color: 000'>
+                                    <a href='../groups/" . $fila_info_grupo['nombre_grupo'] . "'>
                                         <img src='../". $fila_info_grupo['imagen_grupo'] . "'>
                                     </a>
                                 </div>
                                     
                                 <div class='contenedorInfoGrupo'>
                                     <p>
-                                        <a href='../groups/" . $fila_info_grupo['nombre_grupo'] . "' style='color: 000'>"
+                                        <a href='../groups/" . $fila_info_grupo['nombre_grupo'] . "'>"
                                             .$fila_info_grupo['nombre_grupo'] . 
                                         "</a>
                                     </p>

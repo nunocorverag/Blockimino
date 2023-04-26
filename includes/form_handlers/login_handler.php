@@ -32,7 +32,31 @@ if(isset($_POST['login_button']))
     if ($database_username == $username)
     {
         $id_usuario = $database_user['id_usuario'];
+        $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario'");
+        if(mysqli_num_rows($query_verificar_si_hay_sanciones) > 0)
+        {
+            $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario')");
+            $fila_info_sancion = mysqli_fetch_array($query_seleccionar_ultima_sancion_usuario);
+            $tiempo_sancion = $fila_info_sancion['fecha_sancion'];
+            $tipo_sancion = $fila_info_sancion['tipo_sancion'];
+
+            $tiempo_actual = date("Y-m-d H:i:s");
+            $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
+
+            $tiempo_actual = strtotime($tiempo_actual);
+            $tiempo_sancion = strtotime($tiempo_sancion);
+
+            $tiempo_restante = $tiempo_sancion - $tiempo_actual;
+
+            if($tiempo_restante <= 0 && $tipo_sancion == "temporal")
+            {
+                $query_eliminar_sanciones_temporales = mysqli_query($con, "DELETE FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal'");
+            }
+        }
+
         $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario'");
+
+
         if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) == 0)
         {
             // + Guardamos en una variable la consulta de la contraseña ingresada por el usuario a la base de datos

@@ -96,6 +96,10 @@ else
         </div>
 
         <nav>
+            <a href="block_arena.php">
+                <button class="boton_arena_bloques">Arena de bloques</button>
+            </a>
+
             <?php
                 // + Mensajes no leidos
                 $mensajes = new Mensaje($con, $id_usuario_loggeado);

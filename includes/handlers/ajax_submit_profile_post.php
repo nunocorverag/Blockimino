@@ -52,7 +52,7 @@ if((isset($_POST['publicar_titulo'])) && isset($_POST['publicar_texto'])) {
         $publicacion = new Publicacion($con, $_POST['publicado_por']);
         // + Llamamos el metodo dentro de la clase para publicar lo que este dentro de nuestra text area llamada "publicar_texto"
         $tipo_pagina = "pagina";
-        $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], $_POST['publicado_para'], $nombre_imagen, $tipo_pagina);
+        $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], $_POST['publicado_para'], $nombre_imagen, $tipo_pagina, "");
         // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
     }
     else
