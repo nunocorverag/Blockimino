@@ -122,7 +122,6 @@ if(isset($_POST['boton_aplicar_sancion']))
             else
             {
                 $fecha_actual = date('Y-m-d H:i:s');
-                $horas_sancion = $horas_sancion -1;
                 $fecha_sancion = date('Y-m-d H:i:s', strtotime($fecha_actual ."+"."$dias_sancion"."days" ."+"."$horas_sancion"."hours"."+".$minutos_sancion."minutes"));
             }    
         }

@@ -134,8 +134,8 @@ if(isset($_POST['actualizar_contra']))
     {
         //CONTRASEÑA
         // + Rango de caracteres
-        if (strlen($new_password) > 12 || strlen($new_password) < 8)
-            array_push($error_array_password, "Error: La contraseña debe de contener entre 8 y 12 caracteres!<br>");
+        if (strlen($new_password) < 8)
+            array_push($error_array_password, "Error: La contraseña debe de contener mas de 8 caracteres!<br>");
 
         // + Contenga numeros
         if (!(preg_match('/[0-9]/', $new_password)))

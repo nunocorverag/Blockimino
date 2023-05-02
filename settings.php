@@ -148,9 +148,9 @@ include("includes/form_handlers/settings_handler.php");
         <br>
         <div class="register_error_message">
             <?php
-                if(in_array("Error: La contraseña debe de contener entre 8 y 12 caracteres!<br>", $error_array_password))
+                if(in_array("Error: La contraseña debe de contener más de 8 caracteres!<br>", $error_array_password))
                 {
-                    echo "Error: La contraseña debe de contener entre 8 y 12 caracteres!<br>";
+                    echo "Error: La contraseña debe de contener más de 8 caracteres!<br>";
                 }
                 if(in_array("Error: La contraseña debe contener al menos un numero!<br>", $error_array_password))
                 {

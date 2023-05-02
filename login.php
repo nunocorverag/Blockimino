@@ -4,7 +4,7 @@ require 'includes/form_handlers/form_variables.php';
 require 'includes/form_handlers/login_handler.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@ require 'includes/form_handlers/login_handler.php';
 </head>
 
 <body>
-    <h1>Registrarse en Blockimino</h1>
+    <h1>Iniciar sesión en Blockimino</h1>
     <!-- //RF7 Habra una pantalla especifica para iniciar sesion -->
     <!-- //RF4 El ingreso a la plataforma sera con usuario y contraseña -->
     <!-- Crearemos un formulario y lo mandaremos a esta misma pagina -->
@@ -65,6 +65,7 @@ require 'includes/form_handlers/login_handler.php';
         ?>
         <input type="submit" name="login_button" value="Iniciar sesión">
     </form>
+    ¿No tienes tienes una cuenta?<a href="register.php">Registrate aquí</a>
 </body>
 
 </html>

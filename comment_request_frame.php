@@ -35,18 +35,20 @@ else
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <title></title>
-        <!-- JavaScript -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- JavaScript -->
     <!-- Incluimos jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <!-- Incluimos bootstrap de javastcript Javascript-->
     <script src="assets/js/bootstrap.js"></script>
 
     <script src="assets/js/bootbox.js"></script>
-
 
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -142,7 +144,6 @@ else
                 #region Periodo de tiempo de los comentarios
                 // - Guardamos la hora y fecha actuales
                 $tiempo_actual = date("Y-m-d H:i:s");
-                $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
                 // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
                 $fecha_comienzo = new DateTime($fecha_comentario_peticion);
                 // - Guardamos la hora y fecha actuales

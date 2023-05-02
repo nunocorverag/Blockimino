@@ -4,7 +4,7 @@ require 'includes/form_handlers/form_variables.php';
 require 'includes/form_handlers/register_handler.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -163,9 +163,9 @@ require 'includes/form_handlers/register_handler.php';
         <br>
         <div class="register_error_message">
             <?php
-                if(in_array("Error: La contraseña debe de contener entre 8 y 12 caracteres!<br>", $error_array))
+                if(in_array("Error: La contraseña debe de contener mas de 8 caracteres!<br>", $error_array))
                 {
-                    echo "Error: La contraseña debe de contener entre 8 y 12 caracteres!<br>";
+                    echo "Error: La contraseña debe de contener mas de 8 caracteres!<br>";
                 }
                 if(in_array("Error: La contraseña debe contener al menos un numero!<br>", $error_array))
                 {
@@ -215,5 +215,4 @@ require 'includes/form_handlers/register_handler.php';
     </form>
     ¿Ya tienes una cuenta?<a href="login.php">Inicia sesión aquí</a>
 </body>
-
 </html>

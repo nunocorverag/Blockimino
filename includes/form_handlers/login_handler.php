@@ -41,7 +41,6 @@ if(isset($_POST['login_button']))
             $tipo_sancion = $fila_info_sancion['tipo_sancion'];
 
             $tiempo_actual = date("Y-m-d H:i:s");
-            $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
 
             $tiempo_actual = strtotime($tiempo_actual);
             $tiempo_sancion = strtotime($tiempo_sancion);
@@ -116,7 +115,6 @@ if(isset($_POST['login_button']))
                     $tipo_sancion = "temporal";
 
                     $fecha_actual = date('Y-m-d H:i:s');
-                    $fecha_sancion = date('Y-m-d H:i:s', strtotime($fecha_actual . "-1 hour +10 minutes"));
                     $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL)");
                     $info = "Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada por 1 hora<br>";
                     array_push($error_array, $info);

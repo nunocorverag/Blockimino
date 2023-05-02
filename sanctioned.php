@@ -47,7 +47,6 @@ if(isset($_GET['username']))
                         <?php
                         // + fecha y hora actual
                         $tiempo_actual = date("Y-m-d H:i:s");
-                        $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
                         $tiempo_actual = new DateTime($tiempo_actual);
     
                         // + fecha y hora restante, con el formato para que acepte operaciones de datetime

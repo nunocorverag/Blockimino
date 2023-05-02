@@ -77,7 +77,6 @@ class Notificacion {
             #region Periodo de tiempo de los posts
             // - Guardamos la hora y fecha actuales
             $tiempo_actual = date("Y-m-d H:i:s");
-            $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
             // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
             $fecha_comienzo = new DateTime($fecha_notificacion);
             // - Guardamos la hora y fecha actuales
@@ -220,7 +219,6 @@ class Notificacion {
         $id_usuario_loggeado = $this->objeto_usuario->obtenerIDUsuario();
         $nombre_usuario_loggeado = $this->objeto_usuario->obtenerNombreCompleto();
         $tiempo_actual = date("Y-m-d H:i:s");
-        $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
 
         // + Este switch sera el tipo de notificacion, por ejemplo si fue un comentario, notificar del comentario
         switch($tipo)

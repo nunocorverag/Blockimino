@@ -69,12 +69,13 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                         <?php
                         // + fecha y hora actual
                         $tiempo_actual = date("Y-m-d H:i:s");
-                        $tiempo_actual = date("Y-m-d H:i:s", strtotime($tiempo_actual . " -1 hour"));
+
                         $tiempo_actual_num =  strtotime($tiempo_actual);
                         $tiempo_actual = new DateTime($tiempo_actual);
     
                         // + fecha y hora restante, con el formato para que acepte operaciones de datetime
                         $fecha_sancion = $fila['fecha_sancion'];
+
                         $tiempo_sancion_num = strtotime($fecha_sancion);
                         $fecha_sancion = DateTime::createFromFormat('Y-m-d H:i:s', $fecha_sancion);
 

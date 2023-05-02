@@ -142,9 +142,8 @@ if(isset($_POST['register_button']))
     // RNF2 La base de datos puede registrar una contraseña a un nuevo usuario
     //CONTRASEÑA
     // + Rango de caracteres
-    // RNF8 La contraseña debera tener un minimo de 8 caracteres y un maximo de 12
-    if (strlen($password) > 12 || strlen($password) < 8)
-        array_push($error_array, "Error: La contraseña debe de contener entre 8 y 12 caracteres!<br>");
+    if (strlen($password) < 8)
+        array_push($error_array_password, "Error: La contraseña debe de contener mas de 8 caracteres!<br>");
 
     // RNF6 La contraseña debera contener al menos un número
     // + Contenga numeros
