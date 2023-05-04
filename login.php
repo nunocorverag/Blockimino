@@ -11,8 +11,6 @@ require 'includes/form_handlers/login_handler.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión</title>
-    <!-- En este archivo estara el estilo css del inicio de nuestra pagina -->
-    <link rel="stylesheet" href="assets/css/home_style.css">
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/start_style.css">
 </head>

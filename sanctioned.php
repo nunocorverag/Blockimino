@@ -2,7 +2,7 @@
 require 'config/config.php';
 ?>
 
-<link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/css/style.css'; ?>">
+<link rel="stylesheet" href="/assets/css/style.css">
 
 <?php
 
