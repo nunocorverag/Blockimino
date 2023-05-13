@@ -115,14 +115,19 @@ if(isset($_POST['login_button']))
                     $tipo_sancion = "temporal";
                     $fecha_sancion = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($fecha_actual))); 
                     $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL)");
-                    $info = "Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada por 1 hora<br>";
+                    $info = "Su cuenta ha sido bloqueada temporalmente";
                     array_push($error_array, $info);
 
                 }
-                else if($numero_intentos == 6)
+                if($numero_intentos == 9)
+                {
+                    $info = "Usted cuenta con 1 intento mas para iniciar sesión, de lo contrario, su cuenta será bloqueada por 1 hora<br>";
+                    array_push($error_array, $info);
+                }
+                else if($numero_intentos == 10)
                 {
                     // + Aplicar sancion temp 1 hora, avisar de sancion inminente
-                    $razon = "Intentos fallidos de inicio de sesión presistentes (6)";
+                    $razon = "Intentos fallidos de inicio de sesión presistentes (10)";
                     $tipo_sancion = "temporal";
                     $fecha_actual = date('Y-m-d H:i:s');
                     $fecha_sancion = date('Y-m-d H:i:s', strtotime('+1 hour', strtotime($fecha_actual)));
@@ -130,7 +135,12 @@ if(isset($_POST['login_button']))
                     $info = "Su cuenta ha sido bloqueada temporalmente, si vuelve a fallar, será bloqueada permanentemente hasta que un administrador la desbloquee<br>";
                     array_push($error_array, $info);
                 }
-                else if($numero_intentos == 7)
+                if($numero_intentos == 14)
+                {
+                    $info = "Usted cuenta con 1 intento mas para iniciar sesión, de lo contrario, su cuenta será bloqueada premantentemente o hasta que un administrador la desbloquee<br>";
+                    array_push($error_array, $info);
+                }
+                else if($numero_intentos == 15)
                 {
                     // + Eliminar sanciones temporales
                     $query_eliminar_sanciones_temporales = mysqli_query($con, "DELETE FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal'");

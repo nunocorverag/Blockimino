@@ -109,7 +109,7 @@ else
 
             </div>
 
-            <!-- // ! Hay que explicar este -->
+            <!-- Si no hay resultados, se mostrara un en el pie del contenedor, que no se encontro ninugn resultado -->
             <div class="resultados_busqueda_pie_pagina_vacios">
     
             </div>
@@ -213,7 +213,6 @@ else
             </a>
         </nav>
 
-        <!-- // ! Esta parte puede que la quite -->
         <div class="ventana_desplegable" style="height:0px;"> </div>
         <input type="hidden" id="ventana_despliegue_de_datos" value="">
      </div>

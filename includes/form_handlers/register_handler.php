@@ -185,8 +185,8 @@ if(isset($_POST['register_button']))
         $tipo_usuario = "normal";
         $query = mysqli_query($con, "INSERT INTO usuarios VALUES ('', '$nombre', '$apeP', '$apeM', '$email', '$username', '$password', '0', '0', '$profile_pic', '$fecha', 'no', '$tipo_usuario', ',', ',', ',', ',','0')");
 
-        // + Mostramos un mensaje de que la cuenta se creo correctamente
-        array_push($successful_array, "<span style='color: #14c800;'>¡Listo! ¡Puedes iniciar sesion!</span><br>");
+        // + redirigimos al usuario a la pantalla de iniciar sesión
+        header("Location: login.php");
 
     }
 #endregion

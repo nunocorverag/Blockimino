@@ -9,5 +9,4 @@ $username = ""; // - Nombre de usuario
 $password = ""; // - Contraseña
 $confPassword = ""; // - Confirmar contraseña
 $error_array = array(); // - Contendra los errores
-$successful_array = array(); // - Contendra el mensaje exitoso
 ?>
