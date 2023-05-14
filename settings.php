@@ -18,15 +18,17 @@ include("includes/form_handlers/settings_handler.php");
     <h4>Actualizar Información</h4>
     <form action="settings.php" method="POST">
         <?php 
-        $query_informacion_usuario = mysqli_query($con, "SELECT nombre, apeP, apeM, email, username FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+        $query_informacion_usuario = mysqli_query($con, "SELECT nombre, apeP, apeM, email, username, activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
         $fila = mysqli_fetch_array($query_informacion_usuario);
         $nombre = $fila['nombre'];
         $apeP = $fila['apeP'];
         $apeM = $fila['apeM'];
         $email = $fila['email'];
         $username = $fila['username'];
+        $notificaciones = $fila['activar_notificaciones'];
+        $mostrar_proyectos = $fila['mostrar_proyectos'];
         ?>
-        Primer nombre: <input type="text" name="nombre" value="<?php echo $nombre; ?>" id="input_settings">
+        Primer nombre: <input type="text" name="nombre" value="<?php echo $nombre; ?>" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -45,7 +47,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        Apellido Paterno: <input type="text" name="apeP" value="<?php echo $apeP; ?>" id="input_settings">
+        Apellido Paterno: <input type="text" name="apeP" value="<?php echo $apeP; ?>" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -63,7 +65,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        Apellido Materno: <input type="text" name="apeM" value="<?php echo $apeM; ?>" id="input_settings">
+        Apellido Materno: <input type="text" name="apeM" value="<?php echo $apeM; ?>" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -81,7 +83,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        Email: <input type="text" name="email" value="<?php echo $email; ?>" id="input_settings">
+        Email: <input type="text" name="email" value="<?php echo $email; ?>" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -99,7 +101,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        Nombre de usuario: <input type="text" name="username" value="<?php echo $username; ?>" id="input_settings">
+        Nombre de usuario: <input type="text" name="username" value="<?php echo $username; ?>" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -121,7 +123,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        <input type="submit" name="actualizar_informacion" id="guardar_informacion" value="Actualizar Informacion" class="info submit_settings">
+        <input type="submit" name="actualizar_informacion" id="guardar_informacion_actualizar" value="Actualizar Informacion" class="info submit_settings">
         <div class="register_successful_message">
         <?php
             if(in_array("<span style='color: #14c800;'>Información actualizada!<br><br>", $successful_array_info))
@@ -134,7 +136,7 @@ include("includes/form_handlers/settings_handler.php");
     </form>
     <h4>Cambiar contraseña</h4>
     <form action="settings.php" method="POST">
-        Contraseña anterior: <input type="password" name="old_password" id="input_settings">
+        Contraseña anterior: <input type="password" name="old_password" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -144,7 +146,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        Nueva contraseña: <input type="password" name="new_password" id="input_settings">
+        Nueva contraseña: <input type="password" name="new_password" class="input_settings">
         <br>
         <div class="register_error_message">
             <?php
@@ -170,7 +172,7 @@ include("includes/form_handlers/settings_handler.php");
                 }
             ?>
         </div>
-        Confirmar nueva contraseña: <input type="password" name="confirm_new_password" id="input_settings">
+        Confirmar nueva contraseña: <input type="password" name="confirm_new_password" class="input_settings">
         <br>
         <div class="register_successful_message">
         <?php
@@ -180,7 +182,7 @@ include("includes/form_handlers/settings_handler.php");
             }
         ?>
         </div>
-        <input type="submit" name="actualizar_contra" id="guardar_informacion" value="Actualizar Contraseña" class="info submit_settings">
+        <input type="submit" name="actualizar_contra" id="guardar_informacion_contra" value="Actualizar Contraseña" class="info submit_settings">
         <div class="register_successful_message">
         <?php
             if(in_array("<span style='color: #14c800;'>La contraseña ha sido actualizada!<br><br>", $successful_array_password))
@@ -191,6 +193,72 @@ include("includes/form_handlers/settings_handler.php");
         </div>
         <br>
     </form>
+
+    <h4>Notificaciones</h4>
+    Activa o desactiva las notificaciones
+    <br>
+    <?php if($notificaciones)
+    {
+        echo "Activadas";
+    }
+    else
+    {
+        echo "Desactivadas";
+    }
+    ?>
+    <label class="switch">
+        <input type="checkbox" name="actualizar_notificaciones" <?php if ($notificaciones == 1) echo "checked"; ?> onclick="actualizarNotificaciones()">
+        <span class="slider round"></span>
+    </label>
+
+    <script>
+        function actualizarNotificaciones() {
+            var id_usuario_loggeado = '<?php echo $id_usuario_loggeado ?>';
+            var valorCheckboxNotificaciones = $('input[name=actualizar_notificaciones]').is(':checked') ? 1 : 0; // Obtener el valor de la checkbox
+            $.ajax({
+                url: 'includes/handlers/ajax_update_notifications.php',
+                type: 'POST',
+                data: {notificaciones:valorCheckboxNotificaciones, id_usuario_loggeado:id_usuario_loggeado},
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+
+    <h4>Publicaciones</h4>
+    Al hacer privadas tus publicaciones, no permitiras que otros usuarios que no sean amigos, descarguen los proyectos
+    <br>
+    <?php if($mostrar_proyectos)
+    {
+        echo "Publicas";
+    }
+    else
+    {
+        echo "Privadas";
+    }
+    ?>
+    <label class="switch">
+        <input type="checkbox" name="actualizar_conf_publicaciones" <?php if ($mostrar_proyectos == 1) echo "checked"; ?> onclick="actualizarConfPublicaciones()">
+        <span class="slider round"></span>
+    </label>
+
+    <script>
+        function actualizarConfPublicaciones() {
+            var id_usuario_loggeado = '<?php echo $id_usuario_loggeado ?>';
+            var valorCheckboxConfPublicaciones = $('input[name=actualizar_conf_publicaciones]').is(':checked') ? 1 : 0; // Obtener el valor de la checkbox
+            $.ajax({
+                url: 'includes/handlers/ajax_update_posts_settings.php',
+                type: 'POST',
+                data: {mostrar_proyectos:valorCheckboxConfPublicaciones, id_usuario_loggeado:id_usuario_loggeado},
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
+    </script>
+
+
 
     <h4>Cerrar Cuenta</h4>
     <form action="settings.php" method="POST">

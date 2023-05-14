@@ -183,7 +183,7 @@ if(isset($_POST['register_button']))
         // RF17 Por defecto el tipo de usuario es normal
         // RF21 El usuario normal sera el tipo de usuario mas comun, este estara disponible para todos los que se registren en nuestra página
         $tipo_usuario = "normal";
-        $query = mysqli_query($con, "INSERT INTO usuarios VALUES ('', '$nombre', '$apeP', '$apeM', '$email', '$username', '$password', '0', '0', '$profile_pic', '$fecha', 'no', '$tipo_usuario', ',', ',', ',', ',','0')");
+        $query = mysqli_query($con, "INSERT INTO usuarios VALUES ('', '$nombre', '$apeP', '$apeM', '$email', '$username', '$password', '0', '0', '$profile_pic', '$fecha', 'no', '$tipo_usuario', ',', ',', ',', ',','0','','1','1')");
 
         // + redirigimos al usuario a la pantalla de iniciar sesión
         header("Location: login.php");

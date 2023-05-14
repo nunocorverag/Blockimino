@@ -121,13 +121,20 @@ else
             </a>
 
             <?php
+                $query_obtener_info_conf_notificaciones = mysqli_query($con, "SELECT activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+                $fila_info_notificaciones = mysqli_fetch_array($query_obtener_info_conf_notificaciones);
+                $notificaciones = $fila_info_notificaciones['activar_notificaciones'];
+
                 // + Mensajes no leidos
                 $mensajes = new Mensaje($con, $id_usuario_loggeado);
                 $numero_mensajes = $mensajes->obtenerMensajesNoLeidos();
 
                 // + Notificaciones no leidas
-                $notificacion = new Notificacion($con, $id_usuario_loggeado);
-                $numero_notificaciones = $notificacion->obtenerNotificacionesNoLeidas();
+                if($notificaciones)
+                {
+                    $notificacion = new Notificacion($con, $id_usuario_loggeado);
+                    $numero_notificaciones = $notificacion->obtenerNotificacionesNoLeidas();
+                }
 
                 // + Solicitudes de amistad
                 $objeto_usuario = new Usuario($con, $id_usuario_loggeado);
@@ -161,9 +168,12 @@ else
             <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'notificacion')">
                 <i class="fa-regular fa-bell"></i>
                 <?php
-                if($numero_notificaciones > 0)
+                if($notificaciones)
                 {
-                    echo "<span class='insignia_notificacion' id='notificacion_no_leida'> " . $numero_notificaciones . "</span>";
+                    if($numero_notificaciones > 0)
+                    {
+                        echo "<span class='insignia_notificacion' id='notificacion_no_leida'> " . $numero_notificaciones . "</span>";
+                    }
                 }
                 ?>
             </a>

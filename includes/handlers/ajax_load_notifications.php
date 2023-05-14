@@ -3,10 +3,21 @@ include("../../config/config.php");
 include("../classes/Usuario.php");
 include("../classes/Notificacion.php");
 
-// - Limite de notificaciones a cargar
-$limite = 7;
+$id_usuario_loggeado = $_REQUEST['id_usuario_loggeado'];
+$query_obtener_info_conf_notificaciones = mysqli_query($con, "SELECT activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+$fila_info_notificaciones = mysqli_fetch_array($query_obtener_info_conf_notificaciones);
+$notificaciones = $fila_info_notificaciones['activar_notificaciones'];
 
-$notificacion = new Notificacion($con, $_REQUEST['id_usuario_loggeado']);
-echo $notificacion->obtenerNotificaciones($_REQUEST, $limite);
+if($notificaciones)
+{
+    // - Limite de notificaciones a cargar
+    $limite = 7;
 
+    $notificacion = new Notificacion($con, $_REQUEST['id_usuario_loggeado']);
+    echo $notificacion->obtenerNotificaciones($_REQUEST, $limite);
+}
+else
+{
+    echo "Las notificaciones estan desactivadas!";
+}
 ?>

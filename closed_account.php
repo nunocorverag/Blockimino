@@ -25,6 +25,6 @@ if(isset($_POST['cerrar_cuenta']))
     <br>
     <form action="closed_account.php" method="POST">
         <input type="submit" name="cerrar_cuenta" id="cerrar_cuenta" value="Confirmar" class="danger submit_settings">
-        <input type="submit" name="cancelar" id="guardar_informacion" value="Cancelar" class="info submit_settings">
+        <input type="submit" name="cancelar" id="guardar_informacion_cerrar_cuenta" value="Cancelar" class="info submit_settings">
     </form>
 </div>
