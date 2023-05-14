@@ -101,7 +101,12 @@ if(isset($_POST['crear_grupo']))
 
                 $query_obtener_detalles_grupo = mysqli_query($con, "SELECT * FROM grupos WHERE id_grupo='$id_grupo_invitado'");
                 $fila_detalles_grupo = mysqli_fetch_array($query_obtener_detalles_grupo);
+
                 $nombre_grupo_invitado = $fila_detalles_grupo['nombre_grupo'];
+                $lista_miembros = $fila_detalles_grupo['miembros_grupo'];
+                $lista_miembros_explode = explode(",", $lista_miembros);
+                $lista_miembros_explode = array_filter($lista_miembros_explode);
+                $total_miembros = count($lista_miembros_explode);
 
                 // + Si el usuario acepto
                 if(isset($_POST['aceptar_invitacion' . $nombre_grupo_invitado]))
@@ -116,9 +121,16 @@ if(isset($_POST['crear_grupo']))
 
                     if(mysqli_num_rows($query_checar_solicitud) > 0)
                     {
-                        $query_eliminar_solicitud = mysqli_query($con, "DELETE FROM solicitudes_de_grupo WHERE (grupo_solicitado='$id_usuario_invitado' AND usuario_que_solicito_unirse='$id_usuario_invitado')");
+                        $query_eliminar_solicitud = mysqli_query($con, "DELETE FROM solicitudes_de_grupo WHERE (grupo_solicitado='$id_grupo_invitado' AND usuario_que_solicito_unirse='$id_usuario_invitado')");
                     }
-                    
+
+                    if($total_miembros + 1 == 20)
+                    {
+                        // + Eliminamos las invitaciones porque no puede haber mas de 20 miembros
+                        $query_eliminar_invitaciones = mysqli_query($con, "DELETE FROM invitaciones_de_grupo WHERE id_grupo_invitado='$id_grupo_invitado'");
+                        $query_eliminar_solicitudes = mysqli_query($con, "DELETE FROM solicitudes_de_grupo WHERE grupo_solicitado='$id_grupo_invitado'");
+                    }
+
                     header("Location: groups.php");
                 }
 

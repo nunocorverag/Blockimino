@@ -8,6 +8,14 @@ $id_usuario_loggeado = $_POST['id_usuario_loggeado'];
 $id_grupo = $_POST['id_grupo'];
 $objeto_grupo_usuario_loggeado = new Grupo($con, $id_usuario_loggeado);
 
+$query_info_grupo = mysqli_query($con, "SELECT * FROM grupos WHERE id_grupo='$id_grupo'");
+$fila = mysqli_fetch_array($query_info_grupo);
+
+$lista_miembros = $fila['miembros_grupo'];
+$lista_miembros_explode = explode(",", $lista_miembros);
+$lista_miembros_explode = array_filter($lista_miembros_explode);
+$total_miembros = count($lista_miembros_explode);
+
 // + Separamos los elementos de la busqueda
 $nombres = explode(" ", $query);
 
@@ -61,14 +69,22 @@ if($query != "" && $usuariosRetornadosQuery != "")
         // + Esto es para que no muestre los usuarios que ya pertenecen al grupo
         if (!($objeto_grupo_usuario_buscado->UsuarioPerteneceAlGrupo($id_grupo))) 
         {
-            if ($objeto_grupo_usuario_loggeado->checarInvitacionGrupoEnviada($id_grupo, $id_usuario_retornado))
+            $boton = "";
+            if($total_miembros != 20)
             {
-                $boton = '<input type="button" name="" class="default" value="Invitación Enviada">';
-            }
+                if ($objeto_grupo_usuario_loggeado->checarInvitacionGrupoEnviada($id_grupo, $id_usuario_retornado))
+                {
+                    $boton = '<input type="button" name="" class="default" value="Invitación Enviada">';
+                }
+                else
+                {
+                    $boton = '<input type="button" name="invitar_usuario_grupo" class="success" value="Invitar" onclick="invitarUsuario(' . $id_usuario_loggeado . ', ' . $id_usuario_retornado . ', ' .$id_grupo . ')">';
+                }
+            }       
             else
             {
-                $boton = '<input type="button" name="invitar_usuario_grupo" class="success" value="Invitar" onclick="invitarUsuario(' . $id_usuario_loggeado . ', ' . $id_usuario_retornado . ', ' .$id_grupo . ')">';
-            }
+                $boton = '<input type="button" name="" class="default" value="Grupo lleno!">';
+            }   
             
             
             $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado);

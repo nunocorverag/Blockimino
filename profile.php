@@ -19,6 +19,7 @@
             $num_seguidos = (substr_count($arreglo_usuario['lista_seguidos'], ",")) - 1;
             $num_seguidores = (substr_count($arreglo_usuario['lista_seguidores'], ",")) - 1;
             $num_grupos = (substr_count($arreglo_usuario['lista_grupos'], ",")) - 1;
+            $descripcion = $arreglo_usuario['descripcion'];
         }
         else
         {
@@ -185,6 +186,12 @@
                             </div>
                         </div>
                     </div>  <!-- Cierre div detalles_usuario -->
+                    <div class="descripcion_perfil">
+                        <p class="info_descripcion_perfil">
+                            <?php echo $descripcion ?>
+                        </p>
+                    </div>
+
                 </div>
 
                 <div class="cuerpo_inferior">

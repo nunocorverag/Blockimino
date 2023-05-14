@@ -633,6 +633,12 @@ nav a:hover {
     background-color: #156588;
 }
 
+.info_descripcion_perfil
+{
+    color: black;
+    margin: 0px 30px;
+}
+
 /* Mensajes */
 #textarea_mensaje {
     width: 80%;
@@ -683,6 +689,12 @@ nav a:hover {
     overflow: scroll;
     margin-bottom: 10px;
 }
+
+  /* Mensajes */
+  .ir_a_mis_conversaciones
+  {
+    text-align: center;
+  }
 
 /* messages.php */
 .conversaciones_cargadas {
@@ -925,6 +937,27 @@ nav a:hover {
     font-size: 14px;
     line-height: 20px;
     width: 200px;
+}
+
+.input_settings_textarea {
+    border: 1px solid #D3D3D3;
+    height: 70px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    width: 500px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.descripcion_usuario
+{
+    display: inline-block;
+    width: 120px; /* ajustar el ancho según sea necesario */
+    margin-top: 10px; /* ajustar el margen según sea necesario */
 }
 
 .submit_settings {
@@ -2022,3 +2055,4 @@ nav a:hover {
   .slider.round:before {
     border-radius: 50%;
   }
+

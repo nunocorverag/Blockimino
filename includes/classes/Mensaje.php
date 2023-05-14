@@ -47,7 +47,7 @@ class Mensaje {
         if($cuerpo_mensaje != "")
         {
             $id_usuario_loggeado = $this->objeto_usuario->obtenerIDUsuario();
-            $query = mysqli_query($this->con, "INSERT INTO mensajes VALUES ('', '$mensaje_para', '$id_usuario_loggeado', '$cuerpo_mensaje', '$fecha_mensaje', 'no', 'no', 'no')");
+            $query = mysqli_query($this->con, "INSERT INTO mensajes VALUES ('', '$mensaje_para', '$id_usuario_loggeado', '$cuerpo_mensaje', '$fecha_mensaje', 'no', 'no')");
         }
     }
 
@@ -214,10 +214,14 @@ class Mensaje {
         while($fila = mysqli_fetch_array($query_obtener_usuarios_mensajes))
         {
             $contacto_a_pushear = ($fila['mensaje_para'] != $id_usuario_loggeado) ? $fila['mensaje_para'] : $fila['mensaje_de'];
-            // + Checamos que el usuario ya no este en el arreglo
-            if(!in_array($contacto_a_pushear, $conversaciones))
+            // + Hacer push en caso de que sean amigos
+            if($this->objeto_usuario->esAmigo($contacto_a_pushear))
             {
-                array_push($conversaciones, $contacto_a_pushear);
+                // + Checamos que el usuario ya no este en el arreglo
+                if(!in_array($contacto_a_pushear, $conversaciones))
+                {
+                    array_push($conversaciones, $contacto_a_pushear);
+                }
             }
         }
 
@@ -251,6 +255,7 @@ class Mensaje {
         
         $pagina = $info['pagina'];
         $id_usuario_loggeado = $this->objeto_usuario->obtenerIDUsuario();
+
         $return_string = "";
         // + Agregaremos los nombres de usuario con los que el usuario tuvo conversaciones a este arreglo
         $conversaciones = array();
@@ -271,10 +276,14 @@ class Mensaje {
         while($fila = mysqli_fetch_array($query_obtener_usuarios_mensajes))
         {
             $contacto_a_pushear = ($fila['mensaje_para'] != $id_usuario_loggeado) ? $fila['mensaje_para'] : $fila['mensaje_de'];
-            // + Checamos que el usuario ya no este en el arreglo
-            if(!in_array($contacto_a_pushear, $conversaciones))
+            // + Hacer push en caso de que sean amigos
+            if($this->objeto_usuario->esAmigo($contacto_a_pushear))
             {
-                array_push($conversaciones, $contacto_a_pushear);
+                // + Checamos que el usuario ya no este en el arreglo
+                if(!in_array($contacto_a_pushear, $conversaciones))
+                {
+                    array_push($conversaciones, $contacto_a_pushear);
+                }
             }
         }
 

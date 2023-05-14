@@ -18,13 +18,14 @@ include("includes/form_handlers/settings_handler.php");
     <h4>Actualizar Información</h4>
     <form action="settings.php" method="POST">
         <?php 
-        $query_informacion_usuario = mysqli_query($con, "SELECT nombre, apeP, apeM, email, username, activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+        $query_informacion_usuario = mysqli_query($con, "SELECT nombre, apeP, apeM, email, username, activar_notificaciones, mostrar_proyectos, descripcion FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
         $fila = mysqli_fetch_array($query_informacion_usuario);
         $nombre = $fila['nombre'];
         $apeP = $fila['apeP'];
         $apeM = $fila['apeM'];
         $email = $fila['email'];
         $username = $fila['username'];
+        $descripcion = $fila['descripcion'];
         $notificaciones = $fila['activar_notificaciones'];
         $mostrar_proyectos = $fila['mostrar_proyectos'];
         ?>
@@ -103,6 +104,9 @@ include("includes/form_handlers/settings_handler.php");
         </div>
         Nombre de usuario: <input type="text" name="username" value="<?php echo $username; ?>" class="input_settings">
         <br>
+        <label for="descripcion_usuario">Descripción:</label>
+        <textarea name="descripcion_usuario" placeholder="Descripción del usuario" class="input_settings_textarea"><?php echo $descripcion ?></textarea>
+
         <div class="register_error_message">
             <?php
                 if(in_array("Error: El nombre de usuario no puede contener simbolos!<br>", $error_array_info))

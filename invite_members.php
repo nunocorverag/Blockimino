@@ -8,6 +8,10 @@ if(isset($_GET['nombre_grupo']))
     $fila = mysqli_fetch_array($query_info_grupo);
     $id_grupo = $fila['id_grupo'];
     $objeto_grupo_usuario_loggeado = new Grupo($con, $id_usuario_loggeado);
+    $lista_miembros = $fila['miembros_grupo'];
+    $lista_miembros_explode = explode(",", $lista_miembros);
+    $lista_miembros_explode = array_filter($lista_miembros_explode);
+    $total_miembros = count($lista_miembros_explode);
 
 }
 ?>
@@ -18,6 +22,12 @@ if(isset($_GET['nombre_grupo']))
     {
             ?>
             <h4>Invitar Miembros al Grupo</h4>
+            <?php
+                if($total_miembros == 20)
+                {
+                    echo "El grupo tiene 20 miembros, no puedes invitar mas usuarios al grupo!";
+                }
+            ?>
             <br>
             <div class="busqueda_usuarios_invitar">
                 <form action="invite" method="GET" name="formulario_busqueda_invitacion">
@@ -92,15 +102,22 @@ if(isset($_GET['nombre_grupo']))
                     // + Esto es para que no muestre los usuarios que ya pertenecen al grupo
                     if (!($objeto_grupo_usuario_buscado->UsuarioPerteneceAlGrupo($id_grupo))) 
                     {
-                        if ($objeto_grupo_usuario_loggeado->checarInvitacionGrupoEnviada($id_grupo, $id_usuario_retornado))
+                        $boton = "";
+                        if($total_miembros != 20)
                         {
-                            $boton = '<input type="button" name="" class="default" value="Invitación Enviada">';
-                        }
+                            if ($objeto_grupo_usuario_loggeado->checarInvitacionGrupoEnviada($id_grupo, $id_usuario_retornado))
+                            {
+                                $boton = '<input type="button" name="" class="default" value="Invitación Enviada">';
+                            }
+                            else
+                            {
+                                $boton = '<input type="button" name="invitar_usuario_grupo" class="success" value="Invitar" onclick="invitarUsuario(' . $id_usuario_loggeado . ', ' . $id_usuario_retornado . ', ' .$id_grupo . ')">';
+                            }
+                        }       
                         else
                         {
-                            $boton = '<input type="button" name="invitar_usuario_grupo" class="success" value="Invitar" onclick="invitarUsuario(' . $id_usuario_loggeado . ', ' . $id_usuario_retornado . ', ' .$id_grupo . ')">';
-                        }
-                        
+                            $boton = '<input type="button" name="" class="default" value="Grupo lleno!">';
+                        }             
                         
                         $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado);
                         // + Esto para evitar que aoarezca el usuario loggaedo

@@ -153,15 +153,25 @@ class Grupo {
         $id_usuario = $this->objeto_usuario->obtenerIDUsuario();
         $info = "";
         // + Checar si el usuario ya solicito unirse
-        $query_checar_si_hay_solicitud = mysqli_query($this->con, "SELECT * FROM solicitudes_de_grupo WHERE grupo_solicitado='$id_grupo' AND usuario_que_solicito_unirse='$id_usuario'");
-        if(mysqli_num_rows($query_checar_si_hay_solicitud) > 0)
+        $boton = "";
+        if($total_miembros != 20)
         {
-            $boton_solicitar_unirse = "<input type='submit' name='' value='Solicitud Enviada' class='default boton_solicitar_unirse'>";
+            $query_checar_si_hay_solicitud = mysqli_query($this->con, "SELECT * FROM solicitudes_de_grupo WHERE grupo_solicitado='$id_grupo' AND usuario_que_solicito_unirse='$id_usuario'");
+            if(mysqli_num_rows($query_checar_si_hay_solicitud) > 0)
+            
+            {
+                $boton_solicitar_unirse = "<input type='submit' name='' value='Solicitud Enviada' class='default boton_solicitar_unirse'>";
+            }
+            else
+            {
+                $boton_solicitar_unirse = "<input type='submit' name='solicitar_unirse_grupo' value='Solicitar Unirse' class='success boton_solicitar_unirse'>";
+            }
         }
         else
         {
-            $boton_solicitar_unirse = "<input type='submit' name='solicitar_unirse_grupo' value='Solicitar Unirse' class='success boton_solicitar_unirse'>";
-        }
+            $boton_solicitar_unirse = '<input type="button" name="" class="default" value="Grupo lleno!">';
+
+        }   
 
         if(isset($_POST['solicitar_unirse_grupo']))
         {

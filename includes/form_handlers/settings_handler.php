@@ -8,7 +8,11 @@ if(isset($_POST['actualizar_informacion']))
     $apeM = $_POST['apeM'];
     $email = $_POST['email'];
     $username = $_POST['username'];
-
+    $descripcion_usuario = "";
+    if(isset($_POST['descripcion_usuario']))
+    {
+        $descripcion_usuario = $_POST['descripcion_usuario'];
+    }
 
 //VALIDAR LA INFORMACION RECIBIDA EN EL FORMULARIO
 //NOMBRE
@@ -107,7 +111,7 @@ if(isset($_POST['actualizar_informacion']))
 
     if(empty($error_array_info))
     {
-        $query_actualizar_informacion = mysqli_query($con, "UPDATE usuarios SET nombre='$nombre', apeP='$apeP', apeM='$apeM', email='$email', username='$username' WHERE id_usuario='$id_usuario_loggeado'");
+        $query_actualizar_informacion = mysqli_query($con, "UPDATE usuarios SET nombre='$nombre', apeP='$apeP', apeM='$apeM', email='$email', username='$username', descripcion='$descripcion_usuario' WHERE id_usuario='$id_usuario_loggeado'");
         // + Mostramos un mensaje de que la informacion se actualizo correctamente
         array_push($successful_array_info, "<span style='color: #14c800;'>Información actualizada!<br><br>");
     }
