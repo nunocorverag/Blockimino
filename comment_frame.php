@@ -142,6 +142,27 @@ else
                 }
             }
 
+            // + Aumentar interes
+            $query_info_publicacion = mysqli_query($con, "SELECT hashtags_publicacion FROM publicaciones WHERE id_publicacion='$id_publicacion'");
+            $fila_info_publicacion = mysqli_fetch_array($query_info_publicacion);
+            $hashtags = $fila_info_publicacion['hashtags_publicacion'];
+            $hashtags = explode(",", $hashtags);
+            foreach ($hashtags as $hashtag) {
+                if($hashtag != "")
+                {
+                    // + query insertar interes a la tabla de intereses 
+                    $query_verificar_interes = mysqli_query($con, "SELECT * FROM temas_interes WHERE id_hashtag_interes='$hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
+                    if(mysqli_num_rows($query_verificar_interes) > 0)
+                    {
+                        $query_agregar_cantidad_interes = mysqli_query($con, "UPDATE temas_interes SET cantidad_interes=cantidad_interes+1 WHERE id_hashtag_interes='$hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
+                    }
+                    else
+                    {
+                        $query_insertar_interes = mysqli_query($con, "INSERT INTO temas_interes VALUES ('', '$id_usuario_loggeado', '$hashtag', '1')");
+                    }
+                }
+            }
+
             echo "<p>Comentario Publicado!</p>";
         }
         ?>

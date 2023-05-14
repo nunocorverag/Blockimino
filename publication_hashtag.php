@@ -4,6 +4,21 @@ include("includes/header.php");
 if(isset($_GET['hashtag']))
 {
     $hashtag = $_GET['hashtag'];
+    $query_detalles_hashtag = mysqli_query($con, "SELECT id_hashtag FROM hashtags WHERE hashtag='#$hashtag'");
+    $fila = mysqli_fetch_array($query_detalles_hashtag);
+    $id_hashtag = $fila['id_hashtag'];
+
+    // + query insertar interes a la tabla de intereses 
+    $query_verificar_interes = mysqli_query($con, "SELECT * FROM temas_interes WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
+    if(mysqli_num_rows($query_verificar_interes) > 0)
+    {
+        $query_agregar_cantidad_interes = mysqli_query($con, "UPDATE temas_interes SET cantidad_interes=cantidad_interes+1 WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
+    }
+    else
+    {
+        $query_insertar_interes = mysqli_query($con, "INSERT INTO temas_interes VALUES ('', '$id_usuario_loggeado', '$id_hashtag', '1')");
+
+    }
 }
 else
 {

@@ -98,6 +98,17 @@ class Publicacion {
                             $id_hashtag = mysqli_insert_id($this->con);
                             $query_agregar_seguido = mysqli_query($this->con, "UPDATE publicaciones SET hashtags_publicacion=CONCAT(hashtags_publicacion, '$id_hashtag,') WHERE id_publicacion='$id_regresado'");
                         }
+                        // + query insertar interes a la tabla de intereses 
+                        $query_verificar_interes = mysqli_query($this->con, "SELECT * FROM temas_interes WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$publicado_por'");
+                        if(mysqli_num_rows($query_verificar_interes) > 0)
+                        {
+                            $query_agregar_cantidad_interes = mysqli_query($this->con, "UPDATE temas_interes SET cantidad_interes=cantidad_interes+1 WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$publicado_por'");
+                        }
+                        else
+                        {
+                            $query_insertar_interes = mysqli_query($this->con, "INSERT INTO temas_interes VALUES ('', '$publicado_por', '$id_hashtag', '1')");
+
+                        }
                     }
 
                 }

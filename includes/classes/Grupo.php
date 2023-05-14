@@ -169,7 +169,7 @@ class Grupo {
         }
         else
         {
-            $boton_solicitar_unirse = '<input type="button" name="" class="default" value="Grupo lleno!">';
+            $boton_solicitar_unirse = '<input type="button" name="" class="default boton_solicitar_unirse" value="Grupo lleno!">';
 
         }   
 

@@ -53,10 +53,6 @@ if(isset($_POST['publicar']))
         if(isset($_POST['hashtags'])){
             $hashtags = $_POST['hashtags'];
         }
-        else
-        {
-            echo "Nada";
-        }
 
 
         $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], NULL, $nombre_imagen, $tipo_pagina, $hashtags);
