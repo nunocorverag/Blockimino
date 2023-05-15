@@ -69,9 +69,10 @@ if(isset($_POST['publicar']))
 }
 ?>
 
+
+<div class="contenedor_publicar_algo">
+    <h4>Publicar algo</h4>
 </div>
-
-
 <div class="publicar_area">
     <form class="formulario_publicacion" action="post.php" method="POST" enctype="multipart/form-data">
         <div class="publicar_titulo_container">

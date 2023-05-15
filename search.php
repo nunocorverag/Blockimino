@@ -23,7 +23,7 @@ if(isset($_GET['tipo']))
         }
     }
 }
-else if ($_GET['tipo'] != "hashtag")
+else 
 {
     $tipo = "usuarios_nombres_y_grupos";
 }

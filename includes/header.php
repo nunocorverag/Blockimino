@@ -197,6 +197,10 @@ else
                 ?>
             </a>
 
+            <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'ocp_proyectos')">
+                    <i class="fa-solid fa-file"></i>
+            </a>
+
             <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/settings.php">
                 <i class="fa-solid fa-gear"></i>
             </a>

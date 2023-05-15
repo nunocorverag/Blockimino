@@ -119,6 +119,10 @@ function obtenerInformacionDesplegable(usuario, tipo)
         {
             nombrePagina = "load_buttons.php";
         }
+        else if(tipo == "ocp_proyectos")
+        {
+            nombrePagina = "load_opc_proyects.php";
+        }
 
         // + Creamos una ajax request que va a recuperar los mensajes o notificaciones
         var ajaxreq = $.ajax({

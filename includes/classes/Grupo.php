@@ -14,14 +14,6 @@ class Grupo {
 
     public function crearGrupo($nombre_grupo, $descripcion_grupo, $imagen_grupo)
     {
-        //TODO FALTA EL MENSAJE DE ERROR DE QUE EL NOMBRE DEL GRUPO YA EXISTE
-        // + Validaciones de que el grupo no exista
-        $checar_grupo_no_existe = mysqli_query($this->con, "SELECT * FROM grupos WHERE nombre_grupo='$nombre_grupo'");
-        if(mysqli_num_rows($checar_grupo_no_existe) > 0)
-        {
-            echo "Error El grupo ya existe!";
-            return;
-        }
         $id_creador_grupo = $this->objeto_usuario->obtenerIDUsuario();
         $crear_grupo = mysqli_query($this->con, "INSERT INTO grupos VALUES ('', '$nombre_grupo', '$id_creador_grupo', '$imagen_grupo', '$descripcion_grupo', ',$id_creador_grupo,', 'no')");
         $id_regresado = mysqli_insert_id($this->con);

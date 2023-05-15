@@ -272,13 +272,18 @@ nav a:hover {
 
 /* Seccion de posts */
 .publicar_area {
-    position: absolute;
-    top: 20%;
     width: 75%;
     margin: 0 auto;
     border: 0.25px solid black;
     min-height: 480px;
-    left: 12.5%;
+    min-width: 1070px;
+}
+
+.contenedor_publicar_algo {
+    width: 75%;
+    margin: 0;
+    text-align: center;
+    height: 50px;
     min-width: 1070px;
 }
 
@@ -1099,13 +1104,10 @@ nav a:hover {
 /* grupos */
 /* crear grupo */
 .area_crear_grupo {
-    position: absolute;
-    top: 10%;
     width: 35%;
     margin: 0 auto;
     border: 0.25px solid black;
     height: 54%;
-    left: 32.5%;
 }
 
 .formulario_crear_grupo {
@@ -1135,11 +1137,6 @@ nav a:hover {
     font-size: 70px;
 }
 
-.icono_imagen_container {
-    position: relative;
-    margin-left: 10px;
-}
-
 .formulario_crear_grupo input[type="submit"] {
     width: 96%;
     height: 60px;
@@ -1150,10 +1147,7 @@ nav a:hover {
     text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
     font-size: 90%;
     outline: 0;
-    margin: 0;
-    position: absolute;
-    top: 81%;
-    left: 2%;
+    margin: 1% 2%;
 }
 
 .formulario_crear_grupo input[type="submit"]:active {
@@ -1179,6 +1173,13 @@ nav a:hover {
 .crear_grupo p {
     color: black;
     margin: 0;
+}
+
+.contenedor_titulo_crear_grupo {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    height: 50px;
 }
 
 /* Ver grupos */
@@ -1550,6 +1551,19 @@ nav a:hover {
 
 /* Display botones admin-mod */
 .contenedor_botones_especiales button {
+    width: 100%;
+    height: 64px;
+    border: solid 0.25px black;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin-bottom: 0;
+}
+
+/* display opciones proyecto */
+.contenedor_botones_proyecto button{
     width: 100%;
     height: 64px;
     border: solid 0.25px black;
@@ -2056,3 +2070,144 @@ nav a:hover {
     border-radius: 50%;
   }
 
+
+/* Seccion de subir proyectos */
+.subir_proyecto {
+    width: 50%;
+    margin: 0 auto;
+    border: 0.25px solid black;
+    height: 235px;
+    min-width: 620px;
+}
+
+.contenedor_titulo_subir_proyecto {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    height: 50px;
+}
+
+.subir_proyecto textarea {
+    width: 100%;
+}
+
+.subir_proyecto_container_superior {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 10px 0px 10px;
+}
+
+#publicar_titulo {
+    flex-grow: 1;
+}
+
+.subir_proyecto_container_superior textarea {
+    width: 92%;
+}
+
+.subir_proyecto_container_superior i {
+    font-size: 55px;
+}
+
+.icono_archivo_container {
+    position: relative;
+    margin-left: 10px;
+}
+
+#icono_archivo {
+    cursor: pointer;
+}
+
+.visibilidad-btn {
+    background-color: #CCC;
+    width: 30%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.visibilidad-btn.selected {
+    background-color: #007bff;
+    width: 30%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.visibilidad_proyecto {
+    align-items: center;
+    margin: 0px 10px;
+}
+
+.boton_subir_proyecto {
+    width: 98%;
+    height: 60px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 10px;
+}
+
+
+/* Ver proyectos */
+.contenedor_proyectos_usuario h4{
+    text-align: center;
+}
+
+.contenedor_proyectos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contenedor_proyecto {
+    text-align: center;
+    width: 31.33%;
+    margin: 2% 1%;
+    height: 240px;
+    border: 0.25px solid black;;
+    position: relative;
+}
+
+
+.nombre_proyecto_container {
+    color: black;
+    position: relative;
+    z-index: 1;
+}
+
+.nombre_proyecto_container p {
+    background-color: lightblue;
+}
+
+
+.imagen_fondo {
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.imagen_fondo img {
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor_no_proyectos {
+    width: 100%;
+    text-align: center;
+}

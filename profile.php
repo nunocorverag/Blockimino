@@ -8,11 +8,15 @@
         // - Sera el nombre de usuario del perfil que visitemos
         $perfil_nombre_usuario = $_GET['perfil_usuario'];
         $query_informacion_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$perfil_nombre_usuario'");
+
         if(mysqli_num_rows($query_informacion_usuario) > 0)
         {
             $arreglo_usuario = mysqli_fetch_array($query_informacion_usuario);
             $id_usuario_perfil = $arreglo_usuario['id_usuario'];
-    
+
+            $query_numero_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyectos WHERE id_usuario_proyecto='$id_usuario_perfil'");
+            $numero_proyectos = mysqli_num_rows($query_numero_proyectos_usuario);
+            
             // $ substr_count -> Cuenta cuantas ocurrencias tiene un string dentro de otro string
             // + Identificamos a la cantidad de amigos con comas, le restamos una, porque tenemos en el arreglo de amigos una coma al principio
             $num_amigos = (substr_count($arreglo_usuario['lista_amigos'], ",")) - 1;
@@ -99,6 +103,7 @@
                                     <p class="link_info"><?php echo "Seguidos: " . $num_seguidos ?></p>
                                 </a>
                                 <p><?php echo "Publicaciones: " . $arreglo_usuario['num_posts']; ?></p>
+                                <p><?php echo "Email: " . $arreglo_usuario['email']; ?></p>
                             </div>
                             <div class="bloque bloque_2">  
 
@@ -107,6 +112,9 @@
                                 </a>
                                 <a href="<?php echo $perfil_nombre_usuario ?>/user_groups?pagina=1">
                                     <p class="link_info"><?php echo "Grupos: " . $num_grupos ?></p>
+                                </a>
+                                <a href="<?php echo $perfil_nombre_usuario ?>/projects">
+                                    <p class="link_info"><?php echo "Proyectos: " . $numero_proyectos ?></p>
                                 </a>
                                 <p><?php echo "Likes: " . $arreglo_usuario['num_likes']; ?></p>
                             </div>
