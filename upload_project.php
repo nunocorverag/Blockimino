@@ -32,7 +32,7 @@ if(isset($_POST['subir_proyecto']))
         $directorio_destino = "assets/projects/";
         // $uniqid -> Genera un id unico por si dos personas suben el archivo con el mismo nombre
         // $basename -> Va a ser la extension de la imagen .jpg, .png
-        $nombre_archivo_proyecto = $directorio_destino . uniqid() . basename($nombre_archivo_proyecto);
+        $nombre_archivo_proyecto = $directorio_destino . uniqid() . "_" . basename($nombre_archivo_proyecto);
         $tipoArchivoProyecto = pathinfo($nombre_archivo_proyecto, PATHINFO_EXTENSION);
 
         // + Checamos el tamaño en bytes, el maximo sera 

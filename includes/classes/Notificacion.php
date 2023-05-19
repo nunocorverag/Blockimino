@@ -1,5 +1,5 @@
-<!-- Esta clase trabajara con todo lo que tenga que ver con notificaciones -->
 <?php
+// Esta clase trabajara con todo lo que tenga que ver con notificaciones
 class Notificacion {
     // - $con -> Guardara la conexion de la base de datos
     private $con;

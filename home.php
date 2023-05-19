@@ -6,9 +6,7 @@ include("includes/header.php");
 <!-- Como ya incluimos la clase header, que es la cabecera de nuestro archivo, no necesitamos escribir la cabecera -->
         <div class="contenedor_trends">
             <table class="tabla_trends">
-                <tr>
-                    <td colspan="3" class="titulo_trends">Trends</td>
-                </tr>
+                <caption class="titulo_trends">Trends</caption>
                 <tr>
                     <?php
                     $query_seleccionar_trends = mysqli_query($con, "SELECT * FROM trends ORDER BY hits DESC LIMIT 9");
@@ -25,7 +23,11 @@ include("includes/header.php");
                             echo "</tr><tr>";
                         }
                         echo "<td>";
+                        echo "<a href='publication_trend.php?trend=$palabra'>";
+                        echo "<div class='contenedorTrend'>";
                         echo $top_num . ". " . $palabra_recortada . $palabra_puntos;
+                        echo "</div>";
+                        echo "</a>";
                         echo "</td>";
                         $i++;
                     }

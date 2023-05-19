@@ -56,7 +56,7 @@ else
                                 <input type="hidden" name="visibilidad_proyecto_<?php echo $nombre_proyecto ?>" id="visibilidad_proyecto_<?php echo $id_proyecto ?>" value="<?php echo $visibilidad ?>">
                             </div>
                             <br>
-                            <div class="contenedor_botones">
+                            <div class="contenedor_botones_accion_proyecto">
                                 <button class="boton_editar_proyecto btn btn-info" id=editar<?php echo $nombre_proyecto?> >Editar</button>
                                 <button class="boton_eliminar_proyecto btn btn-danger" id=eliminar<?php echo $nombre_proyecto?> >Eliminar</button>
                             </div>
@@ -120,6 +120,7 @@ else
                         <script>
                             $(document).ready(function(){
                                 $('#editar<?php echo $nombre_proyecto; ?>').on('click', function() {
+                                    alert("Se presiono el boton <?php echo $nombre_proyecto?><br>Link: <?php echo $link_proyecto?>")
                                 });
                             });
                         </script>
@@ -165,15 +166,15 @@ else
                             </div>
                             <br>
                             <br>
-                            <div class="contenedor_botones">
-                                <button class="boton_ver_proyecto btn btn-info" id=ver<?php echo $nombre_proyecto?> >Ver</button>
+                            <div class="contenedor_botones_accion_proyecto">
+                                <button class="boton_copiar_proyecto btn btn-info" id=copiar_proyecto<?php echo $nombre_proyecto?> >Copiar_Proyecto</button>
                             </div>
                         </div>
 
                         <!-- // TODO ESTE SCRIPT CARGARA EL PROYECTO EN ESPECIFICO EN ESTE SCRIPT AL DARLE CLICK EN EL PROYECTO DE ALGUIEN MAS, SE ABRIRA EL PROYECTO Y PUES YA DECIDIRA EL USUARIO SI GUARDARLO O NO-->
                         <script>
                             $(document).ready(function(){
-                                $('#ver<?php echo $nombre_proyecto; ?>').on('click', function() {
+                                $('#copiar_proyecto<?php echo $nombre_proyecto; ?>').on('click', function() {
 
                                 });
                             });

@@ -22,7 +22,7 @@ if (isset($_POST['crear_grupo'])) {
         $directorio_destino = "assets/images/group_image_pics/";
         // $uniqid -> Genera un id unico por si dos personas suben el archivo con el mismo nombre
         // $basename -> Va a ser la extension de la imagen .jpg, .png
-        $imagen_grupo = $directorio_destino . uniqid() . basename($imagen_grupo);
+        $imagen_grupo = $directorio_destino . uniqid() . "_" . basename($imagen_grupo);
         $tipoArchivoImagen = pathinfo($imagen_grupo, PATHINFO_EXTENSION);
 
         // + Checamos el tamaño en bytes, el maximo sera 

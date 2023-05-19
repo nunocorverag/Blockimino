@@ -12,8 +12,12 @@ if(isset($_GET['hashtag']))
     $query_verificar_interes = mysqli_query($con, "SELECT * FROM temas_interes WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
     if(mysqli_num_rows($query_verificar_interes) > 0)
     {
-        $query_agregar_cantidad_interes = mysqli_query($con, "UPDATE temas_interes SET cantidad_interes=cantidad_interes+1 WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
-    }
+        $fila_info_interes = mysqli_fetch_array($query_verificar_interes);
+        $cantidad_interes = $fila_info_interes['cantidad_interes'];
+        if(!($cantidad_interes > 500))
+        {
+            $query_agregar_cantidad_interes = mysqli_query($con, "UPDATE temas_interes SET cantidad_interes=cantidad_interes+1 WHERE id_hashtag_interes='$hashtag' AND id_usuario_interesado='$id_usuario_loggeado'");
+        }    }
     else
     {
         $query_insertar_interes = mysqli_query($con, "INSERT INTO temas_interes VALUES ('', '$id_usuario_loggeado', '$id_hashtag', '1')");

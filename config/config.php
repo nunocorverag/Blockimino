@@ -1,4 +1,3 @@
-<!-- Este archivo pertenece a la conexion a la base de datos -->
 <?php
 ob_start(); // $ Activa el almacenamiento en buffer de la salida
 /* 

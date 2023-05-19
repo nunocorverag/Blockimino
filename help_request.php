@@ -13,7 +13,7 @@ if(isset($_POST['enviar_peticion']))
     $contenido_peticion = $_POST['contenido_peticion'];
 
     $subida_exitosa = 1;
-    $nombre_imagen = $_FILES['archivoASubir']['name'];
+    $nombre_imagen = $_FILES['imagenASubir']['name'];
     $mensaje_de_error = "";
 
     if($nombre_imagen != "")
@@ -21,11 +21,11 @@ if(isset($_POST['enviar_peticion']))
         $directorio_destino = "assets/images/help_images/";
         // $uniqid -> Genera un id unico por si dos personas suben el archivo con el mismo nombre
         // $basename -> Va a ser la extension de la imagen .jpg, .png
-        $nombre_imagen = $directorio_destino . uniqid() . basename($nombre_imagen);
+        $nombre_imagen = $directorio_destino . uniqid() . "_" . basename($nombre_imagen);
         $tipoArchivoImagen = pathinfo($nombre_imagen, PATHINFO_EXTENSION);
 
         // + Checamos el tamaño en bytes, el maximo sera 
-        if($_FILES['archivoASubir']['size'] > 10000000)
+        if($_FILES['imagenASubir']['size'] > 10000000)
         {
             $mensaje_de_error = "Tu archivo es demasiado pesado, no se pudo completar la publicación";
             $subida_exitosa = 0;
@@ -39,7 +39,7 @@ if(isset($_POST['enviar_peticion']))
 
         if($subida_exitosa == 1)
         {
-            if(move_uploaded_file($_FILES['archivoASubir']['tmp_name'], $nombre_imagen))
+            if(move_uploaded_file($_FILES['imagenASubir']['tmp_name'], $nombre_imagen))
             {
                 // + La imagen se subio con exito!
             }
@@ -101,7 +101,7 @@ if(isset($_POST['enviar_peticion']))
                         <option value="propuesta">Propuesta</option>
                     </select>
                     <div class="icono_imagen_container">
-                        <input type="file" name="archivoASubir" id="archivoASubir" style="display:none">
+                        <input type="file" name="imagenASubir" id="imagenASubir" style="display:none">
                         <i class="fa-regular fa-image" id="icono_imagen">
                             <span class="tooltip" id="tooltip"></span>
                         </i>
@@ -120,7 +120,7 @@ if(isset($_POST['enviar_peticion']))
 
         <script>
             // ! explicar este script
-            const inputFile = document.getElementById("archivoASubir");
+            const inputFile = document.getElementById("imagenASubir");
             const iconoImagen = document.getElementById("icono_imagen");
             const palomita = document.querySelector(".palomita");
             const tooltip = iconoImagen.querySelector(".tooltip");

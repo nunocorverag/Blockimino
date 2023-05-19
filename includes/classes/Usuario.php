@@ -1,5 +1,5 @@
-<!-- Esta clase trabajara con cosas que se requiera hacer con los datos del usuario -->
 <?php
+// Esta clase trabajara con cosas que se requiera hacer con los datos del usuario
 class Usuario {
     // - $con -> Guardara la conexion de la base de datos
     private $con;

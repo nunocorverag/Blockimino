@@ -168,7 +168,64 @@ nav a:hover {
 }
 
 .displayHashtag:hover {
+    cursor: pointer;
     background-color: #D3D3D3;
+}
+
+.mostrarProyecto {
+    position: relative;
+    height: 80px;
+    width: 16%;
+    text-align: center;
+}
+
+.imagen_fondo_mostrar_proyecto {
+    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.imagen_fondo_mostrar_proyecto img {
+    width: 100%;
+    height: 100%;
+}
+
+.contenedor_boton_copiar_proyecto {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+}
+
+.boton_copiar_proyecto {
+    z-index: 1;
+}
+
+.contenedor_boton_ver_proyecto {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    text-align: center;
+}
+
+.boton_ver_proyecto {
+    z-index: 1;
+}
+
+.contenedor_no_mas_publicaciones_recomendar {
+    text-align: center
+    ;
 }
 
 /* Comentarios */
@@ -281,7 +338,7 @@ nav a:hover {
 
 .contenedor_publicar_algo {
     width: 75%;
-    margin: 0;
+    margin: 0 auto;
     text-align: center;
     height: 50px;
     min-width: 1070px;
@@ -310,6 +367,58 @@ nav a:hover {
 .icono_imagen_container {
     position: relative;
     margin-left: 10px;
+}
+
+.palomitaImg {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    display: none;
+}
+
+.palomitaImg.activo {
+    display: block;
+}
+
+.palomitaImg i.fa-check {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    color: white;
+    font-size: 16px;
+}
+
+.palomitaFile {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #4CAF50;
+    display: none;
+}
+
+.palomitaFile.activo {
+    display: block;
+}
+
+.palomitaFile i.fa-check {
+    position: absolute;
+    top: 4px;
+    left: 2px;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    color: white;
+    font-size: 16px;
 }
 
 .palomita {
@@ -349,12 +458,15 @@ nav a:hover {
     height: 100%;
 }
 
-.agregar_hashtags_container input[type='text']{
+.agregar_hashtags_container {
     margin: 0px 10px;
+}
+
+.agregar_hashtags_container input[type='text'] {
     width: 70%;
 }
 
-#agregar_hashtag  {
+#agregar_hashtag {
     margin: 0px;
     width: 26.6%;
     border: none;
@@ -372,10 +484,10 @@ nav a:hover {
     background-color: white;
     border: solid 0.25px #D3D3D3;
     margin: 0px 10px;
-    width: 70%;
+    width: 748px;
 }
 
-.displayResultadoHashtag:hover{
+.displayResultadoHashtag:hover {
     background-color: #EBEBEB;
     text-decoration: none;
     cursor: pointer;
@@ -392,14 +504,22 @@ nav a:hover {
     border: 1px solid #D3D3D3;
 }
 
+.agregar_proyecto_container {
+    margin: 0px 10px;
+    width: 100%;
+}
+
+.agregar_proyecto_container select {
+    width: 98%;
+}
+
 /* Mostrar al pasar el mouse por encima de la imagen */
-.tooltip {
+#tooltip {
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    bottom: 120%;
-    left: 50%;
-    /* //! hay que explicar traslateX */
+    top: 10%;
+    left: 200%;
     transform: translateX(-50%);
     padding: 5px;
     background-color: #333;
@@ -407,18 +527,75 @@ nav a:hover {
     border-radius: 5px;
     font-size: 12px;
     transition: opacity 0.3s, visibility 0.3s;
+    max-width: 100px;
 }
 
-.tooltip::after {
+#tooltip::after {
     content: "";
+    top: 30px;
+    left: -18px;
     position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 5px;
+    transform: translateY(-50%) rotate(180deg);
+    border-width: 17px;
     border-style: solid;
-    border-color: transparent transparent #333 transparent;
+    border-color: transparent #333 transparent transparent;
 }
+
+#tooltipFile {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 10%;
+    right: 67%;
+    transform: translateX(-50%);
+    padding: 5px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: opacity 0.3s, visibility 0.3s;
+    max-width: 100px;
+}
+
+#tooltipFile::after {
+    content: "";
+    top: 30px;
+    right: -18px;
+    position: absolute;
+    transform: translateY(-50%) rotate(0deg);
+    border-width: 17px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent;
+}
+
+/* //! hay que explicar traslateX */
+#tooltipImg {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 10%;
+    left: 200%;
+    transform: translateX(-50%);
+    padding: 5px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: opacity 0.3s, visibility 0.3s;
+    max-width: 100px;
+}
+
+#tooltipImg::after {
+    content: "";
+    top: 30px;
+    left: -18px;
+    position: absolute;
+    transform: translateY(-50%) rotate(180deg);
+    border-width: 17px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent;
+}
+
 
 /* !Esta parte no funciona */
 /* $ focus -> Cuando se le pasa por encima el cursor a un elemento o se le hace click */
@@ -638,10 +815,13 @@ nav a:hover {
     background-color: #156588;
 }
 
-.info_descripcion_perfil
-{
+.info_descripcion_perfil {
     color: black;
     margin: 0px 30px;
+}
+
+.descripcion_perfil p{
+    background-color: #54bcde;
 }
 
 /* Mensajes */
@@ -695,11 +875,10 @@ nav a:hover {
     margin-bottom: 10px;
 }
 
-  /* Mensajes */
-  .ir_a_mis_conversaciones
-  {
+/* Mensajes */
+.ir_a_mis_conversaciones {
     text-align: center;
-  }
+}
 
 /* messages.php */
 .conversaciones_cargadas {
@@ -766,7 +945,7 @@ nav a:hover {
     float: left;
 }
 
-.simbolo_hashtag i{
+.simbolo_hashtag i {
     float: left;
     border-radius: 25px;
     margin: 1px 12px 0 2px;
@@ -958,11 +1137,12 @@ nav a:hover {
 }
 
 
-.descripcion_usuario
-{
+.descripcion_usuario {
     display: inline-block;
-    width: 120px; /* ajustar el ancho según sea necesario */
-    margin-top: 10px; /* ajustar el margen según sea necesario */
+    width: 120px;
+    /* ajustar el ancho según sea necesario */
+    margin-top: 10px;
+    /* ajustar el margen según sea necesario */
 }
 
 .submit_settings {
@@ -975,6 +1155,7 @@ nav a:hover {
 /* trends */
 .contenedor_trends {
     height: 100px;
+    position: relative;
 }
 
 .tabla_trends {
@@ -1002,19 +1183,55 @@ nav a:hover {
     text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
     font-weight: bold;
     font-size: 14px;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    caption-side: top;
+}
+
+.contenedorTrend {
+    color: #000;
 }
 
 /* Publicar imagen */
 
+.contenedorImagenesPublicadas {
+    width: 100%;
+    display: flex;
+}
+
 .imagenPublicada img {
     max-height: 500px;
     max-width: 100%;
-    display: block;
     margin: 5px auto;
 }
 
 #icono_imagen {
     cursor: pointer;
+}
+
+/* Publicar archivo */
+
+.contenedorArchivosPublicados {
+    width: 100%;
+}
+
+.archivoPublicado {
+    max-height: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f1f1;
+    color: #20AAE5;
+    border-radius: 5px;
+    padding: 2px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.archivoPublicado:hover {
+    cursor: pointer;
+    background-color: #D3D3D3;
 }
 
 /* Friends, Followed, Followers */
@@ -1563,7 +1780,7 @@ nav a:hover {
 }
 
 /* display opciones proyecto */
-.contenedor_botones_proyecto button{
+.contenedor_botones_proyecto button {
     width: 100%;
     height: 64px;
     border: solid 0.25px black;
@@ -1998,7 +2215,7 @@ nav a:hover {
 }
 
 /* Boton arena de bloques */
-.boton_arena_bloques{
+.boton_arena_bloques {
     height: 26px;
     border-radius: 5px;
     border: none;
@@ -2015,15 +2232,15 @@ nav a:hover {
     display: inline-block;
     width: 60px;
     height: 34px;
-  }
-  
-  .switch input { 
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -2033,9 +2250,9 @@ nav a:hover {
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -2045,30 +2262,30 @@ nav a:hover {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked+.slider {
     background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
+}
+
+input:focus+.slider {
     box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
+}
+
+/* Rounded sliders */
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
 
 
 /* Seccion de subir proyectos */
@@ -2157,7 +2374,7 @@ nav a:hover {
 
 
 /* Ver proyectos */
-.contenedor_proyectos_usuario h4{
+.contenedor_proyectos_usuario h4 {
     text-align: center;
 }
 
@@ -2171,7 +2388,8 @@ nav a:hover {
     width: 31.33%;
     margin: 2% 1%;
     height: 240px;
-    border: 0.25px solid black;;
+    border: 0.25px solid black;
+    ;
     position: relative;
 }
 
@@ -2210,4 +2428,81 @@ nav a:hover {
 .contenedor_no_proyectos {
     width: 100%;
     text-align: center;
+}
+
+/* Intereses */
+.contenedor_intereses h4 {
+    text-align: center;
+}
+
+.editar_interes {
+    width: 40%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    position: relative;
+    top: 20%;
+    margin-bottom: 1%;
+}
+
+.eliminar_interes {
+    width: 40%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    position: relative;
+    top: 20%;
+    margin-bottom: 1%;
+}
+
+.tabla_intereses td {
+    text-align: center;
+}
+
+.hashtag {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.hashtag:hover {
+    white-space: normal;
+}
+
+.hashtag:hover {
+    white-space: normal;
+    max-width: none;
+    display: inline-block;
+}
+
+.table-blue-light {
+    background-color: lightblue;
+}
+
+.contenedor_intereses p {
+    text-align: center;
+}
+
+.contenedor_intereses input[type="submit"]
+{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 0;
+}
+
+.contenedor_intereses input[type="text"]
+{
+    width: 100%;
 }

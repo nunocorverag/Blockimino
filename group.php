@@ -21,6 +21,8 @@ else
     $id_grupo = 0;
 }
 $objeto_grupo_usuario_loggeado = new Grupo($con, $id_usuario_loggeado);
+$query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyectos WHERE id_usuario_proyecto='$id_usuario_loggeado'");
+
 ?>
 
 <div class="contenedor_detalles_grupo">
@@ -40,28 +42,44 @@ $objeto_grupo_usuario_loggeado = new Grupo($con, $id_usuario_loggeado);
                                     <h4 class="modal-title" id="myModalLabel">Publicar algo</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Esto aparecera en el perfil del usuario!</p>
-
-
-
                                     <form class="publicacion_grupo" id="publicacion_grupo" action="" method="POST" enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <p>Titulo de la publicacion</p>
                                             <div class="publicar_titulo_container">
-                                                <textarea name="publicar_titulo" id="publicar_titulo" placeholder="Titulo publicacion" required></textarea>
-                                                <div class="icono_imagen_container">
-                                                    <input type="file" name="archivoASubir" id="archivoASubir" style="display:none">
-                                                    <i class="fa-regular fa-image" id="icono_imagen">
-                                                        <span class="tooltip" id="tooltip"></span>
+                                                <div class="icono_archivo_container" style="margin: 0px 10px 0px 0px">
+                                                    <input type="file" name="archivoASubir[]" id="archivoASubir" style="display:none" multiple>
+                                                    <i class="fa-regular fa-file" id="icono_archivo">
+                                                        <span class="tooltip tooltipFile" id="tooltipFile"></span>
                                                     </i>
-                                                    <span class="palomita">
+                                                    <span class="palomitaFile">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </span>
+                                                </div>
+                                                <textarea name="publicar_titulo" id="publicar_titulo" placeholder="Titulo publicacion" required><?php echo isset($_POST['publicar_titulo']) ? $_POST['publicar_titulo'] : ''; ?></textarea>
+                                                <div class="icono_imagen_container">
+                                                    <input type="file" name="imagenASubir[]" id="imagenASubir" style="display:none" multiple>
+                                                    <i class="fa-regular fa-image" id="icono_imagen">
+                                                        <span class="tooltip tooltipImg" id="tooltipImg"></span>
+                                                    </i>
+                                                    <span class="palomitaImg">
                                                         <i class="fa-solid fa-check"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="publicar_texto_container">
-                                                <textarea name="publicar_texto" id="publicar_texto" placeholder="Cuerpo_publicacion" required></textarea>
+                                                <textarea name="publicar_texto" id="publicar_texto" placeholder="Cuerpo de la publicacion" required></textarea>
+                                            </div>
+                                            <div class="agregar_proyecto_container">
+                                                <h4>Seleccionar proyecto (opcional)</h4>
+                                                <select name="proyecto" id="proyecto">
+                                                    <option value="">Seleccionar proyecto</option>
+                                                    <?php
+                                                    while ($fila_seleccionar_proyecto = mysqli_fetch_array($query_seleccionar_proyectos_usuario)) {
+                                                        $nombre_proyecto = $fila_seleccionar_proyecto['nombre_proyecto'];
+                                                        echo "<option value='$nombre_proyecto'>$nombre_proyecto</option>";
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                             <input type="hidden" name="publicado_por" value="<?php echo $id_usuario_loggeado?>">
                                             <input type="hidden" name="id_grupo" value="<?php echo $id_grupo?>">
@@ -76,27 +94,69 @@ $objeto_grupo_usuario_loggeado = new Grupo($con, $id_usuario_loggeado);
                         </div>
                         <script>
                             // ! explicar este script
-                            const inputFile = document.getElementById("archivoASubir");
+                            const inputImg = document.getElementById("imagenASubir");
                             const iconoImagen = document.getElementById("icono_imagen");
-                            const palomita = document.querySelector(".palomita");
-                            const tooltip = iconoImagen.querySelector(".tooltip");
+                            const palomitaImg = document.querySelector(".palomitaImg");
+                            const tooltipImg = iconoImagen.querySelector(".tooltipImg");
+
+                            const inputFile = document.getElementById("archivoASubir");
+                            const iconoFile = document.getElementById("icono_archivo");
+                            const palomitaFile = document.querySelector(".palomitaFile");
+                            const tooltipFile = iconoFile.querySelector(".tooltipFile");
 
                             iconoImagen.onclick = function() {
+                                inputImg.click();
+                            }
+
+                            inputImg.onchange = function() {
+                                if (inputImg.files && inputImg.files.length > 0) {
+                                    palomitaImg.classList.add("activo");
+                                    if(inputImg.files.length == 1)
+                                    {
+                                        tooltipImg.innerHTML = inputImg.files.length + " archivo seleccionado:<br>";
+                                    }
+                                    else
+                                    {
+                                        tooltipImg.innerHTML = inputImg.files.length + " archivos seleccionados:<br>";
+                                    }
+                                    for (var i = 0; i < inputImg.files.length; i++) {
+                                        tooltipImg.innerHTML += inputImg.files[i].name + "<br>";
+                                    }
+                                    tooltipImg.style.visibility = "visible";
+                                    tooltipImg.style.opacity = 1; // Set opacity to 1
+                                } else {
+                                    palomitaImg.classList.remove("activo");
+                                    tooltipImg.style.visibility = "hidden";
+                                    tooltipImg.style.opacity = 0; // Set opacity to 0
+                                }
+                            }
+
+                            iconoFile.onclick = function() {
                                 inputFile.click();
                             }
 
                             inputFile.onchange = function() {
-                                if (inputFile.files && inputFile.files[0]) {
-                                    palomita.classList.add("activo");
-                                    tooltip.innerHTML = inputFile.files[0].name;
-                                    tooltip.style.visibility = "visible";
-                                    tooltip.style.opacity = 1; // Set opacity to 1
+                                if (inputFile.files && inputFile.files.length > 0) {
+                                    palomitaFile.classList.add("activo");
+                                    if(inputFile.files.length == 1)
+                                    {
+                                        tooltipFile.innerHTML = inputFile.files.length + " archivo seleccionado:<br>";
+                                    }
+                                    else
+                                    {
+                                        tooltipFile.innerHTML = inputFile.files.length + " archivos seleccionados:<br>";
+                                    }
+                                    for (var i = 0; i < inputFile.files.length; i++) {
+                                        tooltipFile.innerHTML += inputFile.files[i].name + "<br>";
+                                    }
+                                    tooltipFile.style.visibility = "visible";
+                                    tooltipFile.style.opacity = 1; // Set opacity to 1
                                 } else {
-                                    palomita.classList.remove("activo");
-                                    tooltip.style.visibility = "hidden";
-                                    tooltip.style.opacity = 0; // Set opacity to 0
+                                    palomitaFile.classList.remove("activo");
+                                    tooltipFile.style.visibility = "hidden";
+                                    tooltipFile.style.opacity = 0; // Set opacity to 0
                                 }
-                                        }
+                            }
                         </script>
                     </div> <!-- //* Cierre del modal  -->
             <?php

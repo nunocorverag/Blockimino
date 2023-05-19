@@ -42,8 +42,9 @@ $(document).ready(function() {
                 $("#formulario_publicacion").modal('hide');
                 location.reload();
             },
-            error: function() {
-                alert('Fallo al realizar la publicación');
+            error: function(xhr, textStatus, errorThrown) {
+                var error_message = xhr.responseText;
+                alert(error_message);
             }
         });
     });
@@ -51,7 +52,7 @@ $(document).ready(function() {
     // + Aqui ira el codigo ajax que publicara el formulario de grupo por nosotros
     $('#enviar_publicacion_grupo').click(function() {
         var form_data = new FormData($('form.publicacion_grupo')[0]);
-    
+        
         $.ajax({
             type: "POST",
             url: "../includes/handlers/ajax_submit_group_post.php",
@@ -62,8 +63,9 @@ $(document).ready(function() {
                 $("#publicacion_grupo").modal('hide');
                 location.reload();
             },
-            error: function() {
-                alert('Fallo al realizar la publicación');
+            error: function(xhr, textStatus, errorThrown) {
+                var error_message = xhr.responseText;
+                alert(error_message);
             }
         });
     });

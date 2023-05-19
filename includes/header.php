@@ -154,6 +154,11 @@ else
             <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php">
                 <i class="fa-solid fa-house-chimney"></i>
             </a>
+
+            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/user_interests.php">
+                <i class="fa-solid fa-heart"></i>
+            </a>
+
             <!-- //! Esa parte es de la funcionalidad de dropdown (puede que la quite)-->
             <!-- Esto significa que ejecutaremos algo de javascript -->
             <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'mensaje')">
