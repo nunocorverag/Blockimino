@@ -1,17 +1,39 @@
 ﻿<?php
-include("includes/header.php");
+require 'config/config.php';
+
+if(isset($_SESSION['id_usuario']))
+{
+    // - Esta variable guarda el id del usuario
+    $id_usuario_loggeado = $_SESSION['id_usuario'];
+
+    // - Guardamos en esta variable la query de todos los datos del usuario loggeado
+    $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+    // - Guardamos en esta variable 
+    $fila_detalles_usuario = mysqli_fetch_array($query_detalles_usuario);
+    // - Esta variable guardara el nombre de usuario para poder hacer querys mas adelante
+    $usuario_loggeado = $fila_detalles_usuario['username'];
+
+    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
+    if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
+    {
+        header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php?username=" . $usuario_loggeado);
+    }
+    else
+    {            
+        $tipo_usuario = $fila_detalles_usuario['tipo'];
+    }
+}
+// + Si no encuentra un usuario loggeado, lo va a regresar a la pagina para crear usuario / iniciar sesion
+else 
+{
+    header("Location: " . dirname($_SERVER['PHP_SELF']) . "/index.php");
+}
 ?>
-
 <!DOCTYPE HTML>
-<html lang="es">
-
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <title>Blockly coder</title>
+    <title>Blockimino</title>
     <script src="scripts.js"></script><!-- todos los scripts de los bloques -->
     <script src="Libraries/LibreriasBlocklyOficial/blockly_compressed.js"></script><!-- librerias oficiales de blockly -->
     <script src="Libraries/LibreriasBlocklyOficial/blocks_compressed.js"></script>
@@ -22,112 +44,195 @@ include("includes/header.php");
     <link rel="stylesheet" type="text/css" href="Libraries/menu.css">
 
     <script src="Libraries/jquery-3.6.0.min.js"></script>
+    <script src="Libraries/verify_arduino.js"></script>
     <script src="Libraries/export_arduino.js"></script>
     <script src="Libraries/export_project.js"></script>
     <script src="Libraries/load.js"></script>
+    <script src="Libraries/feedback.js"></script>
     <script src="Libraries/dropzone.js"></script>
     <script src="Libraries/menu-click.js"></script>
     <script src="Libraries/trashcan.js"></script>
     <script src="Libraries/merge.js"></script>
+
+    <link rel="icon" href="Libraries/images/blockimino.png">
 </head>
 
 <body>
     <div id="header">
         <div id="nav">
             <ul>
-                <li><a href="#" class="home"></a></li>
+                <li><a href="#" class="home" onclick="window.open('home.php')"></a></li>
                 <li class="dropdown">
-                    <a href="#">File</a>
+                    <a href="#">Archivo</a>
                     <div class="dropdown-content">
-                        <a href="#" id="export_text">Download Arduino</a>
-                        <a href="#" id="export_xml">Dowload Project</a>
-                        <a href="#" id="load_text">Load Project</a>
+                        <a href="#" id="export_text">Descargar Arduino</a>
+                        <a href="#" id="export_xml">Descargar Projecto</a>
+                        <a href="#" id="load_text">Cargar Projecto</a>
                     </div>
                 </li>
-                <li><a href="#" id="export_text">Download</a>
-                <li><a href="#">Help</a></li>
-                <li><a href="#">User</a></li>
+                <li class="dropdown">
+                    <a href="#">Ayuda</a>
+                    <div class="dropdown-content">
+                        <a href="#" id="help">Recomendaciones</a>
+                        <a href="#" id="helpDiv"><Links onclick="window.open('../../SE SUPONE QUE AQUI LINK DE LA WIKI', '_blank')">Wiki</Links></a>
+                    </div>
+                </li>
+                <li><a href="#" id="verify_text">Verificar</a>
+                <li><a href="#" id="buttonOpen"><Links onclick="window.open('EasyVersion/EasyVersionIndex.html', '_blank')">Modo Principiante</Links></a></li>
             </ul>
         </div>
     </div>
-
+    
     <!-- Blockly -->
     <!-- ToolBox -->
     <div id="content">
         <div id="blocklyDiv">
             <!-- Categorias y bloques-->
             <xml id="toolbox">
-                <category name="Logica" colour="#bbb123" css-class="categoryAnalogico">
+                <category name="Estructuras de Control" colour="#bbb123" css-class="categoryAnalogico">
                     <block type="arduino_for"></block>
                     <block type="arduino_while"></block>
                     <block type="arduino_dowhile"></block>
                     <block type="arduino_if"></block>
+                    <block type="arduino_ifelse"></block>
+                    <block type="arduino_switch"></block>
+                    <block type="arduino_case"></block>
                 </category>
-                <category name="Simples" colour="green" css-class="categoryDigital">
-                    <block type="simple_text"></block>
-                </category>
-                <category name="Parametros" colour="blue" css-class="categoryDigital">
-                    <block type="param_int"></block>
-                    <block type="param_float"></block>
-                    <block type="param_string"></block>
-                    <block type="create_var"></block>
-                    <block type="var_list"></block>
-                    <block type="int_var"></block>
-                    <block type="ctest"></block>
-                    <block type="jtest"></block>
-                </category>
-                <category name="Set up" colour="#bb7111" css-class="categoryAnalogico">
-                    <block type="group_block"></block>
-                </category>
+                <category name="Variables" colour="green" css-class="categoryDigital">
+                    <block type="create_bool"></block>
+                    <block type="create_char"></block>
+                    <block type="create_string"></block>
+                    <block type="create_int"></block>
+                    <block type="create_long"></block>
+                    <block type="create_short"></block>
+                    <block type="create_float"></block>
+                    <block type="create_double"></block>
 
-                <category name="Digital" colour="#bbb123" css-class="categoryAnalogico">
+                    <block type="bool_list"></block>
+                    <block type="char_list"></block>
+                    <block type="string_list"></block>
+                    <block type="int_list"></block>
+                    <block type="long_list"></block>
+                    <block type="short_list"></block>
+                    <block type="float_list"></block>
+                    <block type="double_list"></block>
+
+                    <block type="bool_value"></block>
+                    <block type="char_value"></block>
+                    <block type="string_value"></block>
+                    <block type="int_value"></block>
+                    <block type="long_value"></block>
+                    <block type="short_value"></block>
+                    <block type="float_value"></block>
+                    <block type="double_value"></block>
+                </category>
+                <category name="Operadores" colour="#663508" css-class="categoryDigital">
+                    <block type="arithmetic_operator"></block>
+                    <block type="boolean_operator"></block>
+                    <block type="comparison_operator"></block>
+                    <block type="updater_operator"></block>
+                </category>
+                <category name="Matematicas" colour="blue" css-class="categoryDigital">
+                    <block type="arduino_abs"></block>
+                    <block type="arduino_constrain"></block>
+                    <block type="arduino_map"></block>
+                    <block type="arduino_max"></block>
+                    <block type="arduino_min"></block>
+                    <block type="arduino_pow"></block>
+                    <block type="arduino_sq"></block>
+                    <block type="arduino_sqrt"></block>
+                    <block type="arduino_random"></block>
+                </category>
+                <category name="Digital" colour="#ffb347" css-class="categoryDigital">
                     <block type="arduino_digital_read"></block>
+                    <block type="MEGA_arduino_digital_read"></block>
                     <block type="arduino_digital_write"></block>
-                    <block type="arduino_pin_mode"></block>
-
-
+                    <block type="MEGA_arduino_digital_write"></block>
                 </category>
-
+                <category name="Analogico" colour="#8F00FF" css-class="categoryDigital">
+                    <block type="arduino_analog_read"></block>
+                    <block type="MEGA_arduino_analog_read"></block>
+                    <block type="arduino_analog_write"></block>
+                    <block type="MEGA_arduino_analog_write"></block>
+                </category>
+                <category name="Funciones" colour="gray" css-class="categoryDigital">
+                    <block type="create_function"></block>
+                    <block type="create_void_function"></block>
+                    <block type="function_list"></block>
+                    <block type="function_list_value"></block>
+                    <block type="arduino_interrupt"></block>
+                    <block type="MEGA_arduino_interrupt"></block>
+                </category>
+                <category name="Tiempo" colour="#aa137d" css-class="categoryDigital">
+                    <block type="arduino_delay"></block>
+                    <block type="arduino_delayMicroseconds"></block>
+                    <block type="arduino_milis"></block>
+                    <block type="arduino_micros"></block>
+                </category>
+                <category name="Serial" colour="#138B93" css-class="categoryDigital">
+                    <block type="serial_begin"></block>
+                    <block type="serial_available"></block>
+                    <block type="serial_read"></block>
+                    <block type="serial_write"></block>
+                    <block type="serial_print"></block>
+                    <block type="serial_println"></block>
+                    <block type="serial_flush"></block>
+                    <block type="serial_end"></block>
+                </category>
+                <category name="LCD" colour="red" css-class="categoryDigital">
+                    <block type="includeLCD"></block>
+                    <block type="includeLCD_MEGA"></block>
+                    <block type="LCDbegin"></block>
+                    <block type="LCDclear"></block>
+                    <block type="LCDhome"></block>
+                    <block type="LCDsetCursor"></block>
+                    <block type="LCDwrite"></block>
+                    <block type="LCDprint"></block>
+                    <block type="LCDcursor"></block>
+                    <block type="LCDnoCursor"></block>
+                    <block type="LCDblink"></block>
+                    <block type="LCDnoBlink"></block>
+                    <block type="LCDdisplay"></block>
+                    <block type="LCDnoDisplay"></block>
+                    <block type="LCDscrollLeft"></block>
+                    <block type="LCDscrollRight"></block>
+                    <block type="LCDautoscroll"></block>
+                    <block type="LCDnoAutoscroll"></block>
+                    <block type="LCDleftRight"></block>
+                    <block type="LCDrightLeft"></block>
+                </category>
+                <category name="Teclado" colour="#af4c8b" css-class="categoryDigital">
+                    <block type="Teclado_include"></block>
+                    <block type="Teclado_include_MEGA"></block>
+                    <block type="Teclado_read"></block>
+                    <block type="Teclado_val"></block>
+                </category>
+                <category name="Sensores" colour="#0c3b49" css-class="categoryDigital">
+                    <block type="HC04_include"></block>
+                    <block type="HC04_include_MEGA"></block>
+                    <block type="HC04_begin"></block>
+                    <block type="HC04_dist"></block>
+                    <block type="HC04_loop"></block>
+                    <block type="LDR_include"></block>
+                    <block type="LDR_include_MEGA"></block>
+                    <block type="LDR_value"></block>
+                    <block type="LDR_loop"></block>
+                </category>
+                <category name="Preparaciones" colour="#bb7111" css-class="categoryAnalogico">
+                    <block type="create_define_UNO"></block>
+                    <block type="create_define_MEGA"></block>
+                    <block type="pinMode"></block>
+                    <block type="pinMode_MEGA"></block>
+                    <block type="arduino_analog_reference"></block>
+                    <block type="include"></block>
+                </category>
                 <div id="dropzone">
                     <!-- iniciar workspace de blockly -->
                     <script>
                         var workspace = Blockly.inject('blocklyDiv', {
-                            toolbox: document.getElementById('toolbox')
+                        toolbox: document.getElementById('toolbox')
                         });
-                        workspace.addChangeListener(checkIntVarValueInput);
-                        ///
-                        verify = 0;
-                        function checkIntVarValueInput() {
-
-                            // Obtener todos los bloques en el área de trabajo
-                            const workspace = Blockly.getMainWorkspace();
-                            const allBlocks = workspace.getAllBlocks();
-
-                            // Filtrar solo los bloques 'int_var'
-                            const intVarBlocks = allBlocks.filter(block => block.type === 'int_var');
-
-                            // Iterar sobre los bloques 'int_var'
-                            intVarBlocks.forEach(block => {
-                                // Obtener la entrada de valor del bloque actual
-                                const valueInput = block.getInputTargetBlock('VALUE_INPUT');
-
-                                // Si la entrada de valor existe y su campo 'PARAM' es igual a "m", mostrar una alerta param es el especifico de string
-                                if (valueInput && valueInput.getFieldValue('PARAM_NUMBER') != null || valueInput && valueInput.getFieldValue('PARAM') != null) {
-                                    if (verify == 0) {
-                                        alert('Se encontró un bloque int_var con valor de entrada igual a "m"');
-                                        verify = 1;
-                                    }
-                                    if (verify == 1) {
-                                        Blockly.getMainWorkspace().undo(false);
-                                        //Blockly.getMainWorkspace().undo(false);
-                                        verify = 0;
-                                    }
-                                }
-
-
-                            });
-                        }
-                        ///
+                        workspace.addChangeListener(generateCode);
                     </script>
                 </div>
             </xml>
@@ -136,10 +241,6 @@ include("includes/header.php");
     <div id="trashcan" ondragover="allow_drop(event)" ondrop="delete_object(event)">
         <img src="Libraries/images/Trashcan.png">
     </div>
-    <script src="Bloques/Pruebas/mi_bloque.js"></script>
-    <!-- digital -->
-    <script src="Bloques/categorias/Digital/digitalRead.js"></script>
-    <script src="Bloques/categorias/Digital/digitalWrite.js"></script>
-    <script src="Bloques/categorias/Digital/pinMode.js"></script>
+
 </body>
 </html>

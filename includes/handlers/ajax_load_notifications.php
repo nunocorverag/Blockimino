@@ -18,6 +18,10 @@ if($notificaciones)
 }
 else
 {
-    echo "Las notificaciones estan desactivadas!";
+    ?>
+    <div style="text-align: center;" class="displayResultadoNotificacion">
+        <p style="color: black;">Las notificaciones estan desactivadas!</p>
+    </div>
+    <?php
 }
 ?>

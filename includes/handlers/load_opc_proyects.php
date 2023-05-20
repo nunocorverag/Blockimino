@@ -18,4 +18,8 @@ $nombre_usuario = $fila_nombre_usuario['username'];
     <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/../../new_proyect.php">
         <button>Crear proyecto</button>
     </a>
+    <br>
+    <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/../../search_project.php">
+        <button>Buscar proyecto</button>
+    </a>
 </div>

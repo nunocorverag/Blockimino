@@ -1,4 +1,3 @@
-<!-- Este archivo define las variables que se utilizaran al registrarse y al iniciar sesion -->
 <?php
 // + Declaramos las variables que usaremos en nuestros formularios y en el procesamiento de informacion
 $nombre = ""; // - Primer nombre

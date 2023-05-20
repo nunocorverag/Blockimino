@@ -1,4 +1,3 @@
-<!-- Este archivo procesa la informacion recibida de un POST en register.php -->
 <?php
 
 #region

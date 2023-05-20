@@ -54,13 +54,14 @@ if(isset($_POST['enviar_peticion']))
     {
         $query_insertar_peticion_ayuda = mysqli_query($con, "INSERT INTO peticiones_de_ayuda VALUES ('', '$id_usuario_loggeado', '$razon_peticion', '$contenido_peticion', '$nombre_imagen','no')");
         
-        $query_obtemer_correo_usuario_loggeado = mysqli_query($con, "SELECT email FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+        $query_obtemer_correo_usuario_loggeado = mysqli_query($con, "SELECT email, username FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
         $fila_correo_usuario_loggeado = mysqli_fetch_array($query_obtemer_correo_usuario_loggeado);
         $correo_usuario_loggeado = $fila_correo_usuario_loggeado['email'];
+        $usuario_mail = $fila_correo_usuario_loggeado['username'];
     
-        $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='usuario_especial'");
+        $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='administrador' OR tipo='moderador'");
 
-        $subject = "Nuevo comentario de ayuda en el sistema! por el usuario $correo_usuario_loggeado.";
+        $subject = "Nuevo comentario de ayuda en el sistema! por el usuario $usuario_mail.";
         $subject .= " Razón: ".$razon_peticion;
         $message .= "Comentario: ".$contenido_peticion;
         $header = "From: $correo_usuario_loggeado";

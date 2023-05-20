@@ -1,10 +1,9 @@
 <?php
-// Esta clase trabajara con todo lo que tenga que ver con mensajes
 class Mensaje {
-    // - $con -> Guardara la conexion de la base de datos
     private $con;
-    // - $n_usuario -> Guardara un objeto tipo usuario, el cual pertenecera a la clase Usuario
+    // - $con -> Guardara la conexion de la base de datos
     private $objeto_usuario;
+    // - $n_usuario -> Guardara un objeto tipo usuario, el cual pertenecera a la clase Usuario
 
     public function __construct($con, $id_usuario)
     {
@@ -118,7 +117,7 @@ class Mensaje {
             // 1 dia
             else if($intervalo->d == 1)
             {
-                $dias = $intervalo->d. "día atrás";
+                $dias = $intervalo->d. " día atrás";
             }
             //Mas de 1 dia
             else 

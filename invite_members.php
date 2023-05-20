@@ -68,7 +68,7 @@ if(isset($_GET['nombre_grupo']))
                 else if(count($nombres) == 3)
                 {
                     $usuariosRetornadosQuery = mysqli_query($con, "SELECT * FROM usuarios WHERE (nombre LIKE '%$nombres[0]%' AND apeP LIKE '%$nombres[1]%' AND apeM LIKE '%$nombres[2]%')
-                                                                                            AND usuario_cerrado='no' LIMIT 8");
+                                                                                            AND usuario_cerrado='no'");
                 }
 
                 // + Esta busqueda incluye el nombre y un apellido
@@ -78,7 +78,7 @@ if(isset($_GET['nombre_grupo']))
                                                                                             (nombre LIKE '%$nombres[0]%' AND apeP LIKE '%$nombres[1]%') 
                                                                                             OR 
                                                                                             (nombre LIKE '%$nombres[0]%' AND apeM LIKE '%$nombres[1]%')
-                                                                                            AND usuario_cerrado='no' LIMIT 8");
+                                                                                            AND usuario_cerrado='no'");
                 }
                 // + Esta busqueda es para los usuarios
                 else if(count($nombres) == 1)
@@ -91,7 +91,7 @@ if(isset($_GET['nombre_grupo']))
                                                                                             (apeM LIKE '%$nombres[0]%')
                                                                                             OR
                                                                                             (username LIKE '$nombres[0]%')
-                                                                                            AND usuario_cerrado='no' LIMIT 8");
+                                                                                            AND usuario_cerrado='no'");
                 }
 
                 while($fila = mysqli_fetch_array($usuariosRetornadosQuery))

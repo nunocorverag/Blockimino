@@ -235,7 +235,7 @@ else
                     // 1 dia
                     else if($intervalo->d == 1)
                     {
-                        $dias = $intervalo->d. "día atrás";
+                        $dias = $intervalo->d. " día atrás";
                     }
                     //Mas de 1 dia
                     else 

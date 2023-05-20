@@ -135,6 +135,58 @@
     font-weight: bold;
 }
 
+#verify_text {
+    background-color: #1d630f;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+}
+
+
+#buttonOpen {
+    background-color: #0b777a;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+#help {
+    background-color: #086e54;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#helpDiv {
+    background-color: #00813a;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+
 #trashcan {
     position: absolute;
     right: 60px;

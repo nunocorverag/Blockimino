@@ -210,6 +210,32 @@ function obtenerLiveSearchInvitarUsuarios(valor, usuario, grupo)
     });
 }
 
+// function obtenerLiveSearchBuscarProyectos(valor, usuario)
+// {
+//     // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
+//     // + Todo lo que retorne, va a ser guardado en info
+//     $.post(getBaseUrl() + "/includes/handlers/ajax_search_projects.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
+//     {
+//         if($(".resultados_busqueda_proyecto_pie_pagina_vacios")[0])
+//         {
+//             // + Si esta escondido, lo muestra, si esta mostrandolo, lo esconde
+//             $(".resultados_busqueda_proyecto_pie_pagina_vacios").toggleClass("resultados_busqueda_proyecto_pie_pagina");
+//             $(".resultados_busqueda_proyecto_pie_pagina_vacios").toggleClass("resultados_busqueda_proyecto_pie_pagina_vacios");
+//         }
+
+//         // ! este lo tenga que cambiar no se
+//         $(".resultados_busqueda_proyecto").html(info);
+//         $(".resultados_busqueda_proyecto_pie_pagina").html("<a href='invite?query=" + valor + "'>Ver todos los resultados</a>");
+
+//         if(valor == "")
+//         {
+//             $(".resultados_busqueda_proyecto_pie_pagina").html("");
+//             $(".resultados_busqueda_proyecto_pie_pagina").toggleClass("resultados_busqueda_proyecto_pie_pagina_vacios");
+//             $(".resultados_busqueda_proyecto_pie_pagina").toggleClass("resultados_busqueda_proyecto_pie_pagina");
+//         }
+//     });
+// }
+
 function invitarUsuario(id_usuario_loggeado, id_usuario_invitado, id_grupo) {
     $.post(getBaseUrl() + "/includes/handlers/ajax_invite_members.php", { id_usuario_loggeado:id_usuario_loggeado, id_usuario_invitado:id_usuario_invitado, id_grupo:id_grupo }, function(response) {
         // Show success message

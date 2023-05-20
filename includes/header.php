@@ -66,6 +66,10 @@ else
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/css/style.css'; ?>">
 
+
+    <!-- NAV BAR -->
+    <link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/Libraries/nav-bar.css'; ?>">
+
     <!-- //! Falta explicar este de abajo -->
     <link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/css/jquery.Jcrop.css" type="text/css'; ?>"/>
 
@@ -73,9 +77,12 @@ else
 <body>
 
      <div class="barra_superior">
-        <div class="logo">
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php">Blockimino</a>
-        </div>
+        <nav>
+            <div class="logo">
+                <a class="home" href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php"></a>
+            </div>  
+        </nav>
+
 
         <div class="busqueda">
             <form action="<?php echo dirname($_SERVER['PHP_SELF']) ?>/search.php" method="GET" name="formulario_busqueda">
@@ -115,7 +122,7 @@ else
             </div>
         </div>
 
-        <nav>
+        <nav class="nav_botones">
             <a href="block_arena.php">
                 <button class="boton_arena_bloques">Arena de bloques</button>
             </a>

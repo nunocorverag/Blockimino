@@ -1,4 +1,3 @@
-<!-- En este archivo se define el codigo de colores de los comentarios -->
 <?php
 // !    Este comentario indica que existe un error en el codigo
 // $    Este comentario indica alguna definicion de una palabra o funcion reservada

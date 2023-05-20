@@ -119,8 +119,42 @@ else
                         <!-- // TODO ESTE SCRIPT CARGARA EL PROYECTO EN ESPECIFICO -->
                         <script>
                             $(document).ready(function(){
+                                
                                 $('#editar<?php echo $nombre_proyecto; ?>').on('click', function() {
-                                    alert("Se presiono el boton <?php echo $nombre_proyecto?><br>Link: <?php echo $link_proyecto?>")
+                                    // alert("Se presiono el boton <?php echo $nombre_proyecto?><br>Link: <?php echo $link_proyecto?>")
+
+                                    <li><a href="#" id="buttonOpen"><Links onclick="window.open('EasyVersion/EasyVersionIndex.html', '_blank')">Modo Principiante</Links></a></li>
+
+                                    
+                                    var workspace = Blockly.getMainWorkspace(); // Get the main workspace
+
+                                    var fileURL = '<?php echo $link_proyecto ?>'; // Este es mi archivo pero no me deja cargarlo por restricciones de CORS, deberia funcionar en web
+                                    
+                                    // Create a new XMLHttpRequest object
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('GET', fileURL, true);
+                                    xhr.onreadystatechange = function () {
+                                    if (xhr.readyState == 4 && xhr.status == 200) {
+                                        var xmlText = xhr.responseText;
+                                    
+                                        // Parse the XML text into a DOM structure
+                                        var domParser = new DOMParser();
+                                        var xmlDoc = domParser.parseFromString(xmlText, 'text/xml');
+                                    
+                                        // Extract the root block from the XML
+                                        var rootBlockXml = xmlDoc.getElementsByTagName('xml')[0].firstElementChild;
+                                    
+                                        // Convert the root block XML into a Blockly block
+                                        var rootBlock = Blockly.Xml.domToBlock(rootBlockXml, workspace);
+                                    
+                                        // Add the root block to the workspace
+                                        workspace.getCanvas().setResizesEnabled(false);
+                                        rootBlock.moveBy(20, 20); // Optional: Adjust the position of the loaded blocks
+                                        workspace.getCanvas().setResizesEnabled(true);
+                                    }
+                                    };
+                                    xhr.send();
+                                    
                                 });
                             });
                         </script>

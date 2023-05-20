@@ -19,6 +19,8 @@ if (isset($_GET['id_proyecto']))
             // $ unlink() -> Elimina un archivo alojado en el servidor
             unlink($link_proyecto);
 
+            $query_eliminar_info_proyecto_publicacion = mysqli_query($con, "UPDATE publicaciones SET proyecto = NULL WHERE proyecto='$id_proyecto'");
+
             $query_eliminar_proyecto = mysqli_query($con, "DELETE FROM proyectos WHERE id_proyecto='$id_proyecto'");
         }
     }

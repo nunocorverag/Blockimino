@@ -1,5 +1,3 @@
-<!-- Este archivo comprobara que la informacion enviada por el usuario al intentar iniciar sesion sea correcta -->
-
 <?php
 if(isset($_POST['login_button']))
 {
@@ -156,6 +154,25 @@ if(isset($_POST['login_button']))
                         $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', NULL, '$id_usuario', NULL, NULL, NULL)");
                         $info = "Su cuenta ha sido bloqueada permanentemente, notifique a un administrador para que la desbloquee<br>";
                         array_push($error_array, $info);
+
+                        $query_obtemer_correo_usuario_sancionado = mysqli_query($con, "SELECT email, username FROM usuarios WHERE id_usuario='$id_usuario'");
+                        $fila_correo_usuario_sancionado = mysqli_fetch_array($query_obtemer_correo_usuario_sancionado);
+                        $correo_usuario_loggeado = $fila_correo_usuario_sancionado['email'];
+                        $usuario_mail = $fila_correo_usuario_sancionado['username'];
+                    
+                        $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='administrador' OR tipo='moderador'");
+                
+                        $subject = "Se ha bloqueado la cuenta del siguiente usuario: $usuario_mail.";
+                        $message = " Razón: Exceso de intentos de sesión";
+                        $header = "From: blockimino@gmail.com";
+                
+                        while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))
+                        {
+                            $correo_usuario_especial = $fila_correo_usuario_especial['email'];
+                            // mail("gnuno2003@gmail.com", $subject, $message, $header);
+                        }
+                        // + ESTO LO COLOCO AQUI PORQUE NO QUIERO SPAM A MULTIPLES CUENTAS DE CORREO
+                        // mail("gnuno2003@gmail.com", $subject, $message, $header);
                     }
                 }
                 array_push($error_array, "La contraseña es incorrecta!<br>");

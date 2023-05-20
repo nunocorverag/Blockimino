@@ -1,23 +1,8 @@
 /* Corresponde a la barra de navegacion superior */
 .barra_superior {
-    /* $width ->  Especifica la anchura del elemento */
-    width: 100%;
-    /* $ min-width -> Esto es para que cuando achiquemos la ventana, el texto no se junte (anchura minima)*/
-    min-width: 40px;
-    /* $ height ->  Especifica la altura del elemento*/
-    height: 40px;
-    /* $ background-color -> Color de fondo del elemento */
-    background-color: lightblue;
-    /* $ border-bottom -> Establece la anchura, estilo y color del borde inferior */
-    border-bottom: 0.25px solid blue;
     /* $ margin ->  Establece los margenes de un elemento y otro */
     /* +$ margen superior, margen derecho, margen inferior, margen izquierdo */
     margin: 0 0 10px 0;
-    /* $ display ->  Especifica si un elemento es tratado como block o inline element */
-    /* +$ inline-flex -> El elemento se comporta como un elemento en linea y se establece su contenido
-       +$ de acuerdo con el modelo de cuadricula
-       +$ O sea, que todo lo que haya dentro del elemento, va en una SOLA linea */
-    display: inline-flex;
     /* $ position -> Especifica como un elemento sera posicionado en el documento (top, right, bottom y left) */
     /* +$ fixed -> Hace que un elemento se coloque respecto al viewport, le dices donde posicionarse al elemento
        +$ \,y se queda ahi mientras el usuario hace scroll  */
@@ -26,26 +11,26 @@
        $ superponen, los elementos con mayor valor z-index, cubriran a aquellos con menor valor
        +$ Esto es para el scroll */
     z-index: 10;
+    width: 100%;
+    height: 50px;
+    background-color: #13aa89;
+    color: #fff;
+    padding: 0 21px;
+    box-sizing: border-box;
+    display: flex;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 /* Corresponde al logo de Blockimino */
 .logo a {
-    /* $ margin-left -> Establece el margen izquierdo del elemento una longitud */
-    margin-left: 10px;
-    /* $ font-size -> Establece el tamaño de la fuente en css */
-    font-size: 30;
-    /* +$ Relavite  El elemento es posicionado de acuerdo al flujo normal del documento y luego
-       +$ es desplaado con relacion a si mismo, con base a los valores (top, right, bottom y left)
-       +$ el desplazamiento o afecta a posicion de ningun otro ekemento*/
-    position: relative;
-    /* $ top -> Especifica la parte de la posicion de un elemento posicionado (previamente utilizando position)
-       +$ para los elementos con una posicion relativa (relative) -> determina el desplazamiento hacia abajo que tendra
-       +$ el elemento con respecto a su posicion final */
-    top: 9px;
-    /* $ text-shadow -> Agrega sombra al texto, el orden es: color, eje x, eje y, radio de desenfoque;*/
-    text-shadow: #73b6e2 0.5px 0.5px 0px;
-    /* $ color -> Color del texto de un elemento */
-    color: #1086BA;
+    color: #fcfcfc;
+    text-decoration: none;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+    padding: 10px 15px;
+    display: block;
 }
 
 /* Corresponde a todos links de la pagina */
@@ -62,7 +47,7 @@ a:hover {
 }
 
 /* Propiedades para todos los elementos de la barra de navegacion */
-nav {
+.nav_botones {
     /* $ float -> Ubica un elemento al lado izquierdo o derecho de su contenedor, permitiendo a los elementos de texto y
        $ en linea aparecer a su costado.
        +$ right -> El elemento flota a la derecha de su bloque contenedor*/
@@ -80,7 +65,7 @@ nav {
 }
 
 /* Propiedades para los links de los elementos de la barra de navegacion */
-nav a {
+.nav_botones a {
     position: relative;
     color: #FFFFFF;
     text-decoration: none;
@@ -88,7 +73,7 @@ nav a {
 }
 
 /* Propiedades para los links de los elementos de la barra de navegacion cuando se tiene el cursor encima*/
-nav a:hover {
+.nav_botones a:hover {
     border-bottom: 7px solid #e67e22;
     color: #FFFFFF;
 }
@@ -224,8 +209,7 @@ nav a:hover {
 }
 
 .contenedor_no_mas_publicaciones_recomendar {
-    text-align: center
-    ;
+    text-align: center;
 }
 
 /* Comentarios */
@@ -820,7 +804,7 @@ nav a:hover {
     margin: 0px 30px;
 }
 
-.descripcion_perfil p{
+.descripcion_perfil p {
     background-color: #54bcde;
 }
 
@@ -2488,8 +2472,7 @@ input:checked+.slider:before {
     text-align: center;
 }
 
-.contenedor_intereses input[type="submit"]
-{
+.contenedor_intereses input[type="submit"] {
     width: 100%;
     height: 50px;
     border: none;
@@ -2502,7 +2485,21 @@ input:checked+.slider:before {
     margin: 0;
 }
 
-.contenedor_intereses input[type="text"]
-{
+.contenedor_intereses input[type="text"] {
     width: 100%;
+}
+
+/* Buscar proyectos */
+.contenedor_boton_busqueda_proyecto {
+    background-color: #F1F1F1;
+    border: #E5E5E5;
+    cursor: pointer;
+    height: 22px;
+    text-align: center;
+    width: 50px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    position: absolute;
+    top: 38px;
+    right: 11px;
 }

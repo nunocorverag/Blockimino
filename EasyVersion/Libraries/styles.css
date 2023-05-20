@@ -1,0 +1,280 @@
+#content {
+    margin-top: 50px;
+    margin-left: 200px;
+    padding: 20px;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #f1f1f1;
+    z-index: 1;
+    overflow: hidden;
+}
+
+
+.objects[item = "group"] {
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #FFF3CC;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 80px;
+    height: 25px;
+    margin: 10px;
+    padding: 5px;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 2px 2px 2px #585858;
+    cursor: move;
+}
+
+.objects[item = "simple"] {
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #ccffd9;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 100px;
+    height: 25px;
+    margin: 10px;
+    padding: 5px;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 2px 2px 2px #585858;
+    cursor: move;
+}
+
+.objects[item = "setup"] {
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #db7e27;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: 80px;
+    height: 25px;
+    margin: 10px;
+    padding: 5px;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #eee;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 2px 2px 2px #585858;
+    cursor: move;
+}
+
+.objects:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: none;
+}
+
+.objects:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: none;
+}
+
+#drop_zone {
+    background-color: #999; /*Cool color white gray EEE*/
+    border: #999 1px solid;
+    width: calc(100% - 300px);
+    height: calc(100vh - 215px);
+    padding: 8px;
+    font-size: 18px;
+    float: right;
+}
+
+#export_text {
+    padding: 5px 12px;
+    background-color: brown;
+    display: inline-block;
+    margin: 12px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #a8a5a5;
+    font-weight: bold;
+}
+
+#export_xml {
+    padding: 5px 12px;
+    background-color: #0d0e81;
+    display: inline-block;
+    margin: 12px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #a8a5a5;
+    font-weight: bold;
+}
+
+#load_text {
+    padding: 5px 12px;
+    background-color: #125526;
+    display: inline-block;
+    margin: 12px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #a8a5a5;
+    font-weight: bold;
+}
+
+#verify_text {
+    background-color: #1d630f;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+}
+
+
+#buttonOpen {
+    background-color: #ad7909;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+#help {
+    background-color: #086e54;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#helpDiv {
+    background-color: #00813a;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+
+#trashcan {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: 0 0 5px #9c9c9c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#trashcan img {
+    width: 70%;
+    height: 70%;
+}
+
+iframe {
+    border: none;
+}
+
+#blocklyDiv {
+    background-color: #999; 
+    border: #999 1px solid;
+    width: calc(112%);
+    height: calc(100vh - 115px);
+    padding: 8px;
+    font-size: 18px;
+    float: right;
+}
+
+
+
+
+
+
+
+
+.blocklyTreeRow {
+    height: 30px;
+    line-height: 30px;
+    padding-left: 16px;
+    border-radius: 5px;
+    margin: 3px 0;
+    background-color: lightgray ;
+}
+
+.blocklyTreeSelected {
+    box-shadow: none;
+    background-color: orange !important;
+}
+
+.blocklyTreeLabel {
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 3px 5px;
+
+}
+
+
+
+
+
+
+
+/* Cambiar el color de fondo de la arena de bloques */
+.blocklySvg {
+    background-color: darkgray; /* Color de fondo gris oscuro */
+
+}
+
+/* Cambiar el color de fondo de la toolbox */
+.blocklyToolboxDiv {
+    background-color: rgb(33, 88, 143); /* Color de fondo BLOCKIMINO */
+    padding: 14px;
+}
+
+/* Cambiar el color de fondo de las categor�as de la toolbox al pasar el cursor */
+.blocklyTreeLabel:hover {
+    background-color: #c5e1a5 !important; /* Color de fondo verde al pasar el cursor */
+}
+
+
+body{
+    background-color: #999;
+}
+
+
+

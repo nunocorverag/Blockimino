@@ -10,21 +10,22 @@ Blockly.Blocks['arduino_while'] = {
             .appendField("while");
         // Agregar una entrada para la primera condición
         this.appendValueInput("CONDITION1")
-            .setCheck("Boolean");
+            .setCheck(["Number", "Text", "Boolean", "bool"]);
         // Agregar un menú para el operador de comparación
         this.appendDummyInput()
-            .appendField(new Blockly.FieldDropdown([["<", "<"], [">", ">"], ["<=", "<="], [">=", ">="], ["==", "=="], ["!=", "!="], ["&&", "&&"], ["||", "||"]]), "OPERATOR");
+            .appendField(new Blockly.FieldDropdown([["<", "<"], [">", ">"], ["<=", "<="], [">=", ">="], ["==", "=="], ["!=", "!="]]), "OPERATOR");
         // Agregar una entrada para la segunda condición
         this.appendValueInput("CONDITION2")
-            .setCheck("Boolean");
+            .setCheck(["Number", "Text", "Boolean", "bool"]);
         // Añadir entrada para el cuerpo del bucle while
         this.appendStatementInput("DO")
-            .setCheck(null);
+            .setCheck('!arduino_case');
         // Configurar conexiones del bloque
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+        this.setPreviousStatement(true, '!arduino_case');
+        this.setNextStatement(true, '!arduino_case');
         // Establecer el color del bloque
         this.setColour('#bbb123');
+        this.setTooltip("Realiza un bucle solamente si se cumple la condicion y seguirá hasta que no se cumpla");
     }
 };
 

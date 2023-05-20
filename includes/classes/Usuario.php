@@ -1,10 +1,10 @@
 <?php
-// Esta clase trabajara con cosas que se requiera hacer con los datos del usuario
 class Usuario {
-    // - $con -> Guardara la conexion de la base de datos
     private $con;
-    // - $n_usuario -> Guardara los datos del usuario
+    // - $con -> Guardara la conexion de la base de datos
     private $usuario;
+    // - $n_usuario -> Guardara los datos del usuario
+
 
     // $ __construct -> Es el contructor de la clase, es llamado cuando se crea un objecto de la clase Usuario
     // + De parametros pasamos:

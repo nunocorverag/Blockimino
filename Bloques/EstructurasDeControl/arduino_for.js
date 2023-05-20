@@ -15,23 +15,41 @@ Blockly.Blocks['arduino_for'] = {
     // Agregar un menú para el operador de comparación
     this.appendDummyInput()
         .appendField(' i ')
-        .appendField(new Blockly.FieldDropdown([["<", "<"], [">", ">"], ["<=", "<="], [">=", ">="], ["==", "=="], ["!=", "!="], ["&&", "&&"], ["||", "||"]]), "OPERATOR");
+        .appendField(new Blockly.FieldDropdown([["<", "<"], [">", ">"], ["<=", "<="], [">=", ">="], ["==", "=="], ["!=", "!="]]), "OPERATOR");
     // Agregar una entrada para el índice final
     this.appendValueInput("END")
-        .setCheck("Number");
+        .setCheck(["Number", "Text", "Boolean", "bool"]);
     // Agregar un menú para la dirección de incremento/decremento
     this.appendDummyInput()
         .appendField(' i ')
         .appendField(new Blockly.FieldDropdown([["++", "++"], ["--", "--"]]), "DIRECTION");
     // Añadir entrada para el cuerpo del bucle for
     this.appendStatementInput("DO")
-        .setCheck(null);
+        .setCheck('!arduino_case');
     // Configurar conexiones del bloque
-    this.setPreviousStatement(true, null);
-    this.setNextStatement(true, null);
+    this.setPreviousStatement(true, '!arduino_case');
+    this.setNextStatement(true, '!arduino_case');
     // Establecer el color del bloque
     this.setColour('#bbb123');
-  }
+    this.setTooltip("Realiza un bucle decidiendo como inicia, mientras se cumpla que y que sucede despues de cada iteración");
+  },
+    // Función para validar el bloque
+    onchange: function () {
+        let block = this;
+        let count = 0;
+        // Recorre los bloques superiores para contar los bloques 'arduino_for' padres
+        while (block = block.getSurroundParent()) {
+          if (block.type === 'arduino_for') {
+            count++;
+          }
+        }
+        // Si se han encontrado tres o más bloques 'arduino_for', envía un alerta y elimina el bloque actual
+        if (count >= 10) {
+          alert("No se permiten 10 o más bloques 'for' anidados");
+          this.dispose();
+        }
+      }
+
 };
 
 

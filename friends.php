@@ -1,4 +1,3 @@
-<!-- Sera la lista de amigos que tiene un usuario -->
 <?php
 include("includes/header.php");
 
