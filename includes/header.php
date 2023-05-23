@@ -73,15 +73,16 @@ else
     <!-- //! Falta explicar este de abajo -->
     <link rel="stylesheet" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/css/jquery.Jcrop.css" type="text/css'; ?>"/>
 
+
+    <link rel="icon" href="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/images/icons/blockimino.png'?>">
+
 </head>
 <body>
 
      <div class="barra_superior">
-        <nav>
-            <div class="logo">
+            <div class="logo" style="margin-left: 15px">
                 <a class="home" href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php"></a>
             </div>  
-        </nav>
 
 
         <div class="busqueda">
@@ -122,122 +123,130 @@ else
             </div>
         </div>
 
-        <nav class="nav_botones">
-            <a href="block_arena.php">
-                <button class="boton_arena_bloques">Arena de bloques</button>
-            </a>
-
-            <?php
-                $query_obtener_info_conf_notificaciones = mysqli_query($con, "SELECT activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
-                $fila_info_notificaciones = mysqli_fetch_array($query_obtener_info_conf_notificaciones);
-                $notificaciones = $fila_info_notificaciones['activar_notificaciones'];
-
-                // + Mensajes no leidos
-                $mensajes = new Mensaje($con, $id_usuario_loggeado);
-                $numero_mensajes = $mensajes->obtenerMensajesNoLeidos();
-
-                // + Notificaciones no leidas
-                if($notificaciones)
-                {
-                    $notificacion = new Notificacion($con, $id_usuario_loggeado);
-                    $numero_notificaciones = $notificacion->obtenerNotificacionesNoLeidas();
-                }
-
-                // + Solicitudes de amistad
-                $objeto_usuario = new Usuario($con, $id_usuario_loggeado);
-                $numero_solicitudes_de_amistad = $objeto_usuario->obtenerNumeroDeSolicitudesDeAmistad();
-
-                // + Invitaciones de grupo
-                $numero_invitaciones_de_grupo = $objeto_usuario->obtenerNumeroDeInvitacionesGrupo();
-            ?>
-
-
-            <!-- Nombre del usuario para ir a la pagina del perfil del usuario -->
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/<?php echo $usuario_loggeado ?>">
-                <?php 
-                echo $fila_detalles_usuario['nombre'];
-                ?>
-            </a>
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php">
-                <i class="fa-solid fa-house-chimney"></i>
-            </a>
-
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/user_interests.php">
-                <i class="fa-solid fa-heart"></i>
-            </a>
-
-            <!-- //! Esa parte es de la funcionalidad de dropdown (puede que la quite)-->
-            <!-- Esto significa que ejecutaremos algo de javascript -->
-            <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'mensaje')">
-                <i class="fa-solid fa-envelope"></i>
-                <?php
-                if($numero_mensajes > 0)
-                {
-                    echo "<span class='insignia_notificacion' id='mensaje_no_leido'> " . $numero_mensajes . "</span>";
-                }
-                ?>
-            </a>
-            <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'notificacion')">
-                <i class="fa-regular fa-bell"></i>
-                <?php
-                if($notificaciones)
-                {
-                    if($numero_notificaciones > 0)
-                    {
-                        echo "<span class='insignia_notificacion' id='notificacion_no_leida'> " . $numero_notificaciones . "</span>";
-                    }
-                }
-                ?>
-            </a>
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/requests.php">
-                <i class="fa-solid fa-user-group"></i>
-                <?php
-                if($numero_solicitudes_de_amistad > 0)
-                {
-                    echo "<span class='insignia_notificacion' id='solicitud_de_amistad_no_leida'> " . $numero_solicitudes_de_amistad . "</span>";
-                }
-                ?>
-            </a>
-            
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/groups.php">
-                <i class="fa-solid fa-users"></i>
-                <?php
-                if($numero_invitaciones_de_grupo > 0)
-                {
-                    echo "<span class='insignia_notificacion' id='mensaje_no_leido'> " . $numero_invitaciones_de_grupo . "</span>";
-                }
-                ?>
-            </a>
-
-            <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'ocp_proyectos')">
-                    <i class="fa-solid fa-file"></i>
-            </a>
-
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/settings.php">
-                <i class="fa-solid fa-gear"></i>
-            </a>
-            <?php
-            if ($tipo_usuario == "moderador" || $tipo_usuario == "administrador")
-            {
-            ?>
-            <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'botones')">
-                    <i class="fa-solid fa-hammer"></i>
+        <div class="contenedor_elementos_derecha">
+            <div class="contenedor_boton_arena_bloques">
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/block_arena.php">
+                    <button class="boton_arena_bloques">Arena de bloques</button>
                 </a>
-            <?php
-            }
-            else if ($tipo_usuario == "normal")
-            {
-            ?>
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/help.php">
-                <i class="fa-solid fa-circle-info"></i>
-            </a>
-            <?php
-            }
-            ?>
-            <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/includes/handlers/logout.php">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
-        </nav>
+            </div>
+
+            <nav class="nav_botones">
+
+
+                <?php
+                    $query_obtener_info_conf_notificaciones = mysqli_query($con, "SELECT activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+                    $fila_info_notificaciones = mysqli_fetch_array($query_obtener_info_conf_notificaciones);
+                    $notificaciones = $fila_info_notificaciones['activar_notificaciones'];
+
+                    // + Mensajes no leidos
+                    $mensajes = new Mensaje($con, $id_usuario_loggeado);
+                    $numero_mensajes = $mensajes->obtenerMensajesNoLeidos();
+
+                    // + Notificaciones no leidas
+                    if($notificaciones)
+                    {
+                        $notificacion = new Notificacion($con, $id_usuario_loggeado);
+                        $numero_notificaciones = $notificacion->obtenerNotificacionesNoLeidas();
+                    }
+
+                    // + Solicitudes de amistad
+                    $objeto_usuario = new Usuario($con, $id_usuario_loggeado);
+                    $numero_solicitudes_de_amistad = $objeto_usuario->obtenerNumeroDeSolicitudesDeAmistad();
+
+                    // + Invitaciones de grupo
+                    $numero_invitaciones_de_grupo = $objeto_usuario->obtenerNumeroDeInvitacionesGrupo();
+                ?>
+
+
+                <!-- Nombre del usuario para ir a la pagina del perfil del usuario -->
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/<?php echo $usuario_loggeado ?>">
+                    <?php 
+                    echo $fila_detalles_usuario['nombre'];
+                    ?>
+                </a>
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/home.php">
+                    <i class="fa-solid fa-house-chimney"></i>
+                </a>
+
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/user_interests.php">
+                    <i class="fa-solid fa-heart"></i>
+                </a>
+
+                <!-- //! Esa parte es de la funcionalidad de dropdown (puede que la quite)-->
+                <!-- Esto significa que ejecutaremos algo de javascript -->
+                <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'mensaje')">
+                    <i class="fa-solid fa-envelope"></i>
+                    <?php
+                    if($numero_mensajes > 0)
+                    {
+                        echo "<span class='insignia_notificacion' id='mensaje_no_leido'> " . $numero_mensajes . "</span>";
+                    }
+                    ?>
+                </a>
+                <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'notificacion')">
+                    <i class="fa-regular fa-bell"></i>
+                    <?php
+                    if($notificaciones)
+                    {
+                        if($numero_notificaciones > 0)
+                        {
+                            echo "<span class='insignia_notificacion' id='notificacion_no_leida'> " . $numero_notificaciones . "</span>";
+                        }
+                    }
+                    ?>
+                </a>
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/requests.php">
+                    <i class="fa-solid fa-user-group"></i>
+                    <?php
+                    if($numero_solicitudes_de_amistad > 0)
+                    {
+                        echo "<span class='insignia_notificacion' id='solicitud_de_amistad_no_leida'> " . $numero_solicitudes_de_amistad . "</span>";
+                    }
+                    ?>
+                </a>
+                
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/groups.php">
+                    <i class="fa-solid fa-users"></i>
+                    <?php
+                    if($numero_invitaciones_de_grupo > 0)
+                    {
+                        echo "<span class='insignia_notificacion' id='mensaje_no_leido'> " . $numero_invitaciones_de_grupo . "</span>";
+                    }
+                    ?>
+                </a>
+
+                <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'ocp_proyectos')">
+                        <i class="fa-solid fa-file"></i>
+                </a>
+
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/settings.php">
+                    <i class="fa-solid fa-gear"></i>
+                </a>
+                <?php
+                if ($tipo_usuario == "moderador" || $tipo_usuario == "administrador")
+                {
+                ?>
+                <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'botones')">
+                        <i class="fa-solid fa-hammer"></i>
+                    </a>
+                <?php
+                }
+                else if ($tipo_usuario == "normal")
+                {
+                ?>
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/help.php">
+                    <i class="fa-solid fa-circle-info"></i>
+                </a>
+                <?php
+                }
+                ?>
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/includes/handlers/logout.php">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </nav>
+        </div>
+
+        
 
         <div class="ventana_desplegable" style="height:0px;"> </div>
         <input type="hidden" id="ventana_despliegue_de_datos" value="">

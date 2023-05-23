@@ -1,0 +1,5 @@
+﻿Las operaciones de comparación son fundamentales en la programación ya que permiten comparar dos valores y determinar su relación. Los operadores de comparación disponibles en Arduino son < (menor que), > (mayor que), <= (menor o igual a), >= (mayor o igual a), == (igual a) y != (diferente de).
+
+1.- Campo de entrada 1: Aquí puedes conectar un bloque que proporcione el primer valor que deseas comparar. Este bloque puede representar un número, texto, booleano, o incluso otra operación de comparación.
+2.- Operador de comparación: En este campo puedes seleccionar el operador de comparación que deseas usar (<, >, <=, >=, ==, !=).
+3.- Campo de entrada 2: Aquí puedes conectar un bloque que proporcione el segundo valor que deseas comparar. Al igual que la Entrada 1, este bloque puede representar un número, texto, booleano, o incluso otra operación de comparación.

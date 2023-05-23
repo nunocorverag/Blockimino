@@ -1,0 +1,5 @@
+﻿Esta instrucción switch se utiliza para seleccionar uno de muchos bloques de código a ejecutar. El valor dentro del switch es comparado con los valores dentro de los bloques case, y cuando se encuentra una coincidencia, se ejecuta el bloque de código correspondiente. Si no se encuentra ninguna coincidencia, se ejecuta el bloque de código default.
+
+1.- switch: En este campo debes introducir la variable que deseas comparar. Puede ser de tipo "int", "char", "bool" o "Boolean".
+2.- cases: En esta sección debes añadir bloques 'case'. Cada bloque 'case' representa una posible coincidencia para la variable que has introducido en el campo 'switch'. Cuando el valor de la variable coincide con el valor en un bloque 'case', se ejecuta el código dentro de ese bloque 'case'.
+3.- default: En este campo puedes añadir código que se ejecutará si la variable en 'switch' no coincide con ninguno de los bloques 'case'. Este es un comportamiento opcional y puedes dejarlo en blanco si no lo necesitas.

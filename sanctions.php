@@ -48,7 +48,12 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                     {
                         ?>
                         <div class="div_mostrar_publicacion_o_comentario_sancionado">
-                        <p>ID de la publicación sancionada <?php echo $fila['id_publicacion_sancion'] ?></p>
+                        <p>
+                            ID de la publicación sancionada 
+                            <a href="deleted_publication.php?id=<?php echo $fila['id_publicacion_sancion']?>">
+                                <?php echo $fila['id_publicacion_sancion'] ?>
+                            </a>
+                        </p>
                         </div>
                         <?php
                     }
@@ -56,7 +61,12 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                     {
                         ?>
                         <div class="div_mostrar_publicacion_o_comentario_sancionado">
-                        <p>ID del comentario sancionado <?php echo $fila['id_comentario_sancion'] ?></p>
+                        <p>
+                            ID del comentario sancionado 
+                            <a href="deleted_comment.php?id=<?php echo $fila['id_comentario_sancion']?>">
+                                <?php echo $fila['id_comentario_sancion'] ?>
+                            </a>
+                        </p>
                         </div>
                         <?php
                     }

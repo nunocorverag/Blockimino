@@ -1,0 +1,3 @@
+﻿La funcion Serial.begin() se utiliza para inicializar la comunicación serie a una velocidad de datos específica, denominada baud rate. El baud rate determina la velocidad de transmisión de información. Los valores típicos pueden ser 300, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, y 115200, entre otros. Esta función es comúnmente utilizada en la configuración (setup()) de un programa Arduino.
+
+Campo 1, Baud rate: Aquí puedes establecer la velocidad de transmisión de datos. Puedes introducir cualquier número entre 0 y 1,000,000. Sin embargo, los valores típicos son 9600 o 115200.

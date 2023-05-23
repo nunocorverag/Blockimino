@@ -1,0 +1,1 @@
+﻿Comprobar disponibilidad del puerto serial

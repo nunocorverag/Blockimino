@@ -19,7 +19,7 @@ if(isset($_SESSION['id_usuario']))
     $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
     if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
     {
-        header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php?username=" . $usuario_loggeado);
+        header("Location: sanctioned.php?username=" . $usuario_loggeado);
     }
     else
     {            
@@ -30,7 +30,7 @@ if(isset($_SESSION['id_usuario']))
 // + Si no encuentra un usuario loggeado, lo va a regresar a la pagina para crear usuario / iniciar sesion
 else 
 {
-    header("Location: " . dirname($_SERVER['PHP_SELF']) . "/index.php");
+    header("Location: index.php");
 }
 ?>
 

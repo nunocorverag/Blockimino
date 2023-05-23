@@ -49,8 +49,6 @@ else if(count($nombres) == 1)
 
 if($query != "" && $usuariosRetornadosQuery != "")
 {
-    // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
-    $src_pagina = 'http://localhost/blockimino/';
 
     while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
     {
@@ -65,7 +63,7 @@ if($query != "" && $usuariosRetornadosQuery != "")
             {
                 echo "<div class='displayResultado'>
                         <div class='liveSearchFotoPerfil'>
-                            <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
+                            <img src='" . $fila['foto_perfil'] . "'>
                         </div>
                         <div class='liveSearchTexto'>
                             " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
@@ -82,7 +80,7 @@ if($query != "" && $usuariosRetornadosQuery != "")
             {
                 echo "<div class='displayResultado'>
                         <div class='liveSearchFotoPerfil'>
-                            <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
+                            <img src='" . $fila['foto_perfil'] . "'>
                         </div>
                         <div class='liveSearchTexto'>
                             " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "

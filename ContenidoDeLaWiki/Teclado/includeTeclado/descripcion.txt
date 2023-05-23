@@ -1,0 +1,7 @@
+﻿Este bloque corresponde a la inclusión y configuración de la librería Keypad en Arduino para usar con un teclado matricial. Esta librería proporciona funciones que permiten leer la entrada de un teclado matricial, que es un conjunto de botones organizados en filas y columnas (matriz). En el código generado, se define la distribución de las teclas, se especifican los pines del Arduino a los que están conectadas las filas y columnas del teclado, y se crea una instancia del objeto Keypad.
+
+Este bloque Blockly se utiliza para incluir y configurar la librería Keypad en tu proyecto de Arduino. Los campos desplegables permiten seleccionar los pines de tu Arduino UNO a los que están conectadas las filas y columnas del teclado matricial. Estos pines se corresponden con las entradas y salidas digitales del Arduino. El bloque se conecta a la cadena principal de bloques en las secciones "include".
+
+Por defecto, el bloque está configurado para un teclado matricial 4x4 con una disposición específica de teclas. La matriz keys define la disposición de las teclas en el teclado matricial y se configura en el orden de las teclas en el teclado físico. Los arreglos rowPins y colPins definen a qué pines del Arduino están conectadas las filas y columnas del teclado, respectivamente. Los valores de estos pines se toman de los campos desplegables del bloque.
+
+Este bloque también genera una variable Key en el código, que se utilizará para almacenar la tecla presionada en el teclado matricial.

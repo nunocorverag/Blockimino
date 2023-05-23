@@ -1,6 +1,13 @@
 <?php
 include("includes/header.php");
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+ 
+require "/home4/blockimi/public_html/PHPMailer/src/Exception.php";
+require "/home4/blockimi/public_html/PHPMailer/src/PHPMailer.php";
+require "/home4/blockimi/public_html/PHPMailer/src/SMTP.php";
+
 $query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND tipo='normal')");
 if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
 {
@@ -61,18 +68,41 @@ if(isset($_POST['enviar_peticion']))
     
         $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='administrador' OR tipo='moderador'");
 
-        $subject = "Nuevo comentario de ayuda en el sistema! por el usuario $usuario_mail.";
-        $subject .= " Razón: ".$razon_peticion;
+        // + Configuracion de mail en mi dominio
+        $mail = new PHPMailer(true);
+
+        $mail->SMTPDebug = 2;
+        $mail->isSMTP();
+        $mail->Mailer = "mail";
+        $mail->SMTPSecure = "ssl";  
+        $mail->Timeout = 10; // Timeout de 10 segundos
+        $mail->Host = "mail.blockimino.com";  // STMP server 
+        $mail->Port = 587;
+        $mail->SMTPAuth = true;
+        $mail->Username = "noreply@blockimino.com";
+        $mail->Password = "Rq#7pW&fX9";
+
+        $mail->setFrom("noreply@blockimino.com");
+
+        $subject = "El usuario $usuario_mail ha realizado un nuevo comentario de ayuda en el sistema!";
+        $subject .= "Razon: ".$razon_peticion;
         $message .= "Comentario: ".$contenido_peticion;
         $header = "From: $correo_usuario_loggeado";
 
         while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))
         {
             $correo_usuario_especial = $fila_correo_usuario_especial['email'];
-            // mail("gnuno2003@gmail.com", $subject, $message, $header);
+            // Envía el correo
+            $mail->addAddress($correo_usuario_especial);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+            if($nombre_imagen != "")
+            {
+                $mail->addAttachment($nombre_imagen);
+            }
+            $mail->send();
+            $mail->clearAddresses();
         }
-        // + ESTO LO COLOCO AQUI PORQUE NO QUIERO SPAM A MULTIPLES CUENTAS DE CORREO
-        // mail("gnuno2003@gmail.com", $subject, $message, $header);
         header("Location: help.php");
     }
     else

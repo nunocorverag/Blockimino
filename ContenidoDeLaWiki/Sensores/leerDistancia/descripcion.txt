@@ -1,0 +1,3 @@
+﻿El bloque Leer distancia HC-04 se utiliza para medir la distancia utilizando el sensor ultrasónico HC-SR04. No hay entradas en este bloque; en lugar de eso, solo debes conectarlo en tu cadena de bloques para que la lectura de distancia se lleve a cabo.
+
+Una vez que el bloque se ejecuta, envía un pulso a través del pin Trigger del sensor HC-SR04, espera 10 microsegundos, y luego coloca de nuevo en bajo el pin Trigger. Luego, mide el tiempo que tarda en recibir un pulso de retorno en el pin Echo. Ese tiempo se escala para calcular la distancia en centímetros.

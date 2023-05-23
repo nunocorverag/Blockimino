@@ -1,0 +1,5 @@
+﻿Este bloque representa la función attachInterrupt() en Arduino. Esta función se usa para especificar una función que se debería ejecutar en respuesta a una interrupción externa. Las interrupciones son útiles para hacer que el microcontrolador reaccione a eventos de entrada en tiempo real. En Arduino Uno, las interrupciones se pueden configurar para los pines digitales 2 y 3.
+
+1.- Interrupción en pin: En este campo se puede seleccionar el número de pin (2 o 3) en el que se configurará la interrupción.
+2.- Ejecutar función: Aquí se debe introducir el nombre de la función que se ejecutará cuando ocurra la interrupción. Esta función debe ser definida en otra parte de tu programa.
+3.- Modo: Este campo permite seleccionar el tipo de cambio en el pin que desencadenará la interrupción. Las opciones son RISING (para desencadenar cuando la señal pasa de LOW a HIGH), FALLING (para desencadenar cuando la señal pasa de HIGH a LOW), CHANGE (para desencadenar cuando la señal cambia de estado) y LOW (para desencadenar mientras la señal permanezca en LOW).

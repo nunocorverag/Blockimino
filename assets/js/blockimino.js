@@ -85,7 +85,7 @@ $(document).click(function(click){
     if(click.target.class != "ventana_desplegable")
     {
         $(".ventana_desplegable").html("");
-        $(".ventana_desplegable").css({"padding" : "0px", "height" : "0px"});
+        $(".ventana_desplegable").css({"padding" : "0px", "height" : "0px", "border" : "none"});
     }
 });
 

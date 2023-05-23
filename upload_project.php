@@ -5,7 +5,7 @@ if(isset($_POST['subir_proyecto']))
 {
     $subida_exitosa = 1;
     $nombre_archivo_proyecto = $_FILES['archivo_proyecto']['name'];
-    $nombre_proyecto = $_POST['crear_proyecto_titulo'];$nombre_proyecto = $_POST['crear_proyecto_titulo'];
+    $nombre_proyecto = $_POST['crear_proyecto_titulo'];
     $nombre_proyecto = str_replace(' ', '_', $nombre_proyecto);
     $visibilidad_proyecto = isset($_POST['visibilidad_proyecto']) ? $_POST['visibilidad_proyecto'] : 0;
     $mensaje_de_error = "";

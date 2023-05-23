@@ -1,22 +1,48 @@
 <?php
-include("includes/header.php");
+require "includes/header.php";
 
-if(isset($_POST['enviar'])) 
-{
-    //Datos del remitente
-    $header = "From: uStore <uStore@gmail.com>";
-
-    // Información del correo electrónico del administrador
-    $email_administrador = "gnuno2003@gmail.com";
-    $asunto = "Clave de registro";
-    $contenido = "Hola";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
  
-    // Enviar el correo electrónico utilizando la función mail()
-    mail($email_administrador, $asunto, $contenido, $header);
+require "/home4/blockimi/public_html/PHPMailer/src/Exception.php";
+require "/home4/blockimi/public_html/PHPMailer/src/PHPMailer.php";
+require "/home4/blockimi/public_html/PHPMailer/src/SMTP.php";
 
-  echo "Correo electrónico enviado.";
+if (isset($_POST["enviar"])) {
+    // + Crear una nueva instancia de PHPMailer y configuracion de SMTP
+    $mail = new PHPMailer(true);
+
+    $mail->SMTPDebug = 2;
+    $mail->isSMTP();
+    $mail->Mailer = "mail";
+    $mail->SMTPSecure = "ssl";  
+    $mail->Timeout = 10; // Timeout de 10 segundos
+    $mail->Host = "mail.blockimino.com";  // STMP server 
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->Username = "noreply@blockimino.com";
+    $mail->Password = "Rq#7pW&fX9";
+
+
+    // Establecer el remitente y el destinatario
+    $mail->setFrom("noreply@blockimino.com");
+    $mail->addAddress("gnuno2003@gmail.com");
+
+    // Establecer el asunto y el contenido del correo electrónico
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = "Clave de registro";
+    $mail->Body = "Hola";
+
+    // Establecer un tiempo de espera (timeout) para el envío del correo electrónico
+    $mail->Timeout = 10;  // Timeout en segundos (ejemplo: 30 segundos)
+
+    // Enviar el correo electrónico
+    if ($mail->send()) {
+        echo "Correo electrónico enviado.";
+    } else {
+        echo "Error al enviar el correo electrónico: " . $mail->ErrorInfo;
+    }
 }
-
 ?>
 <form action="send_mail_test.php" method="POST">
     <input type="submit" name="enviar">

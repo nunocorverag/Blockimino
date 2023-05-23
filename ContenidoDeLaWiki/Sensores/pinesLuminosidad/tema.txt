@@ -1,0 +1,1 @@
+﻿Se definen los pines para las conexiones al sensor de luz

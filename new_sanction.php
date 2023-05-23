@@ -167,17 +167,20 @@ if(isset($_POST['boton_aplicar_sancion']))
                 <script>
                     result_eliminacion = true;
                     motivo = "Eliminado por aplicación de sanción";
-                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + <?php echo $id_objeto_a_buscar ?> + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion_comentario; ?>", { resultado:result_eliminacion, razon:motivo});
+                    $.post(
+                        "includes/form_handlers/delete_comment.php?id_comentario=<?php echo $id_objeto_a_buscar ?>&id_usuario=<?php echo $id_usuario_loggeado ?>&id_publicacion=<?php echo $id_publicacion_comentario ?>",
+                        { resultado:result_eliminacion, razon:motivo }
+                    );                
                 </script>
                 <?php
             }
             $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario_a_sancionar', '$id_usuario_que_sanciono', NULL, '$id_objeto_a_buscar')");
-            header("Location: sanctions.php");
+            // header("Location: sanctions.php");
         }
         else if($tipo_busqueda == "")
         {
             $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario_a_sancionar', '$id_usuario_que_sanciono', NULL, NULL)");
-            header("Location: sanctions.php");
+            // header("Location: sanctions.php");
         }
     }
     else

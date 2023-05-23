@@ -1,0 +1,37 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="includeLCD" id="p`)o^Pdi1vEx=hxy_w}c" x="206" y="47">
+    <field name="RS">12</field>
+    <field name="RW">11</field>
+    <field name="ENABLE">10</field>
+    <field name="D0">5</field>
+    <field name="D1">4</field>
+    <field name="D2">3</field>
+    <field name="D3">2</field>
+    <field name="D4">9</field>
+    <field name="D5">8</field>
+    <field name="D6">7</field>
+    <field name="D7">6</field>
+  </block>
+  <block type="LCDbegin" id="s7Y=cI~(dRDJzWS-)@Zt" x="237" y="135">
+    <field name="LCD_TYPE">16, 2</field>
+  </block>
+  <block type="arduino_for" id="LF#.MVJ?5otCLrLkjUM0" x="217" y="233">
+    <field name="OPERATOR">&lt;</field>
+    <field name="DIRECTION">++</field>
+    <value name="START">
+      <block type="int_value" id="-2b9,sxfW2xE.KV;GYXr">
+        <field name="INT_VALUE">1</field>
+      </block>
+    </value>
+    <value name="END">
+      <block type="int_value" id="P2+zGj?_QF9gRZ~vh7EZ">
+        <field name="INT_VALUE">5</field>
+      </block>
+    </value>
+    <statement name="DO">
+      <block type="arduino_micros" id="uwk.Ea.7H,v{*[EoaYdv">
+        <field name="PARAM_NUMBER">0</field>
+      </block>
+    </statement>
+  </block>
+</xml>

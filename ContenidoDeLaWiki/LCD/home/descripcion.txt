@@ -1,0 +1,1 @@
+﻿La función lcd.home se usa para posicionar el cursor del LCD en la esquina superior izquierda de la pantalla, es decir, en la posición (0,0). Es especialmente útil cuando se desea borrar la pantalla y empezar a escribir desde el principio o si simplemente se desea empezar a mostrar información desde la primera posición del LCD.

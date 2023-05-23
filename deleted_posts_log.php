@@ -35,7 +35,10 @@ $query_seleccionar_info = mysqli_query($con, "SELECT pe.id_eliminacion_publicaci
                 { ?>
                     <tr>
                         <td><?php echo $fila['id_eliminacion_publicacion']; ?></td>
-                        <td style="width: 20%;"><?php echo $fila['id_publicacion_eliminada']; ?></td>
+                        <td style="width: 20%;">
+                            <a href="deleted_publication.php?id=<?php echo $fila['id_publicacion_eliminada']?>">
+                                <?php echo $fila['id_publicacion_eliminada']; ?></td>
+                            </a>
                         <td><a href="<?php echo $fila['username']; ?>"> <?php echo $fila['username']; ?></a></td>
                         <td><a href="<?php echo $fila['usuario_eliminador']; ?>"> <?php echo $fila['usuario_eliminador']; ?></a></td>
                         <td><?php echo $fila['razon_eliminacion_publicacion']; ?></td>

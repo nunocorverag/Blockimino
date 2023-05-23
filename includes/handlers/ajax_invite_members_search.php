@@ -58,8 +58,6 @@ else if(count($nombres) == 1)
 
 if($query != "" && $usuariosRetornadosQuery != "")
 {
-    // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
-    $src_pagina = 'http://localhost/blockimino/';
 
     while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
     {
@@ -109,16 +107,16 @@ if($query != "" && $usuariosRetornadosQuery != "")
             {
                 echo "<div class='displayResultadoInvitarMiembro'>
                         <div class='invitarLiveSearchFotoPerfil'>
-                            <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
-                                <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
+                            <a href='../../" . $fila['username'] . "' style='color: #1485BD'>
+                                <img src='../../" . $fila['foto_perfil'] . "'>
                             </a>
                         </div>
                             <div class='invitarLiveSearchTexto'>
-                            <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
+                            <a href='../../" . $fila['username'] . "' style='color: #1485BD'>
                                 " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
                             </a>
                                 <p style='margin: 0'> 
-                                    <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
+                                    <a href='../../" . $fila['username'] . "' style='color: #1485BD'>
                                         " .$fila['username'] . "
                                     </a>
                                 </p>

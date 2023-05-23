@@ -1,0 +1,3 @@
+﻿La función lcd.begin() es específica de la biblioteca LiquidCrystal de Arduino, que se utiliza para controlar las pantallas de cristal líquido (LCD). Esta función establece el tamaño de la pantalla LCD en términos de número de columnas y filas. Por ejemplo, lcd.begin(16, 2) inicializará una pantalla LCD de 16 columnas y 2 filas.
+
+Lista 1: Este menú desplegable te permite seleccionar el tipo de pantalla LCD que estás utilizando en tu proyecto. Las opciones son "16x2", "20x4", "8x2" y "12x2", que representan el número de columnas y filas en la pantalla.

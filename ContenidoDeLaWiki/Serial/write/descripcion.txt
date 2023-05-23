@@ -1,0 +1,1 @@
+﻿La función Serial.write() se utiliza para enviar datos binarios al puerto serie. A diferencia de Serial.print, esta función enviará los datos tal y como están sin convertirlos a texto. Esta función es muy útil cuando se necesita enviar un byte o una serie de bytes a un dispositivo.

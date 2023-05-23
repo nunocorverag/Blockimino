@@ -1,0 +1,4 @@
+﻿La función min() devuelve el valor más pequeño de los dos números que se pasan como argumentos. Es útil cuando se necesitan comparar dos valores numéricos y usar el menor de ellos para alguna operación o condición en el código de Arduino.
+
+Campo 1: Aquí puedes introducir el primer número que quieres comparar.
+Campo 2: Aquí puedes introducir el segundo número que quieres comparar.

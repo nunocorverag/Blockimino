@@ -1,0 +1,3 @@
+﻿Estos bloques permiten la asignacion de valores para las variables nuevas recien creadas.
+
+Cada uno tiene la capacidad para introducir el valor máximo y mínimo de cada tipo de variable en especifico, por lo que solo pueden ser usadas con su respectivo bloque de creación de variable.

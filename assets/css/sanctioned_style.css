@@ -1,0 +1,23 @@
+.contenedor_display_sanciones_a_usuario {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.contenedor_bloque_sancion {
+    margin: 0 auto;
+    background-color: #dca8a8;
+    width: 40%;
+    border: 0.25px solid black;
+    border-bottom: none;
+}
+
+.contenedor_motivo_sancion {
+    border-bottom: 0.25px solid black;
+}
+
+.divInferiorDisplaySancion {
+    margin: 0 auto;
+    background-color: #d3d3d3;
+    width: 40%;
+    border: 0.25px solid black;
+}

@@ -1,0 +1,8 @@
+﻿Las funciones son subrutinas que realizan una tarea específica en un programa. Estas se definen por un tipo de retorno (puede ser int, bool, char, float, double o void si no retorna nada), un nombre de función definido por el usuario, y pueden tener una lista de instrucciones que se ejecutan cuando se llama a la función.
+
+Este bloque te permite crear una función personalizada en tu programa de Arduino.
+
+1.- Tipo de retorno: Este es un menú desplegable donde puedes seleccionar el tipo de dato que retornará tu función. Las opciones son int, bool, char, float, double y void. Si seleccionas void, significa que tu función no retornará ningún valor.
+2.- Nombre de la función: Aquí puedes escribir el nombre que deseas darle a tu función. Debe ser un nombre único y no puede contener caracteres especiales o espacios.
+3.- Cuerpo de la función: Este es el espacio donde puedes arrastrar y soltar bloques de código que se ejecutarán cuando llames a tu función. Estas instrucciones pueden ser cualquier cosa que desees que haga tu función, desde operaciones matemáticas hasta el control de hardware.
+4.- Retorno: Si seleccionaste un tipo de dato de retorno que no sea void, puedes arrastrar y soltar un bloque en este campo para especificar qué valor debe retornar tu función.

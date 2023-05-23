@@ -1,0 +1,1 @@
+﻿Esperar datos del puerto serial

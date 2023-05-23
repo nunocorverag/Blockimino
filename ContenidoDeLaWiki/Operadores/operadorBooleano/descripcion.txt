@@ -1,0 +1,5 @@
+﻿En la programación, las operaciones booleanas son operaciones que involucran y manipulan uno o más valores booleanos. Arduino permite dos tipos principales de operaciones booleanas: AND (&&) y OR (||). El operador AND devuelve true solo si ambas expresiones son verdaderas, mientras que el operador OR devuelve true si al menos una de las expresiones es verdadera.
+
+Campo de entrada 1: Aquí puedes introducir el primer operando de la operación booleana. Este puede ser un número, texto, booleano, una comparación u otra operación booleana.
+Campo desplegable lista: Aquí puedes seleccionar el operador booleano que desees usar. Las opciones son '&&' para AND y '||' para OR.
+Campo de entrada 2: Aquí puedes introducir el segundo operando de la operación booleana. Al igual que con 'OPERAND1', este puede ser un número, texto, booleano, una comparación u otra operación booleana.

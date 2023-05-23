@@ -13,13 +13,45 @@ require 'includes/form_handlers/register_handler.php';
     <title>Registrarse</title>
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/start_style.css">
+    <link rel="stylesheet" href="assets/css/Site.css">
+
+    <style>
+        body {
+            height: 100%;
+            background: linear-gradient(to bottom, #69c5b5, #336699, #154d24);
+        }
+
+        .register_error_message {
+            color: #FF2211;
+            font-weight: bold;
+            font-family: sans-serif;
+        }
+        .formu {
+            text-align: center;
+        }
+        a {
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 5px;
+            background-color: #2ecc71;
+            transition: background-color 0.3s ease;
+        }
+
+            a:hover {
+                background-color: #27ae60;
+            }
+    </style>
 </head>
 
 <body>
     <!-- //RF6 Habra una pantalla especifica para crear cuentas -->
-    <h1>Registrarse en Blockimino</h1>
+    <centerMargin>
+    <boldDarkTitle>Registrarse en Blockimino</boldDarkTitle>
+
     <!-- Crearemos un formulario y lo mandaremos a esta misma pagina -->
-    <form action="register.php" method="POST">
+    <form action="register.php" method="POST" class="formu">
         <!-- Registro del Nombre -->
         <input type="text" name="reg_nombre" placeholder="Primer nombre"
         value="<?php
@@ -202,9 +234,16 @@ require 'includes/form_handlers/register_handler.php';
                 }
             ?>
         </div>
-        <input type="submit" name="register_button" value="Registrarse">
+        <centerMargin>
+            <input type="submit" name="register_button" value="Registrarse">
+        </centerMargin>
         <br>
     </form>
-    ¿Ya tienes una cuenta?<a href="login.php">Inicia sesión aquí</a>
+
+    <boldWhiteSlim>
+    ¿Ya tienes una cuenta?
+    </boldWhiteSlim>
+    <a href="login.php">Inicia sesión aquí</a>
+</centerMargin>
 </body>
 </html>

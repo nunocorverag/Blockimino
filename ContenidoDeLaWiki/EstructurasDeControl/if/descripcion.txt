@@ -1,0 +1,6 @@
+﻿If es una estructura de control que permite ejecutar un bloque de código solo si una condición es verdadera. Esta instrucción consta de dos partes: la condición y el cuerpo de la instrucción. La condición se evalúa, y si el resultado es verdadero, entonces se ejecuta el bloque de código contenido en la instrucción if.
+
+1.- Primera condición: Aquí puedes especificar la primera condición que se va a evaluar. Esta puede ser un número, un texto, un booleano o una variable booleana.
+2.- Operador de comparación: En este campo se puede seleccionar un operador que determinará cómo se compara la primera condición con la segunda (<, >, <=, >=, ==, !=).
+3.- Segunda condición: En esta sección, se especifica la segunda condición que se va a comparar con la primera para determinar si el bloque de código contenido en la instrucción if se ejecuta.
+4.- Bloque if: Este es el cuerpo de la instrucción if, donde puedes arrastrar y soltar otros bloques de código que se ejecutarán si la condición evaluada es verdadera.

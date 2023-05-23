@@ -13,10 +13,38 @@ require 'includes/form_handlers/login_handler.php';
     <title>Iniciar sesión</title>
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/start_style.css">
+    <link rel="stylesheet" href="assets/css/Site.css">
+    
+        <style>
+            html, body {
+                height: 100%;
+                background: linear-gradient(to bottom, #69c5b5, #336699, #154d24);
+            }
+            .register_error_message {
+            color: #FF2211;
+            font-weight: bold;
+            font-family: sans-serif;
+            }
+            a {
+                color: white;
+                font-size: 30px;
+                text-decoration: none;
+                padding: 20px 40px;
+                border-radius: 5px;
+                background-color: #2673ca;
+                transition: background-color 0.3s ease;
+            }
+    
+                a:hover {
+                    background-color: #093b74;
+                }
+        </style>
+        
 </head>
 
 <body>
-    <h1>Iniciar sesión en Blockimino</h1>
+<centerMargin>
+    <boldDarkTitle>Iniciar sesión en Blockimino</boldDarkTitle>
     <!-- //RF7 Habra una pantalla especifica para iniciar sesion -->
     <!-- //RF4 El ingreso a la plataforma sera con usuario y contraseña -->
     <!-- Crearemos un formulario y lo mandaremos a esta misma pagina -->
@@ -75,20 +103,29 @@ require 'includes/form_handlers/login_handler.php';
                     }
                     
                 ?>
-                    <input type="submit" name="login_button" value="Iniciar sesión">
+                    <centerMargin>
+                        <input type="submit" name="login_button" value="Iniciar sesión">
+                    </centerMargin>
+
                 <?php
             }
             else
             {
                 ?>
-                    <input type="submit" name="login_button" value="Siguiente">
+                    <centerMargin>
+                        <input type="submit" name="login_button" value="Siguiente">
+                    </centerMargin>
                 <?php
             }
 
         ?>
 
     </form>
-    ¿No tienes tienes una cuenta?<a href="register.php">Registrate aquí</a>
-</body>
+    <boldWhiteSlim>
+    ¿No tienes tienes una cuenta?
+    </boldWhiteSlim>
+    <a href="register.php">Registrate aquí</a>
+    </centerMargin>
 
+</body>
 </html>

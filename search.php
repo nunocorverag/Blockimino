@@ -28,8 +28,6 @@ else
     $tipo = "usuarios_nombres_y_grupos";
 }
 
-// !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
-$src_pagina = 'http://localhost/blockimino/';
 ?>
 
 <div class="columna_principal" id="columna_principal">
@@ -165,7 +163,7 @@ $src_pagina = 'http://localhost/blockimino/';
                 $nombre_sin_hashtag = str_replace("#", "", $fila_info_hashtag['hashtag']);
     
                 echo "<div class='displayResultado'>
-                        <a href='" . $src_pagina . "publication_hashtag.php?hashtag=" . $nombre_sin_hashtag . "' style='color: #1485BD'>
+                        <a href='publication_hashtag.php?hashtag=" . $nombre_sin_hashtag . "' style='color: #1485BD'>
                             <div class='simbolo_hashtag'>
                                 <i class='fa-solid fa-hashtag'></i>
                             </div>                   
@@ -388,7 +386,7 @@ $src_pagina = 'http://localhost/blockimino/';
                     }
                 }
 
-                $boton_ver = "<a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
+                $boton_ver = "<a href='groups/" . $fila['nombre_grupo'] . "'>
                                 <button class='info'>Ver grupo</button>    
                             </a>";
 
@@ -408,16 +406,16 @@ $src_pagina = 'http://localhost/blockimino/';
                         </div>
 
                         <div class='imagenGrupoResultado'>
-                            <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
-                                <img src='" . $src_pagina . $fila['imagen_grupo'] . "' style='height: 100px;'>
+                            <a href='groups/" . $fila['nombre_grupo'] . "'>
+                                <img src='" . $fila['imagen_grupo'] . "' style='height: 100px;'>
                             </a>
                         </div>
                         <div class='liveSearchTexto'>
-                            <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
+                            <a href='groups/" . $fila['nombre_grupo'] . "'>
                                 " . $fila['nombre_grupo'] . "
                             </a>
                                 <p style='margin: 0'>
-                                    <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
+                                    <a href='groups/" . $fila['nombre_grupo'] . "'>
                                         Grupo
                                     </a>
                                 </p>
@@ -664,7 +662,7 @@ $src_pagina = 'http://localhost/blockimino/';
                     }
                 }
 
-                $boton_ver = "<a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
+                $boton_ver = "<a href='groups/" . $fila['nombre_grupo'] . "'>
                                 <button class='info'>Ver grupo</button>    
                             </a>";
 
@@ -684,16 +682,16 @@ $src_pagina = 'http://localhost/blockimino/';
                         </div>
 
                         <div class='imagenGrupoResultado'>
-                            <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
-                                <img src='" . $src_pagina . $fila['imagen_grupo'] . "' style='height: 100px;'>
+                            <a href='groups/" . $fila['nombre_grupo'] . "'>
+                                <img src='" . $fila['imagen_grupo'] . "' style='height: 100px;'>
                             </a>
                         </div>
                         <div class='liveSearchTexto'>
-                            <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
+                            <a href='groups/" . $fila['nombre_grupo'] . "'>
                                 " . $fila['nombre_grupo'] . "
                             </a>
                                 <p style='margin: 0'>
-                                    <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
+                                    <a href='groups/" . $fila['nombre_grupo'] . "'>
                                         Grupo
                                     </a>
                                 </p>

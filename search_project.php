@@ -30,8 +30,6 @@ include("includes/header.php");
         if(isset($_GET['query']))
         {
             $query = $_GET['query'];
-            // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
-            $src_pagina = 'http://localhost/blockimino/';
 
             if($query != "")
             {
@@ -116,7 +114,7 @@ include("includes/header.php");
                             <br>
                             <br>
                             <div class="contenedor_botones_accion_proyecto">
-                                <button class="boton_copiar_proyecto btn btn-info" id=copiar_proyecto<?php echo $nombre_proyecto?> >Copiar_Proyecto</button>
+                                <button class="boton_copiar_proyecto btn btn-info" id=copiar_proyecto<?php echo $nombre_proyecto?> >Copiar Proyecto</button>
                             </div>
                         </div>
 
@@ -124,7 +122,19 @@ include("includes/header.php");
                         <script>
                             $(document).ready(function(){
                                 $('#copiar_proyecto<?php echo $nombre_proyecto; ?>').on('click', function() {
-
+                                    bootbox.prompt("Introduce un nombre para el proyecto", function(result) {
+                                        if(result != null)
+                                        {
+                                            $.ajax({
+                                                url: 'includes/handlers/ajax_copy_project.php?id_usuario=<?php echo $id_usuario_loggeado?>&link_proyecto=<?php echo $link_proyecto?>',
+                                                type: 'POST',
+                                                data: {resultado:result},
+                                                success: function(data) {
+                                                    alert(data);
+                                                }
+                                            });
+                                        }
+                                    });
                                 });
                             });
                         </script>

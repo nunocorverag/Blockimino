@@ -30,3 +30,133 @@ h1 {
     height: 50px;
 }
 
+
+/* Style for input fields */
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Placeholder text style */
+  input[type="text"]::placeholder {
+    color: #999;
+  }
+  
+  /* Hover and focus styles */
+  input[type="text"]:hover,
+  input[type="text"]:focus {
+    border-color: #888;
+  }
+  
+  /* Focus style for placeholder */
+  input[type="text"]:focus::placeholder {
+    color: #666;
+  }
+  
+  /* Error style */
+  input[type="text"].error {
+    border-color: #ff0000;
+  }
+
+
+  /* Style for email input field */
+input[type="email"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Placeholder text style for email */
+  input[type="email"]::placeholder {
+    color: #999;
+  }
+  
+  /* Hover and focus styles for email */
+  input[type="email"]:hover,
+  input[type="email"]:focus {
+    border-color: #888;
+  }
+  
+  /* Focus style for placeholder in email */
+  input[type="email"]:focus::placeholder {
+    color: #666;
+  }
+  
+  /* Error style for email */
+  input[type="email"].error {
+    border-color: #ff0000;
+  }
+  
+  /* Style for password input field */
+  input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Placeholder text style for password */
+  input[type="password"]::placeholder {
+    color: #999;
+  }
+  
+  /* Hover and focus styles for password */
+  input[type="password"]:hover,
+  input[type="password"]:focus {
+    border-color: #888;
+  }
+  
+  /* Focus style for placeholder in password */
+  input[type="password"]:focus::placeholder {
+    color: #666;
+  }
+  
+  /* Error style for password */
+  input[type="password"].error {
+    border-color: #ff0000;
+  }
+
+
+  /* Style for submit button */
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: brown;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Hover style for submit button */
+  input[type="submit"]:hover {
+    background-color: #ff0000;
+  }
+  
+  /* Active style for submit button */
+  input[type="submit"]:active {
+    background-color: #6d1919;
+  }
+
+  footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  footer img {
+    max-width: 20%;
+    height: auto;
+  }

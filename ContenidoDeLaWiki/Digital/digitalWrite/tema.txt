@@ -1,0 +1,1 @@
+﻿Asignar un valor digital a un pin

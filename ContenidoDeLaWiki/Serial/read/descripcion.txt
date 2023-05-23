@@ -1,0 +1,1 @@
+﻿La función Serial.read() se utiliza para leer los datos entrantes de los dispositivos periféricos en el puerto serie. En general, esta función es usada cuando un dispositivo está transmitiendo datos al Arduino. Esta función devolverá el primer byte de datos disponibles en el buffer de recepción, o -1 si no hay datos disponibles.

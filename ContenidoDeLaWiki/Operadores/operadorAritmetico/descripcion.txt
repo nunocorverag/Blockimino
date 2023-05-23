@@ -1,0 +1,7 @@
+﻿ Las operaciones aritméticas son fundamentales en la programación y se utilizan para realizar cálculos. Los operadores disponibles en este bloque son la suma (+), la resta (-), la multiplicación (*), la división (/) y el módulo (%). El módulo da el residuo de una división. Por ejemplo, 5 % 2 sería 1.
+
+1.- Vacio1: Aquí puedes insertar el primer número (o variable que contenga un número) que será usado en la operación.
+
+2.- Lista: Este es un menú desplegable que te permite seleccionar el tipo de operación aritmética que deseas realizar. Puedes escoger entre suma (+), resta (-), multiplicación (*), división (/) y módulo (%).
+
+3.- Vacio2: Aquí puedes insertar el segundo número (o variable que contenga un número) que será usado en la operación.

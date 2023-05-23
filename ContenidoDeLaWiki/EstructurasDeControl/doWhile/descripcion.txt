@@ -1,0 +1,8 @@
+﻿El bucle do-while es una estructura de control que permite ejecutar un conjunto de instrucciones al menos una vez y luego repetir la ejecución mientras se cumpla una condición. La condición se comprueba después de cada ejecución del cuerpo del bucle, por lo que el cuerpo del bucle se ejecutará al menos una vez independientemente de la condición.
+
+El bloque tiene varios campos para configurar cómo funciona el bucle.
+
+1.-do: Este es el cuerpo del bucle donde puedes arrastrar y soltar otros bloques de código que se ejecutarán al menos una vez y luego repetidamente mientras se cumpla la condición del bucle.
+2.-while: Aquí es donde se configura la condición del bucle. Necesitarás dos elementos para esta condición: una entrada de valor a la izquierda y otra a la derecha, y un operador de comparación en el medio.
+3.-Entrada de la condición 1 y 2: Estas son las entradas de valor que se compararán para determinar si la condición del bucle se cumple. Pueden ser números, textos, booleanos, etc.
+4.-Operador de comparación: En este campo se puede seleccionar un operador que determinará si la condición del bucle se cumple (<, >, <=, >=, ==, !=).

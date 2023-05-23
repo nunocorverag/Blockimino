@@ -48,7 +48,7 @@ if(isset($_POST['login_button']))
             }
             else
             { 
-                header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php?username=" . $username);
+                header("Location: sanctioned.php?username=" . $username);
             }
         }
         if(isset($_POST['log_password']))

@@ -1,0 +1,150 @@
+﻿/* Css para la página Wiki y el boton de regreso */
+/*Barra de busqueda*/
+#search-container {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 8;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.contenido {
+    margin-top: 50px;
+}
+
+#search-input {
+    width: 88%;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+#search-button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+/* Fondo blanco */
+body {
+    background-color: white;
+}
+
+
+
+/* Estilos para el índice */
+.indice {
+    background-color: #C1FFC1; /* Verde claro */
+    padding: 20px;
+    margin-top: 0px; /* Ajuste de margen */
+}
+
+    .indice h2 {
+        color: #008000;
+        font-size: 50px;
+    }
+
+
+    .indice ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        font-weight: bold; /* Establecer negrita */
+        font-size: 20px; /* Establecer tamaño de fuente */
+    }
+
+        .indice ul ul {
+            list-style-type: none;
+            margin: 0;
+            padding-left: 20px; /* Ajuste de margen izquierdo */
+        }
+
+    .indice li {
+        margin: 5px 0;
+    }
+
+        .indice li a {
+            color: black;
+            text-decoration: none;
+        }
+
+/* Estilos para las secciones */
+.seccion {
+    background-color: #F0FFF0; /* Verde claro más claro */
+    padding: 10px;
+    margin-top: 0; /* Ajuste de margen */
+    margin-bottom: 20px; /* Agregar margen inferior */
+}
+
+    .seccion h2 {
+        color: #008000; /* Verde oscuro */
+        margin: 0px 280px;
+    }
+
+
+    .seccion p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin: 10px 40px; /* Agrega 10px de margen arriba y abajo, y 40 a los lados */
+        text-align: justify; /* Justifica el texto dentro del párrafo */
+    }
+
+
+
+#scroll-to-top-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+    #scroll-to-top-btn:hover {
+        opacity: 1;
+    }
+
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed; /* Asegura que la tabla no se expanda hacia los lados */
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    width: 300px; /* Ancho fijo para las celdas */
+    word-break: break-word; /* Permite dividir las palabras al final de una línea */
+}
+
+
+
+.indice > ul > li > a {
+    font-size: 30px; /* Aumentar el tamaño de la letra */
+    margin: 10px 30px; /* Agregar margen superior e inferior */
+    padding: 5px;
+    background-color: #13a887; /* Aquí pones el color que desees */
+    display: block;
+}
+
+

@@ -21,6 +21,12 @@
     font-family: sans-serif;
     font-size: 14px;
     font-weight: bold;
+    min-width: 600px;
+}
+
+body {
+    min-width: 1000px;
+    min-height: 800px;
 }
 
 /* Corresponde al logo de Blockimino */
@@ -31,6 +37,11 @@
     /* text-transform: uppercase; */
     padding: 10px 15px;
     display: block;
+}
+
+.logo img {
+    width: 170px;
+    height: 50px;
 }
 
 /* Corresponde a todos links de la pagina */
@@ -48,20 +59,9 @@ a:hover {
 
 /* Propiedades para todos los elementos de la barra de navegacion */
 .nav_botones {
-    /* $ float -> Ubica un elemento al lado izquierdo o derecho de su contenedor, permitiendo a los elementos de texto y
-       $ en linea aparecer a su costado.
-       +$ right -> El elemento flota a la derecha de su bloque contenedor*/
-    float: right;
-    /* +$ absolute ->  El elemento es removido del flujo normal del documento, sin crearse espacioa alguno para
-       +$ que el elememto en el esquema de a pagina. Es posicionado relativo a su ancestro posicionado mas cercano,
-       +$ si lo hay. Su posicion final esta determinada por los valores de top, right, bottom y left*/
-    position: absolute;
-    /* $ right -> Especifica parte de la posicion de un elemento
-       +$ para absolute, esta propiedad determina la distancia entre el margen derecho del elemento y el borde derecho
-       +$ de su bloque contenedor */
-    right: 1px;
     /* +$ Si solo hay un numero, aplica de los cuatro lados */
-    margin: 10px;
+    margin-top: 10px;
+    min-width: 500px;
 }
 
 /* Propiedades para los links de los elementos de la barra de navegacion */
@@ -69,7 +69,7 @@ a:hover {
     position: relative;
     color: #FFFFFF;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 /* Propiedades para los links de los elementos de la barra de navegacion cuando se tiene el cursor encima*/
@@ -84,7 +84,7 @@ a:hover {
        +$ autp -> Es reemplazado por algun valor apropiado, se utilkza para centrar los elementos horizontalmente respecto a su contenedor */
     margin: 0 auto;
     position: relative;
-    top: 50px;
+    top: 70px;
     /* $ padding -> Es una propiedad o relleno que se crea alrededor del contenido de un elemento dentro de los bordes definidos 
        +$ arriba y abajo | izquierda y derecha */
     padding: 0 10px;
@@ -132,6 +132,9 @@ a:hover {
 }
 
 .foto_perfil_publicacion {
+    /* $ float -> Ubica un elemento al lado izquierdo o derecho de su contenedor, permitiendo a los elementos de texto y
+       $ en linea aparecer a su costado.
+       +$ right -> El elemento flota a la derecha de su bloque contenedor*/
     float: left;
     margin-right: 7px;
 }
@@ -170,6 +173,10 @@ a:hover {
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0.1;
+    float: right;
+    /* +$ absolute ->  El elemento es removido del flujo normal del documento, sin crearse espacioa alguno para
+       +$ que el elememto en el esquema de a pagina. Es posicionado relativo a su ancestro posicionado mas cercano,
+       +$ si lo hay. Su posicion final esta determinada por los valores de top, right, bottom y left*/
     position: absolute;
     top: 0;
     left: 0;
@@ -951,8 +958,8 @@ a:hover {
     border-top: none;
     width: 300px;
     position: absolute;
-    right: 10px;
-    top: 40px;
+    right: 0px;
+    top: 50px;
     overflow: scroll;
 }
 
@@ -997,13 +1004,14 @@ a:hover {
 .busqueda {
     display: flex;
     flex-direction: column;
-    margin: 8px 0 0 20%;
+    margin: 8px 0 0 400px;
     position: relative;
+    min-width: 300px;
 }
 
 #input_busqueda_texto {
     border: thin solid #E5E5E5;
-    height: 23px;
+    height: 33px;
     outline: 0;
     width: 100%;
     border-top-right-radius: 0;
@@ -1011,22 +1019,25 @@ a:hover {
 }
 
 .contenedor_boton {
-    background-color: #F1F1F1;
+    background-color: #86e4af;
     border: #E5E5E5;
     cursor: pointer;
-    height: 22px;
+    height: 33px;
     text-align: center;
     width: 50px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     position: absolute;
-    top: 1px;
-    right: 0;
+    top: 0px;
+    right: -2px;
 }
 
 .contenedor_boton i {
     margin-top: 1px;
     width: 20px;
+    position: absolute;
+    left: 15px;
+    top: 9px;
 }
 
 .resultados_busqueda {
@@ -1302,7 +1313,6 @@ a:hover {
     width: 50%;
 }
 
-/* grupos */
 /* crear grupo */
 .area_crear_grupo {
     width: 35%;
@@ -1481,7 +1491,7 @@ a:hover {
 }
 
 .miembros {
-    width: 16%;
+    width: 20%;
 }
 
 .miembros a {
@@ -1713,6 +1723,25 @@ a:hover {
     padding-bottom: 3%;
 }
 
+/* Opciones de grupo */
+
+.cuerpo_configuracion{
+    text-align: center;
+}
+
+.cuerpo_configuracion button{
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 0;
+}
+
 /* Solicitar unirse al grupo */
 .contenedorSolicitudGrupo input[type="submit"] {
     border: none;
@@ -1727,6 +1756,7 @@ a:hover {
 .contenedor_invitaciones_a_grupos h4 {
     text-align: center;
 }
+
 
 /* Display de solicitudes a grupos */
 
@@ -2200,14 +2230,27 @@ a:hover {
 
 /* Boton arena de bloques */
 .boton_arena_bloques {
-    height: 26px;
+    height: 33px;
     border-radius: 5px;
     border: none;
     color: white;
-    background-color: orange;
+    background-color: #86e4af;
     position: relative;
     top: 20%;
     margin-bottom: 1%;
+    font-size: 22px;
+}
+
+.contenedor_elementos_derecha {
+    margin-left: 150px;
+    padding-left: 30px;
+    display: flex;
+    float: right;
+    flex-direction: row;
+    position: relative;
+    right: 1px;
+    min-width: 100px;
+    min-height: 80px;
 }
 
 /* Boton de notificaciones */
@@ -2489,6 +2532,11 @@ input:checked+.slider:before {
     width: 100%;
 }
 
+.contenedor_boton_arena_bloques {
+    padding-bottom: 40px;
+    min-width: 200px;
+}
+
 /* Buscar proyectos */
 .contenedor_boton_busqueda_proyecto {
     background-color: #F1F1F1;
@@ -2502,4 +2550,61 @@ input:checked+.slider:before {
     position: absolute;
     top: 38px;
     right: 11px;
+}
+
+/* Crear proyecto */
+.crear_proyecto {
+    width: 50%;
+    margin: 0 auto;
+    border: 0.25px solid black;
+    height: 235px;
+    min-width: 620px;
+}
+
+.contenedor_titulo_crear_proyecto {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    height: 50px;
+}
+
+.crear_proyecto textarea {
+    width: 98%;
+    margin: 10px 10px 0px 10px;
+}
+
+.visibilidad-btn {
+    background-color: #CCC;
+    width: 30%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.visibilidad-btn.selected {
+    background-color: #007bff;
+    width: 30%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.visibilidad_proyecto {
+    align-items: center;
+    margin: 0px 10px;
+}
+
+.boton_crear_proyecto {
+    width: 98%;
+    height: 60px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
+    margin: 10px;
 }

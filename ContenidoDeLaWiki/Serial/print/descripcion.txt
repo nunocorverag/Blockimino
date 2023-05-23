@@ -1,0 +1,1 @@
+﻿La función Serial.print() se utiliza para enviar datos a través del puerto serie a una computadora u otro dispositivo compatible. En comparación con Serial.write, Serial.print convierte los datos a texto antes de enviarlos. Por ejemplo, el número 123 se convierte en "123".

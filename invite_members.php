@@ -52,8 +52,6 @@ if(isset($_GET['nombre_grupo']))
             if(isset($_GET['query']))
             {
                 $query = $_GET['query'];
-                // !NOTA HAY QUE TENER CUIDADO CON EL REDIRECCIONAMIENTO ABSOLUTO EN EL HOST
-                $src_pagina = 'http://localhost/blockimino/';
 
                 // + Separamos los elementos de la busqueda
                 $nombres = explode(" ", $query);
@@ -141,16 +139,16 @@ if(isset($_GET['nombre_grupo']))
                         {
                             echo "<div class='displayResultadoInvitarMiembro'>
                                     <div class='invitarLiveSearchFotoPerfil'>
-                                        <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
-                                            <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
+                                        <a href='../../" . $fila['username'] . "' style='color: #1485BD'>
+                                            <img src='../../" . $fila['foto_perfil'] . "'>
                                         </a>
                                     </div>
                                         <div class='invitarLiveSearchTexto'>
-                                        <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
+                                        <a href='../../" . $fila['username'] . "' style='color: #1485BD'>
                                             " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
                                         </a>
                                             <p style='margin: 0'> 
-                                                <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
+                                                <a href='../../" . $fila['username'] . "' style='color: #1485BD'>
                                                     " .$fila['username'] . "
                                                 </a>
                                             </p>

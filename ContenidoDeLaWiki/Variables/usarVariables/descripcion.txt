@@ -1,0 +1,5 @@
+﻿Este bloque permite utilizar el valor de las variables dentro de otros bloques
+
+Cada tipo de variable tiene su repectivo bloque por lo que solo podras utilizar las variables previamente declaradas del mismo tipo dentro de estos.
+
+Las variables almacenan valores por lo que se pueden utilizar dentro de los espacios con la capacidad de utilizar los valores a los cuales las variables hacen referencia. Tambien es posible utilizar una variable para asignarle el valor a otra variable siempre y cuando sus tipos de datos no entren en conflicto.

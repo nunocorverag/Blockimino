@@ -1,0 +1,3 @@
+﻿La función sq() devuelve el cuadrado del número que se le pasa como parámetro. En otras palabras, multiplica el número por sí mismo. Es útil cuando se necesita elevar al cuadrado un número en cálculos matemáticos o estadísticos.
+
+Campo 1: Aquí puedes insertar un número (bloque de número) o una variable que represente un número. Este será el valor que se elevará al cuadrado.

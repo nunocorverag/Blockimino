@@ -16,9 +16,25 @@ if(isset($_GET['nombre_grupo']))
     if ($objeto_grupo_usuario_loggeado->EsUsuarioPropietario($id_grupo))
     {
         ?>
-            <a href="members">Ver Miembros</a>
-            <a href="invite">Invitar miembros</a>
-            <a href="requests">Ver solicitudes</a>
+        <h4>Administrar grupo</h4>
+        <br>
+            <a href="members">
+                <button>
+                    Ver Miembros
+                </button>
+            </a>
+            <br><br>
+            <a href="invite">
+                <button>
+                    Invitar miembros
+                </button>
+            </a>
+            <br><br>
+            <a href="requests">
+                <button>
+                    Ver solicitudes
+                </button>
+            </a>
             <br>
             
         <?php

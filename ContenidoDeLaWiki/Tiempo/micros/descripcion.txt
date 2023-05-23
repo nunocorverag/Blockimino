@@ -1,0 +1,1 @@
+﻿La función micros() en Arduino es utilizada para obtener el número de microsegundos desde que el programa de Arduino comenzó a ejecutarse. Este tiempo se incrementa desde que se inicia el programa hasta alcanzar el máximo valor posible. Luego de alcanzar el máximo, el tiempo vuelve a cero y comienza a incrementarse nuevamente.

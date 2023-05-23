@@ -1,0 +1,6 @@
+﻿El bucle while es una estructura de control que permite repetir un conjunto de instrucciones mientras se cumpla una condición. En cada iteración, se verifica si la condición aún es verdadera; si lo es, las instrucciones en el cuerpo del bucle se ejecutan de nuevo. Cuando la condición ya no es verdadera, el bucle se detiene y se continúa con las instrucciones que siguen después del bucle.
+
+1.- Condición 1: Aquí puedes especificar la primera parte de la condición. Este valor puede ser un número, texto, booleano o variable booleana que se usará para determinar si el bucle debe continuar ejecutándose.
+2.- Operador de comparación: En este campo se puede seleccionar un operador que determinará la relación entre la condición 1 y la condición 2 (<, >, <=, >=, ==, !=).
+3.- Condición 2: En esta sección, se especifica la segunda parte de la condición que, junto con la condición 1 y el operador de comparación, determinará si el bucle continúa ejecutándose.
+4.- Bucle while: Este es el cuerpo del bucle donde puedes arrastrar y soltar otros bloques de código que se ejecutarán mientras la condición sea verdadera.

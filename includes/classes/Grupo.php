@@ -96,9 +96,12 @@ class Grupo {
                                     </div>
                                     <div class='miembros'>
                                         <a href='". $fila['nombre_grupo'] . "/members'>
-                                            <p> Miembros: " . $total_miembros . "</p>
+                                            <button class='info'>
+                                                <p> Miembros: " . $total_miembros . "</p>
+                                            </button>
                                         </a>
                                     </div>
+                                    <br>
                                     <div class='botones'>
                                         <input type='submit' class='deep_blue' data-toggle='modal' data-target='#formulario_publicacion' value='Publicar algo'>
                                         " . $boton_administar . "

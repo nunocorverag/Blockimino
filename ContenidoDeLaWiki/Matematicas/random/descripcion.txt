@@ -1,0 +1,4 @@
+﻿La función random() genera un número aleatorio en el rango que se le pasa como argumentos. Por ejemplo, random(1, 10) generará un número aleatorio entre 1 y 10. Este método es útil en una variedad de situaciones, como la generación de comportamientos aleatorios, valores de prueba o datos aleatorios para juegos.
+
+Entrada 1 MIN: Este campo acepta un número que define el límite inferior del rango. Este valor puede ser cualquier número entero o real, y puede ser menor o igual al valor de MAX. Debe ser el valor más bajo que deseas que tenga el número aleatorio.
+Entrada 2 MAX: Este campo acepta un número que define el límite superior del rango. Este valor puede ser cualquier número entero o real, y debe ser mayor o igual que el valor de MIN. Este será el valor más alto que puede tener el número aleatorio.

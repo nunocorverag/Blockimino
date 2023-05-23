@@ -1,0 +1,1 @@
+﻿La función Serial.println() es muy similar a Serial.print, pero añade una nueva línea y retorno de carro ("\n\r") al final de la cadena. Esto significa que cuando se usa esta función, los datos enviados estarán seguidos por una nueva línea en la salida.

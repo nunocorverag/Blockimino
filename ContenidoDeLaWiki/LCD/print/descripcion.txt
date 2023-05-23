@@ -1,0 +1,5 @@
+﻿La función lcd.print() de Arduino se utiliza cuando se está trabajando con una pantalla LCD. Esta función permite mostrar texto o variables en la pantalla LCD. El texto o las variables se pasan como argumentos dentro de los paréntesis de la función lcd.print().
+
+Por ejemplo, si tienes una variable sensorValue, puedes mostrar su valor en la pantalla LCD con lcd.print(sensorValue). De esta forma, el valor de la variable sensorValue se mostrará en la pantalla LCD.
+
+Campo 1: Aquí puedes conectar un bloque que represente lo que quieres que se muestre en la pantalla LCD. Puede ser un bloque de texto con un mensaje, un bloque de variable que contenga un valor que quieres mostrar, o cualquier otro bloque que produzca un valor o un texto.

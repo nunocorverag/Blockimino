@@ -1,0 +1,3 @@
+﻿El bloque Valor de Teclado permite obtener el valor actual de la entrada del teclado. El bloque no tiene entradas y se utiliza simplemente arrastrándolo a la posición correcta. El bloque se puede conectar a la entrada de otro bloque que espere un valor, como un bloque de comparación o un bloque de cálculo.
+
+Por ejemplo, podrías usar este bloque para comprobar si se ha presionado una tecla específica en el teclado, y luego tomar alguna acción basada en eso. El bloque tiene una salida que puede ser de tipo "char", "Number", o "Text", lo que significa que puede ser usado en diferentes contextos dependiendo de lo que necesites en tu programa.

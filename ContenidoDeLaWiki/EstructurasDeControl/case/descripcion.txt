@@ -1,0 +1,4 @@
+﻿Case se utiliza dentro de la estructura de control switch...case. La instrucción case define un caso específico a considerar dentro del switch. Si el valor de la variable que se evalúa en el switch coincide con el valor especificado en el case, entonces el código dentro de ese case se ejecuta.
+
+1.- case: En este campo debes introducir el valor específico que deseas comparar con la variable del bloque 'arduino_switch'. Puede ser de tipo "int", "char", "bool" o "Boolean".
+2.- Cuerpo del bloque case: Esta sección es donde colocas los bloques de código que se ejecutarán si la variable del bloque 'arduino_switch' coincide con el valor que has introducido en este bloque 'case'.

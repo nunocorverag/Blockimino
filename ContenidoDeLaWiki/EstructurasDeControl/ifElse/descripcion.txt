@@ -1,0 +1,9 @@
+﻿La estructura if-else permite ejecutar diferentes bloques de código dependiendo de si una condición específica es verdadera o falsa. Primero, se evalúa una condición y, si resulta ser verdadera, se ejecuta el bloque de código que sigue al if. Si la condición es falsa, se ejecuta el bloque de código que sigue a la sentencia else.
+
+1.- if: Este es el comienzo de la sentencia condicional.
+2.- Primera condición: Aquí puedes especificar la primera condición a evaluar.
+3.- Operador de comparación: En este campo se puede seleccionar un operador que determinará cómo se compararán las dos condiciones (<, >, <=, >=, ==, !=).
+4.- Segunda condición: Aquí puedes especificar la segunda condición a evaluar.
+5.- Bucle if: Este es el cuerpo del bloque if donde puedes arrastrar y soltar otros bloques de código que se ejecutarán si la condición evaluada es verdadera.
+6.- else: Aquí comienza la sección que se ejecutará si la condición evaluada es falsa.
+7.- Bucle else: Este es el cuerpo del bloque else donde puedes arrastrar y soltar otros bloques de código que se ejecutarán si la condición evaluada es falsa.

@@ -1,0 +1,1 @@
+﻿Establecer pines de entrada y salida de datos o energia

@@ -70,38 +70,38 @@ else
                                                                                 (apeM LIKE '%$busqueda[0]%')
                                                                                 OR
                                                                                 (username LIKE '$busqueda[0]%')
-                                                                                AND usuario_cerrado='no' LIMIT 9");
+                                                                                AND usuario_cerrado='no' LIMIT 8");
 
         $gruposRetornadosQuery = mysqli_query($con, "SELECT * FROM grupos WHERE 
                                                                             (nombre_grupo LIKE '%$busqueda[0]%') 
-                                                                            AND grupo_eliminado='no' LIMIT 9");
+                                                                            AND grupo_eliminado='no' LIMIT 8");
     }
 
     if ($query != "" && $usuariosRetornadosQuery != "")
     {
         $resultados_mostrados = 0;
-        while($fila = mysqli_fetch_array($usuariosRetornadosQuery))
+        while($fila_usuarios_retornados = mysqli_fetch_array($usuariosRetornadosQuery))
         {
             $objeto_usuario_loggeado = new Usuario($con, $id_usuario_loggeado);
             // + Esto para evitar que aoarezca el usuario loggaedo
-            if($fila['id_usuario'] != $id_usuario_loggeado)
+            if($fila_usuarios_retornados['id_usuario'] != $id_usuario_loggeado)
             {
-                $amigos_mutuos = $objeto_usuario_loggeado->obtenerAmigosMutuos($fila['id_usuario']) . " amigos en comun";
+                $amigos_mutuos = $objeto_usuario_loggeado->obtenerAmigosMutuos($fila_usuarios_retornados['id_usuario']) . " amigos en comun";
             }
             else
             {
                 $amigos_mutuos = "";
             }
-            if ($fila['id_usuario'] != $id_usuario_loggeado)
+            if ($fila_usuarios_retornados['id_usuario'] != $id_usuario_loggeado)
             {
                 echo "<div class='displayResultado'>
-                        <a href='" . $src_pagina . $fila['username'] . "' style='color: #1485BD'>
+                        <a href='" . $src_pagina . $fila_usuarios_retornados['username'] . "' style='color: #1485BD'>
                             <div class='liveSearchFotoPerfil'>
-                                <img src='" . $src_pagina . $fila['foto_perfil'] . "'>
+                                <img src='" . $src_pagina . $fila_usuarios_retornados['foto_perfil'] . "'>
                             </div>
                             <div class='liveSearchTexto'>
-                                " . $fila['nombre'] . " " . $fila['apeP'] . " " . $fila['apeM'] . "
-                                <p style='margin: 0'> " .$fila['username'] . "</p>
+                                " . $fila_usuarios_retornados['nombre'] . " " . $fila_usuarios_retornados['apeP'] . " " . $fila_usuarios_retornados['apeM'] . "
+                                <p style='margin: 0'> " .$fila_usuarios_retornados['username'] . "</p>
                                 <p id='gris'> ". $amigos_mutuos . "</p>
                             </div>
                         </a>
@@ -111,28 +111,21 @@ else
         }
         if(count($busqueda) == 1)
         {
-            while ($fila = mysqli_fetch_array($gruposRetornadosQuery)) 
+            while (($fila_grupos_retornados = mysqli_fetch_array($gruposRetornadosQuery)) && !($resultados_mostrados >= 8)) 
             {
-                if($resultados_mostrados == 8)
-                {
-                    break;
-                }
-                else
-                {
-                    echo "<div class='displayResultado'>
-                            <a href='" . $src_pagina . "groups/" . $fila['nombre_grupo'] . "'>
-                                <div class='liveSearchFotoGrupo'>
-                                    <img src='" . $src_pagina . $fila['imagen_grupo'] . "'>
-                                </div>
-                                <div class='liveSearchTexto'>
-                                " . $fila['nombre_grupo'] . "
-                                <p style='margin: 0'>Grupo</p>
-                                </div>
-                            </a>
-                        </div>";
+                echo "<div class='displayResultado'>
+                        <a href='" . $src_pagina . "groups/" . $fila_grupos_retornados['nombre_grupo'] . "'>
+                            <div class='liveSearchFotoGrupo'>
+                                <img src='" . $src_pagina . $fila_grupos_retornados['imagen_grupo'] . "'>
+                            </div>
+                            <div class='liveSearchTexto'>
+                            " . $fila_grupos_retornados['nombre_grupo'] . "
+                            <p style='margin: 0'>Grupo</p>
+                            </div>
+                        </a>
+                    </div>";
         
                 $resultados_mostrados++;
-                }
             }
         }
     }

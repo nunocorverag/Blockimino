@@ -180,11 +180,11 @@
                                             {
                                                 if($objeto_usuario_loggeado->esSeguidor($id_usuario_perfil))
                                                 {
-                                                    echo '<input type="submit" name="dejar_seguir" class="danger" value="Dejar de seguir"><br>';
+                                                    echo '<br><input type="submit" name="dejar_seguir" class="danger" value="Dejar de seguir"><br>';
                                                 }
                                                 else
                                                 {
-                                                    echo '<input type="submit" name="seguir" class="success" value="Seguir"><br>';
+                                                    echo '<br><input type="submit" name="seguir" class="success" value="Seguir"><br>';
                                                 }
                                             }
                                         }
