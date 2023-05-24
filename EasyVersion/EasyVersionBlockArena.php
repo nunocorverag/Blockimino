@@ -6,7 +6,7 @@ if(isset($_SESSION['id_usuario']))
     // - Esta variable guarda el id del usuario
     $id_usuario_loggeado = $_SESSION['id_usuario'];
 
-    // - Guardamos en esta variable la query de todos los datos del usuario loggeado
+// - Guardamos en esta variable la query de todos los datos del usuario loggeado
     $query_detalles_usuario = mysqli_query($con, "SELECT * FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
     // - Guardamos en esta variable 
     $fila_detalles_usuario = mysqli_fetch_array($query_detalles_usuario);

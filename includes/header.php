@@ -55,8 +55,8 @@ else
     <script src="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/js/blockimino.js'; ?>"></script>
 
     <!-- //! Falta explicar estos de abajo -->
-    <script src="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/js/jquery.jcrop.js'; ?>"></script>
-    <script src="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/js/Jcrop_bits.js'; ?>"></script>
+    <script src="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/js/jquery.Jcrop.js'; ?>"></script>
+    <script src="<?php echo dirname($_SERVER['PHP_SELF']) . '/assets/js/jcrop_bits.js'; ?>"></script>
 
     <!-- CSS -->
     <!-- Incluimos fontawesome para tener algunos iconos con los cuales trabajar -->

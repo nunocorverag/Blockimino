@@ -194,7 +194,7 @@ if(isset($_POST['publicar']))
         $publicacion->enviarPublicacion($_POST['publicar_titulo'], $_POST['publicar_texto'], NULL, $nombres_imagenes, $nombres_archivos, $id_proyecto, $tipo_pagina, $hashtags);
 
         // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
-        header("Location: home.php");
+        // header("Location: home.php");
     }
     else
     {

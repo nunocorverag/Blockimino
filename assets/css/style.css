@@ -284,15 +284,17 @@ a:hover {
 
 #iframe_likes {
     border: 5px;
-    height: 28px;
+    height: 35px;
     width: 120px;
 }
 
 .mostrar_ocultar_comentarios {
     font-size: 14px;
     cursor: pointer;
+    bottom: 7px;
+    position: relative;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900
+    font-weight: 900;
 }
 
 .mostrar_ocultar_comentarios i {

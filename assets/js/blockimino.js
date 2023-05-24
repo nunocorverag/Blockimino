@@ -94,7 +94,7 @@ function obtenerUsuarios(valor, usuario)
     // + Este sera el archivo al que mandara la informacion
     // + Va a mandar una request a esta pagina, con los valores que tenemos entre {}
     // + Lo que retorne, lo va a anexar
-    $.post(getBaseUrl() + "includes/handlers/ajax_friend_search.php", {busqueda:valor, id_usuario_loggeado:usuario}, function(info) {
+    $.post("includes/handlers/ajax_friend_search.php", {busqueda:valor, id_usuario_loggeado:usuario}, function(info) {
         // + Va a poner el valor de este div con el que le enviemos de info
         $(".resultados").html(info);
     });
@@ -188,7 +188,7 @@ function obtenerLiveSearchInvitarUsuarios(valor, usuario, grupo)
 {
     // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
     // + Todo lo que retorne, va a ser guardado en info
-    $.post(getBaseUrl() + "/includes/handlers/ajax_invite_members_search.php", {query:valor, id_usuario_loggeado:usuario, id_grupo:grupo}, function(info)
+    $.post("../../includes/handlers/ajax_invite_members_search.php", {query:valor, id_usuario_loggeado:usuario, id_grupo:grupo}, function(info)
     {
         if($(".resultados_busqueda_invitar_miembros_pie_pagina_vacios")[0])
         {
@@ -210,34 +210,8 @@ function obtenerLiveSearchInvitarUsuarios(valor, usuario, grupo)
     });
 }
 
-// function obtenerLiveSearchBuscarProyectos(valor, usuario)
-// {
-//     // + Va a mandar la informacion a esta pagina, la primera va a ser la busqueda y la segunda el usuario loggeado
-//     // + Todo lo que retorne, va a ser guardado en info
-//     $.post(getBaseUrl() + "/includes/handlers/ajax_search_projects.php", {query:valor, id_usuario_loggeado:usuario}, function(info)
-//     {
-//         if($(".resultados_busqueda_proyecto_pie_pagina_vacios")[0])
-//         {
-//             // + Si esta escondido, lo muestra, si esta mostrandolo, lo esconde
-//             $(".resultados_busqueda_proyecto_pie_pagina_vacios").toggleClass("resultados_busqueda_proyecto_pie_pagina");
-//             $(".resultados_busqueda_proyecto_pie_pagina_vacios").toggleClass("resultados_busqueda_proyecto_pie_pagina_vacios");
-//         }
-
-//         // ! este lo tenga que cambiar no se
-//         $(".resultados_busqueda_proyecto").html(info);
-//         $(".resultados_busqueda_proyecto_pie_pagina").html("<a href='invite?query=" + valor + "'>Ver todos los resultados</a>");
-
-//         if(valor == "")
-//         {
-//             $(".resultados_busqueda_proyecto_pie_pagina").html("");
-//             $(".resultados_busqueda_proyecto_pie_pagina").toggleClass("resultados_busqueda_proyecto_pie_pagina_vacios");
-//             $(".resultados_busqueda_proyecto_pie_pagina").toggleClass("resultados_busqueda_proyecto_pie_pagina");
-//         }
-//     });
-// }
-
 function invitarUsuario(id_usuario_loggeado, id_usuario_invitado, id_grupo) {
-    $.post(getBaseUrl() + "/includes/handlers/ajax_invite_members.php", { id_usuario_loggeado:id_usuario_loggeado, id_usuario_invitado:id_usuario_invitado, id_grupo:id_grupo }, function(response) {
+    $.post("../../includes/handlers/ajax_invite_members.php", { id_usuario_loggeado:id_usuario_loggeado, id_usuario_invitado:id_usuario_invitado, id_grupo:id_grupo }, function(response) {
         // Show success message
         $("#mensaje_invitacion").html("Usuario invitado con éxito!");
         // Reload page
