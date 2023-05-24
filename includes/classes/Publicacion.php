@@ -70,13 +70,6 @@ class Publicacion {
                     $valor = "https://" . $valor;
                 }
 
-                // Buscar y reemplazar los enlaces de YouTube
-                // $valor = preg_replace(
-                //     "/(?<!\S)https?:\/\/(?:www\.)?youtube\.com\/watch\?v=[\w-]+(?:&[\w\?=]+)?(?!\S)/",
-                //     "<br><iframe width='420' height='315' src='https://www.youtube.com/embed/$1'></iframe><br>",
-                //     $valor
-                // );
-
                 // ! ANALIZAR BIEN EL TEMA DE !==
                 if(strpos($valor, "https://www.youtube.com/watch?v=") !== false)
                 {
@@ -91,7 +84,7 @@ class Publicacion {
             }
 
             //+ Ahora guardamos el valor nuevo del link en cuerpo
-            $cuerpo = implode(" ", $arreglo_cuerpo);
+            $cuerpo = implode("", $arreglo_cuerpo);
 
             echo "Nuevo cuerpo: " . $cuerpo . "<br>";
 
