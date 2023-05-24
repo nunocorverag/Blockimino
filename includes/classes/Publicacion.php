@@ -18,22 +18,18 @@ class Publicacion {
     public function enviarPublicacion($titulo, $cuerpo, $publicado_para, $nombre_imagenes, $nombre_archivos, $id_proyecto, $tipo_pagina, $hashtags)
     {
         // $ strip_tags -> Retira las etiqueras HTML y PHP de un string
-        echo "Cuerpo sin nada:" . $cuerpo . "<br>";
         $cuerpo = strip_tags($cuerpo);
         // $ mysqli_real_escape_string -> Escapa caracteres especiales para insertarlos en la base de datos
         $cuerpo = mysqli_real_escape_string($this->con, $cuerpo);
         
         // $ str_replace -> Reemplaza todas las occurrencias con otro string que querramos
         // +$ 1. String a reemplazar 2. String por el que se va a reemplazar 3. String completo en el que se va a reemplazar
-        echo "Cuerpo fiu fiu:" . $cuerpo . "<br>";
 
         $cuerpo = str_replace("\\r\\n", "\\r\\n<separar>", $cuerpo);
         $cuerpo = str_replace("\\r", "\\r<separar>", $cuerpo);
         $cuerpo = str_replace("\\n", "\\n<separar>", $cuerpo);
 
         $cuerpo = str_replace(" ", "&nbsp;<separar>", $cuerpo);
-
-        echo "Cuerpo:" . $cuerpo . "<br>";
 
         $titulo = strip_tags($titulo);
         $titulo = mysqli_real_escape_string($this->con, $titulo);
@@ -48,11 +44,6 @@ class Publicacion {
             $arreglo_cuerpo = explode("\r\n", $cuerpo);
             $arreglo_cuerpo = preg_split("/<separar>/", $cuerpo);
 
-            foreach($arreglo_cuerpo as $elemento)
-            {
-                echo "Elemento del arreglo: " . $elemento . "<br>";
-            }
-
             // Aplicar nl2br para convertir los saltos de línea en <br>
             $arreglo_cuerpo = array_map('nl2br', $arreglo_cuerpo);            
             // + Separamos y metemos en un arreglo para ver si hay links en la publicacion
@@ -61,8 +52,6 @@ class Publicacion {
             // + valor sera el elemento dentro del arreglo
             foreach($arreglo_cuerpo as $key => $valor)
             {
-                echo "valor: " . $valor . "<br>";
-
                 // Verificar si el valor contiene "www" pero no contiene "https://"
                 if(strpos($valor, "www") !== false && strpos($valor, "https://") === false)
                 {
@@ -71,7 +60,7 @@ class Publicacion {
                 }
 
                 // ! ANALIZAR BIEN EL TEMA DE !==
-                if(strpos($valor, "https://www.youtube.com/watch?v=") !== false)
+                if (strpos($valor, "https://") === 0 && strpos($valor, "https://www.youtube.com/watch?v=") !== false)
                 {
                     $link = preg_split("!&!", $valor);
                     // * embed es para que aparezca el video de youtube
@@ -85,8 +74,6 @@ class Publicacion {
 
             //+ Ahora guardamos el valor nuevo del link en cuerpo
             $cuerpo = implode("", $arreglo_cuerpo);
-
-            echo "Nuevo cuerpo: " . $cuerpo . "<br>";
 
             // - Guardamos en esta variable la fecha y hora actual para despues mostrar cuando se hizo la publicacion
             $fecha_publicado = date("Y-m-d H:i:s");

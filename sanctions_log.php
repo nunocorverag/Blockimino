@@ -69,8 +69,16 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT s.id_sancion, s.r
                             <?php
                         }
                         ?>
-                        <td><?php echo $fila['id_publicacion_sancion']; ?></td>
-                        <td><?php echo $fila['id_comentario_sancion']; ?></td>
+                        <td>
+                            <a href="deleted_publication.php?id=<?php echo $fila['id_publicacion_sancion']?>">
+                                <?php echo $fila['id_publicacion_sancion']; ?>
+                            </a>
+                        </td>
+                        <td>
+                        <a href="deleted_comment.php?id=<?php echo $fila['id_comentario_sancion']?>">
+                                <?php echo $fila['id_comentario_sancion']; ?>
+                            </a>
+                        </td>
                     </tr>
                 <?php 
                 } ?>

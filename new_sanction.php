@@ -175,12 +175,12 @@ if(isset($_POST['boton_aplicar_sancion']))
                 <?php
             }
             $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario_a_sancionar', '$id_usuario_que_sanciono', NULL, '$id_objeto_a_buscar')");
-            // header("Location: sanctions.php");
+            header("Location: sanctions.php");
         }
         else if($tipo_busqueda == "")
         {
             $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario_a_sancionar', '$id_usuario_que_sanciono', NULL, NULL)");
-            // header("Location: sanctions.php");
+            header("Location: sanctions.php");
         }
     }
     else
