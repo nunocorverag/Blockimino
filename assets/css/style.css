@@ -2610,3 +2610,112 @@ input:checked+.slider:before {
     outline: 0;
     margin: 10px;
 }
+
+/* Buscar informacion bloque */
+
+.contenedor_ver_info h4 {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.contenedor_ver_info p {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.contenedor_busqueda_info {
+    width: 100%;
+    min-width: 1300px;
+}
+
+.div_superior_busqueda {
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.div_tema_a_buscar {
+    width: 30%;
+    border: solid 0.25px black;
+    border-bottom: none;
+}
+
+#tema_a_buscar {
+    height: 100%;
+    border: none;
+}
+
+#tema_a_buscar:focus {
+    outline: none;
+}
+
+.div_bloque_a_buscar {
+    width: 70%;
+    border: solid 0.25px black;
+    border-bottom: none;
+    padding-left: 1%;
+}
+
+.div_imagen {
+    padding: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: solid 0.25px black;
+    max-width: 100%; /* Ajustar el ancho máximo al tamaño de la imagen */
+    height: auto; /* Ajustar automáticamente la altura en función del tamaño de la imagen */
+}
+
+.div_descripcion {
+    padding: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: solid 0.25px black;
+    border-bottom: none;
+    height: auto; /* Ajustar automáticamente la altura en función del contenido */
+}
+
+.div_apendices {
+    padding: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: solid 0.25px black;
+    border-bottom: none;
+    height: auto; /* Ajustar automáticamente la altura en función del contenido */
+}
+
+.tema_a_buscar {
+    width: 100%;
+}
+
+#bloque_a_buscar {
+    height: 100%;
+    border: none;
+    width: 60%;
+}
+
+#bloque_a_buscar:focus {
+    outline: none;
+}
+
+.div_apendices input[type="submit"] {
+    float: right;
+    width: 12%;
+    height: 100%;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+.h4_info
+{
+    margin: 0 auto;
+    width: 80%;
+    margin-bottom: 0px;
+    border: solid 0.25px black;
+    border-bottom: none;
+}

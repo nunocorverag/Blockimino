@@ -147,4 +147,21 @@ th, td {
     display: block;
 }
 
+/* Secciones colapsables */
+.collapsible-section ul {
+    display: none;
+}
 
+.collapsible-section.collapsed ul {
+    display: block;
+}
+
+.collapsible-section.collapsed > a::after {
+    content: "+";
+    float: right;
+}
+
+.collapsible-section > a::after {
+    content: "-";
+    float: right;
+}

@@ -36,7 +36,11 @@ include("includes/header.php");
             <h2>Índice</h2>
             <ul>
                 <!-- Estructuras de control -->
-                <li><a href="#seccion1">Estructuras de control</a>
+                <li class="collapsible-section">
+    <a href="#seccion1">
+        Estructuras de control
+        <span class="expand-icon">+</span>
+    </a>
                     <ul>
                         <li><a href="#subseccion1.1">for</a></li>
                         <li><a href="#subseccion1.2">while</a></li>
@@ -47,6 +51,25 @@ include("includes/header.php");
                         <li><a href="#subseccion1.7">case</a></li>
                     </ul>
                 </li>
+
+            <script>
+                // Obtén todos los contenedores de secciones
+                const sections = document.querySelectorAll('.collapsible-section');
+
+                // Agrega un evento de clic a cada sección
+                sections.forEach(section => {
+    const title = section.querySelector('a');
+    const expandIcon = section.querySelector('.expand-icon');
+
+    title.addEventListener('click', (event) => {
+        if (event.target !== expandIcon) {
+            section.classList.toggle('collapsed');
+        } else {
+            event.preventDefault(); // Evita la navegación predeterminada
+        }
+    });
+});
+            </script>
                 <!-- Estructuras de control -->
                 <!-- variables -->
                 <li><a href="#seccion2">Variables</a>

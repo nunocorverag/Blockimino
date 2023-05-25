@@ -41,19 +41,21 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT *  FROM usuarios 
                             ?>
                             <td><button class="descender_a_normal danger" id="descender_a_normal<?php echo $fila['username'] ?>">Descender a usuario normal</button></td>
                             <script>
-                                // + Script de descender moderador a usuario normal
-                                $(document).ready(function(){
-                                    $('#descender_a_normal<?php echo $fila['username']; ?>').on('click', function() {
-                                        bootbox.confirm("¿Estas seguro que quieres descender este usuario a usuario normal", function(result) {
-                                            if(result == true)
-                                            {
-                                                $.post("includes/form_handlers/user_to_normal.php?id_usuario=<?php echo $fila['id_usuario'];?>", {resultado:result});
-                                                location.reload();
-                                            }
-                                        });
+                            // Script de descender moderador a usuario normal
+                            $(document).ready(function() {
+                                $('#descender_a_normal<?php echo $fila['username']; ?>').on('click', function() {
+                                    bootbox.confirm("¿Estás seguro de que quieres descender este usuario a usuario normal?", function(result) {
+                                        if (result == true) {
+                                            $.post("includes/form_handlers/user_to_normal.php?id_usuario=<?php echo $fila['id_usuario']; ?>", {
+                                                resultado: result
+                                            }, function() {
+                                                location.href = 'manage_users.php'; // Aquí puedes especificar la URL de la página actual para redirigir a la misma página.
+                                            });
+                                        }
                                     });
                                 });
-                            </script>
+                            });
+                        </script>
                             <?php
                         }
                         else if($fila['tipo'] == "normal")
@@ -61,14 +63,16 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT *  FROM usuarios 
                             ?>
                             <td><button class="ascender_a_moderador success" id="ascender_a_moderador<?php echo $fila['username'] ?>">Ascender a moderador</button></td>
                             <script>
-                                // + Script de ascender un usuario normal a moderador
+                                // Script de ascender un usuario normal a moderador
                                 $(document).ready(function(){
                                     $('#ascender_a_moderador<?php echo $fila['username']; ?>').on('click', function() {
-                                        bootbox.confirm("¿Estas seguro que quieres ascender este usuario a moderador", function(result) {
-                                            if(result == true)
-                                            {
-                                                $.post("includes/form_handlers/user_to_moderator.php?id_usuario=<?php echo $fila['id_usuario'];?>", {resultado:result});
-                                                location.reload();
+                                        bootbox.confirm("¿Estás seguro de que quieres ascender este usuario a moderador?", function(result) {
+                                            if (result == true) {
+                                                $.post("includes/form_handlers/user_to_moderator.php?id_usuario=<?php echo $fila['id_usuario']; ?>", {
+                                                    resultado: result
+                                                }, function() {
+                                                    location.href = 'manage_users.php'; // Aquí puedes especificar la URL de la página actual para redirigir a la misma página.
+                                                });
                                             }
                                         });
                                     });
@@ -85,8 +89,3 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT *  FROM usuarios 
         </table>
     </div>
 </div>
-
-<?php
-
-
-?>
