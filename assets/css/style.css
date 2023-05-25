@@ -2637,11 +2637,13 @@ input:checked+.slider:before {
 
 .div_tema_a_buscar {
     width: 30%;
+    background-color: lightblue;
     border: solid 0.25px black;
     border-bottom: none;
 }
 
 #tema_a_buscar {
+    background-color: lightblue;
     height: 100%;
     border: none;
 }
@@ -2651,6 +2653,7 @@ input:checked+.slider:before {
 }
 
 .div_bloque_a_buscar {
+    background-color: lightblue;
     width: 70%;
     border: solid 0.25px black;
     border-bottom: none;
@@ -2692,6 +2695,7 @@ input:checked+.slider:before {
 }
 
 #bloque_a_buscar {
+    background-color: lightblue;
     height: 100%;
     border: none;
     width: 60%;
@@ -2713,6 +2717,7 @@ input:checked+.slider:before {
 
 .h4_info
 {
+    background-color: lightblue;
     margin: 0 auto;
     width: 80%;
     margin-bottom: 0px;

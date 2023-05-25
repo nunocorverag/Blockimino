@@ -5,7 +5,7 @@ Blockly.Blocks['long_value'] = {
 
         this.appendDummyInput()
             .appendField("valor de long ")
-            .appendField(new Blockly.FieldNumber(0, -2147483648, 2147483647, 1), "LONG_VALUE");
+            .appendField(new Blockly.FieldNumber(0, -2147483648, 2147483647, 1), "VALUE");
         this.setOutput(true, ["long", "Number"]);
         this.setColour("#008000");
         this.setTooltip("Con este bloque puedes asignar un valor entero de hasta 32 bits a las variables long que hayas creado.");
@@ -13,6 +13,6 @@ Blockly.Blocks['long_value'] = {
 };
 
 Blockly.JavaScript['long_value'] = function (block) {
-    let longValue = block.getFieldValue('LONG_VALUE');
+    let longValue = block.getFieldValue('VALUE');
     return [longValue, Blockly.JavaScript.ORDER_ATOMIC];
 };

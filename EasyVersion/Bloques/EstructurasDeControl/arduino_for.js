@@ -14,7 +14,7 @@ Blockly.Blocks['arduino_for'] = {
         .appendField("Iniciar variable i en: ");
     // Agregar un menú para el operador de comparación
     this.appendDummyInput()
-        .appendField(' Hasta que i sea: ')
+        .appendField(' Mientras que i sea: ')
         .appendField(new Blockly.FieldDropdown([["menor", "<"], ["mayor", ">"], ["menor o igual", "<="], ["mayor o igual", ">="], ["igual", "=="], ["distinto a", "!="]]), "OPERATOR");
     // Agregar una entrada para el índice final
     this.appendValueInput("END")

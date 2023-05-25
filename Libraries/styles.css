@@ -184,8 +184,18 @@
     margin-right: 10px;
 }
 
-
-
+#manual {
+    background-color: #2aaa63;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 #trashcan {
     position: absolute;

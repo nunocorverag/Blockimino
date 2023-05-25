@@ -14,6 +14,19 @@ function updateDropdownLists() {
     define_array_UNO = [];
     define_array_MEGA = [];
 
+
+
+    localBoolVariables = [];
+    localCharVariables = [];
+    localDoubleVariables = [];
+    localFloatVariables = [];
+    localIntVariables = [];
+    localLongVariables = [];
+    localShortVariables = [];
+    localStringVariables = [];
+
+
+
     allBlocks.forEach(function (block) {
         if (block.type === 'create_var') {
             let text_input = block.getFieldValue('TEXT_INPUT');//bloques que pueden a?adir palabras a la lista
@@ -24,38 +37,96 @@ function updateDropdownLists() {
             let text_input = block.getFieldValue('TEXT_INPUT');
             textInputs.push(text_input);
         }
-
+        /*
         if (block.type === 'create_bool') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            bool_var_array.push(text_input);
+            textInputs.push(text_input);
+        }
+        if (block.type === 'create_Localbool') {
+            let text_input = block.getFieldValue('TEXT_INPUT');
+            textInputs.push(text_input);
+        }
+        */
+        if (block.type === 'create_bool') {
+            let text_input = block.getFieldValue('TEXT_INPUT');
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#636363");
+              //#999
+              localBoolVariables.push(text_input);
+            } else {
+              block.setColour("#005300");
+              bool_var_array.push(text_input);
+            }
         }//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (block.type === 'create_char') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            char_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localCharVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              char_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_double') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            double_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localDoubleVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              double_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_float') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            float_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localFloatVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              float_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_int') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            int_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localIntVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              int_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_long') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            long_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localLongVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              long_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_short') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            short_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localShortVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              short_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_string') {
             let text_input = block.getFieldValue('TEXT_INPUT');
-            string_var_array.push(text_input);
+            if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+              block.setColour("#999");
+              localStringVariables.push(text_input);
+            } else {
+              block.setColour("#008000");
+              string_var_array.push(text_input);
+            }
         }
         if (block.type === 'create_function') {
             let text_input = block.getFieldValue('TEXT_INPUT');
@@ -180,6 +251,11 @@ let function_array = [];
 let define_array_UNO = [];
 let define_array_MEGA = [];
 
+let localBoolVariables = [];
+
+
+
+
 function updateDropdownOptions() {
     let options = textInputs.map(text => [text, text]);
     if (options.length === 0) {
@@ -189,61 +265,404 @@ function updateDropdownOptions() {
 }
 
 function updateDropdownOptions_bool() {
-    let options = bool_var_array.map(text => [text, text]);
+    let block = Blockly.selected; // Get the currently selected block
+    let bools = 0;
+  
+    if (block && block.type === 'bool_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#636363");
+          bools = 1;
+        } else {
+          block.setColour("#005300");
+          bools = 0;
+        }
+    }
+    
+    if (bools === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createBoolBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_bool');
+  
+        options = createBoolBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(bool_var_array.map(text => [text, text]));
+    } else {
+      let options = bool_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
+
+/*
+function updateDropdownOptions_bool() {
+    let block = Blockly.selected; // Get the currently selected block
+    let bools = 0;
+  
+    if (block && block.type === 'bool_list') {
+      if (block.getRootBlock().type === 'create_function') {
+        block.setColour("#636363");
+        bools = 1;
+      } else {
+        block.setColour("#005300");
+        bools = 0;
+      }
+    }
+  
+    if (bools === 1) {
+      let options = localBoolVariables.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options.concat(bool_var_array.map(text => [text, text]));
+    } else {
+      let options = bool_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
+
+*/
+
+
+/*
+function updateDropdownOptions_Localbool() {
+    let options = localBoolVariables.map(text => [text, text]);
     if (options.length === 0) {
         options.push(['Ninguna', '']);
     }
     return options;
-}
+}*/
+
+
+
+/*
+function updateDropdownOptions_bool() {
+    let allBlocks = Blockly.mainWorkspace.getAllBlocks();
+    let x = 0;
+    allBlocks.forEach(function (block) {
+        if (block.getRootBlock().type === 'create_function') {
+          x = 1;
+        }
+    });
+    if (x=1){
+        let options = localBoolVariables.map(text => [text, text]);
+        if (options.length === 0) {
+            options.push(['Ninguna', '']);
+        }
+        return options;
+    } else{
+        let options = bool_var_array.map(text => [text, text]);
+        if (options.length === 0) {
+            options.push(['Ninguna', '']);
+        }
+        return options;
+    }
+}*/
+
+
 function updateDropdownOptions_char() {
-    let options = char_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let chars = 0;
+  
+    if (block && block.type === 'char_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          chars = 1;
+        } else {
+          block.setColour("#008000");
+          chars = 0;
+        }
     }
-    return options;
-}
+    
+    if (chars === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createCharBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_char');
+  
+        options = createCharBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(char_var_array.map(text => [text, text]));
+    } else {
+      let options = char_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_double() {
-    let options = double_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let doubles = 0;
+  
+    if (block && block.type === 'double_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          doubles = 1;
+        } else {
+          block.setColour("#008000");
+          doubles = 0;
+        }
     }
-    return options;
-}
+    
+    if (doubles === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createDoubleBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_double');
+  
+        options = createDoubleBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(double_var_array.map(text => [text, text]));
+    } else {
+      let options = double_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_float() {
-    let options = float_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let floats = 0;
+  
+    if (block && block.type === 'float_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          floats = 1;
+        } else {
+          block.setColour("#008000");
+          floats = 0;
+        }
     }
-    return options;
-}
+    
+    if (floats === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createFloatBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_float');
+  
+        options = createFloatBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(float_var_array.map(text => [text, text]));
+    } else {
+      let options = float_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_int() {
-    let options = int_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let ints = 0;
+  
+    if (block && block.type === 'int_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          ints = 1;
+        } else {
+          block.setColour("#008000");
+          ints = 0;
+        }
     }
-    return options;
-}
+    
+    if (ints === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createIntBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_int');
+  
+        options = createIntBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(int_var_array.map(text => [text, text]));
+    } else {
+      let options = int_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_long() {
-    let options = long_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let longs = 0;
+  
+    if (block && block.type === 'long_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          longs = 1;
+        } else {
+          block.setColour("#008000");
+          longs = 0;
+        }
     }
-    return options;
-}
+    
+    if (longs === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createLongBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_long');
+  
+        options = createLongBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(long_var_array.map(text => [text, text]));
+    } else {
+      let options = long_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_short() {
-    let options = short_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let shorts = 0;
+  
+    if (block && block.type === 'short_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          shorts = 1;
+        } else {
+          block.setColour("#008000");
+          shorts = 0;
+        }
     }
-    return options;
-}
+    
+    if (shorts === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createShortBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_short');
+  
+        options = createShortBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(short_var_array.map(text => [text, text]));
+    } else {
+      let options = short_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_string() {
-    let options = string_var_array.map(text => [text, text]);
-    if (options.length === 0) {
-        options.push(['Ninguna', '']);
+    let block = Blockly.selected; // Get the currently selected block
+    let strings = 0;
+  
+    if (block && block.type === 'string_list') {
+        if (block.getRootBlock().type === 'create_function' || block.getRootBlock().type === 'create_void_function') {
+          block.setColour("#999");
+          strings = 1;
+        } else {
+          block.setColour("#008000");
+          strings = 0;
+        }
     }
-    return options;
-}
+    
+    if (strings === 1) {
+      let options = [];
+      let createFunctionBlock = block.getRootBlock();
+  
+      if (createFunctionBlock) {
+        let createStringBlocks = createFunctionBlock.getDescendants().filter(block => block.type === 'create_string');
+  
+        options = createStringBlocks.map(block => {
+          let variableName = block.getFieldValue('TEXT_INPUT');
+          return [variableName, variableName];
+        });
+      }
+  
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+  
+      return options.concat(string_var_array.map(text => [text, text]));
+    } else {
+      let options = string_var_array.map(text => [text, text]);
+      if (options.length === 0) {
+        options.push(['Ninguna', '']);
+      }
+      return options;
+    }
+  }
+
 function updateDropdownOptions_function() {
     let options = function_array.map(text => [text, text]);
     if (options.length === 0) {

@@ -14,6 +14,19 @@ Blockly.Blocks['double_list'] = {//////////
         this.setOutput(true, ["double", "variable","Number"]);
         this.setColour("#008000");
         this.setTooltip("Selecciona una variable double");//////////
+    },
+    onchange: function () {
+        const dropdown = this.getField("DROPDOWN_LIST");
+        if (dropdown) {
+          const currentValue = dropdown.getValue();
+          const availableOptions = dropdown.getOptions();
+          const isCurrentOptionAvailable = availableOptions.some(option => option[1] === currentValue);
+    
+          if (!isCurrentOptionAvailable && availableOptions.length > 0) {
+            const firstOptionValue = availableOptions[0][1];
+            dropdown.setValue(firstOptionValue);
+          }
+        }
     }
 };
 Blockly.JavaScript['double_list'] = function (block) {//////////
@@ -64,6 +77,9 @@ Blockly.Blocks['create_double'] = {//////////
         } else {
           return null;
         }
+      },
+      onchange: function () {
+        setTimeout(updateDropdownLists, 0);
       }
 };
 

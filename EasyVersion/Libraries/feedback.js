@@ -1,4 +1,5 @@
 // Declare a global variable
+window.argumentCounter = 0;
 window.parameterCounter = 0;
 window.includeCounter = 0;
 window.setupCounter = 0;
@@ -7,6 +8,7 @@ window.namesCounter = 0;
 
 jQuery(document).on("click", "#help", function () {
   if (
+    argumentCounter === 0 &&
     parameterCounter === 0 &&
     includeCounter === 0 &&
     setupCounter === 0 &&
@@ -16,6 +18,12 @@ jQuery(document).on("click", "#help", function () {
     alert("Ninguna retroalimentación aún.");
   } else {
     let advice = "Se recomienda repasar los temas:\n";
+
+    if (argumentCounter >= 5) {
+      advice += "- Cómo utilizar los argumentos en los bloques de Blockimino (Fuertemente sugerido)\n";
+    } else if (argumentCounter > 0){
+      advice += "- Cómo utilizar los argumentos en los bloques de Blockimino\n";
+    }
 
     if (parameterCounter >= 5) {
       advice += "- Cómo utilizar parámetros en Arduino (Fuertemente sugerido)\n";
@@ -36,9 +44,9 @@ jQuery(document).on("click", "#help", function () {
     }
   
     if (typesCounter >= 5) {
-      advice += "- Tipos de datos en Arduino (Fuertemente sugerido)\n";
+      advice += "- Tipos de Arduino UNO y MEGA (Fuertemente sugerido)\n";
     } else if (typesCounter > 0) {
-      advice += "- Tipos de datos en Arduino\n";
+      advice += "- Tipos de Arduino UNO y MEGA\n";
     }
 
     if (namesCounter >= 5) {

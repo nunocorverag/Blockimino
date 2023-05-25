@@ -2,11 +2,11 @@ Blockly.Blocks['arithmetic_operator'] = {
   init: function() {
     this.svgGroup_.setAttribute('data-attribute', 'parameters');
     var OPERATORS = [
-      ['más', '+'],
-      ['menos', '-'],
-      ['por', '*'],
-      ['entre', '/'],
-      ['residuo de entre', '%']
+      ['+', '+'],
+      ['-', '-'],
+      ['*', '*'],
+      ['/', '/'],
+      ['residuo de división', '%']
     ];
     
     this.appendValueInput('OPERAND1')

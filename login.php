@@ -20,10 +20,13 @@ require 'includes/form_handlers/login_handler.php';
                 height: 100%;
                 background: linear-gradient(to bottom, #69c5b5, #336699, #154d24);
             }
-            .register_error_message {
+            .login_error_message {
             color: #FF2211;
             font-weight: bold;
             font-family: sans-serif;
+            }
+            .formu {
+                text-align: center;
             }
             a {
                 color: white;
@@ -49,7 +52,7 @@ require 'includes/form_handlers/login_handler.php';
     <!-- //RF4 El ingreso a la plataforma sera con usuario y contraseña -->
     <!-- Crearemos un formulario y lo mandaremos a esta misma pagina -->
 
-    <form action="login.php" method="POST">
+    <form action="login.php" method="POST" class="formu">
         <input type="text" name="log_username" placeholder="Nombre de usuario"
         value="<?php
             if(isset($_POST['log_username']))
@@ -59,6 +62,7 @@ require 'includes/form_handlers/login_handler.php';
         ?>"
         required>
         <br>
+        <div class="login_error_message">
         <!-- // RF32 Se mostrara un mensaje de error si no concuerdan las credenciales del login -->
         <?php
             if(in_array("El nombre de usuario no existe!<br>", $error_array))
@@ -66,12 +70,14 @@ require 'includes/form_handlers/login_handler.php';
                 echo "El nombre de usuario no existe!<br>";
             }
         ?>
+        </div>
         <?php 
             if($correct_username)
             {
                 ?>
                 <input type="password" name="log_password" placeholder="Contraseña" required>
                 <br>
+                <div class="login_error_message">
                 <?php
                     if(in_array("La contraseña es incorrecta!<br>", $error_array))
                     {
@@ -103,6 +109,7 @@ require 'includes/form_handlers/login_handler.php';
                     }
                     
                 ?>
+                </div>
                     <centerMargin>
                         <input type="submit" name="login_button" value="Iniciar sesión">
                     </centerMargin>

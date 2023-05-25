@@ -4,7 +4,7 @@ Blockly.Blocks['arduino_micros'] = {
         this.svgGroup_.setAttribute('data-attribute', 'objects');
         
         this.appendDummyInput()
-            .appendField("Pausar todo en microsegundos")
+            .appendField("Cuanto tiempo ha pasado en microsegundos")
             .appendField(new Blockly.FieldNumber(0, null, null, 1), "PARAM_NUMBER");
         this.setColour('#3f51b5');
         this.setTooltip("Detiene los procesos por la cantidad de microsegundos especificada");
@@ -20,4 +20,3 @@ Blockly.Blocks['arduino_micros'] = {
     const param_number = block.getFieldValue('PARAM_NUMBER');
     return "micros(" + param_number + ");\n";
   };
-  

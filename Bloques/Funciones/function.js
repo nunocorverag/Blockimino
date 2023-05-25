@@ -58,9 +58,12 @@ Blockly.Blocks['create_function'] = {
             .appendField(new Blockly.FieldDropdown([["int", "int"], ["float", "float"], ["double", "double"], ["long", "long"], ["short", "short"], ["bool", "bool"]]), "FUNC_TYPE")
             .appendField("funcion")
             .appendField(new Blockly.FieldTextInput("NombreFuncion", this.textInputValidator), "TEXT_INPUT");
-
+        this.appendStatementInput("LOCAL")
+            .setCheck("create_var")
+            .appendField("variables locales");
         this.appendStatementInput("STATEMENTS")
             .setCheck("!arduino_case")
+            .appendField("codigo        ")
             .setAlign(Blockly.ALIGN_RIGHT);
         this.setColour("#494949");
         this.setTooltip("Variable que permite crear una funcion con caracteres globales");
@@ -96,10 +99,12 @@ Blockly.Blocks['create_function'] = {
 Blockly.JavaScript['create_function'] = function (block) {
     var funcType = block.getFieldValue('FUNC_TYPE');
     var textInput = block.getFieldValue('TEXT_INPUT');
+    const varCode = Blockly.JavaScript.statementToCode(block, 'LOCAL');
     var statements = Blockly.JavaScript.statementToCode(block, 'STATEMENTS');
     var valueInput = Blockly.JavaScript.valueToCode(block, 'RETURN', Blockly.JavaScript.ORDER_ATOMIC);
 
     var code = funcType + ' ' + textInput + '() {\n';
+    code += varCode + '\n';
     code += statements;
     
     if (valueInput) {
@@ -125,8 +130,12 @@ Blockly.Blocks['create_void_function'] = {
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField("void funcion")
             .appendField(new Blockly.FieldTextInput("NombreFuncion", this.textInputValidator), "TEXT_INPUT");
+        this.appendStatementInput("LOCAL")
+            .setCheck("create_var")
+            .appendField("variables locales");
         this.appendStatementInput("STATEMENTS")
             .setCheck("!arduino_case")
+            .appendField("codigo        ")
             .setAlign(Blockly.ALIGN_RIGHT);
         this.setColour("#494949");
         this.setTooltip("Variable que permite crear una funcion que no retorna nada");
@@ -155,9 +164,11 @@ Blockly.Blocks['create_void_function'] = {
 
 Blockly.JavaScript['create_void_function'] = function (block) {
     var textInput = block.getFieldValue('TEXT_INPUT');
+    const varCode = Blockly.JavaScript.statementToCode(block, 'LOCAL');
     var statements = Blockly.JavaScript.statementToCode(block, 'STATEMENTS');
 
     var code = 'void ' + textInput + '() {\n';
+    code += varCode + '\n';
     code += statements;
     code += '}\n';
 

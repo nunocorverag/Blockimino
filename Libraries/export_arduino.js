@@ -227,7 +227,7 @@ jQuery(document).on("click", "#export_text", function () {
 
   if (incomplete) {
     alert("Hay bloques con parametros faltantes :(");
-    window.parameterCounter++;
+    window.argumentCounter++;
   } else {
     var includeBlocks = Blockly.mainWorkspace.getTopBlocks().filter(function(block) {
       return block.svgGroup_ && block.svgGroup_.getAttribute('data-attribute') === 'include';
@@ -507,22 +507,59 @@ jQuery(document).on("click", "#export_text", function () {
 
 
 
+
     // Get all blocks of type create_bool, create_int, and create_float
     const blocks = workspace.getAllBlocks().filter(block => {
-      return ['create_bool', ,'create_char', 'create_string', 'create_int', 'create_long', 'create_short', 'create_float', 'create_double', 'create_define_UNO', 'create_define_MEGA', 'create_function', 'create_void_function'].includes(block.type);
+      return ['create_bool', 'create_char', 'create_string', 'create_int', 'create_long', 'create_short', 'create_float', 'create_double', 'create_define_UNO', 'create_define_MEGA', 'create_function', 'create_void_function'].includes(block.type);
     });
-    
+
     // Get all unique variable names
     const variableNames = blocks.map(block => block.getFieldValue('TEXT_INPUT')).filter(name => name.trim() !== '');
     const uniqueVariableNames = [...new Set(variableNames)];
-    
+
     // If there are duplicate variable names, send an alert and return
     if (uniqueVariableNames.length !== variableNames.length) {
-      alert('Los nombres de las variables no pueden ser repetidos');
+      alert('Los nombres de las variables o funciones no pueden ser repetidos!');
       window.namesCounter++;
       return;
     }
 
+    // Get all PIN values from the specific blocks
+    const pinValues = [];
+    ['arduino_digital_read', 'MEGA_arduino_digital_read', 'arduino_digital_write', 'MEGA_arduino_digital_write', 'arduino_analog_read', 'MEGA_arduino_analog_read'].forEach(blockType => {
+      workspace.getAllBlocks().filter(block => block.type === blockType).forEach(block => {
+        const pinValue = block.getFieldValue('PIN');
+        pinValues.push(pinValue);
+      });
+    });
+
+    // Check if all PIN values have appeared in unique variable names
+    const missingPins = pinValues.filter(pinValue => !uniqueVariableNames.includes(pinValue));
+    if (missingPins.length > 0) {
+      alert('Los pines declarados en uso deben coincidir con sus definiciones!');
+      window.namesCounter++;
+      return;
+    }
+
+    // Get all DROPDOWN_LIST values from the specific blocks
+    const dropdownValues = [];
+    ['bool_list', 'char_list', 'double_list', 'float_list', 'int_list', 'long_list', 'short_list', 'string_list', 'function_list', 'function_list_value'].forEach(blockType => {
+      workspace.getAllBlocks().filter(block => block.type === blockType).forEach(block => {
+        const dropdownValue = block.getFieldValue('DROPDOWN_LIST');
+        dropdownValues.push(dropdownValue);
+      });
+    });
+
+    // Check if all DROPDOWN_LIST values have appeared in unique variable names
+    const missingDropdowns = dropdownValues.filter(dropdownValue => !uniqueVariableNames.includes(dropdownValue));
+    if (missingDropdowns.length > 0) {
+      alert('Las variables utilizadas deben coincidir con sus definiciones!');
+      window.namesCounter++;
+      return;
+    }
+
+    
+    
 
 
 
@@ -544,8 +581,45 @@ jQuery(document).on("click", "#export_text", function () {
       return;
     }
 
+      var blocksDiv = workspace.getAllBlocks();
+      var hasDivisionByZero = false;
     
+      // Check each arithmetic_operator block for division by zero
+      for (var i = 0; i < blocksDiv.length; i++) {
+        var block = blocksDiv[i];
+        if (block.type === 'arithmetic_operator') {
+          var operator = block.getFieldValue('OPERATOR');
+          if (operator === '/') {
+            var operand2Block = block.getInputTargetBlock('OPERAND2');
+            if (
+              operand2Block &&
+              [
+                'int_value',
+                'short_value',
+                'long_value',
+                'double_value',
+                'float_value',
+                'bool_value',
+                'char_value',
+                'string_value'
+              ].includes(operand2Block.type)
+            ) {
+              var value = String(operand2Block.getFieldValue('VALUE'));
+              if (value === '0') {
+                hasDivisionByZero = true;
+                break;
+              }
+            }
+          }
+        }
+      }
     
+    if (hasDivisionByZero) {
+      alert('Error: Division entre cero detectada!');
+      return;
+    }
+
+
 
 
 /*

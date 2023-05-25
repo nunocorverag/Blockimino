@@ -4,8 +4,9 @@ Blockly.Blocks['char_value'] = {
         this.svgGroup_.setAttribute('value-attribute', 'constant');
 
         this.appendDummyInput()
-            .appendField("valor de char ")
-            .appendField(new Blockly.FieldTextInput('', this.textInputValidator), "CHAR_VALUE");
+            .appendField("valor de char '")
+            .appendField(new Blockly.FieldTextInput(""), "VALUE")
+            .appendField("'");
         this.setOutput(true, ["char", "Text"]);
         this.setColour("#008000");
         this.setTooltip("Con este bloque puedes asignar un valor de un caracter a las variables char que hayas creado.");
@@ -22,6 +23,6 @@ Blockly.Blocks['char_value'] = {
 };
 
 Blockly.JavaScript['char_value'] = function (block) {
-    let charValue = block.getFieldValue('CHAR_VALUE');
+    let charValue = block.getFieldValue('VALUE');
     return ['\'' + charValue + '\'', Blockly.JavaScript.ORDER_ATOMIC];
 };

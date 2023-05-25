@@ -11,6 +11,7 @@ Blockly.Blocks['include'] = {
         this.setNextStatement(true, "include"); // Permite conectar el bloque por abajo
         this.setColour("#ffcc00");
         this.setTooltip("Incluye una biblioteca en tu proyecto (el nombre es libre a tu necesidad, si no tienes la libreria que indicaste, marcará error al compilar)");
+        this.setDeletable(false);
     },
 
     textInputValidator: function (newValue) {

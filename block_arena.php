@@ -43,7 +43,7 @@ if(isset($_SESSION['id_usuario']))
                 <script src="Libraries/LibreriasBlocklyOficial/javascript_compressed.js"></script>
 
                 <link rel="stylesheet" type="text/css" href="Libraries/styles.css">
-                <link rel="stylesheet" type="text/css" href="EasyVersion/Libraries/nav-bar.css">
+                <link rel="stylesheet" type="text/css" href="Libraries/nav-bar.css">
                 <link rel="stylesheet" type="text/css" href="Libraries/menu.css">
 
                 <script src="Libraries/jquery-3.6.0.min.js"></script>
@@ -78,7 +78,8 @@ if(isset($_SESSION['id_usuario']))
                                 <a>Ayuda</a>
                                 <div class="dropdown-content">
                                     <a id="help">Recomendaciones</a>
-                                    <a id="helpDiv"><Links onclick="window.open('wiki.php', '_blank')">Wiki</Links></a>
+                                    <a id="helpDiv"><Links onclick="window.open('block_arena_help.php', '_blank')">Ayuda bloques</Links></a>
+                                    <a id="manual" href="assets/files/manual_de_uso_de_arena_blockimino.pdf" download>Manual de uso</a>
                                 </div>
                             </li>
                             <li><a id="verify_text">Verificar</a>
@@ -228,7 +229,6 @@ if(isset($_SESSION['id_usuario']))
                                 <block type="pinMode"></block>
                                 <block type="pinMode_MEGA"></block>
                                 <block type="arduino_analog_reference"></block>
-                                <block type="include"></block>
                             </category>
                             <div id="dropzone">
                                 <!-- iniciar workspace de blockly -->
@@ -246,26 +246,34 @@ if(isset($_SESSION['id_usuario']))
                 </div>
 
                 <script>
-                
-                    $(document).ready(function(){
-                        var fileURL = '<?php echo $link_proyecto ?>'; // Este es mi archivo pero no me deja cargarlo por restricciones de CORS, deberia funcionar en web
-                        var delay = 500; // Adjust the delay time as needed (in milliseconds)
+                $(document).ready(function() {
+                var fileURL = '<?php echo $link_proyecto ?>'; // This is my file, but CORS restrictions prevent me from loading it. It should work on the web
+                var delay = 700; // Adjust the delay time as needed (in milliseconds)
+                var loadCount = 0;
 
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("GET", fileURL, true);
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === 4 && xhr.status === 200) {
-                            var xml = xhr.responseText;
+                function loadWorkspace() {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", fileURL, true);
+                    xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var xml = xhr.responseText;
 
-                            setTimeout(function () {
-                                var dom = Blockly.Xml.textToDom(xml);
-                                workspace.clear();
-                                Blockly.Xml.domToWorkspace(dom, workspace);
-                            }, delay);
-                            }
-                        };
-                        xhr.send();
-                    })
+                        var dom = Blockly.Xml.textToDom(xml);
+                        workspace.clear();
+                        Blockly.Xml.domToWorkspace(dom, workspace);
+
+                        loadCount++;
+
+                        if (loadCount < 2) {
+                        setTimeout(loadWorkspace, delay);
+                        }
+                    }
+                    };
+                    xhr.send();
+                }
+
+                loadWorkspace();
+                });
                 </script>
 
             </body>
@@ -302,7 +310,7 @@ if(isset($_SESSION['id_usuario']))
                 <script src="Libraries/LibreriasBlocklyOficial/javascript_compressed.js"></script>
 
                 <link rel="stylesheet" type="text/css" href="Libraries/styles.css">
-                <link rel="stylesheet" type="text/css" href="EasyVersion/Libraries/nav-bar.css">
+                <link rel="stylesheet" type="text/css" href="Libraries/nav-bar.css">
                 <link rel="stylesheet" type="text/css" href="Libraries/menu.css">
 
                 <script src="Libraries/jquery-3.6.0.min.js"></script>
@@ -336,7 +344,8 @@ if(isset($_SESSION['id_usuario']))
                                 <a>Ayuda</a>
                                 <div class="dropdown-content">
                                     <a id="help">Recomendaciones</a>
-                                    <a id="helpDiv"><Links onclick="window.open('wiki.php', '_blank')">Wiki</Links></a>
+                                    <a id="helpDiv"><Links onclick="window.open('block_arena_help.php', '_blank')">Ayuda bloques</Links></a>
+                                    <a id="manual" href="assets/files/manual_de_uso_de_arena_blockimino.pdf" download>Manual de uso</a>
                                 </div>
                             </li>
                             <li><a id="verify_text">Verificar</a>
@@ -486,7 +495,6 @@ if(isset($_SESSION['id_usuario']))
                                 <block type="pinMode"></block>
                                 <block type="pinMode_MEGA"></block>
                                 <block type="arduino_analog_reference"></block>
-                                <block type="include"></block>
                             </category>
                             <div id="dropzone">
                                 <!-- iniciar workspace de blockly -->

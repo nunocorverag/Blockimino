@@ -1,24 +1,36 @@
 jQuery(document).on("click", "#load_text", function () {
-    var fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = ".blckmno";
-  
-    fileInput.addEventListener("change", function (event) {
-      var file = event.target.files[0];
-      var reader = new FileReader();
-  
-      reader.onload = function (event) {
-        var xml = event.target.result;
-        var dom = Blockly.Xml.textToDom(xml);
-        workspace.clear();
-        Blockly.Xml.domToWorkspace(dom, workspace);
-      };
-  
-      reader.readAsText(file);
-    });
-  
-    fileInput.click();
+  var fileInput = document.createElement("input");
+  fileInput.type = "file";
+  fileInput.accept = ".blckmno";
+
+  fileInput.addEventListener("change", function (event) {
+    var file = event.target.files[0];
+    var reader = new FileReader();
+    var loadCount = 0;
+
+    reader.onload = function (event) {
+      var xml = event.target.result;
+      var dom = Blockly.Xml.textToDom(xml);
+      workspace.clear();
+      Blockly.Xml.domToWorkspace(dom, workspace);
+
+      // Increment the load count
+      loadCount++;
+
+      // Check if it has loaded twice
+      if (loadCount < 2) {
+        // Wait for some time before loading the file again
+        setTimeout(function () {
+          reader.readAsText(file);
+        }, 500);
+      }
+    };
+
+    reader.readAsText(file);
   });
+
+  fileInput.click();
+});
 
   /*
   jQuery(document).on("click", "#load_text", function() {

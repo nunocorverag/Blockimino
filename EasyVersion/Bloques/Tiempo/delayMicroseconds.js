@@ -4,7 +4,7 @@ Blockly.Blocks['arduino_delayMicroseconds'] = {
         this.svgGroup_.setAttribute('data-attribute', 'objects');
         
         this.appendDummyInput()
-            .appendField("Cuanto tiempo ha pasado en microsegundos")
+            .appendField("Pausar todo en microsegundos")
             .appendField(new Blockly.FieldNumber(0, null, null, 1), "PARAM_NUMBER");
         this.setColour('#3f51b5');
         this.setTooltip("Retorna la cantidad de microsegundos especificada que lleva ejecutando Arduino");

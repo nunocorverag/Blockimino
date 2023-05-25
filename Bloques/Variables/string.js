@@ -14,7 +14,20 @@ Blockly.Blocks['string_list'] = {//////////
         this.setOutput(true, ["string", "variable", "Text"]);
         this.setColour("#008000");
         this.setTooltip("Selecciona una variable string");//////////
-    }
+    },
+    onchange: function () {
+        const dropdown = this.getField("DROPDOWN_LIST");
+        if (dropdown) {
+          const currentValue = dropdown.getValue();
+          const availableOptions = dropdown.getOptions();
+          const isCurrentOptionAvailable = availableOptions.some(option => option[1] === currentValue);
+    
+          if (!isCurrentOptionAvailable && availableOptions.length > 0) {
+            const firstOptionValue = availableOptions[0][1];
+            dropdown.setValue(firstOptionValue);
+          }
+        }
+      }
 };
 Blockly.JavaScript['string_list'] = function (block) {//////////
     let dropdown_list = block.getFieldValue('DROPDOWN_LIST');
@@ -64,6 +77,9 @@ Blockly.Blocks['create_string'] = {//////////
         } else {
           return null;
         }
+      },
+      onchange: function () {
+        setTimeout(updateDropdownLists, 0);
       }
 };
 

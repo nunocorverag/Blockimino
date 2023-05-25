@@ -15,7 +15,7 @@
             background: linear-gradient(to bottom, #08090a, #191c1f, #2e2e2e);
         }
 
-        a {
+        .registerButton {
             color: white;
             font-size: 30px;
             text-decoration: none;
@@ -25,12 +25,12 @@
             transition: background-color 0.3s ease;
         }
 
-            a:hover {
+            .registerButton:hover {
                 background-color: #63180e;
             }
 
 
-        b {
+        .loginButton {
             color: white;
             font-size: 30px;
             text-decoration: none;
@@ -40,7 +40,7 @@
             transition: background-color 0.3s ease;
         }
 
-            b:hover {
+            .loginButton:hover {
                 background-color: #1a3b83;
             }
     </style>
@@ -50,12 +50,12 @@
 <body>
     <div class="cuerpo_inicio">
     <centerMargin>
-        <boldClearTitle>Iniciar sesión en Blockimino</boldClearTitle>
-            <a href="register.php">
+        <boldClearTitle>Bienvenido a Blockimino</boldClearTitle>
+            <a class="registerButton" href="register.php">
                 Registrarse
             </a>
             <br>
-            <a href="login.php">
+            <a class="loginButton" href="login.php">
                 Iniciar Sesión
             </a>
         </centerMargin>
