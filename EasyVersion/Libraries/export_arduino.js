@@ -529,8 +529,11 @@ jQuery(document).on("click", "#export_text", function () {
     ['arduino_digital_read', 'MEGA_arduino_digital_read', 'arduino_digital_write', 'MEGA_arduino_digital_write', 'arduino_analog_read', 'MEGA_arduino_analog_read'].forEach(blockType => {
       workspace.getAllBlocks().filter(block => block.type === blockType).forEach(block => {
         const pinValue = block.getFieldValue('PIN');
-        pinValues.push(pinValue);
-      });
+        // Check if the pinValue is within the ignored range
+        if (!(pinValue >= 0 && pinValue <= 53) && !(/^A\d{1,2}$/).test(pinValue)) {
+          pinValues.push(pinValue);
+        }
+      });
     });
 
     // Check if all PIN values have appeared in unique variable names
