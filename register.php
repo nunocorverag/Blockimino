@@ -1,6 +1,9 @@
 <?php
 require 'config/config.php';
-require 'includes/form_handlers/form_variables.php';
+
+// + Inicializar el arreglo de erroes para almacenar los errores (si es que register_handler regresa alguno)
+$error_array = array(); // - Contendra los errores
+
 require 'includes/form_handlers/register_handler.php';
 ?>
 <!DOCTYPE html>
@@ -13,36 +16,23 @@ require 'includes/form_handlers/register_handler.php';
     <title>Registrarse</title>
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/start_style.css">
-    <link rel="stylesheet" href="assets/css/Site.css">
 
     <style>
-        body {
+        html {
             height: 100%;
             background: linear-gradient(to bottom, #69c5b5, #336699, #154d24);
         }
 
-        .register_error_message {
-            color: #FF2211;
-            font-weight: bold;
-            font-family: sans-serif;
-        }
-        .formu {
-            text-align: center;
-        }
         a {
-            color: white;
-            font-size: 30px;
-            text-decoration: none;
-            padding: 20px 40px;
-            border-radius: 5px;
             background-color: #2ecc71;
-            transition: background-color 0.3s ease;
         }
 
-            a:hover {
-                background-color: #27ae60;
-            }
+        a:hover {
+            background-color: #27ae60;
+        }
     </style>
+
+    <link rel="icon" href="assets/images/icons/blockimino.png">
 </head>
 
 <body>

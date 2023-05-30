@@ -1,6 +1,11 @@
 <?php
 require 'config/config.php';
-require 'includes/form_handlers/form_variables.php';
+
+// + Inicializar el arreglo de erroes para almacenar los errores (si es que register_handler regresa alguno)
+$error_array = array(); // - Contendra los errores
+// + Inicializar una variable para verificar si el nombre de usuario existe
+$correct_username = false;
+
 require 'includes/form_handlers/login_handler.php';
 ?>
 <!DOCTYPE html>
@@ -13,36 +18,23 @@ require 'includes/form_handlers/login_handler.php';
     <title>Iniciar sesión</title>
     <!-- Incluimos el archivo en donde diseñaremos nuestro css -->
     <link rel="stylesheet" href="assets/css/start_style.css">
-    <link rel="stylesheet" href="assets/css/Site.css">
     
-        <style>
-            html, body {
-                height: 100%;
-                background: linear-gradient(to bottom, #69c5b5, #336699, #154d24);
-            }
-            .login_error_message {
-            color: #FF2211;
-            font-weight: bold;
-            font-family: sans-serif;
-            }
-            .formu {
-                text-align: center;
-            }
-            a {
-                color: white;
-                font-size: 30px;
-                text-decoration: none;
-                padding: 20px 40px;
-                border-radius: 5px;
-                background-color: #2673ca;
-                transition: background-color 0.3s ease;
-            }
-    
-                a:hover {
-                    background-color: #093b74;
-                }
-        </style>
+    <style>
+        html {
+            height: 100%;
+            background: linear-gradient(to bottom, #69c5b5, #336699, #154d24);
+        }
+
+        a {
+            background-color: #2673ca;
+        }
+
+        a:hover {
+            background-color: #093b74;
+        }
+    </style>
         
+    <link rel="icon" href="assets/images/icons/blockimino.png">
 </head>
 
 <body>

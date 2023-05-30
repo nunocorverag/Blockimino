@@ -1,6 +1,0 @@
-<xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="arduino_for" id="ca3atiqEqVWXIdF.rFWY" x="159" y="123">
-    <field name="OPERATOR">&lt;</field>
-    <field name="DIRECTION">++</field>
-  </block>
-</xml>

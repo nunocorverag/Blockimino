@@ -55,6 +55,7 @@ Blockly.Blocks['Teclado_include'] = {
           // If there is more than one instance, destroy this block and alert the user
           alert("Solo se admite una instancia para incluir el Teclado!");
           this.dispose();
+          window.includeCounter++;
       }
     }
 };
@@ -145,6 +146,7 @@ Blockly.Blocks['Teclado_include_MEGA'] = {
           // If there is more than one instance, destroy this block and alert the user
           alert("Solo se admite una instancia para incluir el Teclado!");
           this.dispose();
+          window.includeCounter++;
       }
     }
 };

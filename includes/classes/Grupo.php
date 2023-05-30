@@ -122,7 +122,7 @@ class Grupo {
                         bootbox.confirm("¿Estas seguro que quieres eliminar este grupo?<br> No se podrá deshacer esta acción<br> Todas las publicaciones y comentarios se eliminaran", function(result) {
                             if(result == true)
                             {
-                                $.post("../includes/form_handlers/delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
+                                $.post("../includes/handlers/ajax_delete_group.php?id_grupo=<?php echo $id_grupo; ?>&id_usuario_propietario=" + id_usuario_propietario, {resultado:result});
                                 window.location.href = '../groups.php';
                             }
                         });
@@ -133,7 +133,7 @@ class Grupo {
                         bootbox.confirm("¿Estas seguro que quieres salir de este grupo?", function(result) {
                             if(result == true)
                             {
-                                $.post("../includes/form_handlers/delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
+                                $.post("../includes/handlers/ajax_delete_member.php?id_grupo=<?php echo $id_grupo; ?>&id_miembro=" + id_usuario_loggeado, {resultado:result});
                                 window.location.href = '../groups.php';
                             }
                         });
@@ -327,7 +327,7 @@ class Grupo {
                                             bootbox.confirm("¿Estas seguro que quieres eliminar del grupo a este usuario (<?php echo $fila_info_miembro['username']; ?>)?", function(result) {
                                                 if(result == true)
                                                 {
-                                                    $.post("../../includes/form_handlers/delete_member.php?id_miembro=<?php echo $miembro; ?>&id_grupo=<?php echo $id_grupo; ?>", {resultado:result});
+                                                    $.post("../../includes/handlers/ajax_delete_member.php?id_miembro=<?php echo $miembro; ?>&id_grupo=<?php echo $id_grupo; ?>", {resultado:result});
                                                     location.reload();
                                                 }
                                             });

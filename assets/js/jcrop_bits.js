@@ -19,7 +19,7 @@ $(function(){
   function checkCoords()
   {
     if (parseInt($('#w').val())) return true;
-    alert('Please select a crop region then press submit.');
+    alert('Porfavor, Seleccione una región de recorte y luego presione enviar.');
     return false;
   }; 
 //End JCrop Bits

@@ -5,6 +5,14 @@ jQuery(document).on("click", "#load_text", function () {
 
   fileInput.addEventListener("change", function (event) {
     var file = event.target.files[0];
+
+    // Check if the file extension is valid
+    if (!file.name.toLowerCase().endsWith('.blckmno')) {
+      alert('Archivo invalido, por favor cargue un archivo .blckmno');
+      return;
+    }
+
+
     var reader = new FileReader();
     var loadCount = 0;
 

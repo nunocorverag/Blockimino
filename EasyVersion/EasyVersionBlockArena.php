@@ -38,25 +38,25 @@ if(isset($_SESSION['id_usuario']))
                 <meta charset="UTF-8">
                 <title>Blockimino</title>
                 <script src="scripts.js"></script><!-- todos los scripts de los bloques -->
-                <script src="Libraries/LibreriasBlocklyOficial/blockly_compressed.js"></script><!-- librerias oficiales de blockly -->
-                <script src="Libraries/LibreriasBlocklyOficial/blocks_compressed.js"></script>
-                <script src="Libraries/LibreriasBlocklyOficial/javascript_compressed.js"></script>
+                <script src="../Libraries/LibreriasBlocklyOficial/blockly_compressed.js"></script><!-- librerias oficiales de blockly -->
+                <script src="../Libraries/LibreriasBlocklyOficial/blocks_compressed.js"></script>
+                <script src="../Libraries/LibreriasBlocklyOficial/javascript_compressed.js"></script>
 
-                <link rel="stylesheet" type="text/css" href="Libraries/styles.css">
-                <link rel="stylesheet" type="text/css" href="Libraries/nav-bar.css">
-                <link rel="stylesheet" type="text/css" href="Libraries/menu.css">
+                <link rel="stylesheet" type="text/css" href="../Libraries/styles.css">
+                <link rel="stylesheet" type="text/css" href="../Libraries/nav-bar.css">
+                <link rel="stylesheet" type="text/css" href="../Libraries/menu.css">
 
-                <script src="Libraries/jquery-3.6.0.min.js"></script>
-                <script src="Libraries/verify_arduino.js"></script>
-                <script src="Libraries/export_arduino.js"></script>
-                <script src="Libraries/export_project.js"></script>
-                <script src="Libraries/load.js"></script>
-                <script src="Libraries/feedback.js"></script>
-                <script src="Libraries/dropzone.js"></script>
-                <script src="Libraries/menu-click.js"></script>
-                <script src="Libraries/trashcan.js"></script>
+                <script src="../Libraries/jquery-3.6.0.min.js"></script>
+                <script src="../Libraries/verify_arduino.js"></script>
+                <script src="../Libraries/export_arduino.js"></script>
+                <script src="../Libraries/export_project.js"></script>
+                <script src="../Libraries/load.js"></script>
+                <script src="../Libraries/feedback.js"></script>
+                <script src="../Libraries/dropzone.js"></script>
+                <script src="../Libraries/menu-click.js"></script>
+                <script src="../Libraries/trashcan.js"></script>
 
-                <link rel="icon" href="Libraries/images/blockimino.png">
+                <link rel="icon" href="../Libraries/images/blockimino.png">
             </head>
 
             <body>
@@ -83,7 +83,7 @@ if(isset($_SESSION['id_usuario']))
                                 </div>
                             </li>
                             <li><a id="verify_text">Verificar</a>
-                            <li><a id="buttonOpen"><Links onclick="window.open('../block_arena.php?project=<?php echo $project?>', '_blank')">Modo Avanzado</Links></a></li>
+                            <li><a id="buttonOpenEasy"><Links onclick="window.open('../block_arena.php?project=<?php echo $project?>', '_blank')">Modo Avanzado</Links></a></li>
                         </ul>
                     </div>
                 </div>
@@ -134,7 +134,6 @@ if(isset($_SESSION['id_usuario']))
                             <category name="Operadores" colour="#663508" css-class="categoryDigital">
                                 <block type="arithmetic_operator"></block>
                                 <block type="boolean_operator"></block>
-                                <block type="comparison_operator"></block>
                                 <block type="updater_operator"></block>
                             </category>
                             <category name="Matematicas" colour="blue" css-class="categoryDigital">
@@ -242,38 +241,45 @@ if(isset($_SESSION['id_usuario']))
                     </div>
                 </div>
                 <div id="trashcan" ondragover="allow_drop(event)" ondrop="delete_object(event)">
-                    <img src="Libraries/images/Trashcan.png">
+                    <img src="../Libraries/images/Trashcan.png">
                 </div>
 
                 <script>
-                $(document).ready(function() {
-                var fileURL = '<?php echo $link_proyecto ?>'; // This is my file, but CORS restrictions prevent me from loading it. It should work on the web
-                var delay = 700; // Adjust the delay time as needed (in milliseconds)
-                var loadCount = 0;
-
-                function loadWorkspace() {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", fileURL, true);
-                    xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var xml = xhr.responseText;
-
-                        var dom = Blockly.Xml.textToDom(xml);
-                        workspace.clear();
-                        Blockly.Xml.domToWorkspace(dom, workspace);
-
-                        loadCount++;
-
-                        if (loadCount < 2) {
-                        setTimeout(loadWorkspace, delay);
+                 // Wrap your script code in a function
+                 function runScripts() {
+                    $(document).ready(function() {
+                    var fileURL = '<?php echo $link_proyecto ?>'; // This is my file, but CORS restrictions prevent me from loading it. It should work on the web
+                    var delay = 700; // Adjust the delay time as needed (in milliseconds)
+                    var loadCount = 0;
+    
+                    function loadWorkspace() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", fileURL, true);
+                        xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var xml = xhr.responseText;
+    
+                            var dom = Blockly.Xml.textToDom(xml);
+                            workspace.clear();
+                            Blockly.Xml.domToWorkspace(dom, workspace);
+    
+                            loadCount++;
+    
+                            if (loadCount < 2) {
+                            setTimeout(loadWorkspace, delay);
+                            }
                         }
+                        };
+                        xhr.send();
                     }
-                    };
-                    xhr.send();
+    
+                    loadWorkspace();
+                    });
                 }
-
-                loadWorkspace();
-                });
+                
+                // Use setTimeout with a delay of 0 milliseconds to schedule the function execution
+                setTimeout(runScripts, 1200);
+                
                 </script>
 
             </body>
@@ -301,25 +307,25 @@ if(isset($_SESSION['id_usuario']))
                 <meta charset="UTF-8">
                 <title>Blockimino</title>
                 <script src="scripts.js"></script><!-- todos los scripts de los bloques -->
-                <script src="Libraries/LibreriasBlocklyOficial/blockly_compressed.js"></script><!-- librerias oficiales de blockly -->
-                <script src="Libraries/LibreriasBlocklyOficial/blocks_compressed.js"></script>
-                <script src="Libraries/LibreriasBlocklyOficial/javascript_compressed.js"></script>
+                <script src="../Libraries/LibreriasBlocklyOficial/blockly_compressed.js"></script><!-- librerias oficiales de blockly -->
+                <script src="../Libraries/LibreriasBlocklyOficial/blocks_compressed.js"></script>
+                <script src="../Libraries/LibreriasBlocklyOficial/javascript_compressed.js"></script>
 
-                <link rel="stylesheet" type="text/css" href="Libraries/styles.css">
-                <link rel="stylesheet" type="text/css" href="Libraries/nav-bar.css">
-                <link rel="stylesheet" type="text/css" href="Libraries/menu.css">
+                <link rel="stylesheet" type="text/css" href="../Libraries/styles.css">
+                <link rel="stylesheet" type="text/css" href="../Libraries/nav-bar.css">
+                <link rel="stylesheet" type="text/css" href="../Libraries/menu.css">
 
-                <script src="Libraries/jquery-3.6.0.min.js"></script>
-                <script src="Libraries/verify_arduino.js"></script>
-                <script src="Libraries/export_arduino.js"></script>
-                <script src="Libraries/export_project.js"></script>
-                <script src="Libraries/load.js"></script>
-                <script src="Libraries/feedback.js"></script>
-                <script src="Libraries/dropzone.js"></script>
-                <script src="Libraries/resizeToMinimum.js"></script>
-                <script src="Libraries/trashcan.js"></script>
+                <script src="../Libraries/jquery-3.6.0.min.js"></script>
+                <script src="../Libraries/verify_arduino.js"></script>
+                <script src="../Libraries/export_arduino.js"></script>
+                <script src="../Libraries/export_project.js"></script>
+                <script src="../Libraries/load.js"></script>
+                <script src="../Libraries/feedback.js"></script>
+                <script src="../Libraries/dropzone.js"></script>
+                <script src="../Libraries/menu-click.js"></script>
+                <script src="../Libraries/trashcan.js"></script>
 
-                <link rel="icon" href="Libraries/images/blockimino.png">
+                <link rel="icon" href="../Libraries/images/blockimino.png">
             </head>
 
             <body>
@@ -346,7 +352,7 @@ if(isset($_SESSION['id_usuario']))
                                 </div>
                             </li>
                             <li><a id="verify_text">Verificar</a>
-                            <li><a id="buttonOpen"><Links onclick="window.open('../block_arena.php', '_blank')">Modo Avanzado</Links></a></li>
+                            <li><a id="buttonOpenEasy"><Links onclick="window.open('../block_arena.php', '_blank')">Modo Avanzado</Links></a></li>
                         </ul>
                     </div>
                 </div>
@@ -397,7 +403,6 @@ if(isset($_SESSION['id_usuario']))
                             <category name="Operadores" colour="#663508" css-class="categoryDigital">
                                 <block type="arithmetic_operator"></block>
                                 <block type="boolean_operator"></block>
-                                <block type="comparison_operator"></block>
                                 <block type="updater_operator"></block>
                             </category>
                             <category name="Matematicas" colour="blue" css-class="categoryDigital">
@@ -505,7 +510,7 @@ if(isset($_SESSION['id_usuario']))
                     </div>
                 </div>
                 <div id="trashcan" ondragover="allow_drop(event)" ondrop="delete_object(event)">
-                    <img src="Libraries/images/Trashcan.png">
+                    <img src="../Libraries/images/Trashcan.png">
                 </div>
 
             </body>

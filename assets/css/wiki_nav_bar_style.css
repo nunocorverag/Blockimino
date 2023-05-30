@@ -12,37 +12,38 @@
     display: flex;
 }
 
-    #nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-grow: 1;
-        align-items: center; /* Add this line to center the items vertically */
-    }
+#nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    /* Add this line to center the items vertically */
+}
 
-        #nav ul li {
-            margin-right: 20px;
-        }
+#nav ul li {
+    margin-right: 20px;
+}
 
-            #nav ul li:first-child {
-                margin-right: auto;
-            }
+#nav ul li:first-child {
+    margin-right: auto;
+}
 
-            #nav ul li a {
-                color: #fff;
-                text-decoration: none;
-                font-weight: bold;
-                text-transform: uppercase;
-                padding: 10px 15px;
-                display: block;
-            }
+#nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    display: block;
+}
 
-                #nav ul li a:hover {
-                    background-color: #1aa1a179;
-                    /*Add hover event to show a background colored block and text color change on hover event*/
-                    color: #94da94;
-                }
+#nav ul li a:hover {
+    background-color: #1aa1a179;
+    /*Add hover event to show a background colored block and text color change on hover event*/
+    color: #94da94;
+}
 
 .home {
     background-image: url('images/logo.png');
@@ -57,11 +58,15 @@
 /* Estilos para la tabla */
 .seccion .subseccion table {
     border-collapse: collapse;
-    width: 70%; /* Ajusta este valor al ancho deseado */
-    margin: 20px auto; /* Esto centra la tabla */
+    width: 70%;
+    /* Ajusta este valor al ancho deseado */
+    margin: 20px auto;
+    /* Esto centra la tabla */
 }
 
-.seccion .subseccion table, .seccion .subseccion th, .seccion .subseccion td {
+.seccion .subseccion table,
+.seccion .subseccion th,
+.seccion .subseccion td {
     border: 7px solid #008000;
     padding: 10px;
     text-align: left;

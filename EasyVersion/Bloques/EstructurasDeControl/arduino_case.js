@@ -7,7 +7,7 @@ Blockly.Blocks['arduino_case'] = {
 
       // Agrega un campo de texto para el valor del caso
       this.appendValueInput("VALUE")
-          .setCheck(["int", "char", "bool", "Boolean"])
+          .setCheck(["int", "char"])
           .appendField("En caso de: ");
       // Añadir entrada para el cuerpo del bloque case
       this.appendStatementInput("DO")

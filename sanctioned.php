@@ -16,7 +16,7 @@ if(isset($_GET['username']))
         $fila_id_usuario = mysqli_fetch_array($query_obtener_usuario);
         $id_usuario = $fila_id_usuario['id_usuario'];
     
-        $query_verificar_sanciones_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario'");
+        $query_verificar_sanciones_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND sancion_eliminada='no'");
         if(mysqli_num_rows($query_verificar_sanciones_usuario) > 0)
         {
             ?>
@@ -80,7 +80,7 @@ if(isset($_GET['username']))
                         <?php
                             if($tipo == "temporal")
                             {
-                                $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT fecha_sancion FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario')");
+                                $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT fecha_sancion FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario' AND sancion_eliminada='no')");
                                 $fila_ultima_sancion_usuario = mysqli_fetch_array($query_seleccionar_ultima_sancion_usuario);
                                 ?>
                                 <div class="divTiempoSancionUsuario">
@@ -124,6 +124,10 @@ if(isset($_GET['username']))
     {
         header("Location: index.php");
     }
+}
+else
+{
+    header("Location: index.php");
 }
 
 ?>

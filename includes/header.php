@@ -20,7 +20,7 @@ if(isset($_SESSION['id_usuario']))
     // - Esta variable guardara el nombre de usuario para poder hacer querys mas adelante
     $usuario_loggeado = $fila_detalles_usuario['username'];
 
-    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
+    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado' AND sancion_eliminada='no'");
     if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
     {
         header("Location: " . dirname($_SERVER['PHP_SELF']) . "/sanctioned.php?username=" . $usuario_loggeado);
@@ -134,13 +134,9 @@ else
 
 
                 <?php
-                    $query_obtener_info_conf_notificaciones = mysqli_query($con, "SELECT activar_notificaciones, mostrar_proyectos FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
+                    $query_obtener_info_conf_notificaciones = mysqli_query($con, "SELECT activar_notificaciones FROM usuarios WHERE id_usuario='$id_usuario_loggeado'");
                     $fila_info_notificaciones = mysqli_fetch_array($query_obtener_info_conf_notificaciones);
                     $notificaciones = $fila_info_notificaciones['activar_notificaciones'];
-
-                    // + Mensajes no leidos
-                    $mensajes = new Mensaje($con, $id_usuario_loggeado);
-                    $numero_mensajes = $mensajes->obtenerMensajesNoLeidos();
 
                     // + Notificaciones no leidas
                     if($notificaciones)
@@ -148,6 +144,10 @@ else
                         $notificacion = new Notificacion($con, $id_usuario_loggeado);
                         $numero_notificaciones = $notificacion->obtenerNotificacionesNoLeidas();
                     }
+
+                    // + Mensajes no leidos
+                    $mensajes = new Mensaje($con, $id_usuario_loggeado);
+                    $numero_mensajes = $mensajes->obtenerMensajesNoLeidos();
 
                     // + Solicitudes de amistad
                     $objeto_usuario = new Usuario($con, $id_usuario_loggeado);
@@ -268,13 +268,13 @@ else
 
                     if(isElementInView(elementoInferior[0]) && noMasMensajes == 'false')
                     {
-                        cargarMensajesDropdown();
+                        cargarInfoDropdown();
                     }
 
                 });
 
                 // + Funcion de cargar posts
-                function cargarMensajesDropdown() {
+                function cargarInfoDropdown() {
                     // + Si esta en progreso de cargar posts, retornar, esto para evitar errores
                     if (despliegueEnProgreso) {
                         return;

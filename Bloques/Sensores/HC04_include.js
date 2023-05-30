@@ -31,6 +31,7 @@ Blockly.Blocks['HC04_include'] = {
           // If there is more than one instance, destroy this block and alert the user
           alert("Only one instance of HC04_include block is allowed.");
           this.dispose();
+          window.includeCounter++;
       }
     }
   };
@@ -74,6 +75,7 @@ Blockly.Blocks['HC04_include'] = {
           // If there is more than one instance, destroy this block and alert the user
           alert("Only one instance of HC04_include block is allowed.");
           this.dispose();
+          window.includeCounter++;
       }
     }
   };

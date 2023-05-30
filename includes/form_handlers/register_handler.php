@@ -8,6 +8,9 @@
 // + Determinara si el formulario que enviamos tiene todos los campos llenos
 if(isset($_POST['register_button']))
 {
+    // + Inicializar el arreglo de errores
+    $error_array = array(); // - Contendra los errores
+
     // PRIMER NOMBRE
     // - $nombre -> Va a guardar el valor del nombre que enviamos del formulario
     // $ strip_tags -> Removera las etiquetas HTML y PHP de la cadena

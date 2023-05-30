@@ -18,7 +18,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
     <div class="contenedor_sanciones">
     <h4>Sanciones</h4>
         <?php
-        $query_seleccionar_sancionse = mysqli_query($con, "SELECT * FROM sanciones ORDER BY id_sancion DESC");
+        $query_seleccionar_sancionse = mysqli_query($con, "SELECT * FROM sanciones WHERE sancion_eliminada='no' ORDER BY id_sancion DESC");
         while($fila = mysqli_fetch_array($query_seleccionar_sancionse))
         {
             //+ Display la sancion
@@ -93,7 +93,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
 
                         if($tiempo_restante_num <= 0)
                         {
-                            $query_eliminar_sanciones_temporales = mysqli_query($con, "DELETE FROM sanciones WHERE id_usuario_sancionado='$id_usuario_sancionado' AND tipo_sancion='temporal'");
+                            $query_eliminar_sanciones_temporales = mysqli_query($con, "UPDATE sanciones SET sancion_eliminada='si' WHERE id_usuario_sancionado='$id_usuario_sancionado' AND tipo_sancion='temporal'");
                         }
                         // + calcular la diferencia entre las dos fechas
                         $tiempo_restante = $tiempo_actual->diff($fecha_sancion);
@@ -121,7 +121,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                             $('#sancion<?php echo $fila['id_sancion'];?>').on('click', function() {
                                 bootbox.confirm("¿Estás seguro que quieres eliminar esta sanción? Si no quedan más sanciones por terminar, el usuario podrá volver a utilizar Blockimino.", function(result) {
                                     if(result == true) {
-                                            $.post("includes/form_handlers/delete_sanction.php?id_sancion=<?php echo $fila['id_sancion'];?>", {resultado:result}, function(data){
+                                            $.post("includes/handlers/ajax_delete_sanction.php?id_sancion=<?php echo $fila['id_sancion'];?>", {resultado:result}, function(data){
                                             location.reload();
                                         });
                                     }

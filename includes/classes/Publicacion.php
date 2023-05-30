@@ -928,7 +928,7 @@ class Publicacion {
                                         if(result == true)
                                         {
                                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado 
-                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                             location.reload();
                                         }
                                     });
@@ -945,7 +945,7 @@ class Publicacion {
                                     },
                                     callback: function(result) {
                                         if (result !== true && result !== '') {
-                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                             location.reload();
                                         } 
                                         else 
@@ -1848,7 +1848,7 @@ class Publicacion {
                                                         if(result == true)
                                                         {
                                                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado 
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                                             location.reload();
                                                         }
                                                     });
@@ -1865,7 +1865,7 @@ class Publicacion {
                                                     },
                                                     callback: function(result) {
                                                         if (result !== true && result !== '') {
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                                             location.reload();
                                                         } 
                                                         else 
@@ -2347,7 +2347,7 @@ class Publicacion {
                                                         if(result == true)
                                                         {
                                                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado 
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                                             location.reload();
                                                         }
                                                     });
@@ -2364,7 +2364,7 @@ class Publicacion {
                                                     },
                                                     callback: function(result) {
                                                         if (result !== true && result !== '') {
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                                             location.reload();
                                                         } 
                                                         else 
@@ -2846,7 +2846,7 @@ class Publicacion {
                                                         if(result == true)
                                                         {
                                                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado 
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                                             location.reload();
                                                         }
                                                     });
@@ -2863,7 +2863,7 @@ class Publicacion {
                                                     },
                                                     callback: function(result) {
                                                         if (result !== true && result !== '') {
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                                             location.reload();
                                                         } 
                                                         else 
@@ -3346,7 +3346,7 @@ class Publicacion {
                                                         if(result == true)
                                                         {
                                                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado 
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                                             location.reload();
                                                         }
                                                     });
@@ -3363,7 +3363,7 @@ class Publicacion {
                                                     },
                                                     callback: function(result) {
                                                         if (result !== true && result !== '') {
-                                                            $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                                            $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                                             location.reload();
                                                         } 
                                                         else 
@@ -3398,7 +3398,7 @@ class Publicacion {
                                 if(result == true)
                                 {
                                     // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la                         
-                                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                                    $.post("includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                     location.reload();
                                 }
                             });
@@ -3415,7 +3415,7 @@ class Publicacion {
                             },
                             callback: function(result) {
                                 if (result !== true && result !== '') {
-                                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                    $.post("includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
                                     location.reload();
                                 } 
                                 else 
@@ -3957,7 +3957,7 @@ class Publicacion {
                                     if(result == true)
                                     {
                                     // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                    $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});                                
+                                    $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});                                
                                         location.reload();
                                     }
                                 });
@@ -3974,7 +3974,7 @@ class Publicacion {
                                 },
                                 callback: function(result) {
                                     if (result !== true && result !== '') {
-                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                        $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                         location.reload();
                                     } 
                                     else 
@@ -4003,7 +4003,7 @@ class Publicacion {
                             if(result == true)
                             {
                                 // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                                $.post("includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                 location.reload();
                             }
                         });
@@ -4020,7 +4020,7 @@ class Publicacion {
                         },
                         callback: function(result) {
                             if (result !== true && result !== '') {
-                                $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                $.post("includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
                                 location.reload();
                             } 
                             else 
@@ -4537,7 +4537,7 @@ class Publicacion {
                                 if(result == true)
                                 {
                                     // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                    $.post("includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                     location.reload();
                                 }
                             });
@@ -4554,7 +4554,7 @@ class Publicacion {
                             },
                             callback: function(result) {
                                 if (result !== true && result !== '') {
-                                    $.post("includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                    $.post("includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                     location.reload();
                                 } 
                                 else 
@@ -4581,7 +4581,7 @@ class Publicacion {
                                     if(result == true)
                                     {
                                         // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la                                 
-                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                        $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -4598,7 +4598,7 @@ class Publicacion {
                                 },
                                 callback: function(result) {
                                     if (result !== true && result !== '') {
-                                        $.post("includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                        $.post("includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                         location.reload();
                                     } 
                                     else 
@@ -5577,7 +5577,7 @@ class Publicacion {
                                     if(result == true)
                                     {
                                         // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                        $.post("../includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -5594,7 +5594,7 @@ class Publicacion {
                                 },
                                 callback: function(result) {
                                     if (result !== true && result !== '') {
-                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                        $.post("../includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                         location.reload();
                                     } 
                                     else 
@@ -5623,7 +5623,7 @@ class Publicacion {
                             if(result == true)
                             {
                                 // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});    
+                                $.post("../includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});    
                                 location.reload();
                             }
                         });
@@ -5640,7 +5640,7 @@ class Publicacion {
                         },
                         callback: function(result) {
                             if (result !== true && result !== '') {
-                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                $.post("../includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
                                 location.reload();
                             } 
                             else 
@@ -6207,7 +6207,7 @@ class Publicacion {
                                     if(result == true)
                                     {
                                         // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                        $.post("../includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -6224,7 +6224,7 @@ class Publicacion {
                                 },
                                 callback: function(result) {
                                     if (result !== true && result !== '') {
-                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                        $.post("../includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                         location.reload();
                                     } 
                                     else 
@@ -6253,7 +6253,7 @@ class Publicacion {
                             if(result == true)
                             {
                                 // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                                $.post("../includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                 location.reload();
                             }
                         });
@@ -6270,7 +6270,7 @@ class Publicacion {
                         },
                         callback: function(result) {
                             if (result !== true && result !== '') {
-                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                $.post("../includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
                                 location.reload();
                             } 
                             else 
@@ -6830,7 +6830,7 @@ class Publicacion {
                                     if(result == true)
                                     {
                                         // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                        $.post("../includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                         location.reload();
                                     }
                                 });
@@ -6847,7 +6847,7 @@ class Publicacion {
                                 },
                                 callback: function(result) {
                                     if (result !== true && result !== '') {
-                                        $.post("../includes/form_handlers/delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
+                                        $.post("../includes/handlers/ajax_delete_post.php?id_publicacion=<?php echo $id_publicacion; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", { resultado:result, razon:result});
                                         location.reload();
                                     } 
                                     else 
@@ -6876,7 +6876,7 @@ class Publicacion {
                             if(result == true)
                             {
                                 // + Manda el id del comentario a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
+                                $.post("../includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", {resultado:result});
                                 location.reload();
                             }
                         });
@@ -6893,7 +6893,7 @@ class Publicacion {
                         },
                         callback: function(result) {
                             if (result !== true && result !== '') {
-                                $.post("../includes/form_handlers/delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
+                                $.post("../includes/handlers/ajax_delete_comment.php?id_comentario=" + id_comentario + "&id_usuario=<?php echo $id_usuario_loggeado; ?>" + "&id_publicacion=<?php echo $id_publicacion; ?>", { resultado:result, razon:result});
                                 location.reload();
                             } 
                             else 

@@ -119,11 +119,11 @@ function obtenerInformacionDesplegable(usuario, tipo)
         }
         else if(tipo == "botones")
         {
-            nombrePagina = "load_buttons.php";
+            nombrePagina = "ajax_load_buttons.php";
         }
         else if(tipo == "ocp_proyectos")
         {
-            nombrePagina = "load_opc_proyects.php";
+            nombrePagina = "ajax_load_opc_projects.php";
         }
 
         // + Creamos una ajax request que va a recuperar los mensajes o notificaciones
@@ -212,8 +212,6 @@ function obtenerLiveSearchInvitarUsuarios(valor, usuario, grupo)
 
 function invitarUsuario(id_usuario_loggeado, id_usuario_invitado, id_grupo) {
     $.post("../../includes/handlers/ajax_invite_members.php", { id_usuario_loggeado:id_usuario_loggeado, id_usuario_invitado:id_usuario_invitado, id_grupo:id_grupo }, function(response) {
-        // Show success message
-        $("#mensaje_invitacion").html("Usuario invitado con éxito!");
         // Reload page
         location.reload();
         alert("Se ha enviado la invitacion");

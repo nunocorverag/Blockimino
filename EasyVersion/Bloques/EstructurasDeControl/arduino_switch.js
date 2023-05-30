@@ -7,7 +7,7 @@ Blockly.Blocks['arduino_switch'] = {
 
         // Agrega un campo de texto para el valor de la variable a comparar
         this.appendValueInput("VALUE")
-            .setCheck(["int", "char", "bool", "Boolean"])
+            .setCheck(["int", "char"])
             .appendField("(switch) Del valor: ");
         // Agregar una entrada para los bloques case
         this.appendStatementInput("CASES")

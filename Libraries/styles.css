@@ -159,6 +159,23 @@
 }
 
 
+
+#buttonOpenEasy {
+    background-color: #ad7909;
+    display: inline-block;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: #a8a5a5;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+
+
 #help {
     background-color: #086e54;
     display: inline-block;

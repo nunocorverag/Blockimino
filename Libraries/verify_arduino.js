@@ -515,17 +515,17 @@ jQuery(document).on("click", "#verify_text", function () {
       }
   
 
-    // Get all PIN values from the specific blocks
-    const pinValues = [];
-    ['arduino_digital_read', 'MEGA_arduino_digital_read', 'arduino_digital_write', 'MEGA_arduino_digital_write', 'arduino_analog_read', 'MEGA_arduino_analog_read'].forEach(blockType => {
-      workspace.getAllBlocks().filter(block => block.type === blockType).forEach(block => {
-        const pinValue = block.getFieldValue('PIN');
-        // Check if the pinValue is within the ignored range
-        if (!(pinValue >= 0 && pinValue <= 53) && !(/^A\d{1,2}$/).test(pinValue)) {
-          pinValues.push(pinValue);
-        }
-      });
-    });
+      // Get all PIN values from the specific blocks
+      const pinValues = [];
+      ['arduino_digital_read', 'MEGA_arduino_digital_read', 'arduino_digital_write', 'MEGA_arduino_digital_write', 'arduino_analog_read', 'MEGA_arduino_analog_read'].forEach(blockType => {
+        workspace.getAllBlocks().filter(block => block.type === blockType).forEach(block => {
+          const pinValue = block.getFieldValue('PIN');
+          // Check if the pinValue is within the ignored range
+          if (!(pinValue >= 0 && pinValue <= 53) && !(/^A\d{1,2}$/).test(pinValue)) {
+            pinValues.push(pinValue);
+          }
+        });
+      });
   
       // Check if all PIN values have appeared in unique variable names
       const missingPins = pinValues.filter(pinValue => !uniqueVariableNames.includes(pinValue));

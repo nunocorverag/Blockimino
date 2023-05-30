@@ -2244,15 +2244,16 @@ a:hover {
 }
 
 .contenedor_elementos_derecha {
-    margin-left: 150px;
-    padding-left: 30px;
+    margin-left: auto;
+    padding-left: 13%;
     display: flex;
     float: right;
     flex-direction: row;
     position: relative;
     right: 1px;
-    min-width: 100px;
+    min-width: 80px;
     min-height: 80px;
+    margin-right: -120px;
 }
 
 /* Boton de notificaciones */
@@ -2625,7 +2626,7 @@ input:checked+.slider:before {
 
 .contenedor_busqueda_info {
     width: 100%;
-    min-width: 1300px;
+    min-width: 1200px;
 }
 
 .div_superior_busqueda {
@@ -2636,7 +2637,7 @@ input:checked+.slider:before {
 }
 
 .div_tema_a_buscar {
-    width: 30%;
+    width: 40%;
     background-color: lightblue;
     border: solid 0.25px black;
     border-bottom: none;
@@ -2646,6 +2647,7 @@ input:checked+.slider:before {
     background-color: lightblue;
     height: 100%;
     border: none;
+    width: 200px;
 }
 
 #tema_a_buscar:focus {
@@ -2654,7 +2656,7 @@ input:checked+.slider:before {
 
 .div_bloque_a_buscar {
     background-color: lightblue;
-    width: 70%;
+    width: 60%;
     border: solid 0.25px black;
     border-bottom: none;
     padding-left: 1%;

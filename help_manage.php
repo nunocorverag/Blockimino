@@ -104,7 +104,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
                             if(result == true)
                             {
-                                $.post("includes/form_handlers/solve_request.php?id_peticion_ayuda=<?php echo $id_peticion_ayuda; ?>", {resultado:result});
+                                $.post("includes/handlers/ajax_solve_request.php?id_peticion_ayuda=<?php echo $id_peticion_ayuda; ?>", {resultado:result});
                                 location.reload();
                             }
                         }).find('.btn-danger').removeClass('btn-danger').addClass('btn-success');

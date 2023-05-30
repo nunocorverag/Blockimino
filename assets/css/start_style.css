@@ -1,162 +1,169 @@
 h1 {
-    font-size: 60px;
-    color: blue;
+  font-weight: bold;
+  font-size: 30px;
 }
 
-.cuerpo_inicio{
-    text-align: center;
+a {
+  color: white;
+  font-size: 30px;
+  text-decoration: none;
+  padding: 20px 40px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.formu {
+  text-align: center;
+}
+
+/* Formatos propios */
+centerMargin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+boldWhiteSlim {
+  font-family: sans-serif;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 100px;
+  margin-bottom: 15px;
+}
+
+boldDarkTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 50px;
+  color: #130f35;
+  font-weight: bold;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+boldClearTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-size: 50px;
+  color: #dae0cd;
+  font-weight: bold;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.register_error_message {
+  color: #FF2211;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.login_error_message {
+  color: #FF2211;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+.registerButton {
+  color: white;
+  font-size: 30px;
+  text-decoration: none;
+  padding: 20px 40px;
+  border-radius: 5px;
+  background-color: brown;
+  transition: background-color 0.3s ease;
+}
+
+.registerButton:hover {
+  background-color: #63180e;
+}
+
+
+.loginButton {
+  color: white;
+  font-size: 30px;
+  text-decoration: none;
+  padding: 20px 40px;
+  border-radius: 5px;
+  background-color: #3d76f3;
+  transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: #1a3b83;
+}
+
+.cuerpo_inicio {
+  text-align: center;
 }
 
 .botones {
-    width: 15%;
-    border: 0.25px solid black;
-    padding: 20px 0px;
-    position: relative;
-    left: 42%;
+  width: 15%;
+  border: 0.25px solid black;
+  padding: 20px 0px;
+  position: relative;
+  left: 42%;
 }
 
 .botones a {
-    display: block;
-    width: 80%;
+  display: block;
+  width: 80%;
 }
 
 .botones button {
-    color: white;
-    background-color: lightblue;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    width: 100%;
-    height: 50px;
+  color: white;
+  background-color: lightblue;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  height: 50px;
 }
 
+input[type="text"], input[type="email"], input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 10px;
+  max-width: 220px;
+  min-width: 220px;
+}
 
-/* Style for input fields */
-input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: none;
-    font-size: 14px;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  /* Placeholder text style */
-  input[type="text"]::placeholder {
-    color: #999;
-  }
-  
-  /* Hover and focus styles */
-  input[type="text"]:hover,
-  input[type="text"]:focus {
-    border-color: #888;
-  }
-  
-  /* Focus style for placeholder */
-  input[type="text"]:focus::placeholder {
-    color: #666;
-  }
-  
-  /* Error style */
-  input[type="text"].error {
-    border-color: #ff0000;
-  }
+input[type="text"], input[type="email"], input[type="password"]:hover,
+input[type="text"], input[type="email"], input[type="password"]:focus {
+  border-color: #888;
+}
 
-
-  /* Style for email input field */
-input[type="email"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: none;
-    font-size: 14px;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  /* Placeholder text style for email */
-  input[type="email"]::placeholder {
-    color: #999;
-  }
-  
-  /* Hover and focus styles for email */
-  input[type="email"]:hover,
-  input[type="email"]:focus {
-    border-color: #888;
-  }
-  
-  /* Focus style for placeholder in email */
-  input[type="email"]:focus::placeholder {
-    color: #666;
-  }
-  
-  /* Error style for email */
-  input[type="email"].error {
-    border-color: #ff0000;
-  }
-  
-  /* Style for password input field */
-  input[type="password"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: none;
-    font-size: 14px;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  /* Placeholder text style for password */
-  input[type="password"]::placeholder {
-    color: #999;
-  }
-  
-  /* Hover and focus styles for password */
-  input[type="password"]:hover,
-  input[type="password"]:focus {
-    border-color: #888;
-  }
-  
-  /* Focus style for placeholder in password */
-  input[type="password"]:focus::placeholder {
-    color: #666;
-  }
-  
-  /* Error style for password */
-  input[type="password"].error {
-    border-color: #ff0000;
-  }
-
-
-  /* Style for submit button */
+/* Style for submit button */
 input[type="submit"] {
-    padding: 10px 20px;
-    background-color: brown;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  /* Hover style for submit button */
-  input[type="submit"]:hover {
-    background-color: #ff0000;
-  }
-  
-  /* Active style for submit button */
-  input[type="submit"]:active {
-    background-color: #6d1919;
-  }
+  padding: 10px 20px;
+  background-color: brown;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-  footer {
-    margin-top: 50px;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  footer img {
-    max-width: 20%;
-    height: auto;
-  }
+/* Hover style for submit button */
+input[type="submit"]:hover {
+  background-color: #6d1919;
+}
+
+footer {
+  margin-top: 50px;
+  text-align: center;
+  padding: 20px;
+}
+
+footer img {
+  max-width: 20%;
+  height: auto;
+}

@@ -83,6 +83,7 @@ Blockly.Blocks['includeLCD'] = {
         // If there is more than one instance, destroy this block and alert the user
         alert("Solo se admite una instancia para incluir el LCD!");
         this.dispose();
+        window.includeCounter++;
     }
   }
 };
@@ -184,6 +185,7 @@ Blockly.JavaScript['includeLCD'] = function(block) {
           // If there is more than one instance, destroy this block and alert the user
           alert("Solo se admite una instancia para incluir el LCD!");
           this.dispose();
+          window.includeCounter++;
       }
     }
   };

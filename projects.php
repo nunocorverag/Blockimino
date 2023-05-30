@@ -108,7 +108,7 @@ else
                                         if(result == true)
                                         {
                                             // + Manda el id de publicacion a esta pagina -> el string es la pagina a la que lo manda y resultado:resultado, es lo que se manda, mandamos una variable resultado y la 
-                                            $.post("../includes/form_handlers/delete_project.php?id_proyecto=<?php echo $id_proyecto; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
+                                            $.post("../includes/form_handlers/handlers/ajax_delete_project.php?id_proyecto=<?php echo $id_proyecto; ?>&id_usuario=<?php echo $id_usuario_loggeado; ?>", {resultado:result});
                                             location.reload();
                                         }
                                     });

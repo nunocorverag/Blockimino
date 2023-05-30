@@ -27,10 +27,10 @@ if(isset($_POST['login_button']))
     if ($database_username == $username)
     {
         $id_usuario = $database_user['id_usuario'];
-        $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario'");
+        $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND sancion_eliminada='no'");
         if(mysqli_num_rows($query_verificar_si_hay_sanciones) > 0)
         {
-            $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario')");
+            $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario' AND sancion_eliminada='no')");
             $fila_info_sancion = mysqli_fetch_array($query_seleccionar_ultima_sancion_usuario);
             $tiempo_sancion = $fila_info_sancion['fecha_sancion'];
             $tipo_sancion = $fila_info_sancion['tipo_sancion'];
@@ -44,7 +44,7 @@ if(isset($_POST['login_button']))
 
             if($tiempo_restante <= 0 && $tipo_sancion == "temporal")
             {
-                $query_eliminar_sanciones_temporales = mysqli_query($con, "DELETE FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal'");
+                $query_eliminar_sanciones_temporales = mysqli_query($con, "UPDATE sanciones SET sancion_eliminada='si' WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal'");
             }
             else
             { 
@@ -71,8 +71,6 @@ if(isset($_POST['login_button']))
                 $id_usuario = $row['id_usuario'];
                 // - Guardamos el nombre de usuario directamente de la base de datos en una variable
                 $username = $row['username'];
-                // - Guardamos el tipo de usuario en una variable para comprobar que tipo de usuario es
-                $tipo_usuario = $row['tipo'];
 
                 // + Realizamos una query para verificar si la cuenta se encuentra cerrada
                 $user_closed_query = mysqli_query($con, "SELECT * FROM usuarios WHERE username='$username' AND usuario_cerrado='si'");
@@ -83,8 +81,6 @@ if(isset($_POST['login_button']))
                     $reopen_account = mysqli_query($con, "UPDATE usuarios SET usuario_cerrado='no' WHERE username='$username'");
                 }
                 $_SESSION['id_usuario'] = $id_usuario;
-                // + Guardamos el id del usuario en una variable cookie
-                setcookie("id_usuario", $id_usuario, time() + 3600, "/");
 
                 //+ Redirigimos al usuario a la pagina principal de su perfil
                 // $ -> Manda al usuario a un encabezado http
@@ -94,8 +90,8 @@ if(isset($_POST['login_button']))
             // + Si no tenemos una fila en resultado, significa que la contraseña es incorrecta
             else
             {
-                // + Verificar si hay sanciones para no incrementar ek cintador en caso de que haya alguna
-                $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario'");
+                // + Verificar si hay sanciones para no incrementar el cintador en caso de que haya alguna
+                $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND sancion_eliminada='no'");
 
                 if(mysqli_num_rows($query_verificar_si_hay_sanciones) == 0)
                 {
@@ -117,7 +113,7 @@ if(isset($_POST['login_button']))
                         $tipo_sancion = "temporal";
                         $fecha_actual = date('Y-m-d H:i:s');
                         $fecha_sancion = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($fecha_actual))); 
-                        $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL)");
+                        $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL, 'no')");
                         $info = "Su cuenta ha sido bloqueada temporalmente por cinco minutos<br>";
                         array_push($error_array, $info);
     
@@ -134,7 +130,7 @@ if(isset($_POST['login_button']))
                         $tipo_sancion = "temporal";
                         $fecha_actual = date('Y-m-d H:i:s');
                         $fecha_sancion = date('Y-m-d H:i:s', strtotime('+1 hour', strtotime($fecha_actual)));
-                        $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL)");
+                        $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL, 'no')");
                         $info = "Su cuenta ha sido bloqueada temporalmente por una hora<br>";
                         array_push($error_array, $info);
                     }
@@ -146,12 +142,12 @@ if(isset($_POST['login_button']))
                     else if($numero_intentos == 15)
                     {
                         // + Eliminar sanciones temporales
-                        $query_eliminar_sanciones_temporales = mysqli_query($con, "DELETE FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal'");
+                        $query_eliminar_sanciones_temporales = mysqli_query($con, "UPDATE sanciones SET sancion_eliminada='si' WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal'");
     
                         // + Aplicar sancion permanente
                         $razon = "Exceso de intentos fallidos de sesión (15)";
                         $tipo_sancion = "permanente";
-                        $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', NULL, '$id_usuario', NULL, NULL, NULL)");
+                        $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', NULL, '$id_usuario', NULL, NULL, NULL, 'no')");
                         $info = "Su cuenta ha sido bloqueada permanentemente, notifique a un administrador para que la desbloquee<br>";
                         array_push($error_array, $info);
 
@@ -163,7 +159,7 @@ if(isset($_POST['login_button']))
                         $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='administrador' OR tipo='moderador'");
                 
                         $subject = "Se ha bloqueado la cuenta del siguiente usuario: $usuario_mail.";
-                        $message = " Razón: Exceso de intentos de sesión";
+                        $message = " Razón: Exceso de intentos de inicio de sesión";
                         $header = "From: blockimino@gmail.com";
                 
                         while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))

@@ -10,7 +10,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
 // u -> usuarios
 // c -> sanciones
 
-$query_seleccionar_info_sancion = mysqli_query($con,   "SELECT s.id_sancion, s.razon_sancion, s.tipo_sancion, s.fecha_sancion, u1.username, 
+$query_seleccionar_info_sancion = mysqli_query($con,   "SELECT s.id_sancion, s.razon_sancion, s.tipo_sancion, s.fecha_sancion, s.sancion_eliminada, u1.username, 
                                                         u2.username as usuario_que_sanciono, s.id_publicacion_sancion, s.id_comentario_sancion
                                                         FROM sanciones s 
                                                         JOIN usuarios u1 ON s.id_usuario_sancionado = u1.id_usuario 
@@ -32,6 +32,7 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT s.id_sancion, s.r
                 <th>Usuario que sancionó</th>
                 <th>Publicación sancionada</th>
                 <th>Comentario sancionado</th>
+                <th>Sancion eliminada</th>
             </thead>
             <tbody>
                 <?php while($fila = mysqli_fetch_array($query_seleccionar_info_sancion)) 
@@ -79,6 +80,7 @@ $query_seleccionar_info_sancion = mysqli_query($con,   "SELECT s.id_sancion, s.r
                                 <?php echo $fila['id_comentario_sancion']; ?>
                             </a>
                         </td>
+                        <td><?php echo $fila['sancion_eliminada']; ?></td>
                     </tr>
                 <?php 
                 } ?>

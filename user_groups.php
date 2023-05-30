@@ -131,7 +131,7 @@ if (isset($_GET['perfil_usuario']))
         echo "<div class='col-sm-4'>
                 <div class='displayGrupo columna_un_usuario'>
                     <div class='contenedorImagenGrupo'>
-                        <a href='../groups" . $fila_info_grupo['nombre_grupo'] . "' style='color: 000'>
+                        <a href='../groups/" . $fila_info_grupo['nombre_grupo'] . "' style='color: 000'>
                             <img src='../". $fila_info_grupo['imagen_grupo'] . "'>
                         </a>
                     </div>

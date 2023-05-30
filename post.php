@@ -266,34 +266,61 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
 </div>
 
 <script>
-    // ! explicar este script
     const inputImg = document.getElementById("imagenASubir");
     const iconoImagen = document.getElementById("icono_imagen");
     const palomitaImg = document.querySelector(".palomitaImg");
     const tooltipImg = iconoImagen.querySelector(".tooltipImg");
-
-    const inputFile = document.getElementById("archivoASubir");
-    const iconoFile = document.getElementById("icono_archivo");
-    const palomitaFile = document.querySelector(".palomitaFile");
-    const tooltipFile = iconoFile.querySelector(".tooltipFile");
+    var imageList = new DataTransfer();
 
     iconoImagen.onclick = function() {
         inputImg.click();
     }
 
     inputImg.onchange = function() {
+        var newImages = inputImg.files;
+        for (var i = 0; i < newImages.length; i++) {
+            imageList.items.add(newImages[i]);
+        }
+        // Actualizar los archivos del inputImg con todas las imágenes
+        inputImg.files = imageList.files;
+        toolTipImg();
+    }
+
+    // Agregamos un event listener al documento
+    document.addEventListener("paste", function(e) {
+        // Verificar si el texto pegado es una imagen
+        if (e.clipboardData && e.clipboardData.items) {
+
+            for (var i = 0; i < e.clipboardData.items.length; i++) {
+                var item = e.clipboardData.items[i];
+                if (item.type.indexOf("image") !== -1) {
+                    var file = item.getAsFile();
+                    imageList.items.add(file);
+                }
+            }
+
+            // Agregar las imágenes al input de archivos
+            var existingFiles = inputImg.files;
+            for (var j = 0; j < existingFiles.length; j++) {
+                imageList.items.add(existingFiles[j]);
+            }
+
+            inputImg.files = imageList.files;
+
+            toolTipImg();
+        }
+    });
+
+    function toolTipImg() {
         if (inputImg.files && inputImg.files.length > 0) {
             palomitaImg.classList.add("activo");
-            if(inputImg.files.length == 1)
-            {
+            if (inputImg.files.length === 1) {
                 tooltipImg.innerHTML = inputImg.files.length + " archivo seleccionado:<br>";
-            }
-            else
-            {
+            } else {
                 tooltipImg.innerHTML = inputImg.files.length + " archivos seleccionados:<br>";
             }
             for (var i = 0; i < inputImg.files.length; i++) {
-                tooltipImg.innerHTML += inputImg.files[i].name + "<br>";
+                tooltipImg.innerHTML += inputImg.files[i].name + " <button class='eliminar-imagen' data-index='" + i + "'>Eliminar</button><br>";
             }
             tooltipImg.style.visibility = "visible";
             tooltipImg.style.opacity = 1; // Set opacity to 1
@@ -304,11 +331,45 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
         }
     }
 
+    // + Eliminar la imagen
+    tooltipImg.addEventListener("click", function(e) {
+        e.stopPropagation(); // Evita que el evento se propague a los elementos superiores
+
+        if (e.target && e.target.classList.contains("eliminar-imagen")) {
+            var index = e.target.getAttribute("data-index");
+            if (index !== null) {
+                index = parseInt(index);
+                // Eliminar la imagen del arreglo de archivos
+                imageList.items.remove(index);
+                // Actualizar los archivos del inputImg con las imágenes restantes
+                inputImg.files = imageList.files;
+                // Actualizar el tooltip de imágenes
+                toolTipImg();
+            }
+        }
+    });
+
+    const inputFile = document.getElementById("archivoASubir");
+    const iconoFile = document.getElementById("icono_archivo");
+    const palomitaFile = document.querySelector(".palomitaFile");
+    const tooltipFile = iconoFile.querySelector(".tooltipFile");
+    var fileList = new DataTransfer();
+
     iconoFile.onclick = function() {
         inputFile.click();
     }
 
     inputFile.onchange = function() {
+        var newFiles = inputFile.files;
+        for (var i = 0; i < newFiles.length; i++) {
+            fileList.items.add(newFiles[i]);
+        }
+        // Actualizar los archivos del inputImg con todas las imágenes
+        inputFile.files = fileList.files;
+        toolTipFile();
+    }
+
+    function toolTipFile() {
         if (inputFile.files && inputFile.files.length > 0) {
             palomitaFile.classList.add("activo");
             if(inputFile.files.length == 1)
@@ -320,7 +381,7 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
                 tooltipFile.innerHTML = inputFile.files.length + " archivos seleccionados:<br>";
             }
             for (var i = 0; i < inputFile.files.length; i++) {
-                tooltipFile.innerHTML += inputFile.files[i].name + "<br>";
+                tooltipFile.innerHTML += inputFile.files[i].name + " <button class='eliminar-archivo' data-index='" + i + "'>Eliminar</button><br>";
             }
             tooltipFile.style.visibility = "visible";
             tooltipFile.style.opacity = 1; // Set opacity to 1
@@ -330,6 +391,24 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
             tooltipFile.style.opacity = 0; // Set opacity to 0
         }
     }
+
+    // + Eliminar el archivo
+    tooltipFile.addEventListener("click", function(e) {
+        e.stopPropagation(); // Evita que el evento se propague a los elementos superiores
+
+        if (e.target && e.target.classList.contains("eliminar-archivo")) {
+            var index = e.target.getAttribute("data-index");
+            if (index !== null) {
+                index = parseInt(index);
+                // Eliminar el archivo del arreglo de archivos
+                fileList.items.remove(index);
+                // Actualizar los archivos del inputFile con los archivos restantes
+                inputFile.files = fileList.files;
+                // Actualizar el tooltip de archivos
+                toolTipFile();
+            }
+        }
+    });
 </script>
 
 <!-- //+ En este script se buscaran los hashtags con los que coincida -->

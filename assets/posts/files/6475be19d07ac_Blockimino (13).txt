@@ -1,0 +1,23 @@
+const int Trigger = 2;
+const int Echo = 3;
+long t; //tiempo que demora en llegar el eco
+long d; //distancia en centímetros
+
+
+void setup() {
+//Sensor de distancia HC-04
+
+pinMode(Trigger, OUTPUT);
+pinMode(Echo, INPUT);
+digitalWrite(Trigger, LOW);
+
+
+}
+
+void loop() {
+digitalWrite(0, HIGH);
+
+
+
+}
+

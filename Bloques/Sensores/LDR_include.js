@@ -33,6 +33,7 @@ Blockly.Blocks['LDR_include'] = {
         // If there is more than one instance, destroy this block and alert the user
         alert("LDR solo se debe incluir una sola vez!");
         this.dispose();
+        window.includeCounter++;
     }
   }
 };
@@ -82,6 +83,7 @@ Blockly.JavaScript['LDR_include'] = function(block) {
           // If there is more than one instance, destroy this block and alert the user
           alert("LDR solo se debe incluir una sola vez!");
           this.dispose();
+          window.includeCounter++;
       }
     }
   };

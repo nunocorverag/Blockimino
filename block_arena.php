@@ -134,7 +134,6 @@ if(isset($_SESSION['id_usuario']))
                             <category name="Operadores" colour="#663508" css-class="categoryDigital">
                                 <block type="arithmetic_operator"></block>
                                 <block type="boolean_operator"></block>
-                                <block type="comparison_operator"></block>
                                 <block type="updater_operator"></block>
                             </category>
                             <category name="Matematicas" colour="blue" css-class="categoryDigital">
@@ -246,34 +245,41 @@ if(isset($_SESSION['id_usuario']))
                 </div>
 
                 <script>
-                $(document).ready(function() {
-                var fileURL = '<?php echo $link_proyecto ?>'; // This is my file, but CORS restrictions prevent me from loading it. It should work on the web
-                var delay = 700; // Adjust the delay time as needed (in milliseconds)
-                var loadCount = 0;
-
-                function loadWorkspace() {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("GET", fileURL, true);
-                    xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var xml = xhr.responseText;
-
-                        var dom = Blockly.Xml.textToDom(xml);
-                        workspace.clear();
-                        Blockly.Xml.domToWorkspace(dom, workspace);
-
-                        loadCount++;
-
-                        if (loadCount < 2) {
-                        setTimeout(loadWorkspace, delay);
+                 // Wrap your script code in a function
+                function runScripts() {
+                    $(document).ready(function() {
+                    var fileURL = '<?php echo $link_proyecto ?>'; // This is my file, but CORS restrictions prevent me from loading it. It should work on the web
+                    var delay = 700; // Adjust the delay time as needed (in milliseconds)
+                    var loadCount = 0;
+    
+                    function loadWorkspace() {
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", fileURL, true);
+                        xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var xml = xhr.responseText;
+    
+                            var dom = Blockly.Xml.textToDom(xml);
+                            workspace.clear();
+                            Blockly.Xml.domToWorkspace(dom, workspace);
+    
+                            loadCount++;
+    
+                            if (loadCount < 2) {
+                            setTimeout(loadWorkspace, delay);
+                            }
                         }
+                        };
+                        xhr.send();
                     }
-                    };
-                    xhr.send();
+    
+                    loadWorkspace();
+                    });
                 }
-
-                loadWorkspace();
-                });
+                
+                // Use setTimeout with a delay of 0 milliseconds to schedule the function execution
+                setTimeout(runScripts, 1200);
+                
                 </script>
 
             </body>
@@ -400,7 +406,6 @@ if(isset($_SESSION['id_usuario']))
                             <category name="Operadores" colour="#663508" css-class="categoryDigital">
                                 <block type="arithmetic_operator"></block>
                                 <block type="boolean_operator"></block>
-                                <block type="comparison_operator"></block>
                                 <block type="updater_operator"></block>
                             </category>
                             <category name="Matematicas" colour="blue" css-class="categoryDigital">
@@ -522,8 +527,3 @@ else
 {
     header("Location: index.php");
 }
-
-
-
-
-?>

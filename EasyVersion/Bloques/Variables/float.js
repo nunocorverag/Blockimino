@@ -15,19 +15,24 @@ Blockly.Blocks['float_list'] = {//////////
         this.setColour("#008000");
         this.setTooltip("Selecciona una variable float");//////////
     },
-    onchange: function () {
-        const dropdown = this.getField("DROPDOWN_LIST");
-        if (dropdown) {
-          const currentValue = dropdown.getValue();
-          const availableOptions = dropdown.getOptions();
-          const isCurrentOptionAvailable = availableOptions.some(option => option[1] === currentValue);
+    onchange: function (event) {
+      const blockId = this.id;
+      if (event.blockId !== blockId) {
+        return; // Skip if the event is not for the current block
+      }
     
-          if (!isCurrentOptionAvailable && availableOptions.length > 0) {
-            const firstOptionValue = availableOptions[0][1];
-            dropdown.setValue(firstOptionValue);
-          }
+      const dropdown = this.getField("DROPDOWN_LIST");
+      if (dropdown) {
+        const currentValue = dropdown.getValue();
+        const availableOptions = dropdown.getOptions();
+        const isCurrentOptionAvailable = availableOptions.some(option => option[1] === currentValue);
+    
+        if (!isCurrentOptionAvailable && availableOptions.length > 0) {
+          const firstOptionValue = availableOptions[0][1];
+          dropdown.setValue(firstOptionValue);
         }
       }
+    }
 };
 Blockly.JavaScript['float_list'] = function (block) {//////////
     let dropdown_list = block.getFieldValue('DROPDOWN_LIST');

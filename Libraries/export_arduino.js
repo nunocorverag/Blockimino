@@ -532,8 +532,8 @@ jQuery(document).on("click", "#export_text", function () {
         // Check if the pinValue is within the ignored range
         if (!(pinValue >= 0 && pinValue <= 53) && !(/^A\d{1,2}$/).test(pinValue)) {
           pinValues.push(pinValue);
-        }
-      });
+        }
+      });
     });
 
     // Check if all PIN values have appeared in unique variable names
@@ -707,6 +707,36 @@ jQuery(document).on("click", "#export_text", function () {
       window.namesCounter++;
       return;
     }
+
+
+    // Perform a depth-first search to find all connected blocks
+    function dfs(block, visited) {
+      visited.add(block);
+
+      // Traverse all connected blocks
+      block.getChildren().forEach(child => {
+        if (!visited.has(child)) {
+          dfs(child, visited);
+        }
+      });
+    }
+
+    // Count the number of connected components (chunks)
+    let count = 0;
+    const visited = new Set();
+
+    workspace.getAllBlocks().forEach(block => {
+      if (!visited.has(block)) {
+        dfs(block, visited);
+        count++;
+      }
+    });
+
+    // Check if the count is greater than 1 and send an alert
+    if (count > 1) {
+      alert('Hay bloques flotando libremente, el orden de exportación sera por defecto (consultar manual de usuario)');
+    }
+
 
 
     // Add prefix and suffix
