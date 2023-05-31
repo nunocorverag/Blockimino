@@ -5,6 +5,7 @@ window.includeCounter = 0;
 window.setupCounter = 0;
 window.typesCounter = 0;
 window.namesCounter = 0;
+window.basicCounter = 0;
 
 jQuery(document).on("click", "#help", function () {
   if (
@@ -13,7 +14,8 @@ jQuery(document).on("click", "#help", function () {
     includeCounter === 0 &&
     setupCounter === 0 &&
     typesCounter === 0 &&
-    namesCounter === 0
+    namesCounter === 0 &&
+    basicCounter === 0
   ) {
     alert("Ninguna retroalimentación aún.");
   } else {
@@ -53,6 +55,12 @@ jQuery(document).on("click", "#help", function () {
         advice += "- Nombres de variables en Arduino (Fuertemente sugerido)\n";
     } else if (namesCounter > 0) {
         advice += "- Nombres de variables en Arduino\n";
+    }
+
+    if (basicCounter >= 5) {
+      advice += "- Conceptos básicos de programación por bloques (Fuertemente sugerido)\n";
+    } else if (basicCounter > 0) {
+      advice += "- Conceptos básicos de programación por bloques\n";
     }
 
     alert(advice);

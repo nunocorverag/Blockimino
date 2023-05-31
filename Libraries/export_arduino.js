@@ -707,7 +707,7 @@ jQuery(document).on("click", "#export_text", function () {
       window.namesCounter++;
       return;
     }
-
+/*
 
     // Perform a depth-first search to find all connected blocks
     function dfs(block, visited) {
@@ -737,7 +737,37 @@ jQuery(document).on("click", "#export_text", function () {
       alert('Hay bloques flotando libremente, el orden de exportación sera por defecto (consultar manual de usuario)');
     }
 
+*/
 
+
+    // Perform a depth-first search to find all connected blocks
+    function dfs(block, visited) {
+      visited.add(block);
+
+      // Traverse all connected blocks
+      block.getChildren().forEach(child => {
+        if (!visited.has(child) && child.svgGroup_.getAttribute('data-attribute') === 'objects') {
+          dfs(child, visited);
+        }
+      });
+    }
+
+    // Count the number of connected components (chunks)
+    let count = 0;
+    const visited = new Set();
+
+    workspace.getAllBlocks().forEach(block => {
+      if (!visited.has(block) && block.svgGroup_.getAttribute('data-attribute') === 'objects') {
+        dfs(block, visited);
+        count++;
+      }
+    });
+
+    // Check if the count is greater than 1 and send an alert
+    if (count > 1) {
+      alert('Hay bloques flotando libremente, el orden de exportación sera por defecto (consultar manual de usuario)');
+    }
+    
 
     // Add prefix and suffix
     var prefixset = "void setup() {\n";

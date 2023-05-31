@@ -291,24 +291,19 @@
                                 if ($('#formulario_publicacion').is(':visible')) {
                                     // Verificar si el texto pegado es una imagen
                                     if (e.clipboardData && e.clipboardData.items) {
-
+                                        var hasImage = false;
                                         for (var i = 0; i < e.clipboardData.items.length; i++) {
                                             var item = e.clipboardData.items[i];
                                             if (item.type.indexOf("image") !== -1) {
+                                                hasImage = true;
                                                 var file = item.getAsFile();
                                                 imageList.items.add(file);
                                             }
                                         }
-
-                                        // Agregar las imágenes al input de archivos
-                                        var existingFiles = inputImg.files;
-                                        for (var j = 0; j < existingFiles.length; j++) {
-                                            imageList.items.add(existingFiles[j]);
+                                        if (hasImage) {
+                                            inputImg.files = imageList.files;
+                                            toolTipImg();
                                         }
-
-                                        inputImg.files = imageList.files;
-
-                                        toolTipImg();
                                     }
                                 }
                             });

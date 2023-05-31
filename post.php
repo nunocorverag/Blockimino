@@ -185,7 +185,6 @@ if(isset($_POST['publicar']))
         $publicacion = new Publicacion($con, $id_usuario_loggeado);
         // + Llamamos el metodo dentro de la clase para publicar lo que este dentro de nuestra text area llamada "publicar_texto"
         $tipo_pagina = "pagina";
-        // $hashtags = $_POST['hashtags'];
         $hashtags = "";
         if(isset($_POST['hashtags'])){
             $hashtags = $_POST['hashtags'];
@@ -196,11 +195,10 @@ if(isset($_POST['publicar']))
         // + Refrescamos la pagina para que no nos pida confirmar reenvio de formulario
         header("Location: home.php");
     }
-    else
-    {
+    else {
         echo "<div class='alert alert-danger' style='text-align:center;'>
                 $mensaje_de_error
-            </div>";
+              </div>";
     }
 }
 
@@ -290,24 +288,19 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
     document.addEventListener("paste", function(e) {
         // Verificar si el texto pegado es una imagen
         if (e.clipboardData && e.clipboardData.items) {
-
+            var hasImage = false;
             for (var i = 0; i < e.clipboardData.items.length; i++) {
                 var item = e.clipboardData.items[i];
                 if (item.type.indexOf("image") !== -1) {
+                    hasImage = true;
                     var file = item.getAsFile();
                     imageList.items.add(file);
                 }
             }
-
-            // Agregar las imágenes al input de archivos
-            var existingFiles = inputImg.files;
-            for (var j = 0; j < existingFiles.length; j++) {
-                imageList.items.add(existingFiles[j]);
+            if (hasImage) {
+                inputImg.files = imageList.files;
+                toolTipImg();
             }
-
-            inputImg.files = imageList.files;
-
-            toolTipImg();
         }
     });
 
@@ -411,6 +404,7 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
     });
 </script>
 
+
 <!-- //+ En este script se buscaran los hashtags con los que coincida -->
 <script>
     $(document).ready(function() {
@@ -432,7 +426,6 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
         });
     });
 </script>
-
                        
 <script>
     // + Script de agregar hashtags

@@ -235,6 +235,26 @@ if(isset($_SESSION['id_usuario']))
                                     var workspace = Blockly.inject('blocklyDiv', {
                                     toolbox: document.getElementById('toolbox')
                                     });
+
+    
+                                    let previousPosition = null;
+                                    // Event listener for block move events
+                                    Blockly.Events.blockMove = function (event) {
+                                    const blockId = event.blockId;
+                                    const newPosition = event.newCoordinate;
+
+                                    // Check if the block position has changed and it wasn't due to a mouse drag
+                                    if (previousPosition && previousPosition.x !== newPosition.x && previousPosition.y !== newPosition.y && !event.isDragging) {
+                                        // Block position changed without mouse drag
+                                        basicCounter++;
+                                    }
+
+                                    // Update the previous position with the new position
+                                    previousPosition = newPosition;
+                                    };
+
+                                    // Attach the block move event listener
+                                    workspace.addChangeListener(Blockly.Events.blockMove);
                                 </script>
                             </div>
                         </xml>
@@ -504,6 +524,25 @@ if(isset($_SESSION['id_usuario']))
                                     var workspace = Blockly.inject('blocklyDiv', {
                                     toolbox: document.getElementById('toolbox')
                                     });
+
+                                    let previousPosition2 = null;
+                                    // Event listener for block move events
+                                    Blockly.Events.blockMove = function (event) {
+                                    const blockId = event.blockId;
+                                    const newPosition = event.newCoordinate;
+
+                                    // Check if the block position has changed and it wasn't due to a mouse drag
+                                    if (previousPosition2 && previousPosition2.x !== newPosition.x && previousPosition2.y !== newPosition.y && !event.isDragging) {
+                                        // Block position changed without mouse drag
+                                        basicCounter++;
+                                    }
+
+                                    // Update the previous position with the new position
+                                    previousPosition2 = newPosition;
+                                    };
+
+                                    // Attach the block move event listener
+                                    workspace.addChangeListener(Blockly.Events.blockMove);
                                 </script>
                             </div>
                         </xml>

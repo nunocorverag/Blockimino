@@ -12,7 +12,6 @@ Blockly.Blocks['arduino_case'] = {
       // Añadir entrada para el cuerpo del bloque case
       this.appendStatementInput("DO")
           .setCheck("!arduino_case")
-          window.namesCounter++;
       // Configurar conexiones del bloque
       this.setPreviousStatement(true, "arduino_case");
       this.setNextStatement(true, "arduino_case");

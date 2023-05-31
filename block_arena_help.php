@@ -30,17 +30,11 @@ $query_seleccionar_temas_pagina = mysqli_query($con , "SELECT * FROM temas_pagin
                     </select>
                 </div>
             </div>
-            <h4 class="h4_info" style="margin-bottom: 0px;">Descripción</h4>
             <div class="div_descripcion">
-                <img src='assets/images/block_help_material/texto.png' style='width: 225px; height: 225px;'>
             </div>
-            <h4 class="h4_info" style="margin-bottom: 0px;">Apéndices</h4>
             <div class="div_apendices">
-                <img src='assets/images/block_help_material/youtube.png' style='width: 225px; height: 225px;'>
             </div>
-            <h4 class="h4_info" style="margin-bottom: 0px;">Imagen</h4>
             <div class="div_imagen">
-                <img src='assets/images/block_help_material/imagen.png' style='width: 225px; height: 225px;'>
             </div>
         </div>
 
@@ -79,9 +73,9 @@ $query_seleccionar_temas_pagina = mysqli_query($con , "SELECT * FROM temas_pagin
                 else
                 {
                     // Mostrar imágenes predeterminadas cuando no se ha seleccionado ningún elemento
-                    $(".div_descripcion").html("<img src='assets/images/block_help_material/texto.png' style='width: 225px; height: 225px;'>");
-                    $(".div_imagen").html("<img src='assets/images/block_help_material/imagen.png' style='width: 225px; height: 225px;'>");
-                    $(".div_apendices").html("<img src='assets/images/block_help_material/youtube.png' style='width: 225px; height: 225px;'>");
+                    $(".div_descripcion").html("");
+                    $(".div_imagen").html("");
+                    $(".div_apendices").html("");
                 }
                 
             }
@@ -120,9 +114,9 @@ $query_seleccionar_temas_pagina = mysqli_query($con , "SELECT * FROM temas_pagin
                     data: {temaID:temaID, bloqueID:bloqueID},
                     success: function(response) {
                         var info = JSON.parse(response); // Parsear la respuesta JSON
-                        $(".div_descripcion").html(info.descripcion);
-                        $(".div_imagen").html("<img src='" + info.imagen + "'>");
-                        $(".div_apendices").html(info.apendices);
+                        $(".div_descripcion").html("<h4 class='h4_info' style='margin-bottom: 0px;'>Descripción</h4>" + info.descripcion);
+                        $(".div_imagen").html("<h4 class='h4_info' style='margin-bottom: 0px;'>Imagen</h4>" + "<img src='" + info.imagen + "'>");
+                        $(".div_apendices").html("<h4 class='h4_info' style='margin-bottom: 0px;'>Apéndices</h4>" + info.apendices);
                     }
                 });
             }
