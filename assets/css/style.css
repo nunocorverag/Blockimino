@@ -476,7 +476,6 @@ a:hover {
     z-index: 1;
     background-color: white;
     border: solid 0.25px #D3D3D3;
-    margin: 0px 10px;
     width: 748px;
 }
 
@@ -1727,11 +1726,11 @@ a:hover {
 
 /* Opciones de grupo */
 
-.cuerpo_configuracion{
+.cuerpo_configuracion {
     text-align: center;
 }
 
-.cuerpo_configuracion button{
+.cuerpo_configuracion button {
     width: 100%;
     height: 50px;
     border: none;
@@ -2632,15 +2631,14 @@ input:checked+.slider:before {
 .div_superior_busqueda {
     display: flex;
     width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0 auto;
+    height: 40px;
 }
 
 .div_tema_a_buscar {
     width: 40%;
     background-color: lightblue;
     border: solid 0.25px black;
-    border-bottom: none;
 }
 
 #tema_a_buscar {
@@ -2658,7 +2656,7 @@ input:checked+.slider:before {
     background-color: lightblue;
     width: 60%;
     border: solid 0.25px black;
-    border-bottom: none;
+    border-left: none;
     padding-left: 1%;
 }
 
@@ -2668,8 +2666,10 @@ input:checked+.slider:before {
     margin-left: 10%;
     margin-right: 10%;
     border: solid 0.25px black;
-    max-width: 100%; /* Ajustar el ancho máximo al tamaño de la imagen */
-    height: auto; /* Ajustar automáticamente la altura en función del tamaño de la imagen */
+    max-width: 100%;
+    /* Ajustar el ancho máximo al tamaño de la imagen */
+    height: auto;
+    /* Ajustar automáticamente la altura en función del tamaño de la imagen */
 }
 
 .div_descripcion {
@@ -2679,7 +2679,8 @@ input:checked+.slider:before {
     margin-right: 10%;
     border: solid 0.25px black;
     border-bottom: none;
-    height: auto; /* Ajustar automáticamente la altura en función del contenido */
+    height: auto;
+    /* Ajustar automáticamente la altura en función del contenido */
 }
 
 .div_apendices {
@@ -2689,7 +2690,8 @@ input:checked+.slider:before {
     margin-right: 10%;
     border: solid 0.25px black;
     border-bottom: none;
-    height: auto; /* Ajustar automáticamente la altura en función del contenido */
+    height: auto;
+    /* Ajustar automáticamente la altura en función del contenido */
 }
 
 .tema_a_buscar {
@@ -2717,12 +2719,52 @@ input:checked+.slider:before {
     color: #FFFFFF;
 }
 
-.h4_info
-{
+.h4_info {
     background-color: lightblue;
     margin: 0 auto;
     width: 80%;
     margin-bottom: 0px;
     border: solid 0.25px black;
     border-bottom: none;
+}
+
+.busqueda_info_input {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.busqueda_info_input input[type="text"] {
+    width: 100%;
+}
+
+.info_resultados_container {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border: solid 0.25px #D3D3D3;
+    width: 960px;
+}
+
+.displayResultadoTema {
+    padding: 8px 0px 0 5px;
+    height: 40px;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.displayResultadoTema:hover {
+    background-color: #EBEBEB;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.displayResultadoBloque {
+    padding: 8px 0px 0 5px;
+    height: 60px;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.displayResultadoBloque:hover {
+    background-color: #EBEBEB;
+    text-decoration: none;
+    cursor: pointer;
 }
