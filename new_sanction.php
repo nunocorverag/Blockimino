@@ -78,20 +78,20 @@ if(isset($_POST['boton_aplicar_sancion']))
     }
 
     $fecha_sancion = "";
-    $query_verificar_si_hay_una_sancion_permanente = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND tipo_sancion='permanente' AND sancion_eliminada='no'");
+    $query_verificar_si_hay_una_sancion_permanente = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND tipo_sancion='permanente' AND sancion_eliminada='no' AND tipo_sancion NOT IN ('temporal_login_fallido', 'permanente_login_fallido')");
     if(mysqli_num_rows($query_verificar_si_hay_una_sancion_permanente) == 0)
     {
         if($tipo_sancion == "permanente")
         {
             $fecha_sancion = NULL;
-            $query_eliminar_sanciones_temporales = mysqli_query($con, "UPDATE sanciones SET sancion_eliminada='si' WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND tipo_sancion='temporal'");
+            $query_eliminar_sanciones_temporales = mysqli_query($con, "UPDATE sanciones SET sancion_eliminada='si' WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND tipo_sancion='temporal' AND tipo_sancion NOT IN ('temporal_login_fallido', 'permanente_login_fallido')");
         }
         else if($tipo_sancion == "temporal")
         {
             $dias_sancion = $_POST['dias_sancion'];
             $horas_sancion = $_POST['horas_sancion'];
             $minutos_sancion = $_POST['minutos_sancion'];
-            $query_verificar_que_usuario_sancionado_exista = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND sancion_eliminada='no'");
+            $query_verificar_que_usuario_sancionado_exista = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND sancion_eliminada='no' AND tipo_sancion NOT IN ('temporal_login_fallido', 'permanente_login_fallido')");
 
             if(($dias_sancion + $horas_sancion + $minutos_sancion) == 0)
             {
@@ -100,7 +100,7 @@ if(isset($_POST['boton_aplicar_sancion']))
             }
             else if(mysqli_num_rows($query_verificar_que_usuario_sancionado_exista) > 0)
             {
-                $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario_a_sancionar' AND sancion_eliminada='no')");
+                $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_a_sancionar' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario_a_sancionar' AND sancion_eliminada='no' AND tipo_sancion NOT IN ('temporal_login_fallido', 'permanente_login_fallido'))");
                 $fila_sancion_existente = mysqli_fetch_array($query_seleccionar_ultima_sancion_usuario);
                 $tiempo_restante_sancion_existente = strtotime($fila_sancion_existente['fecha_sancion']) - strtotime(date('Y-m-d H:i:s'));
                 

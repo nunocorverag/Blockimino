@@ -5,7 +5,7 @@ Blockly.Blocks['LCDprint'] = {
         this.svgGroup_.setAttribute('special-attribute', 'LCD');
 
         this.appendValueInput('TEXT')
-            .setCheck(null)
+            .setCheck(["Number", "Text"])
             .appendField("lcd imprimir (con formato)");
         this.appendDummyInput()
         this.setPreviousStatement(true, "!arduino_case");

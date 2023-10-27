@@ -16,21 +16,7 @@ if(isset($_SESSION['id_usuario']))
     // - Esta variable guardara el nombre de usuario para poder hacer querys mas adelante
     $usuario_loggeado = $fila_detalles_usuario['username'];
 
-    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado' AND sancion_eliminada='no'");
-    if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
-    {
-        header("Location: sanctioned.php?username=" . $usuario_loggeado);
-    }
-    else
-    {            
-        // RF16 Al iniciar sesion se detecta el tipo de usuario
-        $tipo_usuario = $fila_detalles_usuario['tipo'];
-    }
-}
-// + Si no encuentra un usuario loggeado, lo va a regresar a la pagina para crear usuario / iniciar sesion
-else 
-{
-    header("Location: index.php");
+    $tipo_usuario = $fila_detalles_usuario['tipo'];
 }
 ?>
 
@@ -38,8 +24,7 @@ else
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- JavaScript -->

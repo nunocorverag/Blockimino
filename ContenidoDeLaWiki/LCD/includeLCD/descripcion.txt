@@ -1,5 +1,0 @@
-﻿Este bloque está relacionado con la librería LiquidCrystal de Arduino. Esta librería permite a un Arduino controlar pantallas de cristal líquido (LCD) basadas en el chip Hitachi HD44780 (o un equivalente). La librería permite que el LCD muestre texto y números. Los parámetros de la función LiquidCrystal especifican los pines de Arduino a los que están conectados los pines RS, RW, Enable, y los pines de datos D0 a D7 del LCD.
-
-Se usa este bloque para incluir la librería LiquidCrystal.h necesaria para usar una pantalla LCD con Arduino y para definir los pines de conexión entre Arduino y la pantalla LCD.
-
-listas, Pines: Esta sección te permite seleccionar los pines de Arduino a los que estarán conectados los pines RS, RW, Enable, y los pines de datos D0 a D7 de la pantalla LCD. Debes seleccionar estos valores del menú desplegable para cada pin.

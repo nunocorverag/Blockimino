@@ -1,4 +1,0 @@
-﻿La función setCursor() es utilizada en pantallas LCD para establecer la posición del cursor en la pantalla, indicando dónde comenzará la próxima vez que se escriba en el pantalla. Los parámetros de setCursor() son la columna y la fila, los cuales indican la posición en la que se colocará el cursor.
-
-campo 1, columna: Este es el campo donde puedes ingresar el número de columna en la que deseas posicionar el cursor en la pantalla LCD. Debe ser un valor entero.
-campo 2, fila: Este es el campo donde puedes especificar el número de fila en la que deseas posicionar el cursor en la pantalla LCD. Este también debe ser un valor entero.

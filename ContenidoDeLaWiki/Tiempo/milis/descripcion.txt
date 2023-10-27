@@ -1,1 +1,0 @@
-﻿La función millis() se utiliza para obtener el número de milisegundos que han pasado desde que el programa de Arduino comenzó a ejecutarse. Una característica importante de esta función es que después de aproximadamente 50 días, el contador se reinicia a cero.

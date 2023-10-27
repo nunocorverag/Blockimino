@@ -124,6 +124,8 @@ a:hover {
     min-height: 60px;
 }
 
+/* Publicaciones */
+
 .publicacion {
     width: 96%;
     font-size: 15px;
@@ -137,6 +139,10 @@ a:hover {
        +$ right -> El elemento flota a la derecha de su bloque contenedor*/
     float: left;
     margin-right: 7px;
+}
+
+#cuerpo_publicacion {
+    word-wrap: break-word;
 }
 
 .foto_perfil_publicacion img {
@@ -1349,19 +1355,6 @@ a:hover {
     font-size: 70px;
 }
 
-.formulario_crear_grupo input[type="submit"] {
-    width: 96%;
-    height: 60px;
-    border: none;
-    border-radius: 3px;
-    background-color: lightblue;
-    color: black;
-    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
-    font-size: 90%;
-    outline: 0;
-    margin: 1% 2%;
-}
-
 .formulario_crear_grupo input[type="submit"]:active {
     padding: 5px 4px 4px 5px;
 }
@@ -1436,14 +1429,15 @@ a:hover {
 /* Pagina de grupos */
 
 .imagenPaginaGrupo {
-    width: 35%;
+    width: 18%;
     float: left;
-    height: 100%;
+    height: 80%;
+    margin: 65px 30px 10px 30px;
 }
 
 .imagenPaginaGrupo img {
     width: 100%;
-    height: 100%;
+    height: 85%;
     border-radius: 50%;
 }
 
@@ -1464,7 +1458,7 @@ a:hover {
 
 .contenedor_detalles_grupo {
     width: 100%;
-    height: 230px;
+    height: 320px;
 }
 
 .descripcion_grupo span {
@@ -1473,8 +1467,8 @@ a:hover {
 }
 
 .detalles_grupo {
-    width: 60%;
-    margin-left: 37%;
+    width: 50%;
+    margin-left: 25%;
     height: 345px;
 }
 
@@ -1893,6 +1887,17 @@ a:hover {
     position: relative;
 }
 
+.contenedor_recuperar_contra input[type="submit"]{
+    width: 97%;
+    height: 60px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    margin: 8px 10px;
+}
 
 /* Nueva sancion */
 
@@ -2767,4 +2772,17 @@ input:checked+.slider:before {
     background-color: #EBEBEB;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* upload.php */
+.boton_recargar_upload{
+    width: 28%;
+    height: 60px;
+    border: none;
+    border-radius: 3px;
+    background-color: lightblue;
+    color: black;
+    text-shadow: rgb(99 170 194) 0.5px 0.5px 0px;
+    font-size: 90%;
+    outline: 0;
 }

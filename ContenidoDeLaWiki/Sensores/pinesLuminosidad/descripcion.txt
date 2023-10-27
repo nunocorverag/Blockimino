@@ -1,4 +1,0 @@
-﻿Este bloque se encarga de configurar y definir los pines y variables para un sensor de luminosidad LDR (Light Dependent Resistor) en un Arduino. En el código de Arduino, estos detalles se suelen establecer mediante la definición de constantes o variables al comienzo del programa. En este caso, sensorLuz y valorLuz son respectivamente el pin al que se conecta el sensor LDR y el valor inicial de la lectura de luz.
-
-sensorLuz: Aquí puedes seleccionar el pin del Arduino UNO al que está conectado el sensor LDR.
-valorLuz: En este campo, puedes establecer el valor inicial de la lectura de luz. Este valor puede ser modificado posteriormente por el código que lee los valores del sensor LDR.

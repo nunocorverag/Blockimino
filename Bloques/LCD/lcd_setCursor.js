@@ -6,10 +6,10 @@ Blockly.Blocks['LCDsetCursor'] = {
 
     // Agregar los campos de entrada
     this.appendValueInput("COL")
-        .setCheck("int")
+        .setCheck(["int", "intval", "short", "shortval", "long", "longval"])
         .appendField("lcd.setCursor(");
     this.appendValueInput("ROW")
-        .setCheck("int")
+        .setCheck(["int", "intval", "short", "shortval", "long", "longval"])
         .appendField(",");
     this.appendDummyInput()
         .appendField(")");

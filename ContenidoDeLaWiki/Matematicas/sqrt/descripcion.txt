@@ -1,3 +1,0 @@
-﻿La función sqrt() matemática que calcula la raíz cuadrada de un número. La raíz cuadrada de un número es un valor que, cuando se multiplica por sí mismo, da el número original. En Arduino, sqrt() toma un solo argumento de tipo float (número con decimales) y devuelve la raíz cuadrada de ese número.
-
-Campo 1: En este campo, puedes insertar un número o una variable que represente un número. Este será el número al que se le calculará la raíz cuadrada.

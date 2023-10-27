@@ -13,7 +13,7 @@ if(isset($_SESSION['id_usuario']))
     // - Esta variable guardara el nombre de usuario para poder hacer querys mas adelante
     $usuario_loggeado = $fila_detalles_usuario['username'];
 
-    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado'");
+    $query_verificar_que_usuario_no_este_sancionado = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario_loggeado' AND sancion_eliminada='no'");
     if(mysqli_num_rows($query_verificar_que_usuario_no_este_sancionado) > 0)
     {
         header("Location: sanctioned.php?username=" . $usuario_loggeado);
@@ -236,11 +236,25 @@ if(isset($_SESSION['id_usuario']))
                                     toolbox: document.getElementById('toolbox')
                                     });
 
+                                    // Store the previous position of the block
                                     let previousPosition = null;
+
+                                    // Excluded block types
+                                    const excludedBlockTypes = ['create_bool', 'create_int', 'create_float', 'create_double', 'create_char', 'create_string', 'create_long', 'create_short',
+                                    'bool_list', 'char_list', 'double_list', 'float_list', 'int_list', 'long_list', 'short_list', 'string_list'];
+
                                     // Event listener for block move events
                                     Blockly.Events.blockMove = function (event) {
                                     const blockId = event.blockId;
                                     const newPosition = event.newCoordinate;
+
+                                    // Get the block
+                                    const block = workspace.getBlockById(blockId);
+
+                                    // Check if the block is excluded from the event listener
+                                    if (block && excludedBlockTypes.includes(block.type)) {
+                                        return;
+                                    }
 
                                     // Check if the block position has changed and it wasn't due to a mouse drag
                                     if (previousPosition && previousPosition.x !== newPosition.x && previousPosition.y !== newPosition.y && !event.isDragging) {
@@ -527,20 +541,34 @@ if(isset($_SESSION['id_usuario']))
                                     toolbox: document.getElementById('toolbox')
                                     });
 
-                                    let previousPosition2 = null;
+                                    // Store the previous position of the block
+                                    previousPosition = null;
+
+                                    // Excluded block types
+                                    excludedBlockTypes = ['create_bool', 'create_int', 'create_float', 'create_double', 'create_char', 'create_string', 'create_long', 'create_short',
+                                    'bool_list', 'char_list', 'double_list', 'float_list', 'int_list', 'long_list', 'short_list', 'string_list'];
+
                                     // Event listener for block move events
                                     Blockly.Events.blockMove = function (event) {
                                     const blockId = event.blockId;
                                     const newPosition = event.newCoordinate;
 
+                                    // Get the block
+                                    const block = workspace.getBlockById(blockId);
+
+                                    // Check if the block is excluded from the event listener
+                                    if (block && excludedBlockTypes.includes(block.type)) {
+                                        return;
+                                    }
+
                                     // Check if the block position has changed and it wasn't due to a mouse drag
-                                    if (previousPosition2 && previousPosition2.x !== newPosition.x && previousPosition2.y !== newPosition.y && !event.isDragging) {
+                                    if (previousPosition && previousPosition.x !== newPosition.x && previousPosition.y !== newPosition.y && !event.isDragging) {
                                         // Block position changed without mouse drag
                                         basicCounter++;
                                     }
 
                                     // Update the previous position with the new position
-                                    previousPosition2 = newPosition;
+                                    previousPosition = newPosition;
                                     };
 
                                     // Attach the block move event listener

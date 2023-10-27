@@ -7,7 +7,7 @@ Blockly.Blocks['char_value'] = {
             .appendField("valor de char '")
             .appendField(new Blockly.FieldTextInput(""), "VALUE")
             .appendField("'");
-        this.setOutput(true, ["char", "Text"]);
+        this.setOutput(true, ["charval", "Text"]);
         this.setColour("#008000");
         this.setTooltip("Con este bloque puedes asignar un valor de un caracter a las variables char que hayas creado.");
     },

@@ -1,7 +1,0 @@
-﻿ La función constraint () es útil cuando necesitas asegurarte de que un número permanezca dentro de un rango específico. Si el número que proporcionas se encuentra fuera de este rango, constrain() lo ajusta para que sea igual al límite superior o inferior.
-
-Campo 1: En este campo, puedes ingresar el número que deseas restringir. Este puede ser un número literal o el valor de una variable de tu programa.
-
-campo 2 (limite inferior): Aquí puedes definir el límite inferior del rango. Si el número que proporcionaste en VALUE es menor que este valor, la función constrain() lo ajustará para que sea igual a este límite inferior.
-
-campo 3 (limite superior): Este campo es para definir el límite superior del rango. Si el número que proporcionaste en VALUE es mayor que este valor, la función constrain() lo ajustará para que sea igual a este límite superior.

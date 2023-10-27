@@ -29,7 +29,7 @@ Blockly.Blocks['HC04_include'] = {
       const instances = this.workspace.getBlocksByType('HC04_include');
       if (instances.length > 1) {
           // If there is more than one instance, destroy this block and alert the user
-          alert("Only one instance of HC04_include block is allowed.");
+          alert("HC-04 solo se debe incluir una sola vez!");
           this.dispose();
           window.includeCounter++;
       }
@@ -73,7 +73,7 @@ Blockly.Blocks['HC04_include'] = {
       const instances = this.workspace.getBlocksByType('HC04_include_MEGA');
       if (instances.length > 1) {
           // If there is more than one instance, destroy this block and alert the user
-          alert("Only one instance of HC04_include block is allowed.");
+          alert("HC-04 solo se debe incluir una sola vez!");
           this.dispose();
           window.includeCounter++;
       }

@@ -1,4 +1,0 @@
-﻿digitalWrite() es una función que se utiliza para escribir un valor digital, ya sea ALTO (HIGH) o BAJO (LOW), en un pin digital específico. Esto es útil para controlar dispositivos como LEDs o transistores, entre otros, que pueden tener dos estados.
-
-Lista 1: Este es un menú desplegable donde puedes seleccionar a cuál de los pines digitales (del 0 al 13, en el caso de Arduino UNO) quieres escribir un valor.
-Lista 2: Aquí puedes seleccionar el estado que quieres escribir en el pin seleccionado: ALTO (HIGH) o BAJO (LOW).

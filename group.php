@@ -28,7 +28,7 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
 <div class="contenedor_detalles_grupo">
     <?php
 
-        $objeto_grupo_usuario_loggeado->ObteenrInfoGrupo($id_grupo);
+        $objeto_grupo_usuario_loggeado->ObtenerInfoGrupo($id_grupo);
         if($objeto_grupo_usuario_loggeado->UsuarioPerteneceAlGrupo($id_grupo))
         {
             ?>
@@ -323,7 +323,6 @@ $query_seleccionar_proyectos_usuario = mysqli_query($con, "SELECT * FROM proyect
                             // $ remove() -> Remueve el elemento
                             $('.area_publicaciones').find('.siguientePagina').remove(); // + Removemos el elemento .siguientePagina actual 
                             $('.area_publicaciones').find('.noMasPublicaciones').remove(); // + Removemos el elemento .noMasPublicaciones actual
-                            $('.area_publicaciones').find('.noMasPublicacionesText').remove(); // + Removemos el elemento .noMasPublicacionesText actual 
 
                             // + Escondemos el gif de cargando porque ya ha cargado
                             $('#cargando').hide();

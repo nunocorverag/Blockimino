@@ -1,1 +1,0 @@
-﻿Imprimir contenido en pantalla lcd

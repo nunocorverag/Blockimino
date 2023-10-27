@@ -8,7 +8,7 @@ require "/home4/blockimi/public_html/PHPMailer/src/Exception.php";
 require "/home4/blockimi/public_html/PHPMailer/src/PHPMailer.php";
 require "/home4/blockimi/public_html/PHPMailer/src/SMTP.php";
 
-$query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND tipo='normal')");
+$query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND (tipo='normal' OR tipo='moderador'))");
 if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
 {
     header("Location: home.php");
@@ -87,7 +87,6 @@ if(isset($_POST['enviar_peticion']))
         $subject = "El usuario $usuario_mail ha realizado un nuevo comentario de ayuda en el sistema!";
         $subject .= "Razon: ".$razon_peticion;
         $message .= "Comentario: ".$contenido_peticion;
-        $header = "From: $correo_usuario_loggeado";
 
         while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))
         {

@@ -9,7 +9,7 @@ Blockly.Blocks['updater_operator'] = {
         .appendField(' se actualiza a ');
 
     this.appendValueInput('OPERAND2')
-        .setCheck(["Number", "Text", "bool", "Boolean"]);
+        .setCheck(["Number", "Text", "bool"]);
 
     this.setPreviousStatement(true, '!arduino_case');
     this.setNextStatement(true, '!arduino_case');

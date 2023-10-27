@@ -6,7 +6,7 @@ Blockly.Blocks['int_value'] = {
         this.appendDummyInput()
             .appendField("valor de int ")
             .appendField(new Blockly.FieldNumber(0, -32768, 32767, 1), "VALUE");
-        this.setOutput(true, ["int", "Number"]);
+        this.setOutput(true, ["intval", "Number"]);
         this.setColour("#008000");
         this.setTooltip("Con este bloque puedes asignar un valor entero de hasta 16 bits a las variables int que hayas creado.");
     }

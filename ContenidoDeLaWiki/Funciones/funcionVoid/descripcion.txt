@@ -1,5 +1,0 @@
-﻿Una función es un conjunto de instrucciones que realizan una tarea específica. Puedes llamar a esa función en cualquier lugar de tu código sin tener que escribir todas esas instrucciones nuevamente. Cuando se declara una función como void, significa que la función no devuelve ningún valor después de su ejecución.
-
-1.- void funcion: Este es el prefijo que indica que estás creando una función que no devuelve ningún valor.
-2.- NombreFuncion: En este campo, puedes escribir el nombre que deseas dar a la función. Este nombre se utilizará para llamar a la función en otras partes de tu programa. El nombre solo puede contener letras y números.
-3.- Cuerpo de la función: Aquí puedes arrastrar y soltar otros bloques de código que representan las instrucciones que la función realizará cuando se la llame.

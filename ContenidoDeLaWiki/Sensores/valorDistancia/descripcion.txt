@@ -1,3 +1,0 @@
-﻿El bloque "Valor de distancia HC04" es un bloque de salida, lo que significa que no conectas otros bloques a él, sino que lo conectas a otros bloques que necesitan un valor de entrada. Este bloque proporciona la distancia medida por el sensor HC-SR04.
-
-El bloque tiene una única entrada de texto que dice "Valor de distancia HC04". Cuando conectas este bloque a otro, este otro bloque obtendrá la distancia medida por el sensor HC-SR04.

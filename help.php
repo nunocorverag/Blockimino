@@ -1,7 +1,7 @@
 <?php
 include("includes/header.php");
 
-$query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND tipo='normal')");
+$query_comprobar_usuario_normal = mysqli_query($con, "SELECT * FROM usuarios WHERE (id_usuario='$id_usuario_loggeado' AND (tipo='normal' OR tipo='moderador'))");
 if((mysqli_num_rows($query_comprobar_usuario_normal) == 0))
 {
     header("Location: home.php");

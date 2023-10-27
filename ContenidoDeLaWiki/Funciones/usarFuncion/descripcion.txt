@@ -1,4 +1,0 @@
-﻿Llamar una funcion en arduino nos permite ejecutar lo que contenga el cuerpo de la funcion en cuestion.
-Este bloque se utiliza cuando requerimos que la funcion que vamos a utilizar retorne un valor, por lo que el retono sera utilizado como parametro
-
-Lista 1: permite seleccionar una funcion previamente creada para ser ejecutada.

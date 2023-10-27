@@ -23,8 +23,9 @@ Blockly.Blocks['HC04_begin'] = {
     const instances = this.workspace.getBlocksByType('HC04_begin');
     if (instances.length > 1) {
         // If there is more than one instance, destroy this block and alert the user
-        alert("Only one instance of HC04_begin block is allowed.");
+        alert("HC-04 solo se debe configurar una sola vez!");
         this.dispose();
+        window.includeCounter++;
     }
   }
 };

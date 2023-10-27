@@ -1,9 +1,0 @@
-﻿Este bloque se relaciona con la configuración de los pines para el sensor de ultrasonidos HC-SR04 en una placa Arduino. El sensor HC-SR04 es un sensor de distancia que funciona emitiendo ondas de ultrasonidos y midiendo el tiempo que tarda la onda en regresar después de rebotar en un objeto. Para hacer esto, el sensor tiene dos pines principales: Trigger (disparo) y Echo (eco).
-
-El pin Trigger se utiliza para iniciar el envío de la onda de ultrasonidos. Cuando este pin recibe una señal alta, el sensor emite una serie de pulsos de ultrasonidos.
-
-El pin Echo se utiliza para recibir la señal que rebota. Cuando la onda de ultrasonidos emitida por el sensor rebota en un objeto y regresa al sensor, el pin Echo genera una señal alta cuya duración es proporcional a la distancia al objeto.
-
-Trigger pin: En este menú desplegable puedes seleccionar el pin de la placa Arduino UNO que deseas utilizar como el pin Trigger del sensor HC-SR04.
-
-Echo pin: En este menú desplegable puedes seleccionar el pin de la placa Arduino UNO que deseas utilizar como el pin Echo del sensor HC-SR04.

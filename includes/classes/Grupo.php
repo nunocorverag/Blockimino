@@ -47,7 +47,7 @@ class Grupo {
         echo $return_string;
     }
 
-    public function ObteenrInfoGrupo($id_grupo)
+    public function ObtenerInfoGrupo($id_grupo)
     {
         if($id_grupo == 0)
         {
@@ -108,6 +108,7 @@ class Grupo {
                                         " . $boton_eliminar_salir . "
                                     </div>
                                 </div>
+                                <br>
                                 <br>";
 
             echo $return_string;
@@ -203,14 +204,14 @@ class Grupo {
         }
     }
 
-    public function UsuarioPerteneceAlGrupo($gruoo_solicitado)
+    public function UsuarioPerteneceAlGrupo($grupo_solicitado)
     {
         $id_usuario = $this->objeto_usuario->obtenerIDUsuario();
         $lista_grupos_usuario = $this->objeto_usuario->obtenerListaGrupos();
         $lista_grupos_explode = explode(",", $lista_grupos_usuario);
         foreach($lista_grupos_explode as $grupo)
         {
-            if($grupo == $gruoo_solicitado)
+            if($grupo == $grupo_solicitado)
             {
                 return true;
             }
@@ -355,33 +356,33 @@ class Grupo {
         } 
     }
 
-    public function InvitarUsuarioGrupo($id_grupo, $id_usuario_invitado)
-    {
-        $id_usuario_que_invito = $this->objeto_usuario->obtenerIDUsuario();
-        $query_enviar_invitacion = mysqli_query($this->con, "INSERT INTO invitaciones_de_grupo VALUES ('', '$id_usuario_que_invito', '$id_usuario_invitado', '$id_grupo')");
-    }
+    // public function InvitarUsuarioGrupo($id_grupo, $id_usuario_invitado)
+    // {
+    //     $id_usuario_que_invito = $this->objeto_usuario->obtenerIDUsuario();
+    //     $query_enviar_invitacion = mysqli_query($this->con, "INSERT INTO invitaciones_de_grupo VALUES ('', '$id_usuario_que_invito', '$id_usuario_invitado', '$id_grupo')");
+    // }
 
-    public function salirDelGrupo($id_grupo){
-            $id_miembro = $this->objeto_usuario->obtenerIDUsuario();
+    // public function salirDelGrupo($id_grupo){
+    //         $id_miembro = $this->objeto_usuario->obtenerIDUsuario();
 
-            //+ Obtenemos la lista de miembros del grupo
-            $query_detalles_grupo = mysqli_query($this->con, "SELECT miembros_grupo FROM grupos WHERE id_grupo='$id_grupo'");
-            $fila_detalles_grupo = mysqli_fetch_array($query_detalles_grupo);
-            $lista_miembros_grupo = $fila_detalles_grupo['miembros_grupo'];
+    //         //+ Obtenemos la lista de miembros del grupo
+    //         $query_detalles_grupo = mysqli_query($this->con, "SELECT miembros_grupo FROM grupos WHERE id_grupo='$id_grupo'");
+    //         $fila_detalles_grupo = mysqli_fetch_array($query_detalles_grupo);
+    //         $lista_miembros_grupo = $fila_detalles_grupo['miembros_grupo'];
 
-            //+ Obtenemos la lista de grupos del usuario
-            $query_detalles_usuario_a_remover = mysqli_query($this->con, "SELECT lista_grupos FROM usuarios WHERE id_usuario='$id_miembro'");
-            $fila_detalles_usuario_a_remover = mysqli_fetch_array($query_detalles_usuario_a_remover);
-            $lista_grupos_usuario = $fila_detalles_usuario_a_remover['lista_grupos'];
+    //         //+ Obtenemos la lista de grupos del usuario
+    //         $query_detalles_usuario_a_remover = mysqli_query($this->con, "SELECT lista_grupos FROM usuarios WHERE id_usuario='$id_miembro'");
+    //         $fila_detalles_usuario_a_remover = mysqli_fetch_array($query_detalles_usuario_a_remover);
+    //         $lista_grupos_usuario = $fila_detalles_usuario_a_remover['lista_grupos'];
 
-            // + Removemos al usuario del grupo
-            $nueva_lista_de_miembros_grupo = str_replace("," . $id_miembro . ",", ",", $lista_miembros_grupo);
-            $query_eliminar_miembro = mysqli_query($this->con, "UPDATE grupos SET miembros_grupo='$nueva_lista_de_miembros_grupo' WHERE id_grupo='$id_grupo'");
+    //         // + Removemos al usuario del grupo
+    //         $nueva_lista_de_miembros_grupo = str_replace("," . $id_miembro . ",", ",", $lista_miembros_grupo);
+    //         $query_eliminar_miembro = mysqli_query($this->con, "UPDATE grupos SET miembros_grupo='$nueva_lista_de_miembros_grupo' WHERE id_grupo='$id_grupo'");
     
-            // + Removemos el grupo de la lista de grupos del usuario
-            $nueva_lista_de_grupos_usuario = str_replace("," . $id_grupo . ",", ",", $lista_grupos_usuario);
-            $query_eliminar_grupo_lista_grupos = mysqli_query($this->con, "UPDATE usuarios SET lista_grupos='$nueva_lista_de_grupos_usuario' WHERE id_usuario='$id_miembro'");
-    }
+    //         // + Removemos el grupo de la lista de grupos del usuario
+    //         $nueva_lista_de_grupos_usuario = str_replace("," . $id_grupo . ",", ",", $lista_grupos_usuario);
+    //         $query_eliminar_grupo_lista_grupos = mysqli_query($this->con, "UPDATE usuarios SET lista_grupos='$nueva_lista_de_grupos_usuario' WHERE id_usuario='$id_miembro'");
+    // }
 }
 
 ?>

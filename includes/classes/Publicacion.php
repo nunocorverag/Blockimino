@@ -21,6 +21,8 @@ class Publicacion {
         $cuerpo = strip_tags($cuerpo);
         // $ mysqli_real_escape_string -> Escapa caracteres especiales para insertarlos en la base de datos
         $cuerpo = mysqli_real_escape_string($this->con, $cuerpo);
+
+        $cuerpo_sin_formato = $cuerpo;
         
         // $ str_replace -> Reemplaza todas las occurrencias con otro string que querramos
         // +$ 1. String a reemplazar 2. String por el que se va a reemplazar 3. String completo en el que se va a reemplazar
@@ -41,13 +43,11 @@ class Publicacion {
         if ($checar_cuerpo_vacio != "" && $checar_titulo_vacio != "")
         {
             #reg Esta parte es para ver los videos con links de youtube
-            $arreglo_cuerpo = explode("\r\n", $cuerpo);
             $arreglo_cuerpo = preg_split("/<separar>/", $cuerpo);
 
             // Aplicar nl2br para convertir los saltos de línea en <br>
             $arreglo_cuerpo = array_map('nl2br', $arreglo_cuerpo);            
             // + Separamos y metemos en un arreglo para ver si hay links en la publicacion
-            // ! ANALIZAR ESTA PARTE, YA QUE SE USAN LAMBDAS
             // + key mantendra el indice en el que se encuentra valor
             // + valor sera el elemento dentro del arreglo
             foreach($arreglo_cuerpo as $key => $valor)
@@ -110,7 +110,7 @@ class Publicacion {
                         {
                             $fila = mysqli_fetch_array($query_verificar_si_hashtag_existe);
                             $id_hashtag = $fila['id_hashtag'];
-                            $query_agregar_seguido = mysqli_query($this->con, "UPDATE hashtags SET publicaciones_con_este_hashtag=CONCAT(',', '$id_regresado', publicaciones_con_este_hashtag) WHERE id_hashtag='$id_hashtag'");
+                            $query_actualizar_hashtag = mysqli_query($this->con, "UPDATE hashtags SET publicaciones_con_este_hashtag=CONCAT(',', '$id_regresado', publicaciones_con_este_hashtag) WHERE id_hashtag='$id_hashtag'");
                             $query_agregar_hashtag_publicacion = mysqli_query($this->con, "UPDATE publicaciones SET hashtags_publicacion=CONCAT(hashtags_publicacion, '$id_hashtag,') WHERE id_publicacion='$id_regresado'");
 
                         }
@@ -118,7 +118,7 @@ class Publicacion {
                         {
                             $query_insertar_hashtag = mysqli_query($this->con, "INSERT INTO hashtags VALUES ('', '$hashtag', ',$id_regresado,')");
                             $id_hashtag = mysqli_insert_id($this->con);
-                            $query_agregar_seguido = mysqli_query($this->con, "UPDATE publicaciones SET hashtags_publicacion=CONCAT(hashtags_publicacion, '$id_hashtag,') WHERE id_publicacion='$id_regresado'");
+                            $query_agregar_hashtag_publicacion = mysqli_query($this->con, "UPDATE publicaciones SET hashtags_publicacion=CONCAT(hashtags_publicacion, '$id_hashtag,') WHERE id_publicacion='$id_regresado'");
                         }
                         // + query insertar interes a la tabla de intereses 
                         $query_verificar_interes = mysqli_query($this->con, "SELECT * FROM temas_interes WHERE id_hashtag_interes='$id_hashtag' AND id_usuario_interesado='$publicado_por'");
@@ -165,11 +165,7 @@ class Publicacion {
                 {
                     $query_agrega_publicacion = mysqli_query($this->con, "INSERT INTO publicaciones VALUES('', '$titulo', '$cuerpo', '$publicado_por', NULL, '$nombre_imagenes', '$nombre_archivos', '$id_proyecto', '$fecha_publicado', 'no', '0', '$tipo_pagina', ',')"); 
                 }
-                // todo notificar a todos los miembros del grupo
             }
-
-            //TODO AQUI IRAN LAS PUBLICACIONES SI EL TIPO DE PAGINA ES GRUPO
-            // BUG HAY QUE TENER CUIDADO CON LAS NOTIFICACIONES SI SE REALIZO UNA PUBLICACION EN UN GRUPO
 
             // + No mandaremos la notificacion si se realizo en un grupo
             if($tipo_pagina == "pagina")
@@ -186,7 +182,6 @@ class Publicacion {
                         if ($amigo != $publicado_para)
                         {
                             $notificacion = new Notificacion($this->con, $publicado_por);
-                            // ! ERROR AQUI HAY UN ERRORSASO DE LA NOTIFICACION, AL PARECER EL AMIGO FALLA
                             $notificacion->insertarNotificacion($id_regresado, $amigo, "amigo_publico");
                         }
                     }
@@ -200,8 +195,12 @@ class Publicacion {
                 {
                     if($seguidor != "")
                     {
-                        $notificacion = new Notificacion($this->con, $publicado_por);
-                        $notificacion->insertarNotificacion($id_regresado, $seguidor, "seguido_publico");
+                        // + El usuario para el que se publico ya fue notificado
+                        if ($seguidor != $publicado_para)
+                        {
+                            $notificacion = new Notificacion($this->con, $publicado_por);
+                            $notificacion->insertarNotificacion($id_regresado, $seguidor, "seguido_publico");
+                        }
                     }
                 }   
             }
@@ -214,7 +213,6 @@ class Publicacion {
 
             if($tipo_pagina == "pagina")
             {
-                // TODO trending words
                 // + Las stopwords o palabras vacias son los terminos que los buscadores omiten para posicionar los resultados de busqueda.
                 // + Ya que este tipo de palabras son muy comunes y se usan en casi todas las frases
                 $stop_words = "a aca ahi ajena ajeno ajenas ajenos al algo algun 
@@ -256,9 +254,16 @@ class Publicacion {
                 // $iconv -> Convierte los caracteres a un ofrmato especificado
 
                 // + Trends en el titulo
-                $no_acentos_titulo = iconv('UTF-8', 'ASCII//TRANSLIT', $titulo);
-                $no_puntuacion_acentos_titulo = preg_replace("/[^a-zA-Z 0-9]+/", "", $no_acentos_titulo);
+                $titulo_a_analizar_trend = $titulo;
+                $titulo_a_analizar_trend = str_replace("\\r\\n", "", $titulo_a_analizar_trend);
+                $titulo_a_analizar_trend = str_replace("\\r", "", $titulo_a_analizar_trend);
+                $titulo_a_analizar_trend = str_replace("\\n", "", $titulo_a_analizar_trend);
 
+                $acentos = array('á', 'é', 'í', 'ó', 'ú', 'Á', 'É', 'Í', 'Ó', 'Ú');
+                $sin_acentos = array('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+                $no_acentos_titulo = str_replace($acentos, $sin_acentos, $titulo_a_analizar_trend);
+
+                $no_puntuacion_acentos_titulo = preg_replace("/[^a-zA-Z 0-9]+/", "", $no_acentos_titulo);
                 // + Si un usuario ha posteado un link:
                 if(strpos($no_puntuacion_acentos_titulo, "height") === false && strpos($no_puntuacion_acentos_titulo, "width") === false && strpos($no_puntuacion_acentos_titulo, "http") === false)
                 {
@@ -298,7 +303,12 @@ class Publicacion {
                 }
 
                 // + Trends en el cuerpo
-                $no_acentos_cuerpo = iconv('UTF-8', 'ASCII//TRANSLIT', $cuerpo);
+                $cuerpo_a_analizar_trend = $cuerpo_sin_formato;
+                $cuerpo_a_analizar_trend = str_replace("\\r\\n", "", $cuerpo_a_analizar_trend);
+                $cuerpo_a_analizar_trend = str_replace("\\r", "", $cuerpo_a_analizar_trend);
+                $cuerpo_a_analizar_trend = str_replace("\\n", "", $cuerpo_a_analizar_trend);
+
+                $no_acentos_cuerpo = str_replace($acentos, $sin_acentos, $cuerpo_a_analizar_trend);
                 $no_puntuacion_acentos_cuerpo = preg_replace("/[^a-zA-Z 0-9]+/", "", $no_acentos_cuerpo);
 
                 // + Si un usuario ha posteado un link:
@@ -1072,7 +1082,7 @@ class Publicacion {
                                 // + Seccion para obtener publicaciones recomendadas:
                                 // + Esta query obtiene el interes cada vez que se carga la funcion y obtiene del mayor al menor segun la pagina
         
-                                $query_obtener_hashtag_que_puede_interesar = mysqli_query($this->con, "SELECT * FROM hashtags WHERE hashtag LIKE '$nombre_hashtag_interes%' AND hashtag <> '$nombre_hashtag_interes'");
+                                $query_obtener_hashtag_que_puede_interesar = mysqli_query($this->con, "SELECT * FROM hashtags WHERE hashtag LIKE '%$nombre_hashtag_interes%' AND hashtag <> '#$nombre_hashtag_interes'");
                                 if(mysqli_num_rows($query_obtener_hashtag_que_puede_interesar) > 0)
                                 {
                                     while($fila_hashtag_que_puede_interesar = mysqli_fetch_array($query_obtener_hashtag_que_puede_interesar))
@@ -1105,12 +1115,7 @@ class Publicacion {
                                                     break;
                                                 }
                                             }
-                                            $publicacion_puede_ser_recomendada = false;
-                                        }
-                                    
-                                        if ($publicacion_probable_puede_ser_recomendada) 
-                                        {
-                                            break; // Salir del bucle
+                                            $publicacion_probable_puede_ser_recomendada = false;
                                         }
                                     }
                                 }
@@ -4704,391 +4709,382 @@ class Publicacion {
             $tipo_usuario = $objeto_usuario_loggeado->obtenerTipoUsuario();
             // + Verifica si el usuario loggeado es amigo del que publico
             //! Aqui si necesito el nombre del que publico
-            if($objeto_usuario_loggeado->esAmigo($id_publicado_por) || $objeto_usuario_loggeado->esSeguidor($id_publicado_por))
-            {
-                #region publicado_por
-                // + Query para seleccionar el nombre del usuario que publico y su foto de perfil
-                $query_detalles_usuario = mysqli_query($this->con, "SELECT nombre, apeP, apeM, foto_perfil FROM usuarios WHERE id_usuario='$id_publicado_por'");
-                // + Guardamos las variables en filas 
-                $fila_usuario = mysqli_fetch_array($query_detalles_usuario);
-                // + Guardamos en variables, las variables de la fila de la base de datos
-                $nombre = $fila_usuario['nombre'];
-                $apeP = $fila_usuario['apeP'];
-                $apeM = $fila_usuario['apeM'];
-                $foto_perfil = $fila_usuario['foto_perfil'];
-                #endregion
+            #region publicado_por
+            // + Query para seleccionar el nombre del usuario que publico y su foto de perfil
+            $query_detalles_usuario = mysqli_query($this->con, "SELECT nombre, apeP, apeM, foto_perfil FROM usuarios WHERE id_usuario='$id_publicado_por'");
+            // + Guardamos las variables en filas 
+            $fila_usuario = mysqli_fetch_array($query_detalles_usuario);
+            // + Guardamos en variables, las variables de la fila de la base de datos
+            $nombre = $fila_usuario['nombre'];
+            $apeP = $fila_usuario['apeP'];
+            $apeM = $fila_usuario['apeM'];
+            $foto_perfil = $fila_usuario['foto_perfil'];
+            #endregion
 
-                ?>
-                <!-- Este bloque es para mostrar los comentarios -->
-                <script>
-                    // + Esta seccion es para saber que comentario mostrar
-                    function toggle<?php echo $id_publicacion; ?>()
-                    {
-                        // $ event.target -> Es donde la persona hizo click
-                        // - target -> Guarda donde hizo click la persona
-                        var target = $(event.target);
-                        // + Si un link no es clickeado, entonces mostrara o oculatara el comentario
-                        if (!target.is("a")) {
-                            var element = document.getElementById("mostrarComentarios<?php echo $id_publicacion ?>");
-                            if(element.style.display == "block")
-                            {
-                                element.style.display = "none";
-                            }
-                            else
-                            {
-                                element.style.display = "block";
-                            }
+            ?>
+            <!-- Este bloque es para mostrar los comentarios -->
+            <script>
+                // + Esta seccion es para saber que comentario mostrar
+                function toggle<?php echo $id_publicacion; ?>()
+                {
+                    // $ event.target -> Es donde la persona hizo click
+                    // - target -> Guarda donde hizo click la persona
+                    var target = $(event.target);
+                    // + Si un link no es clickeado, entonces mostrara o oculatara el comentario
+                    if (!target.is("a")) {
+                        var element = document.getElementById("mostrarComentarios<?php echo $id_publicacion ?>");
+                        if(element.style.display == "block")
+                        {
+                            element.style.display = "none";
+                        }
+                        else
+                        {
+                            element.style.display = "block";
                         }
                     }
-                </script>
-                <?php
+                }
+            </script>
+            <?php
 
-                $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE (eliminado='si' AND publicacion_comentada='$id_publicacion')");
-                $numero_comentarios = mysqli_num_rows($checar_si_hay_comentarios);
+            $checar_si_hay_comentarios = mysqli_query($this->con, "SELECT * FROM comentarios WHERE (eliminado='si' AND publicacion_comentada='$id_publicacion')");
+            $numero_comentarios = mysqli_num_rows($checar_si_hay_comentarios);
 
-                if($numero_comentarios == 1)
+            if($numero_comentarios == 1)
+            {
+                $numero_comentarios = $numero_comentarios . " Comentario";
+            }
+            else
+            {
+                $numero_comentarios = $numero_comentarios . " Comentarios";
+            }
+
+            #region Periodo de tiempo de los posts
+            // - Guardamos la hora y fecha actuales
+            $tiempo_actual = date("Y-m-d H:i:s");
+            // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
+            $fecha_comienzo = new DateTime($fecha_publicado);
+            // - Guardamos la hora y fecha actuales
+            $fecha_final = new DateTime($tiempo_actual);
+            // - Realizamos una diferencia de tiempos de la fecha inicial, con la actual para saber cuanto tiempo lleva la publicacion publicada
+            $intervalo = $fecha_comienzo->diff($fecha_final);
+            // + Si el intervalo es 1 o mas años
+            if($intervalo->y >= 1)
+            {
+                //Un año de antiguedad
+                if($intervalo->y == 1)
                 {
-                    $numero_comentarios = $numero_comentarios . " Comentario";
+                    $mensaje_tiempo = $intervalo->y . " año atrás";
+                }
+                //Más de un año de antiguedad
+                else
+                {
+                    $mensaje_tiempo = $intervalo->y . " años atrás";
+                }
+            }
+            // + Si el intervalo es 1 o mas de 1 mes atras, pero menos de un año
+            else if($intervalo->m >= 1)
+            {
+                // + Checamos los dias 
+                // 0 dias
+                if($intervalo->d == 0)
+                {
+                    $dias = " atrás";
+                }
+                // 1 dia
+                else if($intervalo->d == 1)
+                {
+                    $dias = $intervalo->d. " día atrás";
+                }
+                //Mas de 1 dia
+                else 
+                {
+                    $dias = $intervalo->d . " días atrás";
+                }
+
+                //1 mes
+                if($intervalo-> m == 1)
+                {
+                    $mensaje_tiempo = $intervalo->m . " mes " . $dias;
+                }
+                //Mas de 1 mes
+                else
+                {
+                    $mensaje_tiempo = $intervalo->m . " meses " . $dias;
+                }
+            }
+            // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
+            else if($intervalo->d >= 1)
+            {
+                //1 dia
+                if($intervalo->d == 1)
+                {
+                    $mensaje_tiempo = "ayer";
+                }
+                //Mas de un dia
+                else 
+                {
+                    $mensaje_tiempo = $intervalo->d . " días atrás";
+                }
+            }
+            // + Si el intervalo es 1 o mas horas atras, pero menos que un dia
+            else if($intervalo->h >= 1)
+            {
+                //1 hora atras
+                if($intervalo->h == 1)
+                {
+                    $mensaje_tiempo = $intervalo->h . " hora atrás";
+                }
+                //Mas de una hora
+                else 
+                {
+                    $mensaje_tiempo = $intervalo->h . " horas atrás";
+                }
+            }
+            // + Si el intervalo es de 1 minuto o mas atras, pero menos que una hora
+            else if($intervalo->i >= 1)
+            {
+                //1 minuto atras
+                if($intervalo->i == 1)
+                {
+                    $mensaje_tiempo = $intervalo->i . " minuto atrás";
+                }
+                //Mas de un minuto
+                else 
+                {
+                    $mensaje_tiempo = $intervalo->i . " minutos atrás";
+                }
+            }
+            // + Si el intervalo es de 1 segundo o mas atras, pero menos que un minuto
+            else
+            {
+                //Menos que 30 segundos
+                if($intervalo->s < 30)
+                {
+                    $mensaje_tiempo = "Justo ahora";
+                }
+                //30 segundos o mas
+                else 
+                {
+                    $mensaje_tiempo = "Hace unos segundos";
+                }
+            }
+            #endregion                    
+            // + Procesar si hay una imagen
+            if($direccionImagen != "")
+            {
+                $lista_imagenes_explode = explode("|", $direccionImagen);
+                $lista_imagenes_explode = array_filter($lista_imagenes_explode);
+
+                $divImagen = "<div class='contenedorImagenesPublicadas'>";
+                
+                foreach($lista_imagenes_explode as $imagen)
+                {
+                    $divImagen .= "<div class='imagenPublicada'>
+                                        <img src='$imagen'>
+                                    </div>";                                                
+                }
+
+                $divImagen .= "</div>";
+            }
+            else
+            {
+                $divImagen = "";
+            }
+
+            if($direccionArchivo != "")
+            {
+                $lista_archivos_explode = explode("|", $direccionArchivo);
+                $lista_archivos_explode = array_filter($lista_archivos_explode);
+
+                $divArchivo = "<div class='contenedorArchivosPublicados'>
+                                    <h4>Archivos</h4>";
+
+                foreach($lista_archivos_explode as $direccion_archivo)
+                {
+                    $link_archivo = substr($direccion_archivo, strpos($direccion_archivo, "_") + 1);
+                    $divArchivo .= "<div class='archivoPublicado'>
+                                        <a href='" . $direccion_archivo . "' download='" . $link_archivo . "'><i class='fa-solid fa-file'></i> " . $link_archivo . "</a>
+                                    </div>";
+                }
+
+                $divArchivo .= "</div>";
+
+            }
+            else
+            {
+                $divArchivo = "";
+            }
+
+            $hashtags = $fila['hashtags_publicacion'];
+            $lista_hashtags_explode = explode(",", $hashtags);
+            $lista_hashtags_explode = array_filter($lista_hashtags_explode);
+
+            if($hashtags != ",")
+            {
+                $div_hashtags = "<div class='contenedor_hashtags'>
+                                    <h4>Hashtags</h4>";
+
+                foreach($lista_hashtags_explode as $hashtag)
+                {
+                    $query_info_hashtag = mysqli_query($this->con, "SELECT hashtag FROM hashtags WHERE id_hashtag='$hashtag'");
+                    $fila_info_hashtag = mysqli_fetch_array($query_info_hashtag);
+                    $nombre_hashtag =  $fila_info_hashtag['hashtag'];
+                    $nombre_sin_hashtag = str_replace("#", "", $fila_info_hashtag['hashtag']);
+
+                    $div_hashtags .= "<a href='publication_hashtag.php?hashtag=". $nombre_sin_hashtag . "'>
+                                        <div class='displayHashtag'>
+                                            " . $nombre_hashtag . "
+                                        </div>
+                                    </a>";
+                }
+                $div_hashtags .= "</div>";
+            }
+            else
+            {
+                $div_hashtags = "";
+            }
+
+            // + Mostrar si se publico un proyecto
+            if($id_proyecto != NULL)
+            {
+                $query_obtener_detalles_proyecto = mysqli_query($this->con, "SELECT * FROM proyectos WHERE id_proyecto='$id_proyecto'");
+                $fila_detalles_proyecto = mysqli_fetch_array($query_obtener_detalles_proyecto);
+                $nombre_proyecto = $fila_detalles_proyecto['nombre_proyecto'];
+                $link_proyecto = $fila_detalles_proyecto['link_proyecto'];
+                if($visibilidad_proyecto)
+                {
+                    $mostrar_proyecto = true;
                 }
                 else
                 {
-                    $numero_comentarios = $numero_comentarios . " Comentarios";
-                }
-
-                #region Periodo de tiempo de los posts
-                // - Guardamos la hora y fecha actuales
-                $tiempo_actual = date("Y-m-d H:i:s");
-                // - Guardamos la hora y fecha actuales en el que se realizo la publicacion
-                $fecha_comienzo = new DateTime($fecha_publicado);
-                // - Guardamos la hora y fecha actuales
-                $fecha_final = new DateTime($tiempo_actual);
-                // - Realizamos una diferencia de tiempos de la fecha inicial, con la actual para saber cuanto tiempo lleva la publicacion publicada
-                $intervalo = $fecha_comienzo->diff($fecha_final);
-                // + Si el intervalo es 1 o mas años
-                if($intervalo->y >= 1)
-                {
-                    //Un año de antiguedad
-                    if($intervalo->y == 1)
-                    {
-                        $mensaje_tiempo = $intervalo->y . " año atrás";
-                    }
-                    //Más de un año de antiguedad
-                    else
-                    {
-                        $mensaje_tiempo = $intervalo->y . " años atrás";
-                    }
-                }
-                // + Si el intervalo es 1 o mas de 1 mes atras, pero menos de un año
-                else if($intervalo->m >= 1)
-                {
-                    // + Checamos los dias 
-                    // 0 dias
-                    if($intervalo->d == 0)
-                    {
-                        $dias = " atrás";
-                    }
-                    // 1 dia
-                    else if($intervalo->d == 1)
-                    {
-                        $dias = $intervalo->d. " día atrás";
-                    }
-                    //Mas de 1 dia
-                    else 
-                    {
-                        $dias = $intervalo->d . " días atrás";
-                    }
-
-                    //1 mes
-                    if($intervalo-> m == 1)
-                    {
-                        $mensaje_tiempo = $intervalo->m . " mes " . $dias;
-                    }
-                    //Mas de 1 mes
-                    else
-                    {
-                        $mensaje_tiempo = $intervalo->m . " meses " . $dias;
-                    }
-                }
-                // + Si el intervalo es 1 o mas dias atras, pero menos que un mes
-                else if($intervalo->d >= 1)
-                {
-                    //1 dia
-                    if($intervalo->d == 1)
-                    {
-                        $mensaje_tiempo = "ayer";
-                    }
-                    //Mas de un dia
-                    else 
-                    {
-                        $mensaje_tiempo = $intervalo->d . " días atrás";
-                    }
-                }
-                // + Si el intervalo es 1 o mas horas atras, pero menos que un dia
-                else if($intervalo->h >= 1)
-                {
-                    //1 hora atras
-                    if($intervalo->h == 1)
-                    {
-                        $mensaje_tiempo = $intervalo->h . " hora atrás";
-                    }
-                    //Mas de una hora
-                    else 
-                    {
-                        $mensaje_tiempo = $intervalo->h . " horas atrás";
-                    }
-                }
-                // + Si el intervalo es de 1 minuto o mas atras, pero menos que una hora
-                else if($intervalo->i >= 1)
-                {
-                    //1 minuto atras
-                    if($intervalo->i == 1)
-                    {
-                        $mensaje_tiempo = $intervalo->i . " minuto atrás";
-                    }
-                    //Mas de un minuto
-                    else 
-                    {
-                        $mensaje_tiempo = $intervalo->i . " minutos atrás";
-                    }
-                }
-                // + Si el intervalo es de 1 segundo o mas atras, pero menos que un minuto
-                else
-                {
-                    //Menos que 30 segundos
-                    if($intervalo->s < 30)
-                    {
-                        $mensaje_tiempo = "Justo ahora";
-                    }
-                    //30 segundos o mas
-                    else 
-                    {
-                        $mensaje_tiempo = "Hace unos segundos";
-                    }
-                }
-                #endregion                    
-                // + Procesar si hay una imagen
-                if($direccionImagen != "")
-                {
-                    $lista_imagenes_explode = explode("|", $direccionImagen);
-                    $lista_imagenes_explode = array_filter($lista_imagenes_explode);
-
-                    $divImagen = "<div class='contenedorImagenesPublicadas'>";
-                    
-                    foreach($lista_imagenes_explode as $imagen)
-                    {
-                        $divImagen .= "<div class='imagenPublicada'>
-                                            <img src='$imagen'>
-                                        </div>";                                                
-                    }
-
-                    $divImagen .= "</div>";
-                }
-                else
-                {
-                    $divImagen = "";
-                }
-
-                if($direccionArchivo != "")
-                {
-                    $lista_archivos_explode = explode("|", $direccionArchivo);
-                    $lista_archivos_explode = array_filter($lista_archivos_explode);
-
-                    $divArchivo = "<div class='contenedorArchivosPublicados'>
-                                        <h4>Archivos</h4>";
-
-                    foreach($lista_archivos_explode as $direccion_archivo)
-                    {
-                        $link_archivo = substr($direccion_archivo, strpos($direccion_archivo, "_") + 1);
-                        $divArchivo .= "<div class='archivoPublicado'>
-                                            <a href='" . $direccion_archivo . "' download='" . $link_archivo . "'><i class='fa-solid fa-file'></i> " . $link_archivo . "</a>
-                                        </div>";
-                    }
-
-                    $divArchivo .= "</div>";
-
-                }
-                else
-                {
-                    $divArchivo = "";
-                }
-
-                $hashtags = $fila['hashtags_publicacion'];
-                $lista_hashtags_explode = explode(",", $hashtags);
-                $lista_hashtags_explode = array_filter($lista_hashtags_explode);
-
-                if($hashtags != ",")
-                {
-                    $div_hashtags = "<div class='contenedor_hashtags'>
-                                        <h4>Hashtags</h4>";
-
-                    foreach($lista_hashtags_explode as $hashtag)
-                    {
-                        $query_info_hashtag = mysqli_query($this->con, "SELECT hashtag FROM hashtags WHERE id_hashtag='$hashtag'");
-                        $fila_info_hashtag = mysqli_fetch_array($query_info_hashtag);
-                        $nombre_hashtag =  $fila_info_hashtag['hashtag'];
-                        $nombre_sin_hashtag = str_replace("#", "", $fila_info_hashtag['hashtag']);
-
-                        $div_hashtags .= "<a href='publication_hashtag.php?hashtag=". $nombre_sin_hashtag . "'>
-                                            <div class='displayHashtag'>
-                                                " . $nombre_hashtag . "
-                                            </div>
-                                        </a>";
-                    }
-                    $div_hashtags .= "</div>";
-                }
-                else
-                {
-                    $div_hashtags = "";
-                }
-
-                // + Mostrar si se publico un proyecto
-                if($id_proyecto != NULL)
-                {
-                    $query_obtener_detalles_proyecto = mysqli_query($this->con, "SELECT * FROM proyectos WHERE id_proyecto='$id_proyecto'");
-                    $fila_detalles_proyecto = mysqli_fetch_array($query_obtener_detalles_proyecto);
-                    $nombre_proyecto = $fila_detalles_proyecto['nombre_proyecto'];
-                    $link_proyecto = $fila_detalles_proyecto['link_proyecto'];
-                    if($visibilidad_proyecto)
+                    if($objeto_usuario_loggeado->esAmigo($id_publicado_por) && $objeto_usuario_loggeado->obtenerIDUsuario() == $id_publicado_por)
                     {
                         $mostrar_proyecto = true;
                     }
                     else
                     {
-                        if($objeto_usuario_loggeado->esAmigo($id_publicado_por) && $objeto_usuario_loggeado->obtenerIDUsuario() == $id_publicado_por)
-                        {
-                            $mostrar_proyecto = true;
-                        }
-                        else
-                        {
-                            $mostrar_proyecto = false;
-                        }
+                        $mostrar_proyecto = false;
                     }
                 }
-                else
-                {
-                    $mostrar_proyecto = false;
-                }
+            }
+            else
+            {
+                $mostrar_proyecto = false;
+            }
 
-                if($mostrar_proyecto)
+            if($mostrar_proyecto)
+            {
+                if($id_usuario_loggeado == $id_publicado_por)
                 {
-                    if($id_usuario_loggeado == $id_publicado_por)
-                    {
-                        $divProyecto = "<div class='contenedor_mostrar_proyecto'>
-                                            <h4>Proyecto incluido</h4>
-                                            <div class='mostrarProyecto'>
-                                                <div class='nombre_proyecto_container'>
-                                                    <p> " . $nombre_proyecto . "</p>
-                                                </div>
-                                                <div class='imagen_fondo_mostrar_proyecto'>
-                                                    <img src='assets\images\icons\blockimino.png'>
-                                                </div>
-                                                <div class='contenedor_boton_ver_proyecto'>
-                                                    <button class='boton_ver_proyecto btn btn-success' id='editar" . $nombre_proyecto . "'>Editar</button>
-                                                </div>
+                    $divProyecto = "<div class='contenedor_mostrar_proyecto'>
+                                        <h4>Proyecto incluido</h4>
+                                        <div class='mostrarProyecto'>
+                                            <div class='nombre_proyecto_container'>
+                                                <p> " . $nombre_proyecto . "</p>
+                                            </div>
+                                            <div class='imagen_fondo_mostrar_proyecto'>
+                                                <img src='assets\images\icons\blockimino.png'>
+                                            </div>
+                                            <div class='contenedor_boton_ver_proyecto'>
+                                                <button class='boton_ver_proyecto btn btn-success' id='editar" . $nombre_proyecto . "'>Editar</button>
                                             </div>
                                         </div>
-                                        <script>
-                                            $(document).ready(function(){
-                                                $('#editar$nombre_proyecto').on('click', function() {
-                                                    window.open('block_arena.php?project=$nombre_proyecto');
-                                                    
-                                                });
-                                            });
-                                        </script>";
-                    }
-                    else
-                    {
-                        $divProyecto = "<div class='contenedor_mostrar_proyecto'>
-                                            <h4>Proyecto incluido</h4>
-                                            <div class='mostrarProyecto'>
-                                                <div class='nombre_proyecto_container'>
-                                                    <p> " . $nombre_proyecto . "</p>
-                                                </div>
-                                                <div class='imagen_fondo_mostrar_proyecto'>
-                                                    <img src='assets\images\icons\blockimino.png'>
-                                                </div>
-                                                <div class='contenedor_boton_copiar_proyecto'>
-                                                    <button class='boton_copiar_proyecto btn btn-info' id='copiar_proyecto" . $nombre_proyecto . "'>Copiar proyecto</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <script>
+                                    </div>
+                                    <script>
                                         $(document).ready(function(){
-                                            $('#copiar_proyecto$nombre_proyecto').on('click', function() {
-                                                bootbox.prompt('Introduce un nombre para el proyecto', function(result) {
-                                                    if(result != null)
-                                                    {
-                                                        $.ajax({
-                                                            url: 'includes/handlers/ajax_copy_project.php?id_usuario=$id_usuario_loggeado&link_proyecto=$link_proyecto',
-                                                            type: 'POST',
-                                                            data: {resultado:result},
-                                                            success: function(data) {
-                                                                alert(data);
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                            $('#editar$nombre_proyecto').on('click', function() {
+                                                window.open('block_arena.php?project=$nombre_proyecto');
+                                                
                                             });
                                         });
                                     </script>";
-                    }                                        
                 }
                 else
                 {
-                    $divProyecto = "";
-                }
-
-                // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
-                // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
-                $string_publicacion .= 
-                // + onClick='javascript:toggle$id_publicacion' -> Cuando hagamos click, se ejecutara la funcion
-                // + <div class ='publicar_comentario'> -> lo ocultamos con display:none, este cambiara como ya lo explicamos antes entre block y none
-                    "<div class='publicacion'>
-                        <div class='foto_perfil_publicacion'>
-                            <img src='$foto_perfil' width='50'>
-                        </div>
-
-                        <div class='publicado_por' style='color:#ACACAC;'>
-                            <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $usuario_publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
-                        </div>
-                        <div id='titulo_publicacion' style='font-style: bold;'>
-                            $titulo
-                            <hr>
-                        </div>
-                        <div id='cuerpo_publicacion'>
-                            $cuerpo
-                            <br>
-                            $divImagen
-                            <br>
-                            <br>
-                        </div>
-                        $div_hashtags
-                        $divProyecto
-                        $divArchivo
-                        <div class='OpcionesDePublicacion'>
-                            &nbsp;
-                            <span class='mostrar_ocultar_comentarios' onClick='javascript:toggle$id_publicacion()'>
-                                <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios
-                            </span>
-                        </div>
-                    </div>
-                    <div class ='publicar_comentario' id='mostrarComentarios$id_publicacion' style='display:none;'>
-                        <iframe src='deleted_comment_frame.php?id_publicacion=$id_publicacion' id='iframe_comentario' frameborder='0'></iframe>
-                    </div>
-                    <hr>";
-                ?>
-                <?php
+                    $divProyecto = "<div class='contenedor_mostrar_proyecto'>
+                                        <h4>Proyecto incluido</h4>
+                                        <div class='mostrarProyecto'>
+                                            <div class='nombre_proyecto_container'>
+                                                <p> " . $nombre_proyecto . "</p>
+                                            </div>
+                                            <div class='imagen_fondo_mostrar_proyecto'>
+                                                <img src='assets\images\icons\blockimino.png'>
+                                            </div>
+                                            <div class='contenedor_boton_copiar_proyecto'>
+                                                <button class='boton_copiar_proyecto btn btn-info' id='copiar_proyecto" . $nombre_proyecto . "'>Copiar proyecto</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                    $(document).ready(function(){
+                                        $('#copiar_proyecto$nombre_proyecto').on('click', function() {
+                                            bootbox.prompt('Introduce un nombre para el proyecto', function(result) {
+                                                if(result != null)
+                                                {
+                                                    $.ajax({
+                                                        url: 'includes/handlers/ajax_copy_project.php?id_usuario=$id_usuario_loggeado&link_proyecto=$link_proyecto',
+                                                        type: 'POST',
+                                                        data: {resultado:result},
+                                                        success: function(data) {
+                                                            alert(data);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>";
+                }                                        
             }
-            // + Si el usuario no es amigo o seguidor del usuario que publico
             else
             {
-                echo "<p>No puedes ver este post a menos que sigas o seas amigo del usuario que lo publicó</p>";
-                return;
+                $divProyecto = "";
             }
+
+            // + En este string se guardara cada publciacion y cada que se ejecute la carga de una, se emitira un echo, para mostrarla al usuario
+            // + Tenemos divido por doto de perfil, un mensaje de cuanto tiempo ha pasado desde que se hizo la publicacion y el cuerpo de la publicacion
+            $string_publicacion .= 
+            // + onClick='javascript:toggle$id_publicacion' -> Cuando hagamos click, se ejecutara la funcion
+            // + <div class ='publicar_comentario'> -> lo ocultamos con display:none, este cambiara como ya lo explicamos antes entre block y none
+                "<div class='publicacion'>
+                    <div class='foto_perfil_publicacion'>
+                        <img src='$foto_perfil' width='50'>
+                    </div>
+
+                    <div class='publicado_por' style='color:#ACACAC;'>
+                        <a href='$usuario_publicado_por'> $nombre $apeP $apeM </a> $usuario_publicado_para &nbsp;&nbsp;&nbsp;&nbsp;$mensaje_tiempo
+                    </div>
+                    <div id='titulo_publicacion' style='font-style: bold;'>
+                        $titulo
+                        <hr>
+                    </div>
+                    <div id='cuerpo_publicacion'>
+                        $cuerpo
+                        <br>
+                        $divImagen
+                        <br>
+                        <br>
+                    </div>
+                    $div_hashtags
+                    $divProyecto
+                    $divArchivo
+                    <div class='OpcionesDePublicacion'>
+                        &nbsp;
+                        <span class='mostrar_ocultar_comentarios' onClick='javascript:toggle$id_publicacion()'>
+                            <i class='fa-solid fa-comment'></i>&nbsp;$numero_comentarios
+                        </span>
+                    </div>
+                </div>
+                <div class ='publicar_comentario' id='mostrarComentarios$id_publicacion' style='display:none;'>
+                    <iframe src='deleted_comment_frame.php?id_publicacion=$id_publicacion' id='iframe_comentario' frameborder='0'></iframe>
+                </div>
+                <hr>";
+            ?>
+            <?php
         }
         else
         {
-            echo "<p>No se encontro la publicación, puede que haya sido eliminada o no exista!</p>";
+            echo "<p>No se encontro la publicación, puede que no haya sido eliminada o no exista!</p>";
             return;
         }
         echo $string_publicacion;
@@ -6331,7 +6327,7 @@ class Publicacion {
 
         // ! este if tambien es del scroll infinito
         // + Si existen publicaciones entonces:
-        $query_obtener_publicaciones_del_trend = mysqli_query($this->con, "SELECT * FROM publicaciones WHERE titulo LIKE '$trend%' OR cuerpo LIKE '$trend%' ORDER BY id_publicacion DESC");
+        $query_obtener_publicaciones_del_trend = mysqli_query($this->con, "SELECT * FROM publicaciones WHERE titulo LIKE '%$trend%' OR cuerpo LIKE '%$trend%' ORDER BY id_publicacion DESC");
         if(mysqli_num_rows($query_obtener_publicaciones_del_trend) > 0)
         {
             // - Cuenta cuántas veces ha dado la vuelta el bucle

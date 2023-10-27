@@ -1,1 +1,0 @@
-﻿Añadir opciones para el bloque switch

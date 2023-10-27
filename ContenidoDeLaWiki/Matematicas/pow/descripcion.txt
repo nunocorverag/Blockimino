@@ -1,4 +1,0 @@
-﻿La función pow(x, y) de Arduino calcula el valor de x elevado a la potencia de y. pow() puede operar con números enteros y flotantes (decimales), y devuelve un número del mismo tipo.
-
-Campo 1: En este campo se coloca el número base (x) que será elevado a la potencia. El valor que se coloca aquí debe ser un número.
-Campo 2: En este campo se coloca el número (x) al que se elevara (x)

@@ -1,1 +1,0 @@
-﻿Configurar pines para la conexion del sensor HC-04

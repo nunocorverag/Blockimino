@@ -1,1 +1,0 @@
-﻿La función lcd.clear() se utiliza para limpiar la pantalla LCD y posicionar el cursor en la esquina superior izquierda (posición 0,0). Es útil cuando quieres eliminar cualquier texto o caracteres antiguos de la pantalla antes de escribir nuevos datos.

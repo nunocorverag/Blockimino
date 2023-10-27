@@ -41,8 +41,7 @@ else
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
 
@@ -223,20 +222,20 @@ else
                     <i class="fa-solid fa-gear"></i>
                 </a>
                 <?php
+                if ($tipo_usuario == "normal" || $tipo_usuario == "moderador")
+                {
+                ?>
+                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/help.php">
+                    <i class="fa-solid fa-circle-info"></i>
+                </a>
+                <?php
+                }
                 if ($tipo_usuario == "moderador" || $tipo_usuario == "administrador")
                 {
                 ?>
                 <a href="javascript:void(0);" onclick="obtenerInformacionDesplegable('<?php echo $id_usuario_loggeado ?>', 'botones')">
                         <i class="fa-solid fa-hammer"></i>
                     </a>
-                <?php
-                }
-                else if ($tipo_usuario == "normal")
-                {
-                ?>
-                <a href="<?php echo dirname($_SERVER['PHP_SELF']) ?>/help.php">
-                    <i class="fa-solid fa-circle-info"></i>
-                </a>
                 <?php
                 }
                 ?>

@@ -1,5 +1,0 @@
-﻿La función abs() en Arduino devuelve el valor absoluto de un número. El valor absoluto de un número es su valor numérico sin tener en cuenta su signo, es decir, si el número es positivo o negativo. Por ejemplo, el valor absoluto de -5 y 5 es 5.
-
-1.- abs(: Este es el comienzo del bloque que indica que vas a usar la función de valor absoluto.
-2.- Entrada del valor: Aquí puedes arrastrar y soltar un bloque que represente el número del que quieres obtener el valor absoluto. Puede ser un bloque con un número fijo, una variable o incluso el resultado de otro cálculo o función.
-3.- ): Este es el final del bloque que cierra la función de valor absoluto.

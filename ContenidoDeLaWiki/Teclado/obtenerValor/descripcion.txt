@@ -1,5 +1,0 @@
-﻿keypad.waitForKey(); es una función de la librería Keypad que permite leer la entrada del teclado. Esta función hace que el programa espere hasta que un usuario presione una tecla en el teclado matricial. Una vez que se presiona una tecla, la función devuelve el carácter correspondiente a esa tecla y lo guarda en la variable Key.
-
-El bloque "Obtener valor del Teclado" es utilizado para leer una entrada desde un teclado matricial en tu proyecto de Arduino. Cuando se utiliza este bloque en tu programa, el sistema se detendrá y esperará hasta que el usuario presione una tecla en el teclado matricial.
-
-Este bloque no tiene campos o entradas configurables, su funcionamiento es sencillo: simplemente espera y captura la entrada del teclado. El valor de la tecla presionada se guardará en la variable Key, que puedes usar en otros bloques para tomar decisiones o realizar acciones en tu programa.

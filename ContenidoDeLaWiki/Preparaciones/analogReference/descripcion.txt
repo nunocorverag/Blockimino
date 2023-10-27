@@ -1,9 +1,0 @@
-﻿La función de Arduino que este bloque representa es analogReference(). Esta función se utiliza para cambiar el origen de la tensión de referencia para las entradas analógicas. Arduino puede medir voltajes analógicos a través de ciertos pines y esta función determina el rango de voltaje que puede medir. Por ejemplo, con la referencia predeterminada en un Arduino Uno, se pueden medir voltajes de 0 a 5V.
-
-Lista 1: Permite seleccionar los tipos de voltajes segun tu necesidad.
-
-DEFAULT: El voltaje de referencia es el voltaje de funcionamiento del tablero. Por ejemplo, 5V en Arduino Uno.
-INTERNAL: Un voltaje de referencia interno. En algunos modelos de Arduino, esto es 1.1V.
-EXTERNAL: Permite usar un voltaje de referencia externo conectándolo al pin AREF.
-INTERNAL1V1: Un voltaje de referencia interno de 1.1V (no disponible en todos los modelos).
-INTERNAL2V56: Un voltaje de referencia interno de 2.56V (no disponible en todos los modelos).

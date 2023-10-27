@@ -6,7 +6,7 @@ Blockly.Blocks['long_value'] = {
         this.appendDummyInput()
             .appendField("valor de long ")
             .appendField(new Blockly.FieldNumber(0, -2147483648, 2147483647, 1), "VALUE");
-        this.setOutput(true, ["long", "Number"]);
+        this.setOutput(true, ["longval", "Number"]);
         this.setColour("#008000");
         this.setTooltip("Con este bloque puedes asignar un valor entero de hasta 32 bits a las variables long que hayas creado.");
     }

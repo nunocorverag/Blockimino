@@ -106,7 +106,6 @@ else
                             // $ remove() -> Remueve el elemento
                             $('.area_publicaciones').find('.siguientePagina').remove(); // + Removemos el elemento .siguientePagina actual 
                             $('.area_publicaciones').find('.noMasPublicaciones').remove(); // + Removemos el elemento .noMasPublicaciones actual
-                            $('.area_publicaciones').find('.noMasPublicacionesText').remove(); // + Removemos el elemento .noMasPublicacionesText actual 
 
                             // + Escondemos el gif de cargando porque ya ha cargado
                             $('#cargando').hide();
@@ -129,7 +128,16 @@ else
                         // + Los bordes del rectangulo (top, left, bottom y right) cambian sus valores cada vez que la posicion scrolling cambia.
                         // + (Ya que sus valores no son absolutos sino relativos a la ventana)
                         // + Retornara
-                        // ! falta explicar mejor esta parte
+                        // “isElementInView”: La función isElementInView en JavaScript se encarga de comprobar si un elemento específico está visible en la ventana del navegador. 
+                        // Cuando se invoca esta función, se pasa como parámetro el elemento que se desea verificar.
+                        // Dentro de la función, se utiliza el método “getBoundingClientRect()” para obtener un rectángulo que representa el tamaño y la posición relativa del elemento en relación con la ventana gráfica.
+                        // Este rectángulo contiene información sobre las coordenadas superior, inferior, izquierda y derecha del elemento.
+                        // A continuación, se realiza una serie de comprobaciones para determinar si el rectángulo del elemento se encuentra dentro de los límites visibles de la ventana del navegador.
+                        // Esto implica verificar si las coordenadas del rectángulo están dentro de los límites de la ventana, es decir, si el valor de rectangulo.top es mayor o igual a cero, 
+                        // rectangulo.left es mayor o igual a cero, rectangulo.bottom es menor o igual a la altura de la ventana y rectangulo.right es menor o igual al ancho de la ventana.
+                        // Si todas estas comprobaciones son verdaderas, la función devuelve true, lo que indica que el elemento está visible en la ventana. En caso contrario, devuelve false, lo que indica que el elemento no está en la vista.
+                        // En el código proporcionado, la función isElementInView se utiliza dentro del evento de desplazamiento scroll del objeto window en jQuery. Cuando el usuario se desplaza por la ventana, 
+
                         rectangulo.top >= 0 &&
                         rectangulo.left >= 0 &&
                         rectangulo.bottom <= (window.innerHeight || document.documentElement.clientHeight) && //* or $(window).height()

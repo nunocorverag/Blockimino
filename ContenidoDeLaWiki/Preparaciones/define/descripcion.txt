@@ -1,7 +1,0 @@
-﻿La directiva #define es una forma de definir constantes o darle nombre a los pines que vas a utilizar.
-
-Este bloque te permite definir una constante en tu programa de Arduino. Los campos de este bloque son los siguientes:
-
-Campo 1: Este campo te permite ingresar el nombre de la constante que deseas definir. Este nombre debe comenzar con una letra y solo puede contener letras y números.
-
-lista de pines: Aquí puedes seleccionar el valor que se asignará a la constante desde un menú desplegable. Las opciones en el menú desplegable son los números del 0 al 13 y las entradas analógicas A0 a A5, que representan los pines disponibles en una placa Arduino UNO.

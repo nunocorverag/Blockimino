@@ -1,3 +1,0 @@
-﻿Cuando arrastras este bloque al área de trabajo, se mostrará como un bloque que dice "Valor de luminosidad LDR". Puedes conectar este bloque a cualquier otro bloque que acepte una entrada numérica o "int". Al hacerlo, el bloque "Valor de luminosidad LDR" proporcionará el valor actual de la lectura del sensor de luz.
-
-En un proyecto Arduino, esta información puede ser leída utilizando una entrada analógica. Típicamente, en el código de Arduino, se usaría la función analogRead() para obtener la lectura del LDR. La variable "valorLuz" en este bloque representaría esa lectura.

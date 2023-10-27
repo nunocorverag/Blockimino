@@ -1,1 +1,0 @@
-﻿La función Serial.end() se utiliza para desactivar la comunicación serial, liberando así el hardware del Arduino para otras tareas. Esta función es útil si necesitas cambiar los pines de comunicación serial para otros usos.

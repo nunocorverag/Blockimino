@@ -1,4 +1,0 @@
-﻿En Arduino, el operador de asignación se utiliza para asignar un valor a una variable. Este operador toma el valor del lado derecho del operador y lo asigna a la variable del lado izquierdo. Por ejemplo, si tienes x = 5;, la variable x ahora contiene el valor 5.
-
-1.- Campo de entrada 1: Este es el campo donde seleccionas la variable que deseas actualizar. La variable que coloques aquí será la que recibirá el nuevo valor.
-2.- Campo de entrada 2: Aquí es donde colocas el nuevo valor que quieres asignar a la variable. Este valor puede ser un número, texto, booleano o una variable que contenga alguno de estos tipos de datos.

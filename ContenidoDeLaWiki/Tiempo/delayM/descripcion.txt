@@ -1,3 +1,0 @@
-﻿La función delayMicroseconds() hace que el programa de Arduino se detenga durante un número específico de microsegundos. Durante este tiempo, el programa no realiza ninguna otra acción. Es útil cuando necesitas esperar un tiempo específico entre dos acciones, como parpadear un LED o esperar la respuesta de un sensor.
-
-Campo 1: Permite introducir la cantidad de microsegundos que deseas que se retrase tu programa. La cantidad que introduzcas en este campo es el tiempo que tu programa se detendrá antes de continuar con la siguiente instrucción.

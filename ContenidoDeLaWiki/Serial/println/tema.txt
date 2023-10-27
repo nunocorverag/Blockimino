@@ -1,1 +1,0 @@
-﻿Enviar datos al puerto serial como texto con un salto de linea final

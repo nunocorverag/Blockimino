@@ -5,7 +5,7 @@ Blockly.Blocks['serial_print'] = {
     this.appendDummyInput()
     .appendField("Serial.print");
     this.appendValueInput("CONTENT")
-    .setCheck(["Number", "Boolean", "Text", "bool"]);
+    .setCheck(["Number", "Text", "bool"]);
     this.setPreviousStatement(true, '!arduino_case');
     this.setNextStatement(true, '!arduino_case');
     this.setColour('#006699');

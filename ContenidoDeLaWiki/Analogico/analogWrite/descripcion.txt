@@ -1,4 +1,0 @@
-﻿La función analogRead se utiliza para establecer un valor específico de ancho de pulso modulado (PWM) en un pin de salida analógica. Arduino UNO admite la salida analógica (PWM) en los pines 3, 5, 6, 9, 10 y 11. Los valores permitidos para analogWrite() van de 0 a 255, donde 0 significa que la señal está siempre apagada y 255 significa que la señal está siempre encendida.
-
-Lista 1: Este menú desplegable permite seleccionar el pin al que se va a escribir la señal PWM. Sólo los pines que son capaces de emitir una señal PWM en Arduino UNO (3, 5, 6, 9, 10, 11) están disponibles en este menú.
-Campo 1: Aquí es donde se introduce el valor que se quiere escribir en el pin seleccionado. Este valor debe estar entre 0 (señal completamente apagada) y 255 (señal completamente encendida).

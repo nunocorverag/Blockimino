@@ -6,7 +6,7 @@ Blockly.Blocks['bool_value'] = {
         this.appendDummyInput()
             .appendField("valor de bool ")
             .appendField(new Blockly.FieldDropdown([["true", "TRUE"], ["false", "FALSE"]]), "VALUE");
-        this.setOutput(true, ["bool", "Text"]);
+        this.setOutput(true, ["boolval", "Text"]);
         this.setColour("#005300");
         this.setTooltip("Con este bloque puedes asignar un valor booleano (verdadero o falso) a las variables bool que hayas creado.");
     }

@@ -1,1 +1,0 @@
-﻿Asignar un valor analogico a un pin

@@ -1,1 +1,0 @@
-﻿Obtener el valor electrico de un pin digital

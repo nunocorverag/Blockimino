@@ -1,4 +1,0 @@
-﻿La función de Arduino que este bloque representa es pinMode(). Esta función se utiliza para configurar un determinado pin como entrada (INPUT) o como salida (OUTPUT). Cuando configuras un pin como INPUT, estás preparando a Arduino para recibir datos desde ese pin. Por otro lado, si configuras un pin como OUTPUT, estás permitiendo a Arduino enviar datos a través de ese pin.
-
-pin: Aquí puedes seleccionar el número de pin que deseas configurar. Las opciones disponibles en el menú desplegable dependen de los pines disponibles en la placa Arduino UNO.
-mode: En este campo puedes seleccionar el modo que quieres establecer para el pin seleccionado. Las opciones son INPUT o OUTPUT.

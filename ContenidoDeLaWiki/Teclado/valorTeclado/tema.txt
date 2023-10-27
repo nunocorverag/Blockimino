@@ -1,1 +1,0 @@
-﻿Obtener valor actual de la entrada del teclado

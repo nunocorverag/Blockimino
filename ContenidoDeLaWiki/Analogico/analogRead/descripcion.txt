@@ -1,3 +1,0 @@
-﻿La función analogRead() se usa para leer el valor de una entrada analógica. Las placas Arduino UNO tienen 6 pines analógicos, etiquetados de A0 a A5, que se pueden utilizar para leer la entrada de señales analógicas. La función analogRead() toma un número de pin como argumento y devuelve un valor entre 0 y 1023 que representa la lectura del voltaje en ese pin. El voltaje puede variar de 0V (que se lee como 0) hasta la tensión de alimentación del sistema (normalmente 5V, que se lee como 1023).
-
-Lista 1: Permite seleccionar uno de los pines analogicos segun el modelo de arduino para obtener su valor actual.

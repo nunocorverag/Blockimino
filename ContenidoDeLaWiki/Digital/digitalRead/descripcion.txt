@@ -1,3 +1,0 @@
-﻿La función digitalRead() es utilizada para leer el estado de un pin digital específico en una placa Arduino. Puede ser HIGH (generalmente 5V) o LOW (0V), lo cual es útil cuando se trabaja con interruptores, botones, sensores digitales y otros dispositivos de entrada.
-
-Lista 1: Este es un menú desplegable que te permite seleccionar un pin digital en tu placa Arduino

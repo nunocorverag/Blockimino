@@ -1,1 +1,0 @@
-﻿La función Serial.flush() se utiliza para esperar hasta que todos los datos de salida sean transmitidos. En otras palabras, detiene temporalmente el programa hasta que todos los datos en el buffer de transmisión se envíen.

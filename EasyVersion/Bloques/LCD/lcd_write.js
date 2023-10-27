@@ -6,7 +6,7 @@ Blockly.Blocks['LCDwrite'] = {
 
         // Agregar entrada de valor para el texto a escribir en la pantalla
         this.appendValueInput("TEXT")
-            .setCheck(null)
+            .setCheck(["Number", "Text"])
             .appendField("lcd imprimir (literal)");
         this.appendDummyInput()
         // Configurar conexiones del bloque

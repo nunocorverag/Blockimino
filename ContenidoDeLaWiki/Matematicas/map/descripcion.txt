@@ -1,7 +1,0 @@
-﻿map() es una función útil que toma un valor de entrada y lo "mapea" o "traduce" de un rango de valores a otro. Por ejemplo, si tienes un sensor que da lecturas entre 0 y 1023 y quieres traducir estas lecturas a un rango de 0 a 255, usarías la función map() para hacer esto.
-
-Campo 1 VALUE: Esta es la entrada para el valor que deseas mapear. Debe ser un número.
-Campo 2 FROM_LOW: Este es el límite inferior del rango original del valor. Debe ser un número.
-Campo 3 FROM_HIGH: Este es el límite superior del rango original del valor. Debe ser un número.
-Campo 4 TO_LOW: Este es el límite inferior del nuevo rango al que deseas mapear el valor. Debe ser un número.
-Campo 5 TO_HIGH: Este es el límite superior del nuevo rango al que deseas mapear el valor. Debe ser un número.

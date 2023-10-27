@@ -1,3 +1,0 @@
-﻿Este bloque sirve para configurar el sensor de ultrasonidos HC-SR04. Cuando arrastres y sueltes este bloque en tu área de trabajo de Blockly, aparecerá un texto que indica "Configurar Sensor de distancia HC-04". Este bloque no tiene entradas para modificar porque las configuraciones están preestablecidas para el pin de 'Trigger' como salida (OUTPUT), el pin de 'Echo' como entrada (INPUT) y el estado inicial de 'Trigger' en bajo (LOW).
-
-Este bloque se debe colocar al inicio de tu programa, dentro de la sección de configuración inicial o 'setup'. Puedes conectar otros bloques de configuración después de este para continuar configurando otros componentes de tu proyecto.

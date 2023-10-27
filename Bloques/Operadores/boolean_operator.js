@@ -16,11 +16,11 @@ Blockly.Blocks['boolean_operator'] = {
     ];
     
     this.appendValueInput('OPERAND1')
-        .setCheck(["Number", "Text", "bool", "Comparison", "Boolean"]);
+        .setCheck(["Number", "Text", "bool"]);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'OPERATOR');
     this.appendValueInput('OPERAND2')
-        .setCheck(["Number", "Text", "bool", "Comparison", "Boolean"]);
+        .setCheck(["Number", "Text", "bool"]);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(OPERATORS2), 'OPERATOR2');
     this.appendValueInput('OPERAND3')

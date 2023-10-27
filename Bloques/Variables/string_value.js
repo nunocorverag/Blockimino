@@ -7,7 +7,7 @@ Blockly.Blocks['string_value'] = {
             .appendField('valor de String "')
             .appendField(new Blockly.FieldTextInput(''), 'VALUE')
             .appendField('"');
-        this.setOutput(true, ['string', 'Text']);
+        this.setOutput(true, ['stringval', 'Text']);
         this.setColour('#008000');
         this.setTooltip('Con este bloque puedes asignar un valor de cadena de caracteres a las variables string que hayas creado.');
     }

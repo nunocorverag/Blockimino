@@ -243,17 +243,17 @@ class Usuario {
         if($ambos_se_siguen == true)
         {         
             // + Removemos al seguido
-            $nueva_lista_seguidos_usuario_loggeado = str_replace($id_seguido . ",", "", $this->usuario['lista_seguidos']);
+            $nueva_lista_seguidos_usuario_loggeado = str_replace("," . $id_seguido . ",", "", $this->usuario['lista_seguidos']);
             $query_eliminar_seguido_usuario_loggeado = mysqli_query($this->con, "UPDATE usuarios SET lista_seguidos='$nueva_lista_seguidos_usuario_loggeado' WHERE id_usuario='$id_seguidor'");
 
-            $nueva_lista_seguidores_usuario_loggeado = str_replace($id_seguido . ",", "", $this->usuario['lista_seguidores']);
+            $nueva_lista_seguidores_usuario_loggeado = str_replace("," . $id_seguido . ",", "", $this->usuario['lista_seguidores']);
             $query_eliminar_seguidor_usuario_loggeado = mysqli_query($this->con, "UPDATE usuarios SET lista_seguidores='$nueva_lista_seguidores_usuario_loggeado' WHERE id_usuario='$id_seguidor'");
     
             // + Removemos al seguidor
-            $nueva_lista_seguidos_usuario_seguido = str_replace($this->usuario['id_usuario'] . ",", "", $lista_seguidos_seguido);
+            $nueva_lista_seguidos_usuario_seguido = str_replace("," . $this->usuario['id_usuario'] . ",", "", $lista_seguidos_seguido);
             $query_eliminar_seguido_usuario_seguido = mysqli_query($this->con, "UPDATE usuarios SET lista_seguidos='$nueva_lista_seguidos_usuario_seguido' WHERE id_usuario='$id_seguido'");
 
-            $nueva_lista_seguidores_usuario_seguido = str_replace($this->usuario['id_usuario'] . ",", "", $lista_seguidores_seguido);
+            $nueva_lista_seguidores_usuario_seguido = str_replace("," . $this->usuario['id_usuario'] . ",", "", $lista_seguidores_seguido);
             $query_eliminar_seguidor_usuario_seguido = mysqli_query($this->con, "UPDATE usuarios SET lista_seguidores='$nueva_lista_seguidores_usuario_seguido' WHERE id_usuario='$id_seguido'");
 
             $query_agregar_amigo = mysqli_query($this->con, "UPDATE usuarios SET lista_amigos=CONCAT(lista_amigos, '$id_seguidor,') WHERE id_usuario='$id_seguido'");

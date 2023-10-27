@@ -72,7 +72,7 @@ if((mysqli_num_rows($query_comprobar_usuario_moderador_o_administrador) == 0))
                     }
                     ?>
                     <?php
-                    if($fila['tipo_sancion'] == "temporal")
+                    if($fila['tipo_sancion'] == "temporal" || $fila['tipo_sancion'] == "temporal_login_fallido")
                     {
                         ?>
                         <div class="div_inferior_sancion_display">

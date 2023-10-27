@@ -1,4 +1,11 @@
 <?php
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
+
+// require "/home4/blockimi/public_html/PHPMailer/src/Exception.php";
+// require "/home4/blockimi/public_html/PHPMailer/src/PHPMailer.php";
+// require "/home4/blockimi/public_html/PHPMailer/src/SMTP.php";
+
 if(isset($_POST['login_button']))
 {
     // + Guardamos en la variable username el nombre de usuario proporcionado por el usuario
@@ -27,10 +34,35 @@ if(isset($_POST['login_button']))
     if ($database_username == $username)
     {
         $id_usuario = $database_user['id_usuario'];
-        $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND sancion_eliminada='no'");
+        $query_verificar_si_hay_bloqueos = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND sancion_eliminada='no' AND sancion_eliminada='no' AND (tipo_sancion='temporal_login_fallido' OR tipo_sancion='permanente_login_fallido')");
+        if(mysqli_num_rows($query_verificar_si_hay_bloqueos) > 0)
+        {
+            $query_seleccionar_ultimo_bloqueo_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario' AND sancion_eliminada='no' AND sancion_eliminada='no' AND (tipo_sancion='temporal_login_fallido' OR tipo_sancion='permanente_login_fallido'))");
+            $fila_info_bloqueo = mysqli_fetch_array($query_seleccionar_ultimo_bloqueo_usuario);
+            $tiempo_bloqueo = $fila_info_bloqueo['fecha_sancion'];
+            $tipo_bloqueo = $fila_info_bloqueo['tipo_sancion'];
+
+            $tiempo_actual = date("Y-m-d H:i:s");
+
+            $tiempo_actual = strtotime($tiempo_actual);
+            $tiempo_bloqueo = strtotime($tiempo_bloqueo);
+
+            $tiempo_restante = $tiempo_bloqueo - $tiempo_actual;
+
+            if($tiempo_restante <= 0 && $tipo_bloqueo == "temporal_login_fallido")
+            {
+                $query_eliminar_sanciones_temporales = mysqli_query($con, "UPDATE sanciones SET sancion_eliminada='si' WHERE id_usuario_sancionado='$id_usuario' AND tipo_sancion='temporal_login_fallido'");
+            }
+            else
+            { 
+                header("Location: sanctioned.php?username=" . $username);
+            }
+        }
+        
+        $query_verificar_si_hay_sanciones = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND sancion_eliminada='no' AND tipo_sancion NOT IN ('temporal_login_fallido', 'permanente_login_fallido')");
         if(mysqli_num_rows($query_verificar_si_hay_sanciones) > 0)
         {
-            $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario' AND sancion_eliminada='no')");
+            $query_seleccionar_ultima_sancion_usuario = mysqli_query($con, "SELECT * FROM sanciones WHERE id_usuario_sancionado='$id_usuario' AND id_sancion = (SELECT MAX(id_sancion) FROM sanciones WHERE id_usuario_sancionado ='$id_usuario' AND sancion_eliminada='no' AND tipo_sancion NOT IN ('temporal_login_fallido', 'permanente_login_fallido'))");
             $fila_info_sancion = mysqli_fetch_array($query_seleccionar_ultima_sancion_usuario);
             $tiempo_sancion = $fila_info_sancion['fecha_sancion'];
             $tipo_sancion = $fila_info_sancion['tipo_sancion'];
@@ -110,11 +142,11 @@ if(isset($_POST['login_button']))
                     {
                         // + Aplicar sancion temp 10 min, avisar
                         $razon = "Demasiados intentos fallidos de inicio de sesión (5)";
-                        $tipo_sancion = "temporal";
+                        $tipo_sancion = "temporal_login_fallido";
                         $fecha_actual = date('Y-m-d H:i:s');
                         $fecha_sancion = date('Y-m-d H:i:s', strtotime('+10 minutes', strtotime($fecha_actual))); 
                         $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL, 'no')");
-                        $info = "Su cuenta ha sido bloqueada temporalmente por cinco minutos<br>";
+                        $info = "Su cuenta ha sido bloqueada temporalmente por diez minutos<br>";
                         array_push($error_array, $info);
     
                     }
@@ -127,7 +159,7 @@ if(isset($_POST['login_button']))
                     {
                         // + Aplicar sancion temp 1 hora, avisar de sancion inminente
                         $razon = "Intentos fallidos de inicio de sesión presistentes (10)";
-                        $tipo_sancion = "temporal";
+                        $tipo_sancion = "temporal_login_fallido";
                         $fecha_actual = date('Y-m-d H:i:s');
                         $fecha_sancion = date('Y-m-d H:i:s', strtotime('+1 hour', strtotime($fecha_actual)));
                         $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', '$fecha_sancion', '$id_usuario', NULL, NULL, NULL, 'no')");
@@ -146,7 +178,7 @@ if(isset($_POST['login_button']))
     
                         // + Aplicar sancion permanente
                         $razon = "Exceso de intentos fallidos de sesión (15)";
-                        $tipo_sancion = "permanente";
+                        $tipo_sancion = "permanente_login_fallido";
                         $query_aplicar_sancion = mysqli_query($con, "INSERT INTO sanciones VALUES ('', '$razon', '$tipo_sancion', NULL, '$id_usuario', NULL, NULL, NULL, 'no')");
                         $info = "Su cuenta ha sido bloqueada permanentemente, notifique a un administrador para que la desbloquee<br>";
                         array_push($error_array, $info);
@@ -156,19 +188,34 @@ if(isset($_POST['login_button']))
                         $correo_usuario_loggeado = $fila_correo_usuario_sancionado['email'];
                         $usuario_mail = $fila_correo_usuario_sancionado['username'];
                     
-                        $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='administrador' OR tipo='moderador'");
+                        $query_obtener_correos_usuarios_especiales = mysqli_query($con, "SELECT email FROM usuarios WHERE tipo='administrador'");
                 
-                        $subject = "Se ha bloqueado la cuenta del siguiente usuario: $usuario_mail.";
-                        $message = " Razón: Exceso de intentos de inicio de sesión";
-                        $header = "From: blockimino@gmail.com";
+                        // $mail = new PHPMailer(true);
+
+                        // $mail->isSMTP();
+                        // $mail->Mailer = "mail";
+                        // $mail->SMTPSecure = "ssl";  
+                        // $mail->Timeout = 10; // Timeout de 10 segundos
+                        // $mail->Host = "mail.blockimino.com";  // STMP server 
+                        // $mail->Port = 587;
+                        // $mail->SMTPAuth = true;
+                        // $mail->Username = "noreply@blockimino.com";
+                        // $mail->Password = "Rq#7pW&fX9";
                 
-                        while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))
-                        {
-                            $correo_usuario_especial = $fila_correo_usuario_especial['email'];
-                            // mail("gnuno2003@gmail.com", $subject, $message, $header);
-                        }
-                        // + ESTO LO COLOCO AQUI PORQUE NO QUIERO SPAM A MULTIPLES CUENTAS DE CORREO
-                        // mail("gnuno2003@gmail.com", $subject, $message, $header);
+                        // $mail->setFrom("noreply@blockimino.com");
+
+                        // $subject = "Se ha bloqueado la cuenta del siguiente usuario: $usuario_mail.";
+                        // $message = " Razón: Exceso de intentos de inicio de sesión";
+                
+                        // while($fila_correo_usuario_especial = mysqli_fetch_array($query_obtener_correos_usuarios_especiales))
+                        // {
+                        //     $correo_usuario_especial = $fila_correo_usuario_especial['email'];
+                        //     $mail->addAddress($correo_usuario_especial);
+                        //     $mail->Subject = $subject;
+                        //     $mail->Body = $message;
+                        //     $mail->send();
+                        //     $mail->clearAddresses();
+                        // }
                     }
                 }
                 array_push($error_array, "La contraseña es incorrecta!<br>");

@@ -1,4 +1,4 @@
-<?php 
+<?php
 include("includes/header.php");
 
 $id_perfil = $id_usuario_loggeado;
@@ -8,44 +8,54 @@ $result_path = "";
 $msg = "";
 
 /***********************************************************
-	0 - Remove The Temp image if it exists
+    0 - Remove The Temp image if it exists
 ***********************************************************/
-	if (!isset($_POST['x']) && !isset($_FILES['image']['name']) ){
-		//Delete users temp image
-			$temppath = 'assets/images/profile_pics/'.$nombre_usuario.'_temp.jpeg';
-			if (file_exists ($temppath)){ @unlink($temppath); }
-	} 
+if (!isset($_POST['x']) && !isset($_FILES['image']['name'])) {
+    // Delete users temp image
+    $temppath = 'assets/images/profile_pics/'.$nombre_usuario.'_temp.jpeg';
+    if (file_exists($temppath)) {
+        @unlink($temppath);
+    }
+}
 
+if (isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])) {
+    /***********************************************************
+     * 1 - Upload Original Image To Server
+     ***********************************************************/
+    // Get Name | Size | Temp Location
+    $ImageName = $_FILES['image']['name'];
+    $ImageSize = $_FILES['image']['size'];
+    $ImageTempName = $_FILES['image']['tmp_name'];
+    // Get File Ext
+    $ImageType = @explode('/', $_FILES['image']['type']);
+    $type = $ImageType[1]; // file type
+    // Set Upload directory
+    $uploaddir = 'assets/images/profile_pics';
+    // Set File name
+    $file_temp_name = $nombre_usuario.'_original.'.md5(time()).'n'.$type; // the temp file name
+    $fullpath = $uploaddir."/".$file_temp_name; // the temp file path
+    $file_name = $nombre_usuario.'_temp.jpeg'; //$nombre_usuario.'_temp.'.$type; // for the final resized image
+    $fullpath_2 = $uploaddir."/".$file_name; // for the final resized image
 
-if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])){	
-/***********************************************************
-	1 - Upload Original Image To Server
-***********************************************************/	
-	//Get Name | Size | Temp Location		    
-		$ImageName = $_FILES['image']['name'];
-		$ImageSize = $_FILES['image']['size'];
-		$ImageTempName = $_FILES['image']['tmp_name'];
-	//Get File Ext   
-		$ImageType = @explode('/', $_FILES['image']['type']);
-		$type = $ImageType[1]; //file type	
-	//Set Upload directory    
-		$uploaddir = 'assets/images/profile_pics';
-	//Set File name	
-		$file_temp_name = $nombre_usuario.'_original.'.md5(time()).'n'.$type; //the temp file name
-		$fullpath = $uploaddir."/".$file_temp_name; // the temp file path
-		$file_name = $nombre_usuario.'_temp.jpeg'; //$nombre_usuario.'_temp.'.$type; // for the final resized image
-		$fullpath_2 = $uploaddir."/".$file_name; //for the final resized image
-	//Move the file to correct location
-		$move = move_uploaded_file($ImageTempName ,$fullpath) ; 
-		chmod($fullpath, 0777);  
-		//Check for valid uplaod
-		if (!$move) { 
-			die ('File didnt upload');
-		} else { 
-			$imgSrc= "assets/images/profile_pics/".$file_name; // the image to display in crop area
-			$msg= "Upload Complete!";  	//message to page
-			$src = $file_name;	 		//the file name to post from cropping form to the resize		
-		} 
+    // Check if the uploaded file type is valid
+    $allowedTypes = array('jpg', 'jpeg', 'png');
+    if (!in_array($type, $allowedTypes)) {
+        echo 'Tipo de imagen no válido. Por favor, sube un archivo .png, .jpg o .jpeg.';
+        echo '<br/><br/><button class="boton_recargar_upload"><a href="upload.php" style="color: black">Recargar pagina</a></button>';
+        exit;
+	}
+
+    // Move the file to the correct location
+    $move = move_uploaded_file($ImageTempName, $fullpath);
+    chmod($fullpath, 0777);
+    // Check for valid upload
+    if (!$move) {
+        die('No se pudo subir el archivo');
+    } else {
+        $imgSrc = "assets/images/profile_pics/".$file_name; // the image to display in crop area
+        $msg = "¡Subida completa!";   // message to page
+        $src = $file_name;           // the file name to post from cropping form to the resize
+    }
 
 /***********************************************************
 	2  - Resize The Image To Fit In Cropping Area
@@ -59,14 +69,12 @@ if(isset($_FILES['image']['name']) && !empty($_FILES['image']['name'])){
 			$main_width = 500; // set the width of the image
 			$main_height = $original_height / ($original_width / $main_width);	// this sets the height in ratio									
 		//create new image using correct php func			
-			if($_FILES["image"]["type"] == "image/gif"){
-				$src2 = imagecreatefromgif($fullpath);
-			}elseif($_FILES["image"]["type"] == "image/jpeg" || $_FILES["image"]["type"] == "image/pjpeg"){
+			if($_FILES["image"]["type"] == "image/jpeg" || $_FILES["image"]["type"] == "image/pjpeg"){
 				$src2 = imagecreatefromjpeg($fullpath);
 			}elseif($_FILES["image"]["type"] == "image/png"){ 
 				$src2 = imagecreatefrompng($fullpath);
 			}else{ 
-				$msg .= "There was an error uploading the file. Please upload a .jpg, .gif or .png file. <br />";
+				$msg .= "Hubo un error al subir el archivo. Porfavor sube archivos de tipo .jpg, .png o .jpeg.<br />";
 			}
 		//create the new resized image
 			$main = imagecreatetruecolor($main_width,$main_height);
@@ -176,7 +184,7 @@ if (isset($_POST['x'])){
 	    </script>
 	    <div id="CroppingContainer" style="width:800px; max-height:600px; background-color:#FFF; margin: 0 auto; position:relative; overflow:hidden; border:2px #666 solid; z-index:2001; padding-bottom:0px;">  
 	    
-	        <div id="CroppingArea" style="width:500px; max-height:400px; position:relative; overflow:hidden; margin:40px 0px 40px 40px; border:2px #666 solid; float:left;">	
+	        <div id="CroppingArea" style="width:500px; max-height:500px; position:relative; overflow:hidden; margin:40px 0px 40px 40px; border:2px #666 solid; float:left;">	
 	            <img src="<?=$imgSrc?>" border="0" id="jcrop_target" style="border:0px #990000 solid; position:relative; margin:0px 0px 0px 0px; padding:0px; " />
 	        </div>  
 
@@ -214,10 +222,6 @@ if (isset($_POST['x'])){
 	<?php 
 	} ?>
 </div>
- 
- 
- 
- 
  
  <?php if($result_path) {
 	 ?>

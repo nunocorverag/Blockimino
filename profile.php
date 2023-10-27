@@ -484,7 +484,6 @@
                                     // $ remove() -> Remueve el elemento
                                     $('.area_publicaciones').find('.siguientePagina').remove(); // + Removemos el elemento .siguientePagina actual 
                                     $('.area_publicaciones').find('.noMasPublicaciones').remove(); // + Removemos el elemento .noMasPublicaciones actual
-                                    $('.area_publicaciones').find('.noMasPublicacionesText').remove(); // + Removemos el elemento .noMasPublicacionesText actual 
 
                                     // + Escondemos el gif de cargando porque ya ha cargado
                                     $('#cargando').hide();

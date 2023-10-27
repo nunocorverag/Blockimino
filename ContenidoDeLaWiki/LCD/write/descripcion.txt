@@ -1,3 +1,0 @@
-﻿La función lcd.write() se utiliza cuando se está trabajando con una pantalla LCD y se quiere mostrar un texto o un dato en la pantalla. lcd.write() envía caracteres individuales a la pantalla LCD y, al utilizarla en un ciclo o con variables, puede crear mensajes dinámicos o mostrar datos en tiempo real.
-
-Campo 1: Aquí puedes especificar el texto o la variable que deseas mostrar en la pantalla LCD. Puedes arrastrar y soltar un bloque de variable en este campo.

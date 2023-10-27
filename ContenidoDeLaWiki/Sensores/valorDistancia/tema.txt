@@ -1,1 +1,0 @@
-﻿Usar el valor de distancia medido por el sensor
